@@ -2,3 +2,6 @@
 *
 !*.cpp
 !*.h
+!*.png
+!*.txt
+!gl/glut.h
