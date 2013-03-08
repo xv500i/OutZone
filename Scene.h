@@ -18,5 +18,7 @@ public:
 
 	bool loadLevel(int level);
 	void render(int level, GameData *data);
+
+	void getLevelSize(int level, int *width, int *height);
 };
 

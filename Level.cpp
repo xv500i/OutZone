@@ -15,6 +15,12 @@ Level::~Level(void)
 {
 }
 
+void Level::getSize(int *width, int *height)
+{
+	*width = levelWidth;
+	*height = levelHeight;
+}
+
 /* Loading */
 bool Level::load(int level)
 {

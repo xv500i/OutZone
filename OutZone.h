@@ -4,14 +4,16 @@
 #include <gl/glut.h>
 #include "Scene.h"
 #include "GameData.h"
+#include "Camera.h"
 
 
 class OutZone
 {
 private:
 	unsigned char keys[256];	/* Keyboard keys array */
-	Scene scene;
-	GameData data;
+	Scene scene;	/* Game scene */
+	GameData data;	/* Game data */
+	Camera camera;	/* Game camera */
 
 public:
 	const static int GAME_WIDTH = 640;

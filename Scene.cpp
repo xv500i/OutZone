@@ -19,3 +19,8 @@ void Scene::render(int level, GameData *data)
 {
 	levels[level - 1].render(data);
 }
+
+void Scene::getLevelSize(int level, int *width, int *height)
+{
+	levels[level - 1].getSize(width, height);
+}
