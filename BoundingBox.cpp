@@ -20,10 +20,10 @@ bool BoundingBox::isIntersectedBy(const BoundingBox &b) const
 	else return true;
 }
 
-void BoundingBox::setBounds(const float top, const float bottom, const float left, const float right)
+void BoundingBox::translate(const float x, const float y)
 {
-	this->top = top;
-	this->bottom = bottom;
-	this->left = left;
-	this->right = right;
+	this->top += y;
+	this->bottom += y;
+	this->left += x;
+	this->right += x;
 }

@@ -20,4 +20,10 @@ void GameObject::render() const
 
 void GameObject::update(long msec)
 {
+
+}
+
+bool GameObject::isIntersecting(const GameObject &go) const 
+{
+	return b->isIntersectedBy(*(go.b));
 }

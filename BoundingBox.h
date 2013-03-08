@@ -6,7 +6,7 @@ public:
 	~BoundingBox(void);
 
 	bool isIntersectedBy(const BoundingBox &b) const;
-	void setBounds(const float top, const float bottom, const float left, const float right);
+	void translate(const float x, const float y);
 
 private:
 	float top;
