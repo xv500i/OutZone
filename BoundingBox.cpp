@@ -1,0 +1,29 @@
+#include "BoundingBox.h"
+
+
+BoundingBox::BoundingBox(const float top, const float botom, const float left, const float right)
+{
+	this->top = top;
+	this->bottom = bottom;
+	this->left = left;
+	this->right = right;
+}
+
+
+BoundingBox::~BoundingBox(void)
+{
+}
+
+bool BoundingBox::isIntersectedBy(const BoundingBox &b) const
+{
+	if (left > b.right || right < b.left || bottom > b.top || top < b.bottom) return false;
+	else return true;
+}
+
+void BoundingBox::setBounds(const float top, const float bottom, const float left, const float right)
+{
+	this->top = top;
+	this->bottom = bottom;
+	this->left = left;
+	this->right = right;
+}
