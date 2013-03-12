@@ -27,3 +27,24 @@ bool GameObject::isIntersecting(const GameObject &go) const
 {
 	return b->isIntersectedBy(*(go.b));
 }
+
+void GameObject::setX(const float x)
+{
+	this->x = x;
+}
+
+void GameObject::setY(const float y)
+{
+	this->y = y;
+}
+
+float GameObject::getX() const
+{
+	return x;
+}
+
+float GameObject::getY() const
+{
+	return y;
+}
+

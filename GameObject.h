@@ -15,6 +15,10 @@ public:
 	void render() const;
 	void update(long msec);
 	bool isIntersecting(const GameObject &go) const;
+	void setX(const float x);
+	void setY(const float y);
+	float getX() const;
+	float getY() const;
 
 private:
 	float x;
