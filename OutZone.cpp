@@ -1,6 +1,7 @@
 
 #include "OutZone.h"
 #include <string>
+#include "Directions.h"
 
 
 OutZone::OutZone(void)
@@ -50,10 +51,23 @@ bool OutZone::process()
 	else if (keys[GLUT_KEY_DOWN]) camera.updateOrtho(0.0f, -5.0f, &scene);	//TODO: modificar depenent del jugador
 
 	// player control
+	float vDes = 0.3f;
+	// TODO COLISIONS
 	if (keys['w']) {
-		std::cout << "alho" << std::endl;
+		player.setVY(vDes);
+	} else if (keys['s']) {
+		player.setVY(-vDes);
+	} else {
+		player.setVY(0.0f);
 	}
-
+	if (keys['d']) {
+		player.setVX(vDes);
+	} else if (keys['a']) {
+		player.setVX(-vDes);
+	} else {
+		player.setVX(0.0f);
+	}
+	//std::cout << player.getY() << std::endl;
 	// update player
 	player.update(100/FRAMERATE);
 
@@ -71,6 +85,8 @@ void OutZone::render()
 
 	/* Scene drawing */
 	scene.render(1, &data);
+
+	player.render();
 
 	glutSwapBuffers();
 }
