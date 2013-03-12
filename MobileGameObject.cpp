@@ -1,8 +1,14 @@
 #include "MobileGameObject.h"
 
 
-MobileGameObject::MobileGameObject(void)
+MobileGameObject::MobileGameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx, const float vy) : GameObject(x, y, idTexture, width, length, isWalkable), vx(vx), vy(vy)
 {
+
+}
+
+MobileGameObject::MobileGameObject() : GameObject()
+{
+	
 }
 
 
@@ -12,12 +18,12 @@ MobileGameObject::~MobileGameObject(void)
 
 void MobileGameObject::setVX(const float v)
 {
-	this->vx = vx;
+	this->vx = v;
 }
 
-void MobileGameObject::setVX(const float v)
+void MobileGameObject::setVY(const float v)
 {
-	this->vx = vx;
+	this->vy = v;
 }
 
 float MobileGameObject::getVX() const

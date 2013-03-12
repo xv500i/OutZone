@@ -4,7 +4,8 @@ class MobileGameObject :
 	public GameObject
 {
 public:
-	MobileGameObject(void);
+	MobileGameObject();
+	MobileGameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx = 0, const float vy = 0);
 	~MobileGameObject(void);
 	float getVX() const;
 	float getVY() const;

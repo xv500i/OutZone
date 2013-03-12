@@ -8,7 +8,8 @@
 class GameObject
 {
 public:
-	GameObject(const float x, const float y, const int idTexture, const int width, const bool isWalkable);
+	GameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable);
+	GameObject();
 	~GameObject(void);
 
 	/* Drawing */
@@ -23,7 +24,7 @@ public:
 private:
 	float x;
 	float y;
-	int idTexure;
+	int idTexture;
 	BoundingBox *b;
 	int width;
 	int length;

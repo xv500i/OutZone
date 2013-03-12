@@ -1,12 +1,14 @@
 
 #include "GameObject.h"
 
-GameObject::GameObject(const float x, const float y, const int idTexture, const int width, const bool isWalkable)
+GameObject::GameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable) : x(x), y(y), idTexture(idTexture)
 {
-	this->x = x;
-	this->y = y;
-	this->idTexure = idTexture;
 	this->b = new BoundingBox(y+length/2, y-length/2, x-width/2, x+width/2);
+}
+
+GameObject::GameObject()
+{
+
 }
 
 GameObject::~GameObject(void)
