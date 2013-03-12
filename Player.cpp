@@ -16,6 +16,7 @@ Player::~Player(void)
 
 void Player::render() const
 {
+	// HARDCODED s'ha de fer amb la width i heigth
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_QUADS);
 		glVertex2i(getX() - 8 , getY() - 8);

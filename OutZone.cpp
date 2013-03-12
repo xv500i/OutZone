@@ -51,6 +51,7 @@ bool OutZone::process()
 	else if (keys[GLUT_KEY_DOWN]) camera.updateOrtho(0.0f, -5.0f, &scene);	//TODO: modificar depenent del jugador
 
 	// player control
+	// HARDCODED
 	float vDes = 0.3f;
 	// TODO COLISIONS
 	if (keys['w']) {
