@@ -5,6 +5,7 @@
 
 OutZone::OutZone(void)
 {
+	
 }
 
 OutZone::~OutZone(void)
@@ -47,6 +48,14 @@ bool OutZone::process()
 {
 	if (keys[GLUT_KEY_UP]) camera.updateOrtho(0.0f, 5.0f, &scene);	//TODO: modificar depenent del jugador
 	else if (keys[GLUT_KEY_DOWN]) camera.updateOrtho(0.0f, -5.0f, &scene);	//TODO: modificar depenent del jugador
+
+	// player control
+	if (keys['w']) {
+		std::cout << "alho" << std::endl;
+	}
+
+	// update player
+	player.update(100/FRAMERATE);
 
 	return true;
 }
