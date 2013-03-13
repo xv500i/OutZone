@@ -1,3 +1,5 @@
+#ifndef _GAME_DIRECTIONS_
+#define _GAME_DIRECTIONS_
 enum Directions
 {
 	UP = 0,
@@ -5,3 +7,4 @@ enum Directions
 	LEFT,
 	RIGHT
 };
+#endif

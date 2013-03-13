@@ -3,7 +3,11 @@
 
 #include <gl/glut.h>
 #include "Level.h"
-
+#include "Player.h"
+#include "InputHandler.h"
+#include <vector>
+#include <iterator>
+using namespace std;
 
 
 class Scene
@@ -11,6 +15,8 @@ class Scene
 private:
 	const static int NUM_LEVELS = 1;
 	Level levels[NUM_LEVELS];
+	Player player;
+	vector<MobileGameObject> bales;
 
 public:
 	Scene(void);
@@ -19,6 +25,8 @@ public:
 	bool loadLevel(int level);
 	void render(int level, GameData *data);
 
+	void update(long msec);
 	void getLevelSize(int level, int *width, int *height);
+	void resolveInput(InputHandler &input);
 };
 

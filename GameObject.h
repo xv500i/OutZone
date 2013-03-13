@@ -20,6 +20,10 @@ public:
 	void setY(const float y);
 	float getX() const;
 	float getY() const;
+	int getWidth() const;
+	int getLength() const;
+	void setWidth(int x);
+	void setLength(int x);
 
 private:
 	float x;

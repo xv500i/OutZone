@@ -6,8 +6,6 @@
 #include "Scene.h"
 #include "GameData.h"
 #include "Camera.h"
-#include "Player.h"
-
 
 class OutZone
 {
@@ -16,7 +14,7 @@ private:
 	Scene scene;		/* Game scene */
 	GameData data;		/* Game data */
 	Camera camera;		/* Game camera */
-	Player player;
+	
 
 public:
 	const static int GAME_WIDTH = 640;
@@ -38,5 +36,6 @@ public:
 	bool process();
 	void render();
 	bool gameLoop();
+
 };
 

@@ -55,31 +55,16 @@ bool OutZone::process()
 	else if (input.keyIsDown(input.getMoveDownKey())) camera.setOrthoVY(-0.3f);
 	else camera.setOrthoVY(0.0f);
 
-	// player control
-	// HARDCODED
-	float vDes = 0.3f;
-	// TODO COLISIONS
-	if (input.keyIsDown(input.getMoveUpKey())) {
-		player.setVY(vDes);
-	} else if (input.keyIsDown(input.getMoveDownKey())) {
-		player.setVY(-vDes);
-	} else {
-		player.setVY(0.0f);
-	}
-	if (input.keyIsDown(input.getMoveRightKey())) {
-		player.setVX(vDes);
-	} else if (input.keyIsDown(input.getMoveLeftKey())) {
-		player.setVX(-vDes);
-	} else {
-		player.setVX(0.0f);
-	}
+	
+	scene.resolveInput(input);
+	
 	//std::cout << player.getY() << std::endl;
 
 	// Update camera
 	camera.updateOrtho(100/FRAMERATE);
 
 	// Update player
-	player.update(100/FRAMERATE);
+	scene.update(100/FRAMERATE);
 
 	return true;
 }
@@ -96,7 +81,6 @@ void OutZone::render()
 	/* Scene drawing */
 	scene.render(1, &data);
 
-	player.render();
 
 	glutSwapBuffers();
 }

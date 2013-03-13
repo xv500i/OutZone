@@ -1,5 +1,6 @@
 #pragma once
 #include "gameobject.h"
+#include "Directions.h"
 class MobileGameObject :
 	public GameObject
 {
@@ -12,9 +13,11 @@ public:
 	void setVX(const float v);
 	void setVY(const float v);
 	void update(long msec);
+	Directions getDirection() const;
 
 private:
 	float vx;
 	float vy;
+	Directions dir;
 };
 
