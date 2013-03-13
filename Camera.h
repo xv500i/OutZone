@@ -2,22 +2,27 @@
 #pragma once
 
 #include <gl/glut.h>
-#include "Scene.h"
 
 
 class Camera
 {
 private:
+	/* Orthogonal camera */
 	const static float Z_NEAR;	// = -1.0f;
 	const static float Z_FAR;	// = 1.0f;
 
-	/* Orthogonal camera */
-	float left;		/* Orthogonal camera left parameter */
-	float top;		/* Orthogonal camera top parameter */
-	float width;	/* Orthogonal camera width parameter */
-	float height;	/* Orthogonal camera height parameter */
-	float orthoVX;	/* Orthogonal camera X velocity */
-	float orthoVY;	/* Orthogonal camera Y velocity */
+	float orthoLeft;		/* Orthogonal camera left parameter */
+	float orthoTop;			/* Orthogonal camera top parameter */
+	float orthoWidth;		/* Orthogonal camera width */
+	float orthoHeight;		/* Orthogonal camera height */
+
+	float orthoVX;			/* Orthogonal camera X velocity */
+	float orthoVY;			/* Orthogonal camera Y velocity */
+
+	float orthoMaxTop;		/* Orthogonal camera max top */
+	float orthoMinBottom;	/* Orthogonal camera min bottom */
+	float orthoMinLeft;		/* Orthogonal camera min left */
+	float orthoMaxRight;	/* Orthogonal camera max right */ 
 
 public:
 	Camera(void);
@@ -29,5 +34,6 @@ public:
 	void loadOrtho();
 	void setOrthoVX(float newOrthoVX);
 	void setOrthoVY(float newOrthoVY);
+	bool setOrthoLimits(float minLeft, float maxTop, float maxRight, float minBottom);
 };
 

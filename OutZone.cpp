@@ -19,15 +19,18 @@ bool OutZone::init()
 	// Graphics initialization
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	// Camera initialization
-	camera.initOrtho(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
-	camera.loadOrtho();
-
 	// Data loading
 	bool b = data.loadTexture(GameData::TILES_TEX_ID, GameData::TILES_TEX_FILENAME, GameData::TEX_EXT);
 	if (!b) return false;
 	b = scene.loadLevel(1);
 	if (!b) return false;
+
+	// Camera initialization
+	camera.initOrtho(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
+	int width, height;
+	scene.getLevelSize(1, &width, &height); 
+	camera.setOrthoLimits(0.0f, height*Level::TILE_SIZE, width*Level::TILE_SIZE, 0.0f);
+	camera.loadOrtho();
 
 	return true;
 }
