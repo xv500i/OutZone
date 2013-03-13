@@ -12,7 +12,7 @@
 class OutZone
 {
 private:
-	InputHandler input;	/* Game Input Handler */
+	InputHandler input;	/* Game input handler */
 	Scene scene;		/* Game scene */
 	GameData data;		/* Game data */
 	Camera camera;		/* Game camera */

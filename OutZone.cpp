@@ -20,7 +20,7 @@ bool OutZone::init()
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	// Camera initialization
-	camera.initOrtho(0.0f, GAME_WIDTH, 0.0f, GAME_HEIGHT);
+	camera.initOrtho(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
 	camera.loadOrtho();
 
 	// Data loading
@@ -47,9 +47,10 @@ void OutZone::handleMouse(int button, int state, int x, int y) {}
 /* Game phases */
 bool OutZone::process() 
 {
-	std::cout << input.getMoveUpKey() << std::endl;
-	if (input.keyIsDown(input.getMoveUpKey())) camera.updateOrtho(0.0f, 5.0f, &scene);	//TODO: modificar depenent del jugador
-	else if (input.keyIsDown(input.getMoveDownKey())) camera.updateOrtho(0.0f, -5.0f, &scene);	//TODO: modificar depenent del jugador
+	// Camera movement
+	if (input.keyIsDown(input.getMoveUpKey())) camera.setOrthoVY(0.3f);
+	else if (input.keyIsDown(input.getMoveDownKey())) camera.setOrthoVY(-0.3f);
+	else camera.setOrthoVY(0.0f);
 
 	// player control
 	// HARDCODED
@@ -70,7 +71,11 @@ bool OutZone::process()
 		player.setVX(0.0f);
 	}
 	//std::cout << player.getY() << std::endl;
-	// update player
+
+	// Update camera
+	camera.updateOrtho(100/FRAMERATE);
+
+	// Update player
 	player.update(100/FRAMERATE);
 
 	return true;

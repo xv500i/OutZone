@@ -8,22 +8,26 @@
 class Camera
 {
 private:
-	const static float Z_NEAR;
-	const static float Z_FAR;
+	const static float Z_NEAR;	// = -1.0f;
+	const static float Z_FAR;	// = 1.0f;
 
 	/* Orthogonal camera */
 	float left;		/* Orthogonal camera left parameter */
-	float right;	/* Orthogonal camera right parameter */
-	float bottom;	/* Orthogonal camera bottom parameter */
 	float top;		/* Orthogonal camera top parameter */
+	float width;	/* Orthogonal camera width parameter */
+	float height;	/* Orthogonal camera height parameter */
+	float orthoVX;	/* Orthogonal camera X velocity */
+	float orthoVY;	/* Orthogonal camera Y velocity */
 
 public:
 	Camera(void);
 	~Camera(void);
 
 	/* Orthogonal camera */
-	void initOrtho(float left, float right, float bottom, float top);
-	void updateOrtho(float dX, float dY, Scene *scene);
+	void initOrtho(float left, float top, float width, float height);
+	void updateOrtho(long msec);
 	void loadOrtho();
+	void setOrthoVX(float newOrthoVX);
+	void setOrthoVY(float newOrthoVY);
 };
 
