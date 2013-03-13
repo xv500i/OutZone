@@ -38,7 +38,7 @@ void OutZone::finalize() {}
 /* Input */
 void OutZone::handleKeyboard(unsigned char key, int x, int y, bool down) 
 {
-	keys[key] = down;
+	input.setKeyState(key, down);
 }
 
 void OutZone::handleMouse(int button, int state, int x, int y) {}
@@ -47,23 +47,24 @@ void OutZone::handleMouse(int button, int state, int x, int y) {}
 /* Game phases */
 bool OutZone::process() 
 {
-	if (keys[GLUT_KEY_UP]) camera.updateOrtho(0.0f, 5.0f, &scene);	//TODO: modificar depenent del jugador
-	else if (keys[GLUT_KEY_DOWN]) camera.updateOrtho(0.0f, -5.0f, &scene);	//TODO: modificar depenent del jugador
+	std::cout << input.getMoveUpKey() << std::endl;
+	if (input.keyIsDown(input.getMoveUpKey())) camera.updateOrtho(0.0f, 5.0f, &scene);	//TODO: modificar depenent del jugador
+	else if (input.keyIsDown(input.getMoveDownKey())) camera.updateOrtho(0.0f, -5.0f, &scene);	//TODO: modificar depenent del jugador
 
 	// player control
 	// HARDCODED
 	float vDes = 0.3f;
 	// TODO COLISIONS
-	if (keys['w']) {
+	if (input.keyIsDown(input.getMoveUpKey())) {
 		player.setVY(vDes);
-	} else if (keys['s']) {
+	} else if (input.keyIsDown(input.getMoveDownKey())) {
 		player.setVY(-vDes);
 	} else {
 		player.setVY(0.0f);
 	}
-	if (keys['d']) {
+	if (input.keyIsDown(input.getMoveRightKey())) {
 		player.setVX(vDes);
-	} else if (keys['a']) {
+	} else if (input.keyIsDown(input.getMoveLeftKey())) {
 		player.setVX(-vDes);
 	} else {
 		player.setVX(0.0f);

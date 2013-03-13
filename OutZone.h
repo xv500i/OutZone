@@ -2,6 +2,7 @@
 #pragma once
 
 #include <gl/glut.h>
+#include "InputHandler.h"
 #include "Scene.h"
 #include "GameData.h"
 #include "Camera.h"
@@ -11,10 +12,10 @@
 class OutZone
 {
 private:
-	unsigned char keys[256];	/* Keyboard keys array */
-	Scene scene;	/* Game scene */
-	GameData data;	/* Game data */
-	Camera camera;	/* Game camera */
+	InputHandler input;	/* Game Input Handler */
+	Scene scene;		/* Game scene */
+	GameData data;		/* Game data */
+	Camera camera;		/* Game camera */
 	Player player;
 
 public:
