@@ -2,8 +2,8 @@
 #include "Camera.h"
 
 
-const float Camera::Z_NEAR = -1.0f;
-const float Camera::Z_FAR = 1.0f;
+const float Camera::ORTHO_ZNEAR = -1.0f;
+const float Camera::ORTHO_ZFAR = 1.0f;
 
 Camera::Camera(void) {}
 
@@ -48,7 +48,7 @@ void Camera::loadOrtho()
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(orthoLeft, orthoLeft + orthoWidth, orthoTop - orthoHeight, orthoTop, Z_NEAR, Z_FAR);
+	glOrtho(orthoLeft, orthoLeft + orthoWidth, orthoTop - orthoHeight, orthoTop, ORTHO_ZNEAR, ORTHO_ZFAR);
 	glMatrixMode(GL_MODELVIEW);
 }
 

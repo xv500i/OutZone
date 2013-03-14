@@ -2,44 +2,48 @@
 #include "GameData.h"
 
 
-const char* GameData::TEX_EXT = ".png";
-const char* GameData::TILES_TEX_FILENAME = "pokemon";
+const char* GameData::SPRITE_EXT = ".png";
 
-GameData::GameData(void)
+GameData::GameData(void) 
 {
+	sprites = std::vector<Sprite>(NUM_SPRITES);
 }
 
-GameData::~GameData(void)
+GameData::~GameData(void) {}
+
+
+/* Sprites */
+bool GameData::loadSprites()
 {
+	const char* filenames[NUM_SPRITES] = {"OutZoneLevel1"}; 
+	for (int i = 0; i < sprites.size(); i++) {
+		bool b = sprites[i].load(filenames[i], SPRITE_EXT);
+		if (!b) return false;
+	}
+	return true;
 }
 
-/* Textures */
-int GameData::getTextureID(int texType)
+int GameData::getSpriteID(int spriteIndex)
 {
-	return textures[texType].getID();
+	return sprites[spriteIndex].getID();
 }
 
-void GameData::getTextureTilePosition(int texType, int tile, int *s, int *t)
+void GameData::getSpriteTilePosition(int spriteIndex, int tileIndex, int *x, int *y)
 {
-	textures[texType].getTilePosition(tile, s, t);
+	sprites[spriteIndex].getTilePosition(tileIndex, x, y);
 }
 
-void GameData::getTextureTileSize(int texType, int *width, int *height)
+void GameData::getSpriteTileSizeInPixels(int spriteIndex, int *width, int *height)
 {
-	textures[texType].getTileSize(width, height);
+	sprites[spriteIndex].getTileSizeInPixels(width, height);
 }
 
-void GameData::getTextureTileOffset(int texType, float *offsetX, float *offsetY)
+void GameData::getSpriteTileOffset(int spriteIndex, float *offsetX, float *offsetY)
 {
-	textures[texType].getTileOffset(offsetX, offsetY);
+	sprites[spriteIndex].getTileOffset(offsetX, offsetY);
 }
 
-void GameData::getTextureSize(int texType, int *width, int *height)
+void GameData::getSpriteSizeInPixels(int spriteIndex, int *width, int *height)
 {
-	textures[texType].getSize(width, height);
-}
-
-bool GameData::loadTexture(int texType, const char *filename, const char *ext, int type)
-{
-	return textures[texType].load(filename, ext, type);
+	sprites[spriteIndex].getSizeInPixels(width, height);
 }

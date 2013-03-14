@@ -2,30 +2,30 @@
 #pragma once
 
 #include "Texture.h"
+#include "Sprite.h"
+#include <vector>
 
 
 class GameData
 {
 private:
-	const static int NUM_TEX = 1;
+	const static int NUM_SPRITES = 1;
+	const static char* SPRITE_EXT;
 
-	Texture textures[NUM_TEX];	/* Textures array */
+	std::vector<Sprite> sprites;	/* All loaded sprites */
 
 public:
-	/* Resources */
-	const static char* TEX_EXT;
-	const static int TILES_TEX_ID = 0;
-	const static char* TILES_TEX_FILENAME;
+	/* Sprite indexes */
+	const static int LEVEL1_TILES_INDEX = 0;
 
 	GameData(void);
 	~GameData(void);
 
-	/* Textures */
-	int getTextureID(int texType);
-	void getTextureTilePosition(int texType, int tile, int *s, int *t);
-	void getTextureTileSize(int texType, int *width, int *height);
-	void getTextureTileOffset(int texType, float *offsetX, float *offsetY);
-	void getTextureSize(int texType, int *width, int *height);
-	bool loadTexture(int texType, const char *filename, const char *ext, int type = GL_RGBA);
+	/* Sprites */
+	bool loadSprites();
+	int getSpriteID(int spriteIndex);
+	void getSpriteTilePosition(int spriteIndex, int tileIndex, int *x, int *y);
+	void getSpriteTileSizeInPixels(int spriteIndex, int *width, int *height);
+	void getSpriteTileOffset(int spriteIndex, float *offsetX, float *offsetY);
+	void getSpriteSizeInPixels(int spriteIndex, int *width, int *height);
 };
-

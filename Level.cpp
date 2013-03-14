@@ -77,17 +77,17 @@ void Level::renderTile(int tileID, int posX, int posY, GameData *data)
 	if (tileID != 0) {
 		// TileOffset
 		float tileOffsetX, tileOffsetY;
-		data->getTextureTileOffset(GameData::TILES_TEX_ID, &tileOffsetX, &tileOffsetY);
+		data->getSpriteTileOffset(GameData::LEVEL1_TILES_INDEX, &tileOffsetX, &tileOffsetY);
 
 		// Obtain the tile position inside the texture
 		int s, t;
-		data->getTextureTilePosition(GameData::TILES_TEX_ID, tileID, &t, &s);
+		data->getSpriteTilePosition(GameData::LEVEL1_TILES_INDEX, tileID, &t, &s);
 
 		float coordS = s*tileOffsetX;
 		float coordT = t*tileOffsetY;
 
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, data->getTextureID(GameData::TILES_TEX_ID));
+		glBindTexture(GL_TEXTURE_2D, data->getSpriteID(GameData::LEVEL1_TILES_INDEX));
 		glBegin(GL_QUADS);
 			glTexCoord2f(coordS, coordT);
 			glVertex2i(posX, levelHeight*TILE_SIZE - posY);

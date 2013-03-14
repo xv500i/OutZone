@@ -8,8 +8,8 @@ class Camera
 {
 private:
 	/* Orthogonal camera */
-	const static float Z_NEAR;	// = -1.0f;
-	const static float Z_FAR;	// = 1.0f;
+	const static float ORTHO_ZNEAR;	// = -1.0f;
+	const static float ORTHO_ZFAR;	// = 1.0f;
 
 	float orthoLeft;		/* Orthogonal camera left parameter */
 	float orthoTop;			/* Orthogonal camera top parameter */
