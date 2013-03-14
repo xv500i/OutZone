@@ -42,17 +42,27 @@ void MobileGameObject::update(long msec)
 	setX(getX() + vx*msec);
 	setY(getY() + vy*msec);
 	if (vy > 0) {
-		dir = UP;
+		if (vx < 0) {
+			dir = UP_LEFT;
+		} else if (vx > 0){
+			dir = UP_RIGHT;
+		} else {
+			dir = UP;
+		}
 	} else if( vy < 0){
-		dir = DOWN;
+		if (vx < 0) {
+			dir = DOWN_LEFT;
+		} else if (vx > 0){
+			dir = DOWN_RIGHT;
+		} else {
+			dir = DOWN;
+		}
 	} else {
 		if (vx < 0) {
 			dir = LEFT;
 		} else if (vx > 0){
 			dir = RIGHT;
-		} else {
-			dir = UP;
-		}
+		} 
 	}
 }
 

@@ -5,6 +5,10 @@ enum Directions
 	UP = 0,
 	DOWN,
 	LEFT,
-	RIGHT
+	RIGHT,
+	UP_RIGHT,
+	DOWN_RIGHT,
+	UP_LEFT,
+	DOWN_LEFT
 };
 #endif

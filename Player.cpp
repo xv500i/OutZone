@@ -1,6 +1,8 @@
 #include "Player.h"
 
 
+const long Player::fireDelayMsec = 200;
+
 Player::Player(void)
 {
 }
@@ -26,12 +28,51 @@ void Player::render() const
 	glEnd();
 }
 */
-MobileGameObject* Player::shotPrimaryWeapon() const 
+void Player::shotPrimaryWeapon(std::vector<MobileGameObject> &v) 
 {
-	if (waitToFire > 0) return NULL;
-	float vx, vy;
-	if (dir)
-	MobileGameObject* bala = new MobileGameObject(getX(), getY(), -1, 5, 5, true, 0.0f, 0.0f);
+	if (waitToFire > 0) return;
+	float vx = 0.0f, vy = 0.0f;
+	float catet = 0.5f;
+	float absv = sqrt(catet*catet*2);
+	Directions d = getDirection();
+	switch (d) {
+		case UP:
+			vy = absv;
+			break;
+		case DOWN:
+			vy = -absv;
+			break;
+		case LEFT:
+			vx = -absv;
+			break;
+		case RIGHT:
+			vx = absv;
+			break;
+		case UP_RIGHT:
+			vx = catet;
+			vy = catet;
+			break;
+		case DOWN_RIGHT:
+			vx = catet;
+			vy = -catet;
+			break;
+		case UP_LEFT:
+			vx = -catet;
+			vy = catet;
+			break;
+		case DOWN_LEFT:
+			vx = -catet;
+			vy = -catet;
+			break;
+	}
+	MobileGameObject* bala = new MobileGameObject(getX(), getY(), -1, 5, 5, true, vx, vy);
+	v.push_back(*bala);
 	std::cout << "Beam" << std::endl;
-	return bala;
+	waitToFire = fireDelayMsec;
+}
+
+void Player::update(long msec)
+{
+	MobileGameObject::update(msec);
+	waitToFire = std::max(0L,waitToFire - msec);
 }

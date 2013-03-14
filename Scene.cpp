@@ -55,9 +55,7 @@ void Scene::resolveInput(InputHandler &input) {
 	}
 
 	if (input.keyIsDown(input.getPrimaryWeaponKey())) {
-		MobileGameObject *m;
-		m = player.shotPrimaryWeapon();
-		if (m != NULL) bales.push_back(*m);
+		player.shotPrimaryWeapon(bales);
 	}
 	
 }
@@ -67,5 +65,7 @@ void Scene::update(long msec)
 	player.update(msec);
 	for (int i = 0; i < bales.size(); i++) {
 		bales[i].update(msec);
+		// FIXME misa bala pantalla se sale, misa bala se pop()
 	}
+	//std::cout << player.getDirection() << std::endl;
 }
