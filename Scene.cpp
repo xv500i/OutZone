@@ -9,7 +9,7 @@ Scene::~Scene(void)
 {
 }
 
-bool Scene::loadLevel(int level)
+bool Scene::loadLevel(int level, GameData *data)
 {
 	currentLevel = level;
 	GameObject go(100.0f, 100.0f, -1, 30, 30, false);
@@ -19,7 +19,7 @@ bool Scene::loadLevel(int level)
 	player.setY(0);
 	player.setWidth(16);
 	player.setLength(16);
-	return levels[level - 1].load(level);
+	return levels[level - 1].load(level, data);
 }
 
 void Scene::render(int level, GameData *data)

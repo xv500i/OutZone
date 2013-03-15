@@ -22,7 +22,7 @@ bool OutZone::init()
 	// Data loading
 	bool b = data.loadSprites();
 	if (!b) return false;
-	b = scene.loadLevel(1);
+	b = scene.loadLevel(1, &data);
 	if (!b) return false;
 
 	// Camera initialization

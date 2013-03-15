@@ -25,7 +25,7 @@ public:
 	Scene(void);
 	~Scene(void);
 
-	bool loadLevel(int level);
+	bool loadLevel(int level, GameData *data);
 	void render(int level, GameData *data);
 
 	void update(long msec);
