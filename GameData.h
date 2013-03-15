@@ -1,14 +1,14 @@
 
 #pragma once
 
-#include "Texture.h"
-#include "Sprite.h"
 #include <vector>
+#include "Sprite.h"
 
 
 class GameData
 {
 private:
+	/* Sprites */
 	const static int NUM_SPRITES = 1;
 	const static char* SPRITE_EXT;
 

@@ -1,18 +1,19 @@
 
 #pragma once
 
-#include "Texture.h"
 #include <vector>
+#include "Texture.h"
 
 
 class Sprite : public Texture
 {
 private:
+	/* File constants */
 	const static char* DESCRIPTOR_FILE_EXT;
 	const static char DESCRIPTOR_FILE_DELIMITATOR = ' ';
 
-	int tileWidthInPixels;		/* Tile width */
-	int tileHeightInPixels;		/* Tile height */
+	int tileWidthInPixels;		/* Tile width in pixels */
+	int tileHeightInPixels;		/* Tile height in pixels */
 	float tileOffsetX;			/* Tile offset of X axis */
 	float tileOffsetY;			/* Tile offset of Y axis */
 	std::vector<std::pair<int, int>> tilePosition;	/* Tile positions inside the texture */

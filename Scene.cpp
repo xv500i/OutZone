@@ -31,7 +31,12 @@ void Scene::render(int level, GameData *data)
 
 void Scene::getLevelSize(int level, int *width, int *height)
 {
-	levels[level - 1].getSize(width, height);
+	levels[level - 1].getSizeInTiles(width, height);
+}
+
+void Scene::getLevelTileSize(int level, int *width, int *height)
+{
+	levels[level - 1].getTileSizeInPixels(width, height);
 }
 
 void Scene::resolveInput(InputHandler &input) {

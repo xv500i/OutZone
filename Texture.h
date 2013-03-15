@@ -9,9 +9,9 @@
 class Texture
 {
 private:
-	unsigned int id;	/* Texture identifier */
-	int widthInPixels;	/* Image width in pixels */
-	int heightInPixels;	/* Image height in pixels */
+	unsigned int id;		/* Texture identifier */
+	int widthInPixels;		/* Image width in pixels */
+	int heightInPixels;		/* Image height in pixels */
 
 public:
 	Texture(void);

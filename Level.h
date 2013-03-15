@@ -1,37 +1,50 @@
 
 #pragma once
 
-#include <iostream>
-#include <string>
 #include <vector>
 #include "GameData.h"
 
 
+enum TileType {
+	LAND,
+	WALL,
+	HOLE
+};
+
+struct Tile {
+	int index;
+	TileType type;
+};
+
 class Level
 {
 private:
-	const static char* FILE_NAME;
+	/* File constants */
+	const static char* FILE_NAME_PREFIX;
 	const static char* FILE_EXT;
-	const static char EMPTY_SPACE = '0';
 
-	int levelWidth;
-	int levelHeight;
-	std::vector<int> map;
+	/* Tile constants */
+	const static int TILE_HEIGHT_IN_PIXELS = 32;
+	const static int TILE_WIDTH_IN_PIXELS = 32;
 
-	void renderTile(int tileID, int posX, int posY, GameData *data);
+	int widthInTiles;		/* Level width in tiles */
+	int heightInTiles;		/* Level height in tiles */
+	std::vector<Tile> map;	/* Level map */
+
+	void renderTile(int tileIndex, int posX, int posY, GameData *data);
 
 public:
-	const static int TILE_SIZE = 32;
-
 	Level(void);
 	~Level(void);
-
-	void getSize(int *width, int *height);
 
 	/* Loading */
 	bool load(int level);
 
 	/* Rendering */
 	void render(GameData *data);
+
+	/* Getters */
+	void getSizeInTiles(int *width, int *height);
+	void getTileSizeInPixels(int *width, int *height);
 };
 

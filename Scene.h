@@ -27,6 +27,7 @@ public:
 
 	void update(long msec);
 	void getLevelSize(int level, int *width, int *height);
+	void getLevelTileSize(int level, int *width, int *height);
 	void resolveInput(InputHandler &input);
 };
 
