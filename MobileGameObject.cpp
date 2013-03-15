@@ -41,6 +41,7 @@ void MobileGameObject::update()
 	GameObject::update();
 	setX(getX() + vx);
 	setY(getY() + vy);
+	updateBBox(vx,vy);
 	if (vy > 0) {
 		if (vx < 0) {
 			dir = UP_LEFT;

@@ -15,10 +15,7 @@ bool Scene::loadLevel(int level, GameData *data)
 	GameObject go(100.0f, 100.0f, -1, 30, 30, false);
 	obstacles.push_back(go);
 	bales.clear();
-	player.setX(0);
-	player.setY(0);
-	player.setWidth(16);
-	player.setLength(16);
+	player = Player(50.0f, 50.0f, -1, 16, 16, true, 0.0f, 0.0f);
 	return levels[level - 1].load(level, data);
 }
 
@@ -87,12 +84,12 @@ void Scene::update()
 			it = bales.erase(it);
 		} else {
 			bool hasCollisioned = false;
-			for(std::vector<GameObject>::iterator ito = obstacles.begin(); !hasCollisioned && ito != obstacles.end(); ) {
+			for(std::vector<GameObject>::iterator ito = obstacles.begin(); !hasCollisioned && ito != obstacles.end(); ito++) {
 				hasCollisioned = it->isIntersecting(*ito);
 			}
 			if (!hasCollisioned) it++;
 			else {
-			
+				it = bales.erase(it);
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 #include "BoundingBox.h"
 
 
-BoundingBox::BoundingBox(const float top, const float botom, const float left, const float right)
+BoundingBox::BoundingBox(const float top, const float bottom, const float left, const float right)
 {
 	this->top = top;
 	this->bottom = bottom;
@@ -22,10 +22,10 @@ bool BoundingBox::isIntersectedBy(const BoundingBox &b) const
 
 void BoundingBox::translate(const float x, const float y)
 {
-	this->top += y;
-	this->bottom += y;
-	this->left += x;
-	this->right += x;
+	top += y;
+	bottom += y;
+	left += x;
+	right += x;
 }
 
 bool BoundingBox::contains(const float x, const float y)

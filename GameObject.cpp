@@ -76,3 +76,8 @@ void GameObject::setLength(int x)
 	length = x;
 }
 
+void GameObject::updateBBox(const float x, const float y)
+{
+	b->translate(x,y);
+}
+

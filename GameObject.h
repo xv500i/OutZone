@@ -24,6 +24,7 @@ public:
 	int getLength() const;
 	void setWidth(int x);
 	void setLength(int x);
+	void updateBBox(const float x, const float y);
 
 private:
 	float x;
