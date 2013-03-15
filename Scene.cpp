@@ -73,4 +73,14 @@ void Scene::update(long msec)
 		// FIXME misa bala pantalla se sale, misa bala se pop()
 	}
 	//std::cout << player.getDirection() << std::endl;
+
+}
+
+void Scene::getLevelSizeInPixels(int level, int &w, int &h) 
+{
+	int tileWidth, tileHeight, tilesWidth, tilesHeigth;
+	levels[level - 1].getTileSizeInPixels(&tileWidth, &tileHeight);
+	levels[level - 1].getSizeInTiles(&tilesWidth, &tilesHeigth);
+	w = tilesWidth * tileWidth;
+	h = tilesHeigth * tileHeight;
 }

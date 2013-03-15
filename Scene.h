@@ -7,6 +7,7 @@
 #include "InputHandler.h"
 #include <vector>
 #include <iterator>
+
 using namespace std;
 
 
@@ -18,6 +19,7 @@ private:
 	Player player;
 	vector<MobileGameObject> bales;
 
+
 public:
 	Scene(void);
 	~Scene(void);
@@ -26,6 +28,7 @@ public:
 	void render(int level, GameData *data);
 
 	void update(long msec);
+	void getLevelSizeInPixels(int level, int &w, int &h);
 	void getLevelSize(int level, int *width, int *height);
 	void getLevelTileSize(int level, int *width, int *height);
 	void resolveInput(InputHandler &input);
