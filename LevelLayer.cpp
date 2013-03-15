@@ -106,6 +106,16 @@ void LevelLayer::getSizeInTiles(int *width, int *height)
 	*height = heightInTiles;
 }
 
+void LevelLayer::getSizeInPixels(int *width, int *height)
+{
+	int widthInTiles, heightInTiles;
+	int tileWidth, tileHeight;
+	getSizeInTiles(&widthInTiles, &heightInTiles);
+	getTileSizeInPixels(&tileWidth, &tileHeight);
+	*width = widthInTiles*tileWidth;
+	*height = heightInTiles*tileHeight;
+}
+
 void LevelLayer::getTileSizeInPixels(int *width, int *height)
 {
 	*width = TILE_WIDTH_IN_PIXELS;

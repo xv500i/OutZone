@@ -98,11 +98,7 @@ void Scene::update()
 
 void Scene::getLevelSizeInPixels(int level, int &w, int &h) 
 {
-	int tileWidth, tileHeight, tilesWidth, tilesHeigth;
-	levels[level - 1].getTileSizeInPixels(&tileWidth, &tileHeight);
-	levels[level - 1].getSizeInTiles(&tilesWidth, &tilesHeigth);
-	w = tilesWidth * tileWidth;
-	h = tilesHeigth * tileHeight;
+	levels[level - 1].getSizeInPixels(&w, &h);
 }
 
 void Scene::getCollisioningGameObjects(vector<GameObject> &v)
