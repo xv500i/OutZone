@@ -27,3 +27,8 @@ void BoundingBox::translate(const float x, const float y)
 	this->left += x;
 	this->right += x;
 }
+
+bool BoundingBox::contains(const float x, const float y)
+{
+	return ( top > y && bottom < y && left < x && right > x);
+}

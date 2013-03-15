@@ -12,6 +12,8 @@ Scene::~Scene(void)
 bool Scene::loadLevel(int level)
 {
 	currentLevel = level;
+	GameObject go(100.0f, 100.0f, -1, 30, 30, false);
+	obstacles.push_back(go);
 	bales.clear();
 	player.setX(0);
 	player.setY(0);
@@ -76,9 +78,12 @@ void Scene::update(long msec)
 		it->update(msec);
 		float x = it->getX();
 		float y = it->getY();
+		vector<GameObject> v;
+		getCollisioningGameObjects(v);
 		if (maxX < x || minX > x || maxY < y || minY > y) {
 			it = bales.erase(it);
 		} else {
+
 			it++;
 		}
 	}
@@ -92,4 +97,9 @@ void Scene::getLevelSizeInPixels(int level, int &w, int &h)
 	levels[level - 1].getSizeInTiles(&tilesWidth, &tilesHeigth);
 	w = tilesWidth * tileWidth;
 	h = tilesHeigth * tileHeight;
+}
+
+void Scene::getCollisioningGameObjects(vector<GameObject> &v)
+{
+	v = obstacles;
 }

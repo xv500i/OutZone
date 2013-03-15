@@ -7,7 +7,7 @@ public:
 
 	bool isIntersectedBy(const BoundingBox &b) const;
 	void translate(const float x, const float y);
-
+	bool contains(const float x, const float y);
 private:
 	float top;
 	float bottom;

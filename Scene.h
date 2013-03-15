@@ -18,6 +18,7 @@ private:
 	Level levels[NUM_LEVELS];
 	Player player;
 	vector<MobileGameObject> bales;
+	vector<GameObject> obstacles; 
 	int currentLevel;
 
 public:
@@ -32,5 +33,6 @@ public:
 	void getLevelSize(int level, int *width, int *height);
 	void getLevelTileSize(int level, int *width, int *height);
 	void resolveInput(InputHandler &input);
+	void getCollisioningGameObjects(vector<GameObject> &v);
 };
 
