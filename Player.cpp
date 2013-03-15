@@ -67,7 +67,6 @@ void Player::shotPrimaryWeapon(std::vector<MobileGameObject> &v)
 	}
 	MobileGameObject* bala = new MobileGameObject(getX(), getY(), -1, 5, 5, true, vx, vy);
 	v.push_back(*bala);
-	std::cout << "Beam" << std::endl;
 	waitToFire = fireDelayMsec;
 }
 

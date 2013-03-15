@@ -58,8 +58,6 @@ bool OutZone::process()
 
 	
 	scene.resolveInput(input);
-	
-	//std::cout << player.getY() << std::endl;
 
 	// Update camera
 	camera.updateOrtho(100/FRAMERATE);
