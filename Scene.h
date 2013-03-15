@@ -2,7 +2,7 @@
 #pragma once
 
 #include <gl/glut.h>
-#include "Level.h"
+#include "LevelLayer.h"
 #include "Player.h"
 #include "InputHandler.h"
 #include <vector>

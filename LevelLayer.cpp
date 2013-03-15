@@ -1,21 +1,22 @@
 
-#include "Level.h"
+#include "LevelLayer.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
 
 
-const char* Level::FILE_NAME_PREFIX = "level";
-const char* Level::FILE_EXT = ".txt";
+const char* LevelLayer::FILE_NAME_PREFIX = "level";
+const char* LevelLayer::FILE_EXT = ".txt";
 
-Level::Level(void) {}
+LevelLayer::LevelLayer(void) {}
 
-Level::~Level(void) {}
+LevelLayer::~LevelLayer(void) {}
 
 
 /* Loading */
-bool Level::load(int level, GameData *data)
+bool LevelLayer::load(int level, GameData *data)
 {
+	this->level = level;
 	widthInTiles = 0;
 	heightInTiles = 0;
 
@@ -58,7 +59,7 @@ bool Level::load(int level, GameData *data)
 }
 
 /* Rendering */
-void Level::render(GameData *data) 
+void LevelLayer::render(GameData *data) 
 {
 	for (int i = 0; i < heightInTiles; i++) {
 		for (int j = 0; j < widthInTiles; j++) {
@@ -67,7 +68,7 @@ void Level::render(GameData *data)
 	}
 }
 
-void Level::renderTile(int tileIndex, int posX, int posY, GameData *data) 
+void LevelLayer::renderTile(int tileIndex, int posX, int posY, GameData *data) 
 {
 	// Obtain the tile offset
 	float tileOffsetX, tileOffsetY;
@@ -99,13 +100,13 @@ void Level::renderTile(int tileIndex, int posX, int posY, GameData *data)
 }
 
 /* Getters */
-void Level::getSizeInTiles(int *width, int *height)
+void LevelLayer::getSizeInTiles(int *width, int *height)
 {
 	*width = widthInTiles;
 	*height = heightInTiles;
 }
 
-void Level::getTileSizeInPixels(int *width, int *height)
+void LevelLayer::getTileSizeInPixels(int *width, int *height)
 {
 	*width = TILE_WIDTH_IN_PIXELS;
 	*height = TILE_HEIGHT_IN_PIXELS;

@@ -11,7 +11,7 @@ struct Tile {
 	TileType type;
 };
 
-class Level
+class LevelLayer
 {
 private:
 	/* File constants */
@@ -22,6 +22,7 @@ private:
 	const static int TILE_HEIGHT_IN_PIXELS = 32;
 	const static int TILE_WIDTH_IN_PIXELS = 32;
 
+	unsigned int level;		/* Level number */
 	int widthInTiles;		/* Level width in tiles */
 	int heightInTiles;		/* Level height in tiles */
 	std::vector<Tile> map;	/* Level map */
@@ -29,8 +30,8 @@ private:
 	void renderTile(int tileIndex, int posX, int posY, GameData *data);
 
 public:
-	Level(void);
-	~Level(void);
+	LevelLayer(void);
+	~LevelLayer(void);
 
 	/* Loading */
 	bool load(int level, GameData *data);
