@@ -14,7 +14,7 @@ public:
 
 	/* Drawing */
 	void render() const;
-	void update(long msec);
+	void update();
 	bool isIntersecting(const GameObject &go) const;
 	void setX(const float x);
 	void setY(const float y);

@@ -36,11 +36,11 @@ float MobileGameObject::getVY() const
 	return vy;
 }
 
-void MobileGameObject::update(long msec)
+void MobileGameObject::update()
 {
-	GameObject::update(msec);
-	setX(getX() + vx*msec);
-	setY(getY() + vy*msec);
+	GameObject::update();
+	setX(getX() + vx);
+	setY(getY() + vy);
 	if (vy > 0) {
 		if (vx < 0) {
 			dir = UP_LEFT;

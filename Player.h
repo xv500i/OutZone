@@ -13,7 +13,7 @@ public:
 	~Player(void);
 	//void render() const;
 	void shotPrimaryWeapon(std::vector<MobileGameObject> &v);
-	void update(long msec);
+	void update();
 
 private:
 	const static long fireDelayMsec;

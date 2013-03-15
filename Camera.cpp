@@ -30,10 +30,10 @@ void Camera::initOrtho(float left, float top, float width, float height)
 	orthoVY = 0.0f;
 }
 
-void Camera::updateOrtho(long msec)
+void Camera::updateOrtho()
 {
-	float newLeft = orthoLeft + orthoVX*msec;
-	float newTop = orthoTop + orthoVY*msec;
+	float newLeft = orthoLeft + orthoVX;
+	float newTop = orthoTop + orthoVY;
 
 	if (newLeft < orthoMinLeft) orthoLeft = orthoMinLeft;
 	else if (newLeft > orthoMaxRight - orthoWidth) orthoLeft = orthoMaxRight - orthoWidth;

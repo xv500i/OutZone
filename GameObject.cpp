@@ -28,7 +28,7 @@ void GameObject::render() const
 	glEnd();
 }
 
-void GameObject::update(long msec)
+void GameObject::update()
 {
 
 }

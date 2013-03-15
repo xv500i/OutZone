@@ -30,7 +30,7 @@ public:
 
 	/* Orthogonal camera */
 	void initOrtho(float left, float top, float width, float height);
-	void updateOrtho(long msec);
+	void updateOrtho();
 	void loadOrtho();
 	void setOrthoVX(float newOrthoVX);
 	void setOrthoVY(float newOrthoVY);

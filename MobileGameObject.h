@@ -12,7 +12,7 @@ public:
 	float getVY() const;
 	void setVX(const float v);
 	void setVY(const float v);
-	void update(long msec);
+	void update();
 	Directions getDirection() const;
 
 private:

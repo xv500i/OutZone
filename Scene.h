@@ -28,7 +28,7 @@ public:
 	bool loadLevel(int level, GameData *data);
 	void render(int level, GameData *data);
 
-	void update(long msec);
+	void update();
 	void getLevelSizeInPixels(int level, int &w, int &h);
 	void getLevelSize(int level, int *width, int *height);
 	void getLevelTileSize(int level, int *width, int *height);

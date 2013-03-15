@@ -51,18 +51,18 @@ void OutZone::handleMouse(int button, int state, int x, int y) {}
 bool OutZone::process() 
 {
 	// Camera movement
-	if (input.keyIsDown(input.getMoveUpKey())) camera.setOrthoVY(0.3f);
-	else if (input.keyIsDown(input.getMoveDownKey())) camera.setOrthoVY(-0.3f);
+	if (input.keyIsDown(input.getMoveUpKey())) camera.setOrthoVY(5.0f);
+	else if (input.keyIsDown(input.getMoveDownKey())) camera.setOrthoVY(-5.0f);
 	else camera.setOrthoVY(0.0f);
 
 	
 	scene.resolveInput(input);
 
 	// Update camera
-	camera.updateOrtho(100/FRAMERATE);
+	camera.updateOrtho();
 
 	// Update player
-	scene.update(100/FRAMERATE);
+	scene.update();
 
 	return true;
 }
@@ -94,7 +94,7 @@ bool OutZone::gameLoop()
 
 	do {
 		t2 = glutGet(GLUT_ELAPSED_TIME);
-	} while (t2 - t1 < 100/FRAMERATE);
+	} while (t2 - t1 < 20);
 
 	return true;
 }

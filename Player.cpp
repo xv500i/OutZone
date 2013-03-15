@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-const long Player::fireDelayMsec = 200;
+const long Player::fireDelayMsec = 20;
 
 Player::Player(void)
 {
@@ -32,7 +32,7 @@ void Player::shotPrimaryWeapon(std::vector<MobileGameObject> &v)
 {
 	if (waitToFire > 0) return;
 	float vx = 0.0f, vy = 0.0f;
-	float catet = 0.5f;
+	float catet = 10.0f;
 	float absv = sqrt(catet*catet*2);
 	Directions d = getDirection();
 	switch (d) {
@@ -70,8 +70,8 @@ void Player::shotPrimaryWeapon(std::vector<MobileGameObject> &v)
 	waitToFire = fireDelayMsec;
 }
 
-void Player::update(long msec)
+void Player::update()
 {
-	MobileGameObject::update(msec);
-	waitToFire = std::max(0L,waitToFire - msec);
+	MobileGameObject::update();
+	waitToFire = std::max(0L,waitToFire - 1);
 }

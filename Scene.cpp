@@ -44,7 +44,7 @@ void Scene::getLevelTileSize(int level, int *width, int *height)
 void Scene::resolveInput(InputHandler &input) {
 	// player control
 	// HARDCODED
-	float vDes = 0.3f;
+	float vDes = 5.0f;
 	// TODO COLISIONS
 	if (input.keyIsDown(input.getMoveUpKey())) {
 		player.setVY(vDes);
@@ -67,15 +67,15 @@ void Scene::resolveInput(InputHandler &input) {
 	
 }
 
-void Scene::update(long msec)
+void Scene::update()
 {
 	int maxX, maxY, minX, minY;
 	minX = minY = 0;
 	getLevelSizeInPixels(currentLevel, maxX, maxY);
-	player.update(msec);
+	player.update();
 	int size = bales.size();
 	for (std::vector<MobileGameObject>::iterator it = bales.begin() ; it != bales.end(); ) {
-		it->update(msec);
+		it->update();
 		float x = it->getX();
 		float y = it->getY();
 		vector<GameObject> v;
