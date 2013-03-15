@@ -25,6 +25,9 @@ bool Scene::loadLevel(int level, GameData *data)
 void Scene::render(int level, GameData *data)
 {
 	levels[level - 1].render(data);
+	for (int x = 0; x < obstacles.size(); x++) {
+		obstacles[x].render();
+	}
 	player.render();
 	for (int i = 0; i < bales.size(); i++) {
 		bales[i].render();
@@ -83,8 +86,14 @@ void Scene::update()
 		if (maxX < x || minX > x || maxY < y || minY > y) {
 			it = bales.erase(it);
 		} else {
-
-			it++;
+			bool hasCollisioned = false;
+			for(std::vector<GameObject>::iterator ito = obstacles.begin(); !hasCollisioned && ito != obstacles.end(); ) {
+				hasCollisioned = it->isIntersecting(*ito);
+			}
+			if (!hasCollisioned) it++;
+			else {
+			
+			}
 		}
 	}
 
