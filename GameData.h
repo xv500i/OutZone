@@ -25,6 +25,7 @@ public:
 	bool loadSprites();
 	int getSpriteID(int spriteIndex);
 	void getSpriteTilePosition(int spriteIndex, int tileIndex, int *x, int *y);
+	TileType getSpriteTileType(int spriteIndex, int tileIndex);
 	void getSpriteTileSizeInPixels(int spriteIndex, int *width, int *height);
 	void getSpriteTileOffset(int spriteIndex, float *offsetX, float *offsetY);
 	void getSpriteSizeInPixels(int spriteIndex, int *width, int *height);

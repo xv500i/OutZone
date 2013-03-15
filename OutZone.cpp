@@ -27,10 +27,9 @@ bool OutZone::init()
 
 	// Camera initialization
 	camera.initOrtho(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
-	int levelWidthInTiles, levelHeightInTiles, tileWidth, tileHeight;
-	scene.getLevelSize(1, &levelWidthInTiles, &levelHeightInTiles);
-	scene.getLevelTileSize(1, &tileWidth, &tileHeight);
-	camera.setOrthoLimits(0.0f, levelHeightInTiles*tileHeight, levelWidthInTiles*tileWidth, 0.0f);
+	int width, height;
+	scene.getLevelSizeInPixels(1, width, height);
+	camera.setOrthoLimits(0.0f, height, width, 0.0f);
 	camera.loadOrtho();
 
 	return true;

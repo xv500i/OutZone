@@ -35,7 +35,7 @@ bool Sprite::loadDescriptionFile(const char *filename)
 			getline(file, line);
 			// Read the tile size
 			if (first) {
-				std::stringstream sstr(line.substr(line.find(DESCRIPTOR_FILE_DELIMITATOR)));
+				std::stringstream sstr(line.substr(line.find(' ')));
 				sstr >> tileWidthInPixels;
 				if (sstr.peek() == ',') sstr.ignore();
 				sstr >> tileHeightInPixels;
@@ -44,15 +44,28 @@ bool Sprite::loadDescriptionFile(const char *filename)
 			// Read the tile position
 			else {
 				std::stringstream sstr(line);
-				int pos, x, y;
+				unsigned int pos; 
+				int x, y;
+				char tileTypeID;
 				sstr >> pos;
 				if (sstr.peek() == ' ') sstr.ignore();
 				sstr >> x;
 				if (sstr.peek() == ',') sstr.ignore();
 				sstr >> y;
+				if (sstr.peek() == ' ') 
+				sstr >> tileTypeID;
+
+				// Store the tile info
 				std::pair<int, int> position(x, y);
-				if (tilePosition.size() < pos + 1) tilePosition.resize(pos + 1);
-				tilePosition[pos] = position;
+				if (tileInfo.size() < pos + 1) tileInfo.resize(pos + 1);
+				tileInfo[pos].position = position;
+
+				switch (tileTypeID) {
+				case LAND_ID: tileInfo[pos].type = LAND; break;
+				case WALL_ID: tileInfo[pos].type = WALL; break;
+				case HOLE_ID: tileInfo[pos].type = HOLE; break;
+				default: break;
+				}
 			}
 		}
 
@@ -72,10 +85,15 @@ bool Sprite::loadDescriptionFile(const char *filename)
 }
 
 /* Getters */
-void Sprite::getTilePosition(int tile, int *x, int *y)
+void Sprite::getTilePosition(int tileIndex, int *x, int *y)
 {
-	*x = tilePosition[tile].first;
-	*y = tilePosition[tile].second;
+	*x = tileInfo[tileIndex].position.first;
+	*y = tileInfo[tileIndex].position.second;
+}
+
+TileType Sprite::getTileType(int tileIndex)
+{
+	return tileInfo[tileIndex].type;
 }
 
 void Sprite::getTileSizeInPixels(int *width, int *height)

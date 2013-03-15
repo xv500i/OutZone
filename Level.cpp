@@ -14,7 +14,7 @@ Level::~Level(void) {}
 
 
 /* Loading */
-bool Level::load(int level)
+bool Level::load(int level, GameData *data)
 {
 	widthInTiles = 0;
 	heightInTiles = 0;
@@ -40,7 +40,7 @@ bool Level::load(int level)
 			while (sstr >> tileIndex) {
 				Tile tile;
 				tile.index = tileIndex;
-				tile.type = TileType::LAND; // TODO: obtenir el tile.type!
+				tile.type = data->getSpriteTileType(GameData::LEVEL1_TILES_INDEX, tileIndex);	// TODO: Obtenir depenent del nivell!
 				map.push_back(tile);
 				if (sstr.peek() == ',') sstr.ignore();
 				// Update level width

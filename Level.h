@@ -2,14 +2,9 @@
 #pragma once
 
 #include <vector>
+#include "TileType.h"
 #include "GameData.h"
 
-
-enum TileType {
-	LAND,
-	WALL,
-	HOLE
-};
 
 struct Tile {
 	int index;
@@ -38,7 +33,7 @@ public:
 	~Level(void);
 
 	/* Loading */
-	bool load(int level);
+	bool load(int level, GameData *data);
 
 	/* Rendering */
 	void render(GameData *data);
