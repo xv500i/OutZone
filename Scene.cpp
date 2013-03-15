@@ -1,7 +1,6 @@
 
 #include "Scene.h"
 
-
 Scene::Scene(void)
 {
 }
@@ -12,6 +11,7 @@ Scene::~Scene(void)
 
 bool Scene::loadLevel(int level)
 {
+	currentLevel = level;
 	bales.clear();
 	player.setX(0);
 	player.setY(0);
@@ -67,12 +67,21 @@ void Scene::resolveInput(InputHandler &input) {
 
 void Scene::update(long msec)
 {
+	int maxX, maxY, minX, minY;
+	minX = minY = 0;
+	getLevelSizeInPixels(currentLevel, maxX, maxY);
 	player.update(msec);
-	for (int i = 0; i < bales.size(); i++) {
-		bales[i].update(msec);
-		// FIXME misa bala pantalla se sale, misa bala se pop()
+	int size = bales.size();
+	for (std::vector<MobileGameObject>::iterator it = bales.begin() ; it != bales.end(); ) {
+		it->update(msec);
+		float x = it->getX();
+		float y = it->getY();
+		if (maxX < x || minX > x || maxY < y || minY > y) {
+			it = bales.erase(it);
+		} else {
+			it++;
+		}
 	}
-	//std::cout << player.getDirection() << std::endl;
 
 }
 

@@ -18,7 +18,7 @@ private:
 	Level levels[NUM_LEVELS];
 	Player player;
 	vector<MobileGameObject> bales;
-
+	int currentLevel;
 
 public:
 	Scene(void);
