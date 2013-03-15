@@ -15,7 +15,7 @@ class Scene
 {
 private:
 	const static int NUM_LEVELS = 1;
-	Level levels[NUM_LEVELS];
+	LevelLayer levels[NUM_LEVELS];
 	Player player;
 	vector<MobileGameObject> bales;
 	vector<GameObject> obstacles; 
