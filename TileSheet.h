@@ -11,7 +11,7 @@ struct TileInfo {
 	TileType type;
 };
 
-class Sprite : public Texture
+class TileSheet : public Texture
 {
 private:
 	/* File constants */
@@ -26,8 +26,8 @@ private:
 	bool loadDescriptionFile(const char *filename);
 
 public:
-	Sprite(void);
-	~Sprite(void);
+	TileSheet(void);
+	~TileSheet(void);
 
 	/* Loading */
 	bool load(const char *filename, const char *ext, int type = GL_RGBA, int wraps = GL_REPEAT, 

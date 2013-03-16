@@ -16,7 +16,7 @@ LevelLayer::~LevelLayer(void) {}
 /* Loading */
 bool LevelLayer::load(int level, GameData *data)
 {
-	this->level = level;
+	setLevel(level);
 	widthInTiles = 0;
 	heightInTiles = 0;
 
@@ -41,7 +41,7 @@ bool LevelLayer::load(int level, GameData *data)
 			while (sstr >> tileIndex) {
 				Tile tile;
 				tile.index = tileIndex;
-				tile.type = data->getSpriteTileType(GameData::LEVEL1_TILES_INDEX, tileIndex);	// TODO: Obtenir depenent del nivell!
+				tile.type = data->getTileSheetTileType(GameData::LEVEL1_TILES_INDEX, tileIndex);	// TODO: Obtenir depenent del nivell!
 				map.push_back(tile);
 				if (sstr.peek() == ',') sstr.ignore();
 				// Update level width
@@ -72,17 +72,17 @@ void LevelLayer::renderTile(int tileIndex, int posX, int posY, GameData *data)
 {
 	// Obtain the tile offset
 	float tileOffsetX, tileOffsetY;
-	data->getSpriteTileOffset(GameData::LEVEL1_TILES_INDEX, &tileOffsetX, &tileOffsetY);	// TODO: Obtenir depenent del nivell!
+	data->getTileSheetTileOffset(GameData::LEVEL1_TILES_INDEX, &tileOffsetX, &tileOffsetY);	// TODO: Obtenir depenent del nivell!
 
 	// Obtain the tile position inside the texture
 	int s, t;
-	data->getSpriteTilePosition(GameData::LEVEL1_TILES_INDEX, tileIndex, &s, &t);	// TODO: Obtenir depenent del nivell!
+	data->getTileSheetTilePosition(GameData::LEVEL1_TILES_INDEX, tileIndex, &s, &t);	// TODO: Obtenir depenent del nivell!
 	float coordS = s*tileOffsetX;
 	float coordT = t*tileOffsetY;
 
 	// Rendering
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, data->getSpriteID(GameData::LEVEL1_TILES_INDEX));	// TODO: Obtenir depenent del nivell!
+	glBindTexture(GL_TEXTURE_2D, data->getTileSheetID(GameData::LEVEL1_TILES_INDEX));	// TODO: Obtenir depenent del nivell!
 	glBegin(GL_QUADS);
 		glTexCoord2f(coordS, coordT);
 		glVertex2i(posX, heightInTiles*TILE_HEIGHT_IN_PIXELS - posY);

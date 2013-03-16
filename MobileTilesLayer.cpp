@@ -17,7 +17,7 @@ MobileTilesLayer::~MobileTilesLayer(void) {}
 /* Loading */
 bool MobileTilesLayer::load(int level, GameData *data)
 {
-	this->level = level;
+	setLevel(level);
 
 	// Open the file
 	std::stringstream ss;
@@ -70,7 +70,7 @@ bool MobileTilesLayer::load(int level, GameData *data)
 				if (sstr.peek() == ' ') sstr.ignore();
 				i++;
 			}
-			tile.type = data->getSpriteTileType(GameData::LEVEL1_MOBILETILES_INDEX, tile.index);	// TODO: Obtenir depenent del nivell!
+			tile.type = data->getTileSheetTileType(GameData::LEVEL1_MOBILETILES_INDEX, tile.index);	// TODO: Obtenir depenent del nivell!
 			map.push_back(tile);
 		}
 		file.close();
@@ -94,11 +94,11 @@ void MobileTilesLayer::renderTile(MobileTile *tile, GameData *data)
 {
 	// Obtain the tile offset
 	float tileOffsetX, tileOffsetY;
-	data->getSpriteTileOffset(GameData::LEVEL1_MOBILETILES_INDEX, &tileOffsetX, &tileOffsetY);	// TODO: Obtenir depenent del nivell!
+	data->getTileSheetTileOffset(GameData::LEVEL1_MOBILETILES_INDEX, &tileOffsetX, &tileOffsetY);	// TODO: Obtenir depenent del nivell!
 
 	// Obtain the tile position inside the texture
 	int s, t;
-	data->getSpriteTilePosition(GameData::LEVEL1_MOBILETILES_INDEX, tile->index, &s, &t);	// TODO: Obtenir depenent del nivell!
+	data->getTileSheetTilePosition(GameData::LEVEL1_MOBILETILES_INDEX, tile->index, &s, &t);	// TODO: Obtenir depenent del nivell!
 	float coordS = s*tileOffsetX;
 	float coordT = t*tileOffsetY;
 
@@ -119,7 +119,7 @@ void MobileTilesLayer::renderTile(MobileTile *tile, GameData *data)
 
 	// Rendering
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, data->getSpriteID(GameData::LEVEL1_MOBILETILES_INDEX));	// TODO: Obtenir depenent del nivell!
+	glBindTexture(GL_TEXTURE_2D, data->getTileSheetID(GameData::LEVEL1_MOBILETILES_INDEX));	// TODO: Obtenir depenent del nivell!
 	glBegin(GL_QUADS);
 		glTexCoord2f(coordS, coordT);
 		glVertex2i(tile->x, tile->y);

@@ -20,7 +20,7 @@ bool OutZone::init()
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	// Data loading
-	bool b = data.loadSprites();
+	bool b = data.loadTileSheets();
 	if (!b) return false;
 	b = scene.loadLevel(1, &data);
 	if (!b) return false;

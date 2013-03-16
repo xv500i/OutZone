@@ -2,8 +2,8 @@
 #pragma once
 
 #include <vector>
+#include "Layer.h"
 #include "TileType.h"
-#include "GameData.h"
 
 
 struct Tile {
@@ -11,7 +11,7 @@ struct Tile {
 	TileType type;
 };
 
-class LevelLayer
+class LevelLayer : public Layer
 {
 private:
 	/* File constants */
@@ -22,10 +22,9 @@ private:
 	const static int TILE_HEIGHT_IN_PIXELS = 32;
 	const static int TILE_WIDTH_IN_PIXELS = 32;
 
-	unsigned int level;		/* Level number */
 	int widthInTiles;		/* Level width in tiles */
 	int heightInTiles;		/* Level height in tiles */
-	std::vector<Tile> map;	/* Level map */
+	std::vector<Tile> map;	/* Level tiles array */
 
 	void renderTile(int tileIndex, int posX, int posY, GameData *data);
 
@@ -34,10 +33,10 @@ public:
 	~LevelLayer(void);
 
 	/* Loading */
-	bool load(int level, GameData *data);
+	virtual bool load(int level, GameData *data);
 
 	/* Rendering */
-	void render(GameData *data);
+	virtual void render(GameData *data);
 
 	/* Getters */
 	void getSizeInTiles(int *width, int *height);

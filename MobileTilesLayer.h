@@ -2,8 +2,8 @@
 #pragma once
 
 #include <vector>
+#include "Layer.h"
 #include "TileType.h"
-#include "GameData.h"
 
 
 struct MobileTile {
@@ -18,7 +18,7 @@ struct MobileTile {
 	bool loop;			/* True = tile movement in loop (start-end-start-end...) */
 };
 
-class MobileTilesLayer
+class MobileTilesLayer : public Layer
 {
 private:
 	/* File constants */
@@ -26,7 +26,6 @@ private:
 	const static char* FILE_NAME_SUFIX;
 	const static char* FILE_EXT;
 
-	unsigned int level;
 	std::vector<MobileTile> map;	/* Level mobile tiles array */
 
 	void renderTile(MobileTile *tile, GameData *data);
@@ -36,9 +35,9 @@ public:
 	~MobileTilesLayer(void);
 
 	/* Loading */
-	bool load(int level, GameData *data);
+	virtual bool load(int level, GameData *data);
 
 	/* Rendering */
-	void render(GameData *data);
+	virtual void render(GameData *data);
 };
 

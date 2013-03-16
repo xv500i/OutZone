@@ -2,53 +2,53 @@
 #include "GameData.h"
 
 
-const char* GameData::SPRITE_EXT = ".png";
+const char* GameData::TILESHEET_EXT = ".png";
 
 GameData::GameData(void) 
 {
-	sprites = std::vector<Sprite>(NUM_SPRITES);
+	tileSheets = std::vector<TileSheet>(NUM_TILESHEETS);
 }
 
 GameData::~GameData(void) {}
 
 
 /* Sprites */
-bool GameData::loadSprites()
+bool GameData::loadTileSheets()
 {
-	const char* filenames[NUM_SPRITES] = {"pokemon", "pokemon2"}; 
-	for (unsigned int i = 0; i < sprites.size(); i++) {
-		bool b = sprites[i].load(filenames[i], SPRITE_EXT);
+	const char* filenames[NUM_TILESHEETS] = {"pokemon", "pokemon2"}; 
+	for (unsigned int i = 0; i < tileSheets.size(); i++) {
+		bool b = tileSheets[i].load(filenames[i], TILESHEET_EXT);
 		if (!b) return false;
 	}
 	return true;
 }
 
-int GameData::getSpriteID(int spriteIndex)
+int GameData::getTileSheetID(int tileSheetIndex)
 {
-	return sprites[spriteIndex].getID();
+	return tileSheets[tileSheetIndex].getID();
 }
 
-void GameData::getSpriteTilePosition(int spriteIndex, int tileIndex, int *x, int *y)
+void GameData::getTileSheetTilePosition(int tileSheetIndex, int tileIndex, int *x, int *y)
 {
-	sprites[spriteIndex].getTilePosition(tileIndex, x, y);
+	tileSheets[tileSheetIndex].getTilePosition(tileIndex, x, y);
 }
 
-TileType GameData::getSpriteTileType(int spriteIndex, int tileIndex)
+TileType GameData::getTileSheetTileType(int tileSheetIndex, int tileIndex)
 {
-	return sprites[spriteIndex].getTileType(tileIndex);
+	return tileSheets[tileSheetIndex].getTileType(tileIndex);
 }
 
-void GameData::getSpriteTileSizeInPixels(int spriteIndex, int *width, int *height)
+void GameData::getTileSheetTileSizeInPixels(int tileSheetIndex, int *width, int *height)
 {
-	sprites[spriteIndex].getTileSizeInPixels(width, height);
+	tileSheets[tileSheetIndex].getTileSizeInPixels(width, height);
 }
 
-void GameData::getSpriteTileOffset(int spriteIndex, float *offsetX, float *offsetY)
+void GameData::getTileSheetTileOffset(int tileSheetIndex, float *offsetX, float *offsetY)
 {
-	sprites[spriteIndex].getTileOffset(offsetX, offsetY);
+	tileSheets[tileSheetIndex].getTileOffset(offsetX, offsetY);
 }
 
-void GameData::getSpriteSizeInPixels(int spriteIndex, int *width, int *height)
+void GameData::getTileSheetSizeInPixels(int tileSheetIndex, int *width, int *height)
 {
-	sprites[spriteIndex].getSizeInPixels(width, height);
+	tileSheets[tileSheetIndex].getSizeInPixels(width, height);
 }

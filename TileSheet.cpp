@@ -1,26 +1,26 @@
 
-#include "Sprite.h"
+#include "TileSheet.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
 
 
-const char* Sprite::DESCRIPTOR_FILE_EXT = ".txt";
+const char* TileSheet::DESCRIPTOR_FILE_EXT = ".txt";
 
-Sprite::Sprite(void) {}
+TileSheet::TileSheet(void) {}
 
-Sprite::~Sprite(void) {}
+TileSheet::~TileSheet(void) {}
 
 
 /* Loading */
-bool Sprite::load(const char *filename, const char *ext, int type, int wraps, int wrapt, int magf, int minf, bool mipmap)
+bool TileSheet::load(const char *filename, const char *ext, int type, int wraps, int wrapt, int magf, int minf, bool mipmap)
 {
 	bool b = Texture::load(filename, ext, type, wraps, wrapt, magf, minf, mipmap);
 	if (!b) return false;
 	return loadDescriptionFile(filename);
 }
 
-bool Sprite::loadDescriptionFile(const char *filename)
+bool TileSheet::loadDescriptionFile(const char *filename)
 {
 	// Open the file
 	std::stringstream ss;
@@ -85,24 +85,24 @@ bool Sprite::loadDescriptionFile(const char *filename)
 }
 
 /* Getters */
-void Sprite::getTilePosition(int tileIndex, int *x, int *y)
+void TileSheet::getTilePosition(int tileIndex, int *x, int *y)
 {
 	*x = tileInfo[tileIndex].position.first;
 	*y = tileInfo[tileIndex].position.second;
 }
 
-TileType Sprite::getTileType(int tileIndex)
+TileType TileSheet::getTileType(int tileIndex)
 {
 	return tileInfo[tileIndex].type;
 }
 
-void Sprite::getTileSizeInPixels(int *width, int *height)
+void TileSheet::getTileSizeInPixels(int *width, int *height)
 {
 	*width = tileWidthInPixels;
 	*height = tileHeightInPixels;
 }
 
-void Sprite::getTileOffset(float *offsetX, float *offsetY)
+void TileSheet::getTileOffset(float *offsetX, float *offsetY)
 {
 	*offsetX = tileOffsetX;
 	*offsetY = tileOffsetY;
