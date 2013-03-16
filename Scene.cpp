@@ -16,29 +16,37 @@ bool Scene::loadLevel(int level, GameData *data)
 	obstacles.push_back(go);
 	bales.clear();
 	player = Player(50.0f, 50.0f, -1, 16, 16, true, 0.0f, 0.0f);
-	return levels[level - 1].load(level, data);
+	
+	// Loading layers
+	bool b = levels[level - 1].levelLayer.load(level, data);
+	if (!b) return false;
+	return levels[level - 1].mobileTilesLayer.load(level, data);
 }
 
 void Scene::render(int level, GameData *data)
 {
-	levels[level - 1].render(data);
-	for (int x = 0; x < obstacles.size(); x++) {
+	// Rendering layers
+	levels[level - 1].levelLayer.render(data);
+	levels[level - 1].mobileTilesLayer.render(data);
+
+
+	for (unsigned int x = 0; x < obstacles.size(); x++) {
 		obstacles[x].render();
 	}
 	player.render();
-	for (int i = 0; i < bales.size(); i++) {
+	for (unsigned int i = 0; i < bales.size(); i++) {
 		bales[i].render();
 	}
 }
 
 void Scene::getLevelSize(int level, int *width, int *height)
 {
-	levels[level - 1].getSizeInTiles(width, height);
+	levels[level - 1].levelLayer.getSizeInTiles(width, height);
 }
 
 void Scene::getLevelTileSize(int level, int *width, int *height)
 {
-	levels[level - 1].getTileSizeInPixels(width, height);
+	levels[level - 1].levelLayer.getTileSizeInPixels(width, height);
 }
 
 void Scene::resolveInput(InputHandler &input) {
@@ -98,7 +106,7 @@ void Scene::update()
 
 void Scene::getLevelSizeInPixels(int level, int &w, int &h) 
 {
-	levels[level - 1].getSizeInPixels(&w, &h);
+	levels[level - 1].levelLayer.getSizeInPixels(&w, &h);
 }
 
 void Scene::getCollisioningGameObjects(vector<GameObject> &v)

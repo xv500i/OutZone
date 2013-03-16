@@ -8,11 +8,12 @@
 
 struct MobileTile {
 	int index;
+	int x, y;			/* Actual position */
 	int xStart, yStart;	/* Start position */
 	int xEnd, yEnd;		/* End position */
-	float vx, vy;		/* Velocity */
+	float vx, vy;		/* Velocity. Restriction: vx has to be a divisor of xEnd - xStart (same for vy) */
 	int width, height;	/* Size */
-	int depth;
+	//int depth;
 	TileType type;
 	bool loop;			/* True = tile movement in loop (start-end-start-end...) */
 };
@@ -25,9 +26,10 @@ private:
 	const static char* FILE_NAME_SUFIX;
 	const static char* FILE_EXT;
 
+	unsigned int level;
 	std::vector<MobileTile> map;	/* Level mobile tiles array */
 
-	void renderTile(int tileIndex, int posX, int posY, GameData *data);
+	void renderTile(MobileTile *tile, GameData *data);
 
 public:
 	MobileTilesLayer(void);

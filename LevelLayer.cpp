@@ -82,7 +82,7 @@ void LevelLayer::renderTile(int tileIndex, int posX, int posY, GameData *data)
 
 	// Rendering
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, data->getSpriteID(GameData::LEVEL1_TILES_INDEX));
+	glBindTexture(GL_TEXTURE_2D, data->getSpriteID(GameData::LEVEL1_TILES_INDEX));	// TODO: Obtenir depenent del nivell!
 	glBegin(GL_QUADS);
 		glTexCoord2f(coordS, coordT);
 		glVertex2i(posX, heightInTiles*TILE_HEIGHT_IN_PIXELS - posY);

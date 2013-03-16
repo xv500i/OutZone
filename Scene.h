@@ -3,6 +3,7 @@
 
 #include <gl/glut.h>
 #include "LevelLayer.h"
+#include "MobileTilesLayer.h"
 #include "Player.h"
 #include "InputHandler.h"
 #include <vector>
@@ -11,11 +12,16 @@
 using namespace std;
 
 
+struct Level {
+	LevelLayer levelLayer;
+	MobileTilesLayer mobileTilesLayer;
+};
+
 class Scene
 {
 private:
 	const static int NUM_LEVELS = 1;
-	LevelLayer levels[NUM_LEVELS];
+	Level levels[NUM_LEVELS];
 	Player player;
 	vector<MobileGameObject> bales;
 	vector<GameObject> obstacles; 

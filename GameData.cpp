@@ -15,7 +15,7 @@ GameData::~GameData(void) {}
 /* Sprites */
 bool GameData::loadSprites()
 {
-	const char* filenames[NUM_SPRITES] = {"pokemon"}; 
+	const char* filenames[NUM_SPRITES] = {"pokemon", "pokemon2"}; 
 	for (unsigned int i = 0; i < sprites.size(); i++) {
 		bool b = sprites[i].load(filenames[i], SPRITE_EXT);
 		if (!b) return false;
