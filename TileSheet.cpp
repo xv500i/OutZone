@@ -79,7 +79,7 @@ bool TileSheet::loadDescriptionFile(const char *filename)
 		return true;
 	}
 	else {
-		std::cout << "Error carregant el fitxer de descripcio de l'sprite " << filename << std::endl;
+		std::cout << "Error carregant el fitxer de descripcio del tilesheet " << filename << std::endl;
 		return false;
 	}
 }

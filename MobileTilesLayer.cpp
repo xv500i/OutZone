@@ -70,14 +70,13 @@ bool MobileTilesLayer::load(int level, GameData *data)
 				if (sstr.peek() == ' ') sstr.ignore();
 				i++;
 			}
-			tile.type = data->getTileSheetTileType(GameData::LEVEL1_MOBILETILES_INDEX, tile.index);	// TODO: Obtenir depenent del nivell!
-			map.push_back(tile);
+			tile.type = data->getTileSheetTileType(getTileSheetIndex(), tile.index);
 		}
 		file.close();
 		return true;
 	}
 	else {
-		std::cout << "Error carregant el nivell " << level << std::endl;
+		std::cout << "Error carregant les tiles mobils del nivell " << level << std::endl;
 		return false;
 	}
 }
@@ -94,11 +93,11 @@ void MobileTilesLayer::renderTile(MobileTile *tile, GameData *data)
 {
 	// Obtain the tile offset
 	float tileOffsetX, tileOffsetY;
-	data->getTileSheetTileOffset(GameData::LEVEL1_MOBILETILES_INDEX, &tileOffsetX, &tileOffsetY);	// TODO: Obtenir depenent del nivell!
+	data->getTileSheetTileOffset(getTileSheetIndex(), &tileOffsetX, &tileOffsetY);
 
 	// Obtain the tile position inside the texture
 	int s, t;
-	data->getTileSheetTilePosition(GameData::LEVEL1_MOBILETILES_INDEX, tile->index, &s, &t);	// TODO: Obtenir depenent del nivell!
+	data->getTileSheetTilePosition(getTileSheetIndex(), tile->index, &s, &t);
 	float coordS = s*tileOffsetX;
 	float coordT = t*tileOffsetY;
 
@@ -119,7 +118,7 @@ void MobileTilesLayer::renderTile(MobileTile *tile, GameData *data)
 
 	// Rendering
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, data->getTileSheetID(GameData::LEVEL1_MOBILETILES_INDEX));	// TODO: Obtenir depenent del nivell!
+	glBindTexture(GL_TEXTURE_2D, data->getTileSheetID(getTileSheetIndex()));
 	glBegin(GL_QUADS);
 		glTexCoord2f(coordS, coordT);
 		glVertex2i(tile->x, tile->y);
@@ -134,4 +133,18 @@ void MobileTilesLayer::renderTile(MobileTile *tile, GameData *data)
 		glVertex2i(tile->x, tile->y - tile->height);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
+}
+
+/* Getters */
+int MobileTilesLayer::getTileSheetIndex()	// TODO: Descomentar a mesura que s'afegeixin tileSheets
+{
+	int level = getLevel();
+	switch (level) {
+	case 1: return GameData::LEVEL1_MOBILETILES_INDEX;
+	//case 2: return GameData::LEVEL2_MOBILETILES_INDEX;
+	//case 3: return GameData::LEVEL3_MOBILETILES_INDEX;
+	//case 4: return GameData::LEVEL4_MOBILETILES_INDEX;
+	//case 5: return GameData::LEVEL5_MOBILETILES_INDEX;
+	default: break;
+	}
 }

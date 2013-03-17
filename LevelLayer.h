@@ -27,6 +27,7 @@ private:
 	std::vector<Tile> map;	/* Level tiles array */
 
 	void renderTile(int tileIndex, int posX, int posY, GameData *data);
+	int getTileSheetIndex();
 
 public:
 	LevelLayer(void);

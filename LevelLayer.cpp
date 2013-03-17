@@ -41,7 +41,7 @@ bool LevelLayer::load(int level, GameData *data)
 			while (sstr >> tileIndex) {
 				Tile tile;
 				tile.index = tileIndex;
-				tile.type = data->getTileSheetTileType(GameData::LEVEL1_TILES_INDEX, tileIndex);	// TODO: Obtenir depenent del nivell!
+				tile.type = data->getTileSheetTileType(getTileSheetIndex(), tileIndex);
 				map.push_back(tile);
 				if (sstr.peek() == ',') sstr.ignore();
 				// Update level width
@@ -72,11 +72,11 @@ void LevelLayer::renderTile(int tileIndex, int posX, int posY, GameData *data)
 {
 	// Obtain the tile offset
 	float tileOffsetX, tileOffsetY;
-	data->getTileSheetTileOffset(GameData::LEVEL1_TILES_INDEX, &tileOffsetX, &tileOffsetY);	// TODO: Obtenir depenent del nivell!
+	data->getTileSheetTileOffset(getTileSheetIndex(), &tileOffsetX, &tileOffsetY);	
 
 	// Obtain the tile position inside the texture
 	int s, t;
-	data->getTileSheetTilePosition(GameData::LEVEL1_TILES_INDEX, tileIndex, &s, &t);	// TODO: Obtenir depenent del nivell!
+	data->getTileSheetTilePosition(getTileSheetIndex(), tileIndex, &s, &t);
 	float coordS = s*tileOffsetX;
 	float coordT = t*tileOffsetY;
 
@@ -120,4 +120,17 @@ void LevelLayer::getTileSizeInPixels(int *width, int *height)
 {
 	*width = TILE_WIDTH_IN_PIXELS;
 	*height = TILE_HEIGHT_IN_PIXELS;
+}
+
+int LevelLayer::getTileSheetIndex()	// TODO: Descomentar a mesura que s'afegeixin tileSheets
+{
+	int level = getLevel();
+	switch (level) {
+	case 1: return GameData::LEVEL1_TILES_INDEX;
+	//case 2: return GameData::LEVEL2_TILES_INDEX;
+	//case 3: return GameData::LEVEL3_TILES_INDEX;
+	//case 4: return GameData::LEVEL4_TILES_INDEX;
+	//case 5: return GameData::LEVEL5_TILES_INDEX;
+	default: break;
+	}
 }

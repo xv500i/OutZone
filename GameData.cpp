@@ -12,7 +12,7 @@ GameData::GameData(void)
 GameData::~GameData(void) {}
 
 
-/* Sprites */
+/* Tile Sheets */
 bool GameData::loadTileSheets()
 {
 	const char* filenames[NUM_TILESHEETS] = {"pokemon", "pokemon2"}; 

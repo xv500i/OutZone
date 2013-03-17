@@ -29,6 +29,7 @@ private:
 	std::vector<MobileTile> map;	/* Level mobile tiles array */
 
 	void renderTile(MobileTile *tile, GameData *data);
+	int getTileSheetIndex();
 
 public:
 	MobileTilesLayer(void);
