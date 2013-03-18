@@ -20,6 +20,8 @@ bool OutZone::init()
 {
 	// Graphics initialization
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glAlphaFunc(GL_GREATER, 0.05f);
+	glEnable(GL_ALPHA_TEST);
 
 	// Data loading
 	bool b = data.loadTileSheets();
