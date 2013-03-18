@@ -2,11 +2,13 @@
 #include "OutZone.h"
 #include <string>
 #include "Directions.h"
+#include <time.h>
+#include <random>
 
 
 OutZone::OutZone(void)
 {
-	
+	srand((unsigned)time(0));
 }
 
 OutZone::~OutZone(void)
