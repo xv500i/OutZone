@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include "Weapon.h"
 
 class Player :
 	public MobileGameObject
@@ -16,7 +17,8 @@ public:
 	void update();
 
 private:
-	const static long fireDelayMsec;
-	long waitToFire;
+	Weapon mainWeapon;
+	//const static long fireDelayMsec;
+	//long waitToFire;
 };
 
