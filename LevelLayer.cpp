@@ -131,6 +131,6 @@ int LevelLayer::getTileSheetIndex()	// TODO: Descomentar a mesura que s'afegeixi
 	//case 3: return GameData::LEVEL3_TILES_INDEX;
 	//case 4: return GameData::LEVEL4_TILES_INDEX;
 	//case 5: return GameData::LEVEL5_TILES_INDEX;
-	default: break;
+	default: return -1;
 	}
 }

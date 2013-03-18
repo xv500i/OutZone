@@ -71,6 +71,7 @@ bool MobileTilesLayer::load(int level, GameData *data)
 				i++;
 			}
 			tile.type = data->getTileSheetTileType(getTileSheetIndex(), tile.index);
+			map.push_back(tile);
 		}
 		file.close();
 		return true;
@@ -145,6 +146,6 @@ int MobileTilesLayer::getTileSheetIndex()	// TODO: Descomentar a mesura que s'af
 	//case 3: return GameData::LEVEL3_MOBILETILES_INDEX;
 	//case 4: return GameData::LEVEL4_MOBILETILES_INDEX;
 	//case 5: return GameData::LEVEL5_MOBILETILES_INDEX;
-	default: break;
+	default: return -1;
 	}
 }
