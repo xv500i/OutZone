@@ -37,10 +37,10 @@ bool Scene::loadLevel(int level, GameData *data)
 	return true;
 }
 
-void Scene::render(int level, GameData *data)
+void Scene::render(int level, GameData *data, Viewport *viewport)
 {
 	// Rendering layers
-	levels[level - 1].staticTilesLayer.render(data);
+	levels[level - 1].staticTilesLayer.render(data, viewport);
 	//levels[level - 1].mobileTilesLayer.render(data);
 
 	unsigned int i;

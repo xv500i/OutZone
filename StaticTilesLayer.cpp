@@ -127,9 +127,11 @@ bool StaticTilesLayer::loadHoverLayer(std::ifstream &file)
 }
 
 /* Rendering */
-void StaticTilesLayer::render(GameData *data) 
+void StaticTilesLayer::render(GameData *data, Viewport *viewport) 
 {
 	// TODO: renderitzar only les tiles visibles!
+
+
 	for (int i = 0; i < heightInTiles; i++) {
 		for (int j = 0; j < widthInTiles; j++) {
 			int index = backgroundLayer[i*widthInTiles + j].index;

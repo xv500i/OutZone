@@ -10,6 +10,7 @@
 #include <iterator>
 #include "Enemy.h"
 #include "Bullet.h"
+#include "Viewport.h"
 
 using namespace std;
 
@@ -35,7 +36,7 @@ public:
 	~Scene(void);
 
 	bool loadLevel(int level, GameData *data);
-	void render(int level, GameData *data);
+	void render(int level, GameData *data, Viewport *viewport);
 
 	void update();
 	void getLevelSizeInPixels(int level, int &w, int &h);

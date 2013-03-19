@@ -83,7 +83,7 @@ bool MobileTilesLayer::load(int level, GameData *data)
 }
 
 /* Rendering */
-void MobileTilesLayer::render(GameData *data) 
+void MobileTilesLayer::render(GameData *data, Viewport *viewport) 
 {
 	for (std::vector<MobileTile>::iterator it = map.begin(); it != map.end(); it++) {
 		renderTile(&(*it), data);

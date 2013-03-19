@@ -39,6 +39,6 @@ public:
 	virtual bool load(int level, GameData *data);
 
 	/* Rendering */
-	virtual void render(GameData *data);
+	virtual void render(GameData *data, Viewport *viewport);
 };
 

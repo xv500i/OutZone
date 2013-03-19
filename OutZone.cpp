@@ -31,11 +31,11 @@ bool OutZone::init()
 	if (!b) return false;
 
 	// Camera initialization
-	camera.initOrtho(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
+	viewport.initOrtho(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
 	int width, height;
 	scene.getLevelSizeInPixels(1, width, height);
-	camera.setOrthoLimits(0.0f, height, width, 0.0f);
-	camera.loadOrtho();
+	viewport.setOrthoLimits(0.0f, height, width, 0.0f);
+	viewport.loadOrtho();
 
 	return true;
 }
@@ -56,15 +56,15 @@ void OutZone::handleMouse(int button, int state, int x, int y) {}
 bool OutZone::process() 
 {
 	// Camera movement. TODO: Canviar Hardcoded!
-	if (input.keyIsDown(input.getMoveUpKey())) camera.setOrthoVY(5.0f);
-	else if (input.keyIsDown(input.getMoveDownKey())) camera.setOrthoVY(-5.0f);
-	else camera.setOrthoVY(0.0f);
+	if (input.keyIsDown(input.getMoveUpKey())) viewport.setOrthoVY(5.0f);
+	else if (input.keyIsDown(input.getMoveDownKey())) viewport.setOrthoVY(-5.0f);
+	else viewport.setOrthoVY(0.0f);
 
 	// Input
 	scene.resolveInput(input);
 
 	// Update camera
-	camera.updateOrtho();
+	viewport.updateOrtho();
 
 	// Update player
 	scene.update();
@@ -79,10 +79,10 @@ void OutZone::render()
 	glLoadIdentity();
 
 	/* Camera updating */
-	camera.loadOrtho();
+	viewport.loadOrtho();
 
 	/* Scene drawing */
-	scene.render(1, &data);
+	scene.render(1, &data, &viewport);
 
 	glutSwapBuffers();
 }

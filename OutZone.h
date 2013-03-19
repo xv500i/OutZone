@@ -5,7 +5,7 @@
 #include "InputHandler.h"
 #include "Scene.h"
 #include "GameData.h"
-#include "Camera.h"
+#include "Viewport.h"
 
 class OutZone
 {
@@ -13,7 +13,7 @@ private:
 	InputHandler input;	/* Game input handler */
 	Scene scene;		/* Game scene */
 	GameData data;		/* Game data */
-	Camera camera;		/* Game camera */
+	Viewport viewport;	/* Game viewport */
 	
 
 public:
