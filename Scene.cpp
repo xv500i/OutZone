@@ -21,9 +21,11 @@ bool Scene::loadLevel(int level, GameData *data)
 	GameObject go4(120.0f, 100.0f, -1, 15, 15, false);
 	obstacles.push_back(go4);
 	playerShots.clear();
-	Enemy en(300.0f, 100.f, -1, 16, 16, true); 
+	Enemy en(120.0f, 130.f, -1, 16, 16, true);
+	en.setPhantom(false);
 	enemies.push_back(en);
-	Enemy en2(300.0f, 50.f, -1, 16, 16, true); 
+	Enemy en2(300.0f, 50.f, -1, 16, 16, true);
+	en2.setPhantom(false);
 	enemies.push_back(en2);
 	player = Player(50.0f, 50.0f, -1, 16, 16, true, 0.0f, 0.0f);
 	player.setPhantom(false);
