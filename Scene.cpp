@@ -53,27 +53,78 @@ void Scene::getLevelTileSize(int level, int *width, int *height)
 void Scene::resolveInput(InputHandler &input) {
 	// player control
 	// HARDCODED
-	float vDes = 5.0f;
-	// TODO COLISIONS
-	if (input.keyIsDown(input.getMoveUpKey())) {
-		player.setVY(vDes);
-	} else if (input.keyIsDown(input.getMoveDownKey())) {
-		player.setVY(-vDes);
+	Directions d;
+	bool up = input.keyIsDown(input.getMoveUpKey());
+	bool down = input.keyIsDown(input.getMoveDownKey());
+	bool left = input.keyIsDown(input.getMoveLeftKey());
+	bool right = input.keyIsDown(input.getMoveRightKey());
+	bool something = up || down || right || left;
+	if (up) {
+		if (right) {
+			d = UP_RIGHT;	
+		} else if (left) {
+			d = UP_LEFT;
+		} else {
+			d = UP;
+		}
+		
+	} else if (down) {
+		if (right) {
+			d = DOWN_RIGHT;
+		} else if (left) {
+			d = DOWN_LEFT;
+		} else {
+			d = DOWN;
+		}
+	} else if (right) {
+		d = RIGHT;
+	} else if (left) {
+		d = LEFT;
 	} else {
-		player.setVY(0.0f);
-	}
-	if (input.keyIsDown(input.getMoveRightKey())) {
-		player.setVX(vDes);
-	} else if (input.keyIsDown(input.getMoveLeftKey())) {
-		player.setVX(-vDes);
-	} else {
-		player.setVX(0.0f);
+	
 	}
 
+	
+	float vx = 0.0f, vy = 0.0f;
+	float catet = 5.0f;
+	float absv = sqrt(catet*catet*2);
+	if (something) {
+		switch (d) {
+			case UP:
+				vy = absv;
+				break;
+			case DOWN:
+				vy = -absv;
+				break;
+			case LEFT:
+				vx = -absv;
+				break;
+			case RIGHT:
+				vx = absv;
+				break;
+			case UP_RIGHT:
+				vx = catet;
+				vy = catet;
+				break;
+			case DOWN_RIGHT:
+				vx = catet;
+				vy = -catet;
+				break;
+			case UP_LEFT:
+				vx = -catet;
+				vy = catet;
+				break;
+			case DOWN_LEFT:
+				vx = -catet;
+				vy = -catet;
+				break;
+		}
+	}
+	player.setVX(vx);
+	player.setVY(vy);
 	if (input.keyIsDown(input.getPrimaryWeaponKey())) {
 		player.shotPrimaryWeapon(bales);
 	}
-	
 }
 
 void Scene::update()
@@ -81,10 +132,10 @@ void Scene::update()
 	int maxX, maxY, minX, minY;
 	minX = minY = 0;
 	getLevelSizeInPixels(currentLevel, maxX, maxY);
-	player.update();
+	player.update(obstacles);
 	int size = bales.size();
 	for (std::vector<MobileGameObject>::iterator it = bales.begin() ; it != bales.end(); ) {
-		it->update();
+		it->update(obstacles);
 		float x = it->getX();
 		float y = it->getY();
 		vector<GameObject> v;
@@ -112,5 +163,6 @@ void Scene::getLevelSizeInPixels(int level, int &w, int &h)
 
 void Scene::getCollisioningGameObjects(vector<GameObject> &v)
 {
+	// FIXME I'M FAMOUS
 	v = obstacles;
 }

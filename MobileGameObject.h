@@ -1,6 +1,8 @@
 #pragma once
 #include "gameobject.h"
 #include "Directions.h"
+#include <vector>
+
 class MobileGameObject :
 	public GameObject
 {
@@ -12,8 +14,9 @@ public:
 	float getVY() const;
 	void setVX(const float v);
 	void setVY(const float v);
-	void update();
+	void update(std::vector<GameObject> &collisionableObjects);
 	Directions getDirection() const;
+	void collision(GameObject &g);
 
 private:
 	float vx;

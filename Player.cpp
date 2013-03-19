@@ -10,6 +10,7 @@ Player::Player(const float x, const float y, const int idTexture, const int widt
 {
 	//waitToFire = 0;
 	mainWeapon = Weapon(5, 20, 30, 30, 1, 0.0f, 0.1f);
+	type = 'p';
 }
 
 Player::~Player(void)
@@ -76,9 +77,9 @@ void Player::shotPrimaryWeapon(std::vector<MobileGameObject> &v)
 	
 }
 
-void Player::update()
+void Player::update(std::vector<GameObject> &collisionableObjects)
 {
-	MobileGameObject::update();
+	MobileGameObject::update(collisionableObjects);
 	mainWeapon.update();
 	//waitToFire = std::max(0L,waitToFire - 1);
 }

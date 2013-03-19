@@ -5,6 +5,7 @@ GameObject::GameObject(const float x, const float y, const int idTexture, const 
 {
 	
 	this->b = new BoundingBox(y+length/2, y-length/2, x-width/2, x+width/2);
+	type = 'u';
 }
 
 GameObject::GameObject()
@@ -79,5 +80,10 @@ void GameObject::setLength(int x)
 void GameObject::updateBBox(const float x, const float y)
 {
 	b->translate(x,y);
+}
+
+BoundingBox* GameObject::getBoundingBox() const
+{
+	return b;
 }
 

@@ -25,6 +25,10 @@ public:
 	void setWidth(int x);
 	void setLength(int x);
 	void updateBBox(const float x, const float y);
+	BoundingBox* getBoundingBox() const;
+
+protected:
+	char type;
 
 private:
 	float x;
