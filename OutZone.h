@@ -17,7 +17,7 @@ private:
 	
 
 public:
-	const static int GAME_WIDTH = 640;
+	const static int GAME_WIDTH = 240;
 	const static int GAME_HEIGHT = 480;
 	const static int FRAMERATE = 50;
 
