@@ -7,6 +7,7 @@ GuardPathState::GuardPathState(void)
 
 GuardPathState::GuardPathState(int nextState, float vx, float vy , int ticksMax) : nextState(nextState), vx(vx), vy(vy), ticksMax(ticksMax)
 {
+
 }
 
 

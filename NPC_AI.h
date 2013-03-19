@@ -4,11 +4,11 @@
 #define NPC_AI_H
 
 #include <vector>
-#include "State.h"
+#include "GuardPathState.h"
 #include "Enemy.h"
 
 class Enemy;
-class State;
+class GuardPathState;
 
 class NPC_AI
 {
@@ -17,10 +17,10 @@ public:
 	NPC_AI(int numberOfStates, int initialState = 0);
 	~NPC_AI(void);
 	void update(Enemy &e);
-	void setState(int i, State &e);
+	void setState(int i, GuardPathState &e);
 	void initialize();
 private:
-	std::vector<State> states;
+	std::vector<GuardPathState> states;
 	int actualState;
 };
 
