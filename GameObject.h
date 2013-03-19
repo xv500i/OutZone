@@ -26,13 +26,17 @@ public:
 	void setLength(int x);
 	void updateBBox(const float x, const float y);
 	BoundingBox* getBoundingBox() const;
-
+	void collision(GameObject &g);
+	char getType()const;
+	bool shouldNotEnterObjects() const;
+	void setPhantom(bool b);
 protected:
 	char type;
 
 private:
 	float x;
 	float y;
+	bool phantom;
 	int idTexture;
 	BoundingBox *b;
 	int width;

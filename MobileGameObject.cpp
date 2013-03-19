@@ -46,33 +46,28 @@ void MobileGameObject::update(std::vector<GameObject> &collisionableObjects)
 	float actualY = getY();
 	float tempX = getX() + vx;
 	float tempY = getY() + vy;
-	updateBBox(vx, vy);
-	// look for any x or y restriction
-	for(std::vector<GameObject>::iterator ito = collisionableObjects.begin(); ito != collisionableObjects.end(); ito++) {
-		if (isIntersecting(*ito)) {
-			// test X
-			updateBBox(0, -vy);
+
+	if (shouldNotEnterObjects()) {
+		updateBBox(vx, vy);
+		// look for any x or y restriction
+		for(std::vector<GameObject>::iterator ito = collisionableObjects.begin(); ito != collisionableObjects.end(); ito++) {
 			if (isIntersecting(*ito)) {
-				tempX = actualX;	
-			}
-			updateBBox(-vx, vy);
-			// test Y
-			if (isIntersecting(*ito)) {
-				tempY = actualY;	
-			}
-			updateBBox(vx, 0);
+				// test X
+				updateBBox(0, -vy);
+				if (isIntersecting(*ito)) {
+					tempX = actualX;	
+				}
+				updateBBox(-vx, vy);
+				// test Y
+				if (isIntersecting(*ito)) {
+					tempY = actualY;	
+				}
+				updateBBox(vx, 0);
 			
+			}
 		}
-		/*
-		// x check
-			// rigth border
-		if (ito->getBoundingBox()->containsX(tempX+getWidth()/2)) {
-			tempX = actualX;
-		}
-		*/
+		updateBBox(-vx, -vy);
 	}
-	updateBBox(-vx, -vy);
-	
 	
 	setX(tempX);
 	setY(tempY);
@@ -109,5 +104,7 @@ Directions MobileGameObject::getDirection() const
 
 void MobileGameObject::collision(GameObject &g)
 {
+	if (g.getType() == 'm') {
 	
+	}
 }

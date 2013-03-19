@@ -15,6 +15,7 @@ public:
 	//void render() const;
 	void shotPrimaryWeapon(std::vector<MobileGameObject> &v);
 	void update(std::vector<GameObject> &collisionableObjects);
+	void collision(GameObject &g);
 
 private:
 	Weapon mainWeapon;

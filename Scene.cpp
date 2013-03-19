@@ -14,8 +14,15 @@ bool Scene::loadLevel(int level, GameData *data)
 	currentLevel = level;
 	GameObject go(100.0f, 100.0f, -1, 30, 30, false);
 	obstacles.push_back(go);
+	GameObject go2(75.0f, 300.0f, -1, 60, 30, false);
+	obstacles.push_back(go2);
+	GameObject go3(100.0f, 200.0f, -1, 30, 60, false);
+	obstacles.push_back(go3);
+	GameObject go4(120.0f, 100.0f, -1, 15, 15, false);
+	obstacles.push_back(go4);
 	bales.clear();
 	player = Player(50.0f, 50.0f, -1, 16, 16, true, 0.0f, 0.0f);
+	player.setPhantom(false);
 	
 	// Loading layers
 	bool b = levels[level - 1].staticTilesLayer.load(level, data);

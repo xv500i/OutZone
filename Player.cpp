@@ -83,3 +83,8 @@ void Player::update(std::vector<GameObject> &collisionableObjects)
 	mainWeapon.update();
 	//waitToFire = std::max(0L,waitToFire - 1);
 }
+
+void Player::collision(GameObject &g)
+{
+	
+}

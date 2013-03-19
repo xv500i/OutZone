@@ -3,7 +3,7 @@
 
 GameObject::GameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable) : x(x), y(y), idTexture(idTexture), width(width), length(length)
 {
-	
+	phantom = true;
 	this->b = new BoundingBox(y+length/2, y-length/2, x-width/2, x+width/2);
 	type = 'u';
 }
@@ -87,3 +87,22 @@ BoundingBox* GameObject::getBoundingBox() const
 	return b;
 }
 
+void GameObject::collision(GameObject &g)
+{
+	
+}
+
+char GameObject::getType() const
+{
+	return type;
+}
+
+bool GameObject::shouldNotEnterObjects() const
+{
+	return !phantom;
+}
+
+void GameObject::setPhantom(bool b)
+{
+	phantom = b;
+}
