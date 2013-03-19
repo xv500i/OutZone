@@ -10,6 +10,7 @@ Player::Player(const float x, const float y, const int idTexture, const int widt
 {
 	//waitToFire = 0;
 	mainWeapon = Weapon(3, 10, 30, 30, 1, 0.0f, 0.2f);
+	mainWeapon.setTicksMax(100);
 	type = 'p';
 }
 
@@ -29,7 +30,7 @@ void Player::render() const
 	glEnd();
 }
 */
-void Player::shotPrimaryWeapon(std::vector<MobileGameObject> &v) 
+void Player::shotPrimaryWeapon(std::vector<Bullet> &v) 
 {
 
 	

@@ -9,6 +9,7 @@
 #include <vector>
 #include <iterator>
 #include "Enemy.h"
+#include "Bullet.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ private:
 	const static int NUM_LEVELS = 1;
 	Level levels[NUM_LEVELS];
 	Player player;
-	vector<MobileGameObject> playerShots;
+	vector<Bullet> playerShots;
 	vector<GameObject> obstacles;
 	vector<Enemy> enemies;
 	int currentLevel;

@@ -153,7 +153,7 @@ void Scene::update()
 	getLevelSizeInPixels(currentLevel, maxX, maxY);
 	
 	int size = playerShots.size();
-	for (std::vector<MobileGameObject>::iterator it = playerShots.begin() ; it != playerShots.end(); ) {
+	for (std::vector<Bullet>::iterator it = playerShots.begin() ; it != playerShots.end(); ) {
 		it->update(obstacles);
 		float x = it->getX();
 		float y = it->getY();
@@ -166,7 +166,7 @@ void Scene::update()
 			for(std::vector<GameObject>::iterator ito = obstacles.begin(); !hasCollisioned && ito != obstacles.end(); ito++) {
 				hasCollisioned = it->isIntersecting(*ito);
 			}
-			if (!hasCollisioned) it++;
+			if (!hasCollisioned && !it->isDead()) it++;
 			else {
 				it = playerShots.erase(it);
 			}
