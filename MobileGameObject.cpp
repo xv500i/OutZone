@@ -108,3 +108,45 @@ void MobileGameObject::collision(GameObject &g)
 	
 	}
 }
+
+void MobileGameObject::render() const
+{
+	float angle;
+	switch(dir){
+	case UP:
+		angle = 0.0f;
+		break;
+	case UP_RIGHT:
+		angle = 45.0f;
+		break;
+	case RIGHT:
+		angle = 90.0f;
+		break;
+	case DOWN_RIGHT:
+		angle = 135.0f;
+		break;
+	case DOWN:
+		angle = 180.0f;
+		break;
+	case DOWN_LEFT:
+		angle = 225.0f;
+		break;
+	case LEFT:
+		angle = 270.0f;
+		break;
+	case UP_LEFT:
+		angle = 315.0f;
+		break;
+	}
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glPushMatrix();
+	glTranslatef(getX(), getY(), 0.0f);
+	glRotatef(angle, 0.0f, 0.0f, 1.0f);
+	glBegin(GL_QUADS);
+		glVertex3i(- getWidth()/2 , - getLength()/2, 1);
+		glVertex3i(- getWidth()/2 , + getLength()/2, 1);
+		glVertex3i(+ getWidth()/2 , + getLength()/2, 1);
+		glVertex3i(+ getWidth()/2 , - getLength()/2, 1);
+	glEnd();
+	glPopMatrix();
+}
