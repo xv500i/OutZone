@@ -8,10 +8,12 @@ Enemy::Enemy(void)
 Enemy::Enemy(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx, const float vy)
 	: MobileGameObject(x, y, idTexture, width, length, isWalkable, vx, vy)
 {
-	GuardPathState *s1 = new GuardPathState(1, 5.0f, 0.0f, 30);
-	GuardPathState *s2 = new GuardPathState(2, 0.0f, 5.0f, 30);
-	GuardPathState *s3 = new GuardPathState(3, -5.0f, 0.0f, 30);
-	GuardPathState *s4 = new GuardPathState(0, 0.0f, -5.0f, 30);
+	float v = 3.0f;
+	int ticks = 60;
+	GuardPathState *s1 = new GuardPathState(1, v, 0.0f, ticks);
+	GuardPathState *s2 = new GuardPathState(2, 0.0f, v, ticks);
+	GuardPathState *s3 = new GuardPathState(3, -v, 0.0f, ticks);
+	GuardPathState *s4 = new GuardPathState(0, 0.0f, -v, ticks);
 	ai = new NPC_AI(4,0);
 	ai->setState(0, *s1);
 	ai->setState(1, *s2);
