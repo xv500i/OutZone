@@ -22,6 +22,7 @@ bool OutZone::init()
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glAlphaFunc(GL_GREATER, 0.05f);
 	glEnable(GL_ALPHA_TEST);
+	glEnable(GL_DEPTH_TEST);
 
 	// Data loading
 	bool b = data.loadTileSheets();
@@ -73,7 +74,7 @@ bool OutZone::process()
 
 void OutZone::render() 
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glLoadIdentity();
 

@@ -61,7 +61,8 @@ bool StaticTilesLayer::loadHeader(std::ifstream &file)
 			else if (line.find("height") != std::string::npos) heightInTiles = atoi(line.substr(line.find("=") + 1).c_str());
 			else return false;
 		}
-		map = std::vector<Tile>(widthInTiles*heightInTiles);
+		backgroundLayer = std::vector<Tile>(widthInTiles*heightInTiles);
+		hoverLayer = std::vector<Tile>(widthInTiles*heightInTiles);
 		return true;
 	}
 	else return false;
@@ -79,9 +80,9 @@ bool StaticTilesLayer::loadCollisionLayer(std::ifstream &file)
 				int type;
 				ss >> type;
 				ss.ignore();	// Ignorem la coma
-				if (type == 1) map[i*widthInTiles + j].type = WALL;
-				else if (type == 2) map[i*widthInTiles + j].type = HOLE;
-				else map[i*widthInTiles + j].type = LAND;
+				if (type == 1) backgroundLayer[i*widthInTiles + j].type = WALL;
+				else if (type == 2) backgroundLayer[i*widthInTiles + j].type = HOLE;
+				else backgroundLayer[i*widthInTiles + j].type = LAND;
 			}
 		}
 		return true;
@@ -98,12 +99,7 @@ bool StaticTilesLayer::loadBackgroundLayer(std::ifstream &file)
 			getline(file, line);
 			std::stringstream ss(line);
 			for (int j = 0; j < widthInTiles; j++) {
-				int index;
-				ss >> index; 
-				if (index != 0) {
-					map[i*widthInTiles + j].index = index;
-					map[i*widthInTiles + j].depth = 0;
-				}
+				ss >> backgroundLayer[i*widthInTiles + j].index;
 				ss.ignore();	// Ignorem la coma
 			}
 		}
@@ -121,12 +117,7 @@ bool StaticTilesLayer::loadHoverLayer(std::ifstream &file)
 			getline(file, line);
 			std::stringstream ss(line);
 			for (int j = 0; j < widthInTiles; j++) {
-				int index;
-				ss >> index; 
-				if (index != 0) {
-					map[i*widthInTiles + j].index = index;
-					map[i*widthInTiles + j].depth = -1;
-				}
+				ss >> hoverLayer[i*widthInTiles + j].index;
 				ss.ignore();	// Ignorem la coma
 			}
 		}
@@ -138,14 +129,18 @@ bool StaticTilesLayer::loadHoverLayer(std::ifstream &file)
 /* Rendering */
 void StaticTilesLayer::render(GameData *data) 
 {
+	// TODO: renderitzar only les tiles visibles!
 	for (int i = 0; i < heightInTiles; i++) {
 		for (int j = 0; j < widthInTiles; j++) {
-			renderTile(map[i*widthInTiles + j].index, tileWidthInPixels*j, tileHeightInPixels*i, data);
+			int index = backgroundLayer[i*widthInTiles + j].index;
+			if (index != 0) renderTile(index, tileWidthInPixels*j, tileHeightInPixels*i, 0, data);
+			index = hoverLayer[i*widthInTiles + j].index;
+			if (index != 0) renderTile(index, tileWidthInPixels*j, tileHeightInPixels*i, 2, data);
 		}
 	}
 }
 
-void StaticTilesLayer::renderTile(int tileIndex, int posX, int posY, GameData *data) 
+void StaticTilesLayer::renderTile(int tileIndex, int posX, int posY, int depth, GameData *data) 
 {
 	// Obtain the tile offset
 	float tileOffsetX, tileOffsetY;
@@ -163,16 +158,16 @@ void StaticTilesLayer::renderTile(int tileIndex, int posX, int posY, GameData *d
 	glBindTexture(GL_TEXTURE_2D, data->getTileSheetID(getTileSheetIndex()));
 	glBegin(GL_QUADS);
 		glTexCoord2f(coordS, coordT);
-		glVertex2i(posX, heightInTiles*tileHeightInPixels - posY);
+		glVertex3i(posX, heightInTiles*tileHeightInPixels - posY, depth);
 
 		glTexCoord2f(coordS + tileOffsetX, coordT);
-		glVertex2i(posX + tileWidthInPixels, heightInTiles*tileHeightInPixels - posY);
+		glVertex3i(posX + tileWidthInPixels, heightInTiles*tileHeightInPixels - posY, depth);
 
 		glTexCoord2f(coordS + tileOffsetX, coordT + tileOffsetY);
-		glVertex2i(posX + tileWidthInPixels, heightInTiles*tileHeightInPixels - (posY + tileHeightInPixels));
+		glVertex3i(posX + tileWidthInPixels, heightInTiles*tileHeightInPixels - (posY + tileHeightInPixels), depth);
 
 		glTexCoord2f(coordS, coordT + tileOffsetY);
-		glVertex2i(posX, heightInTiles*tileHeightInPixels - (posY + tileHeightInPixels));
+		glVertex3i(posX, heightInTiles*tileHeightInPixels - (posY + tileHeightInPixels), depth);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 }

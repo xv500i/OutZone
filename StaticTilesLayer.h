@@ -10,7 +10,6 @@
 struct Tile {
 	int index;
 	TileType type;
-	int depth;
 };
 
 class StaticTilesLayer : public Layer
@@ -24,7 +23,8 @@ private:
 	int heightInTiles;		/* Level height in tiles */
 	int tileWidthInPixels;	/* Tile width in pixels */
 	int tileHeightInPixels;	/* Tile height in pixels */
-	std::vector<Tile> map;	/* Level tiles array */
+	std::vector<Tile> backgroundLayer;	/* Background layer tiles array */
+	std::vector<Tile> hoverLayer;		/* Hover layer tiles array */
 
 	/* Loading */
 	bool loadHeader(std::ifstream &file);
@@ -32,7 +32,7 @@ private:
 	bool loadBackgroundLayer(std::ifstream &file);
 	bool loadHoverLayer(std::ifstream &file);
 
-	void renderTile(int tileIndex, int posX, int posY, GameData *data);
+	void renderTile(int tileIndex, int posX, int posY, int depth, GameData *data);
 	int getTileSheetIndex();
 
 public:

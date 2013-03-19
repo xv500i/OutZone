@@ -22,10 +22,10 @@ void GameObject::render() const
 {
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_QUADS);
-		glVertex2i(getX() - width/2 , getY() - length/2);
-		glVertex2i(getX() - width/2 , getY() + length/2);
-		glVertex2i(getX() + width/2 , getY() + length/2);
-		glVertex2i(getX() + width/2 , getY() - length/2);
+		glVertex3i(getX() - width/2 , getY() - length/2, 1);
+		glVertex3i(getX() - width/2 , getY() + length/2, 1);
+		glVertex3i(getX() + width/2 , getY() + length/2, 1);
+		glVertex3i(getX() + width/2 , getY() - length/2, 1);
 	glEnd();
 }
 

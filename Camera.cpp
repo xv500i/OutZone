@@ -2,7 +2,8 @@
 #include "Camera.h"
 
 
-const float Camera::ORTHO_ZNEAR = -1.0f;
+// 0 = background, 1 = objects, 2 = hover, 3 = clouds
+const float Camera::ORTHO_ZNEAR = -3.0f;
 const float Camera::ORTHO_ZFAR = 1.0f;
 
 Camera::Camera(void) {}
