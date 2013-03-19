@@ -30,12 +30,12 @@ void Viewport::init(float left, float top, float width, float height)
 void Viewport::updateWithPosition(int x, int y)
 {
 	float newLeft = x - width/2;
-	float newTop = y + height/2;
+	float newTop = y + height*2/3;
 
+	// Viewport limit control
 	if (newLeft < minLeft) left = minLeft;
 	else if (newLeft > maxRight - width) left = maxRight - width;
 	else left = newLeft;
-
 	if (newTop > maxTop) top = maxTop;
 	else if (newTop < minBottom + height) top = minBottom + height; 
 	else top = newTop;
