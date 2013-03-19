@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef STATE_H
+#define STATE_H
+
 #include "Enemy.h"
 class State
 {
@@ -13,3 +17,4 @@ private:
 	int nextState;
 };
 
+#endif

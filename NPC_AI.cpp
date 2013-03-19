@@ -20,5 +20,17 @@ void NPC_AI::update(Enemy &e)
 	s->update(e);
 	if (s->isFinished()) {
 		actualState = s->getNextState();
+		State *next = &states[actualState];
+		next->initialize();
 	}
+}
+
+void NPC_AI::initialize()
+{
+	states[actualState].initialize();
+}
+
+void NPC_AI::setState(int i, State &s)
+{
+	states[i] = s;
 }
