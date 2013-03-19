@@ -132,13 +132,13 @@ void StaticTilesLayer::render(GameData *data, Viewport *viewport)
 	// Get min and max X and Y of the tiles that are on-screen
 	int minX, maxX, minY, maxY;
 	minX = viewport->getLeft()/tileWidthInPixels;
-	minY = (viewport->getTop() + viewport->getHeight())/tileHeightInPixels;
+	minY = heightInTiles - viewport->getTop()/tileHeightInPixels;
 	maxX = (viewport->getLeft() + viewport->getWidth())/tileWidthInPixels;
-	maxY = viewport->getTop()/tileHeightInPixels;
+	maxY = heightInTiles - (viewport->getTop() - viewport->getHeight())/tileHeightInPixels;
 
 	for (int i = 0; i < heightInTiles; i++) {
 		for (int j = 0; j < widthInTiles; j++) {
-			if (j > minX && j < maxX && i > minY && i < maxY) {		// Render only if on-screen
+			if (j >= minX && j <= maxX && i >= minY && i <= maxY) {	// Render only if visible
 				int index = backgroundLayer[i*widthInTiles + j].index;
 				if (index != 0) renderTile(index, tileWidthInPixels*j, tileHeightInPixels*i, 0, data);
 				index = hoverLayer[i*widthInTiles + j].index;
