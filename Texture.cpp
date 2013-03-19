@@ -42,12 +42,8 @@ bool Texture::load(const char *filename, const char *ext, int type, int wraps, i
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minf);
 
 	// Texture loading
-	if (!mipmap) {
-		glTexImage2D(GL_TEXTURE_2D, 0, components, widthInPixels, heightInPixels, 0, type, GL_UNSIGNED_BYTE, img->getPixels());
-	}
-	else {
-		gluBuild2DMipmaps(GL_TEXTURE_2D, components, widthInPixels, heightInPixels, type, GL_UNSIGNED_BYTE, img->getPixels());
-	}
+	if (!mipmap) glTexImage2D(GL_TEXTURE_2D, 0, components, widthInPixels, heightInPixels, 0, type, GL_UNSIGNED_BYTE, img->getPixels());
+	else gluBuild2DMipmaps(GL_TEXTURE_2D, components, widthInPixels, heightInPixels, type, GL_UNSIGNED_BYTE, img->getPixels());
 	return true;
 }
 

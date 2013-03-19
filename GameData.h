@@ -43,11 +43,10 @@ public:
 	/* Tile Sheets */
 	bool loadTileSheets();
 	int getTileSheetID(int tileSheetIndex);
+	void getTileSheetSizeInPixels(int tileSheetIndex, int *width, int *height);
 	void getTileSheetTilePosition(int tileSheetIndex, int tileIndex, int *x, int *y);
-	TileType getTileSheetTileType(int tileSheetIndex, int tileIndex);
 	void getTileSheetTileSizeInPixels(int tileSheetIndex, int *width, int *height);
 	void getTileSheetTileOffset(int tileSheetIndex, float *offsetX, float *offsetY);
-	void getTileSheetSizeInPixels(int tileSheetIndex, int *width, int *height);
 
 	/* Sprites */
 	bool loadSprites();

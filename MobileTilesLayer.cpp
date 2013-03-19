@@ -70,7 +70,7 @@ bool MobileTilesLayer::load(int level, GameData *data)
 				if (sstr.peek() == ' ') sstr.ignore();
 				i++;
 			}
-			tile.type = data->getTileSheetTileType(getTileSheetIndex(), tile.index);
+			//tile.type = data->getTileSheetTileType(getTileSheetIndex(), tile.index);
 			map.push_back(tile);
 		}
 		file.close();

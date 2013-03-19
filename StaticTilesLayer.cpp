@@ -55,8 +55,8 @@ bool StaticTilesLayer::loadHeader(std::ifstream &file)
 	if (file.is_open()) {
 		for (unsigned int i = 0; i < 4; i++) {
 			getline(file, line);
-			if (line.find("tilewidth") != std::string::npos) tileWidthInPixels = atoi(line.substr(line.find("=") + 1).c_str());
-			else if (line.find("tileheight") != std::string::npos) tileHeightInPixels = atoi(line.substr(line.find("=") + 1).c_str());
+			if (line.find("tilewidth") != std::string::npos) tileWidthInPixels = 2*atoi(line.substr(line.find("=") + 1).c_str());
+			else if (line.find("tileheight") != std::string::npos) tileHeightInPixels = 2*atoi(line.substr(line.find("=") + 1).c_str());
 			else if (line.find("width") != std::string::npos) widthInTiles = atoi(line.substr(line.find("=") + 1).c_str());
 			else if (line.find("height") != std::string::npos) heightInTiles = atoi(line.substr(line.find("=") + 1).c_str());
 			else return false;
@@ -149,15 +149,12 @@ void StaticTilesLayer::renderTile(int tileIndex, int posX, int posY, GameData *d
 {
 	// Obtain the tile offset
 	float tileOffsetX, tileOffsetY;
-	tileOffsetX = 16.0f/512.0f;
-	tileOffsetY = 16.0f/1024.0f;
-	//data->getTileSheetTileOffset(getTileSheetIndex(), &tileOffsetX, &tileOffsetY);	
+	data->getTileSheetTileOffset(getTileSheetIndex(), &tileOffsetX, &tileOffsetY);	
 
 	// Obtain the tile position inside the texture
+	int s, t;
 	int index = tileIndex - 1;
-	int t = index/32;
-	int s = index%32;
-	//data->getTileSheetTilePosition(getTileSheetIndex(), tileIndex, &s, &t);
+	data->getTileSheetTilePosition(getTileSheetIndex(), tileIndex, &s, &t);
 	float coordS = s*tileOffsetX;
 	float coordT = t*tileOffsetY;
 

@@ -3,13 +3,7 @@
 
 #include <vector>
 #include "Texture.h"
-#include "TileType.h"
 
-
-struct TileInfo {
-	std::pair<int, int> position;
-	TileType type;
-};
 
 class TileSheet : public Texture
 {
@@ -21,7 +15,6 @@ private:
 	int tileHeightInPixels;		/* Tile height in pixels */
 	float tileOffsetX;			/* Tile offset of X axis */
 	float tileOffsetY;			/* Tile offset of Y axis */
-	std::vector<TileInfo> tileInfo;		/* Tile positions inside the texture and type*/
 
 	bool loadDescriptionFile(const char *filename);
 
@@ -35,7 +28,6 @@ public:
 
 	/* Getters */
 	void getTilePosition(int tileIndex, int *x, int *y);
-	TileType getTileType(int tileIndex);
 	void getTileSizeInPixels(int *width, int *height);
 	void getTileOffset(float *offsetX, float *offsetY);
 };
