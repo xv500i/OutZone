@@ -4,6 +4,9 @@
 #define STATE_H
 
 #include "Enemy.h"
+
+class Enemy;
+
 class State
 {
 public:

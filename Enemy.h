@@ -3,8 +3,11 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-//#include "NPC_AI.h"
 #include "mobilegameobject.h"
+#include "NPC_AI.h"
+
+class NPC_AI;
+
 class Enemy :
 	public MobileGameObject
 {
@@ -15,7 +18,7 @@ public:
 	void update(std::vector<GameObject> &collisionableObjects);
 
 private:
-	//NPC_AI artificial;
+	NPC_AI *ai;
 };
 
 #endif

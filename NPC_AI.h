@@ -7,6 +7,9 @@
 #include "State.h"
 #include "Enemy.h"
 
+class Enemy;
+class State;
+
 class NPC_AI
 {
 public:

@@ -1,5 +1,12 @@
 #pragma once
+
+#ifndef STATE_G_H
+#define STATE_G_H
+
 #include "state.h"
+
+class Enemy;
+
 class GuardPathState :
 	public State
 {
@@ -20,3 +27,4 @@ private:
 	int nextState;
 };
 
+#endif
