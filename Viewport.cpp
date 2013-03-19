@@ -25,16 +25,12 @@ void Viewport::init(float left, float top, float width, float height)
 	maxTop = top;
 	maxRight = left + width;
 	minBottom = top - height;
-
-	// Viewport velocity
-	vx = 0.0f;
-	vy = 0.0f;
 }
 
-void Viewport::update()
+void Viewport::updateWithPosition(int x, int y)
 {
-	float newLeft = left + vx;
-	float newTop = top + vy;
+	float newLeft = x - width/2;
+	float newTop = y + height/2;
 
 	if (newLeft < minLeft) left = minLeft;
 	else if (newLeft > maxRight - width) left = maxRight - width;
@@ -86,15 +82,4 @@ bool Viewport::setLimits(float minLeft, float maxTop, float maxRight, float minB
 	this->minBottom = minBottom;
 	return true;
 }
-
-void Viewport::setVx(float newVx)
-{
-	this->vx = newVx;
-}
-
-void Viewport::setVy(float newVy)
-{
-	this->vy = newVy;
-}
-
 

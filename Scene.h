@@ -38,7 +38,7 @@ public:
 	bool loadLevel(int level, GameData *data);
 	void render(int level, GameData *data, Viewport *viewport);
 
-	void update();
+	void update(Viewport *viewport);
 	void getLevelSizeInPixels(int level, int &w, int &h);
 	void getLevelSize(int level, int *width, int *height);
 	void getLevelTileSize(int level, int *width, int *height);

@@ -146,7 +146,7 @@ void Scene::resolveInput(InputHandler &input) {
 	}
 }
 
-void Scene::update()
+void Scene::update(Viewport *viewport)
 {
 	int maxX, maxY, minX, minY;
 	minX = minY = 0;
@@ -178,6 +178,7 @@ void Scene::update()
 		enemies[i].update(obstacles);
 	}
 
+	viewport->updateWithPosition(player.getX(), player.getY());
 }
 
 void Scene::getLevelSizeInPixels(int level, int &w, int &h) 

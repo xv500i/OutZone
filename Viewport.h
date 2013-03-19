@@ -16,9 +16,6 @@ private:
 	float width;		/* Viewport width */
 	float height;		/* Viewport height */
 
-	float vx;			/* Viewport X velocity */
-	float vy;			/* Viewport Y velocity */
-
 	float maxTop;		/* Viewport max top */
 	float minBottom;	/* Viewport min bottom */
 	float minLeft;		/* Viewport min left */
@@ -32,7 +29,7 @@ public:
 
 	/* Viewport lifetime */
 	void init(float left, float top, float width, float height);
-	void update();
+	void updateWithPosition(int x, int y);
 
 	/* Getters */
 	float getLeft();
@@ -42,7 +39,5 @@ public:
 
 	/* Setters */
 	bool setLimits(float minLeft, float maxTop, float maxRight, float minBottom);
-	void setVx(float newOrthoVX);
-	void setVy(float newOrthoVY);
 };
 

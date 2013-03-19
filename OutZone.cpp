@@ -55,19 +55,11 @@ void OutZone::handleMouse(int button, int state, int x, int y) {}
 /* Game phases */
 bool OutZone::process() 
 {
-	// Camera movement. TODO: Canviar Hardcoded!
-	if (input.keyIsDown(input.getMoveUpKey())) viewport.setVy(5.0f);
-	else if (input.keyIsDown(input.getMoveDownKey())) viewport.setVy(-5.0f);
-	else viewport.setVy(0.0f);
-
 	// Input
 	scene.resolveInput(input);
 
-	// Update camera
-	viewport.update();
-
-	// Update player
-	scene.update();
+	// Update
+	scene.update(&viewport);
 
 	return true;
 }
