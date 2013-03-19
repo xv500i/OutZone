@@ -8,6 +8,7 @@
 #include "InputHandler.h"
 #include <vector>
 #include <iterator>
+#include "Enemy.h"
 
 using namespace std;
 
@@ -23,8 +24,9 @@ private:
 	const static int NUM_LEVELS = 1;
 	Level levels[NUM_LEVELS];
 	Player player;
-	vector<MobileGameObject> bales;
-	vector<GameObject> obstacles; 
+	vector<MobileGameObject> playerShots;
+	vector<GameObject> obstacles;
+	vector<Enemy> enemies;
 	int currentLevel;
 
 public:

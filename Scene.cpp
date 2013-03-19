@@ -20,7 +20,11 @@ bool Scene::loadLevel(int level, GameData *data)
 	obstacles.push_back(go3);
 	GameObject go4(120.0f, 100.0f, -1, 15, 15, false);
 	obstacles.push_back(go4);
-	bales.clear();
+	playerShots.clear();
+	Enemy en(300.0f, 100.f, -1, 16, 16, true); 
+	enemies.push_back(en);
+	Enemy en2(300.0f, 50.f, -1, 16, 16, true); 
+	enemies.push_back(en2);
 	player = Player(50.0f, 50.0f, -1, 16, 16, true, 0.0f, 0.0f);
 	player.setPhantom(false);
 	
@@ -37,13 +41,19 @@ void Scene::render(int level, GameData *data)
 	levels[level - 1].staticTilesLayer.render(data);
 	//levels[level - 1].mobileTilesLayer.render(data);
 
-
-	for (unsigned int x = 0; x < obstacles.size(); x++) {
-		obstacles[x].render();
+	unsigned int i;
+	for (i = 0; i < obstacles.size(); i++) {
+		obstacles[i].render();
 	}
+
 	player.render();
-	for (unsigned int i = 0; i < bales.size(); i++) {
-		bales[i].render();
+	
+	for (i = 0; i < enemies.size(); i++) {
+		enemies[i].render();
+	}
+	
+	for (i = 0; i < playerShots.size(); i++) {
+		playerShots[i].render();
 	}
 }
 
@@ -130,7 +140,7 @@ void Scene::resolveInput(InputHandler &input) {
 	player.setVX(vx);
 	player.setVY(vy);
 	if (input.keyIsDown(input.getPrimaryWeaponKey())) {
-		player.shotPrimaryWeapon(bales);
+		player.shotPrimaryWeapon(playerShots);
 	}
 }
 
@@ -139,16 +149,16 @@ void Scene::update()
 	int maxX, maxY, minX, minY;
 	minX = minY = 0;
 	getLevelSizeInPixels(currentLevel, maxX, maxY);
-	player.update(obstacles);
-	int size = bales.size();
-	for (std::vector<MobileGameObject>::iterator it = bales.begin() ; it != bales.end(); ) {
+	
+	int size = playerShots.size();
+	for (std::vector<MobileGameObject>::iterator it = playerShots.begin() ; it != playerShots.end(); ) {
 		it->update(obstacles);
 		float x = it->getX();
 		float y = it->getY();
 		vector<GameObject> v;
 		getCollisioningGameObjects(v);
 		if (maxX < x || minX > x || maxY < y || minY > y) {
-			it = bales.erase(it);
+			it = playerShots.erase(it);
 		} else {
 			bool hasCollisioned = false;
 			for(std::vector<GameObject>::iterator ito = obstacles.begin(); !hasCollisioned && ito != obstacles.end(); ito++) {
@@ -156,9 +166,14 @@ void Scene::update()
 			}
 			if (!hasCollisioned) it++;
 			else {
-				it = bales.erase(it);
+				it = playerShots.erase(it);
 			}
 		}
+	}
+	player.update(obstacles);
+
+	for (unsigned int i = 0; i < enemies.size(); i++) {
+		enemies[i].update(obstacles);
 	}
 
 }
