@@ -10,7 +10,7 @@ class GameData
 {
 private:
 	/* TileSheets */
-	const static int NUM_TILESHEETS = 2;	// TODO: modificar depenent del numero de tile sheets carregats
+	const static int NUM_TILESHEETS = 1;	// TODO: modificar depenent del numero de tile sheets carregats
 	const static char* TILESHEET_EXT;
 
 	/* Sprites */

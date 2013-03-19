@@ -17,7 +17,8 @@ bool TileSheet::load(const char *filename, const char *ext, int type, int wraps,
 {
 	bool b = Texture::load(filename, ext, type, wraps, wrapt, magf, minf, mipmap);
 	if (!b) return false;
-	return loadDescriptionFile(filename);
+	//return loadDescriptionFile(filename);
+	return true;
 }
 
 bool TileSheet::loadDescriptionFile(const char *filename)

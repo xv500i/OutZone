@@ -54,6 +54,7 @@ bool StaticTilesLayer::loadHeader(std::ifstream &file)
 	std::string line;
 	if (file.is_open()) {
 		for (unsigned int i = 0; i < 4; i++) {
+			getline(file, line);
 			if (line.find("tilewidth") != std::string::npos) tileWidthInPixels = atoi(line.substr(line.find("=") + 1).c_str());
 			else if (line.find("tileheight") != std::string::npos) tileHeightInPixels = atoi(line.substr(line.find("=") + 1).c_str());
 			else if (line.find("width") != std::string::npos) widthInTiles = atoi(line.substr(line.find("=") + 1).c_str());
@@ -71,10 +72,10 @@ bool StaticTilesLayer::loadCollisionLayer(std::ifstream &file)
 	std::string line;
 	if (file.is_open()) {
 		getline(file, line);	// Obtenim i descartem la linea amb "data="
-		for (unsigned int i = 0; i < heightInTiles; i++) {
+		for (int i = 0; i < heightInTiles; i++) {
 			getline(file, line);
 			std::stringstream ss(line);
-			for (unsigned int j = 0; j < widthInTiles; j++) {
+			for (int j = 0; j < widthInTiles; j++) {
 				int type;
 				ss >> type;
 				ss.ignore();	// Ignorem la coma
@@ -83,6 +84,7 @@ bool StaticTilesLayer::loadCollisionLayer(std::ifstream &file)
 				else map[i*widthInTiles + j].type = LAND;
 			}
 		}
+		return true;
 	}
 	else return false;
 }
@@ -92,19 +94,20 @@ bool StaticTilesLayer::loadBackgroundLayer(std::ifstream &file)
 	std::string line;
 	if (file.is_open()) {
 		getline(file, line);	// Obtenim i descartem la linea amb "data="
-		for (unsigned int i = 0; i < heightInTiles; i++) {
+		for (int i = 0; i < heightInTiles; i++) {
 			getline(file, line);
 			std::stringstream ss(line);
-			for (unsigned int j = 0; j < widthInTiles; j++) {
+			for (int j = 0; j < widthInTiles; j++) {
 				int index;
 				ss >> index; 
 				if (index != 0) {
-					map[i*widthInTiles + j].index;
+					map[i*widthInTiles + j].index = index;
 					map[i*widthInTiles + j].depth = 0;
 				}
 				ss.ignore();	// Ignorem la coma
 			}
 		}
+		return true;
 	}
 	else return false;
 }
@@ -114,19 +117,20 @@ bool StaticTilesLayer::loadHoverLayer(std::ifstream &file)
 	std::string line;
 	if (file.is_open()) {
 		getline(file, line);	// Obtenim i descartem la linea amb "data="
-		for (unsigned int i = 0; i < heightInTiles; i++) {
+		for (int i = 0; i < heightInTiles; i++) {
 			getline(file, line);
 			std::stringstream ss(line);
-			for (unsigned int j = 0; j < widthInTiles; j++) {
+			for (int j = 0; j < widthInTiles; j++) {
 				int index;
 				ss >> index; 
 				if (index != 0) {
-					map[i*widthInTiles + j].index;
+					map[i*widthInTiles + j].index = index;
 					map[i*widthInTiles + j].depth = -1;
 				}
 				ss.ignore();	// Ignorem la coma
 			}
 		}
+		return true;
 	}
 	else return false;
 }
@@ -145,11 +149,15 @@ void StaticTilesLayer::renderTile(int tileIndex, int posX, int posY, GameData *d
 {
 	// Obtain the tile offset
 	float tileOffsetX, tileOffsetY;
-	data->getTileSheetTileOffset(getTileSheetIndex(), &tileOffsetX, &tileOffsetY);	
+	tileOffsetX = 16.0f/512.0f;
+	tileOffsetY = 16.0f/1024.0f;
+	//data->getTileSheetTileOffset(getTileSheetIndex(), &tileOffsetX, &tileOffsetY);	
 
 	// Obtain the tile position inside the texture
-	int s, t;
-	data->getTileSheetTilePosition(getTileSheetIndex(), tileIndex, &s, &t);
+	int index = tileIndex - 1;
+	int t = index/32;
+	int s = index%32;
+	//data->getTileSheetTilePosition(getTileSheetIndex(), tileIndex, &s, &t);
 	float coordS = s*tileOffsetX;
 	float coordT = t*tileOffsetY;
 

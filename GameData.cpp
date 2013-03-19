@@ -17,7 +17,7 @@ GameData::~GameData(void) {}
 /* Tile Sheets */
 bool GameData::loadTileSheets()
 {
-	const char* filenames[NUM_TILESHEETS] = {"pokemon", "pokemon3"}; 
+	const char* filenames[NUM_TILESHEETS] = {"Level1"}; 
 	for (unsigned int i = 0; i < tileSheets.size(); i++) {
 		bool b = tileSheets[i].load(filenames[i], TILESHEET_EXT);
 		if (!b) return false;

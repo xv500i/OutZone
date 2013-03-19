@@ -2,7 +2,7 @@
 #pragma once
 
 #include <gl/glut.h>
-#include "LevelLayer.h"
+#include "StaticTilesLayer.h"
 #include "MobileTilesLayer.h"
 #include "Player.h"
 #include "InputHandler.h"
@@ -13,7 +13,7 @@ using namespace std;
 
 
 struct Level {
-	LevelLayer levelLayer;
+	StaticTilesLayer staticTilesLayer;
 	MobileTilesLayer mobileTilesLayer;
 };
 
