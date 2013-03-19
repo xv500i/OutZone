@@ -17,7 +17,7 @@ Bullet::~Bullet(void)
 
 bool Bullet::isDead()
 {
-	return ticksLeft != 0;
+	return ticksLeft == 0;
 }
 
 void Bullet::setTicksLeft(int t)
