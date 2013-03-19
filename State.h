@@ -8,5 +8,8 @@ public:
 	void update(Enemy &e);
 	bool isFinished();
 	void initialize();
+	int getNextState();
+private:
+	int nextState;
 };
 

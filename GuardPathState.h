@@ -5,16 +5,18 @@ class GuardPathState :
 {
 public:
 	GuardPathState(void);
-	GuardPathState(float vx, float vy, int ticksMax);
+	GuardPathState(int nextState, float vx, float vy, int ticksMax);
 	~GuardPathState(void);
 	void update(Enemy &e);
 	bool isFinished();
 	void initialize();
+	int getNextState();
 
 private:
 	int ticksLeft;
 	int ticksMax;
 	float vx;
 	float vy;
+	int nextState;
 };
 

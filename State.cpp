@@ -5,7 +5,6 @@ State::State(void)
 {
 }
 
-
 State::~State(void)
 {
 }

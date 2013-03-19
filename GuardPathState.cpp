@@ -5,7 +5,7 @@ GuardPathState::GuardPathState(void)
 {
 }
 
-GuardPathState::GuardPathState(float vx, float vy , int ticksMax) : vx(vx), vy(vy), ticksMax(ticksMax)
+GuardPathState::GuardPathState(int nextState, float vx, float vy , int ticksMax) : nextState(nextState), vx(vx), vy(vy), ticksMax(ticksMax)
 {
 }
 
@@ -29,4 +29,9 @@ bool GuardPathState::isFinished()
 void GuardPathState::initialize()
 {
 	ticksLeft = ticksMax;
+}
+
+int GuardPathState::getNextState()
+{
+	return nextState;
 }
