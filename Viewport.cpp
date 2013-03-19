@@ -12,7 +12,7 @@ Viewport::~Viewport(void) {}
 
 
 /* Viewport lifetime */
-void Viewport::initViewport(float left, float top, float width, float height)
+void Viewport::init(float left, float top, float width, float height)
 {
 	// Viewport definition parameters
 	this->left = left;
@@ -31,7 +31,7 @@ void Viewport::initViewport(float left, float top, float width, float height)
 	vy = 0.0f;
 }
 
-void Viewport::updateViewport()
+void Viewport::update()
 {
 	float newLeft = left + vx;
 	float newTop = top + vy;
@@ -43,6 +43,8 @@ void Viewport::updateViewport()
 	if (newTop > maxTop) top = maxTop;
 	else if (newTop < minBottom + height) top = minBottom + height; 
 	else top = newTop;
+
+	defineOrthogonalCamera();
 }	
 
 void Viewport::defineOrthogonalCamera()
@@ -53,8 +55,29 @@ void Viewport::defineOrthogonalCamera()
 	glMatrixMode(GL_MODELVIEW);
 }
 
+/* Getters */
+float Viewport::getLeft()
+{
+	return left;
+}
+
+float Viewport::getTop()
+{
+	return top;
+}
+
+float Viewport::getWidth()
+{
+	return width;
+}
+
+float Viewport::getHeight()
+{
+	return height;
+}
+
 /* Setters */
-bool Viewport::setOrthoLimits(float minLeft, float maxTop, float maxRight, float minBottom)
+bool Viewport::setLimits(float minLeft, float maxTop, float maxRight, float minBottom)
 {
 	if (minLeft >= maxRight || maxTop <= minBottom) return false;
 	this->minLeft = minLeft;
@@ -64,12 +87,12 @@ bool Viewport::setOrthoLimits(float minLeft, float maxTop, float maxRight, float
 	return true;
 }
 
-void Viewport::setOrthoVX(float newVx)
+void Viewport::setVx(float newVx)
 {
 	this->vx = newVx;
 }
 
-void Viewport::setOrthoVY(float newVy)
+void Viewport::setVy(float newVy)
 {
 	this->vy = newVy;
 }

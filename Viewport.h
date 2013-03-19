@@ -31,8 +31,8 @@ public:
 	~Viewport(void);
 
 	/* Viewport lifetime */
-	void initViewport(float left, float top, float width, float height);
-	void updateViewport();
+	void init(float left, float top, float width, float height);
+	void update();
 
 	/* Getters */
 	float getLeft();
@@ -41,8 +41,8 @@ public:
 	float getHeight();
 
 	/* Setters */
-	void setOrthoVX(float newOrthoVX);
-	void setOrthoVY(float newOrthoVY);
-	bool setOrthoLimits(float minLeft, float maxTop, float maxRight, float minBottom);
+	bool setLimits(float minLeft, float maxTop, float maxRight, float minBottom);
+	void setVx(float newOrthoVX);
+	void setVy(float newOrthoVY);
 };
 

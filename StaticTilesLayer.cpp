@@ -129,15 +129,21 @@ bool StaticTilesLayer::loadHoverLayer(std::ifstream &file)
 /* Rendering */
 void StaticTilesLayer::render(GameData *data, Viewport *viewport) 
 {
-	// TODO: renderitzar only les tiles visibles!
-
+	// Get min and max X and Y of the tiles that are on-screen
+	int minX, maxX, minY, maxY;
+	minX = viewport->getLeft()/tileWidthInPixels;
+	minY = (viewport->getTop() + viewport->getHeight())/tileHeightInPixels;
+	maxX = (viewport->getLeft() + viewport->getWidth())/tileWidthInPixels;
+	maxY = viewport->getTop()/tileHeightInPixels;
 
 	for (int i = 0; i < heightInTiles; i++) {
 		for (int j = 0; j < widthInTiles; j++) {
-			int index = backgroundLayer[i*widthInTiles + j].index;
-			if (index != 0) renderTile(index, tileWidthInPixels*j, tileHeightInPixels*i, 0, data);
-			index = hoverLayer[i*widthInTiles + j].index;
-			if (index != 0) renderTile(index, tileWidthInPixels*j, tileHeightInPixels*i, 2, data);
+			if (j > minX && j < maxX && i > minY && i < maxY) {		// Render only if on-screen
+				int index = backgroundLayer[i*widthInTiles + j].index;
+				if (index != 0) renderTile(index, tileWidthInPixels*j, tileHeightInPixels*i, 0, data);
+				index = hoverLayer[i*widthInTiles + j].index;
+				if (index != 0) renderTile(index, tileWidthInPixels*j, tileHeightInPixels*i, 2, data);
+			}
 		}
 	}
 }
