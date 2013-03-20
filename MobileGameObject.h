@@ -18,6 +18,7 @@ public:
 	Directions getDirection() const;
 	void collision(GameObject &g);
 	void render() const;
+	float getAngleVelocity() const;
 
 private:
 	float vx;

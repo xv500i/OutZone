@@ -30,3 +30,9 @@ void Bullet::update(std::vector<GameObject> &collisionableObjects)
 	MobileGameObject::update(collisionableObjects);
 	if (ticksLeft > 0) ticksLeft--;
 }
+
+float Bullet::getAngleVelocity() const
+{
+	float angle = (atan2(getVY(), getVX()) * 180 / 3.1415926f) - 90.0f;
+	return angle;
+}

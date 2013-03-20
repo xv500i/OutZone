@@ -1,5 +1,5 @@
 #include "MobileGameObject.h"
-
+#include <cmath>
 
 MobileGameObject::MobileGameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx, const float vy) : GameObject(x, y, idTexture, width, length, isWalkable), vx(vx), vy(vy)
 {
@@ -111,33 +111,8 @@ void MobileGameObject::collision(GameObject &g)
 
 void MobileGameObject::render() const
 {
-	float angle;
-	switch(dir){
-	case UP:
-		angle = 0.0f;
-		break;
-	case UP_RIGHT:
-		angle = 45.0f;
-		break;
-	case RIGHT:
-		angle = 90.0f;
-		break;
-	case DOWN_RIGHT:
-		angle = 135.0f;
-		break;
-	case DOWN:
-		angle = 180.0f;
-		break;
-	case DOWN_LEFT:
-		angle = 225.0f;
-		break;
-	case LEFT:
-		angle = 270.0f;
-		break;
-	case UP_LEFT:
-		angle = 315.0f;
-		break;
-	}
+	float angle = getAngleVelocity();
+	
 	/*glColor3f(1.0f, 1.0f, 1.0f);
 	glPushMatrix();
 	glTranslatef(getX(), getY(), 0.0f);
@@ -156,6 +131,7 @@ void MobileGameObject::render() const
 	glBindTexture(GL_TEXTURE_2D, 2);
 	glPushMatrix();
 	glTranslatef(getX(), getY(), 0.0f);
+	glRotatef(angle, 0.0f, 0.0f, 1.0f);
 	glBegin(GL_QUADS);
 		// Bottom-left
 		glTexCoord2f(0.0f, offset*3);
@@ -172,4 +148,39 @@ void MobileGameObject::render() const
 	glEnd();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
+}
+
+float MobileGameObject::getAngleVelocity() const
+{
+	float angle;
+	
+	switch(dir){
+	case UP:
+		angle = 0.0f;
+		break;
+	case UP_RIGHT:
+		angle = -45.0f;
+		break;
+	case RIGHT:
+		angle = -90.0f;
+		break;
+	case DOWN_RIGHT:
+		angle = -135.0f;
+		break;
+	case DOWN:
+		angle = -180.0f;
+		break;
+	case DOWN_LEFT:
+		angle = -225.0f;
+		break;
+	case LEFT:
+		angle = -270.0f;
+		break;
+	case UP_LEFT:
+		angle = -315.0f;
+		break;
+	}
+	
+	
+	return angle;
 }

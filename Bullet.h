@@ -10,6 +10,7 @@ public:
 	bool isDead();
 	void setTicksLeft(int t);
 	void update(std::vector<GameObject> &collisionableObjects);
+	float getAngleVelocity() const;
 private:
 	int ticksLeft;
 };
