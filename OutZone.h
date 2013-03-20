@@ -3,18 +3,18 @@
 
 #include <gl/glut.h>
 #include "InputHandler.h"
-#include "Scene.h"
 #include "GameData.h"
 #include "Viewport.h"
+#include "Scene.h"
+
 
 class OutZone
 {
 private:
 	InputHandler input;	/* Game input handler */
-	Scene scene;		/* Game scene */
 	GameData data;		/* Game data */
 	Viewport viewport;	/* Game viewport */
-	
+	Scene scene;		/* Game scene */
 
 public:
 	const static int GAME_WIDTH = 480;

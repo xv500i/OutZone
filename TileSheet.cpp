@@ -33,10 +33,8 @@ bool TileSheet::loadDescriptionFile(const char *filename)
 		while (file.good()) {
 			getline(file, line);
 			// Read the tile size
-			std::stringstream sstr(line.substr(line.find(' ')));
-			sstr >> tileWidthInPixels;
-			if (sstr.peek() == ',') sstr.ignore();
-			sstr >> tileHeightInPixels;
+			if (line.find("tilewidth") != std::string::npos) tileWidthInPixels = atoi(line.substr(line.find("=") + 1).c_str());
+			else if (line.find("tileheight") != std::string::npos) tileHeightInPixels = atoi(line.substr(line.find("=") + 1).c_str());
 		}
 		// Compute the tile offset
 		int width, height;

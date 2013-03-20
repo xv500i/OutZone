@@ -23,15 +23,15 @@ private:
 public:
 	/* TileSheet indexes */		// TODO: afegir indexs de tots els tile sheets carregats
 	const static int LEVEL1_TILES_INDEX = 0;
-	//const static int LEVEL1_TILES_INDEX = 2;
-	//const static int LEVEL1_TILES_INDEX = 4;
-	//const static int LEVEL1_TILES_INDEX = 6;
-	//const static int LEVEL1_TILES_INDEX = 8;
 	const static int LEVEL1_MOBILETILES_INDEX = 1;
-	//const static int LEVEL1_MOBILETILES_INDEX = 3;
-	//const static int LEVEL1_MOBILETILES_INDEX = 5;
-	//const static int LEVEL1_MOBILETILES_INDEX = 7;
-	//const static int LEVEL1_MOBILETILES_INDEX = 9;
+	//const static int LEVEL2_TILES_INDEX = 2;
+	//const static int LEVEL2_MOBILETILES_INDEX = 3;
+	//const static int LEVEL3_TILES_INDEX = 4;
+	//const static int LEVEL3_MOBILETILES_INDEX = 5;
+	//const static int LEVEL4_TILES_INDEX = 6;
+	//const static int LEVEL4_MOBILETILES_INDEX = 7;
+	//const static int LEVEL5_TILES_INDEX = 8;
+	//const static int LEVEL5_MOBILETILES_INDEX = 9;
 
 	/* Sprite indexes */	// TODO: afegir indexs de tots els sprites carregats
 	const static int PLAYER1_SPRITE_INDEX = 0;

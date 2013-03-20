@@ -1,1 +1,2 @@
-TileSize 16,16
+tilewidth=16
+tileheight=16

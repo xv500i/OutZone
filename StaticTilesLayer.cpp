@@ -156,7 +156,6 @@ void StaticTilesLayer::renderTile(int tileIndex, int posX, int posY, int depth, 
 
 	// Obtain the tile position inside the texture
 	int s, t;
-	int index = tileIndex - 1;
 	data->getTileSheetTilePosition(getTileSheetIndex(), tileIndex, &s, &t);
 	float coordS = s*tileOffsetX;
 	float coordT = t*tileOffsetY;
@@ -166,16 +165,16 @@ void StaticTilesLayer::renderTile(int tileIndex, int posX, int posY, int depth, 
 	glBindTexture(GL_TEXTURE_2D, data->getTileSheetID(getTileSheetIndex()));
 	glBegin(GL_QUADS);
 		glTexCoord2f(coordS, coordT);
-		glVertex3i(posX, heightInTiles*tileHeightInPixels - posY, depth);
+		glVertex3i(posX, heightInTiles*tileHeightInPixels - posY, depth);	// Top-left
 
 		glTexCoord2f(coordS + tileOffsetX, coordT);
-		glVertex3i(posX + tileWidthInPixels, heightInTiles*tileHeightInPixels - posY, depth);
+		glVertex3i(posX + tileWidthInPixels, heightInTiles*tileHeightInPixels - posY, depth);	// Top-right
 
 		glTexCoord2f(coordS + tileOffsetX, coordT + tileOffsetY);
-		glVertex3i(posX + tileWidthInPixels, heightInTiles*tileHeightInPixels - (posY + tileHeightInPixels), depth);
+		glVertex3i(posX + tileWidthInPixels, heightInTiles*tileHeightInPixels - (posY + tileHeightInPixels), depth);	// Bottom-right
 
 		glTexCoord2f(coordS, coordT + tileOffsetY);
-		glVertex3i(posX, heightInTiles*tileHeightInPixels - (posY + tileHeightInPixels), depth);
+		glVertex3i(posX, heightInTiles*tileHeightInPixels - (posY + tileHeightInPixels), depth);	// Bottom-left
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 }

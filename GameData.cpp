@@ -54,7 +54,7 @@ void GameData::getTileSheetTileOffset(int tileSheetIndex, float *offsetX, float 
 /* Sprites */
 bool GameData::loadSprites()
 {
-	const char* filenames[NUM_SPRITES] = {"ContraPlayer1", "ContraPlayer2"}; 
+	const char* filenames[NUM_SPRITES] = {"Player1", "Player2"}; 
 	for (unsigned int i = 0; i < sprites.size(); i++) {
 		bool b = sprites[i].load(filenames[i], SPRITE_EXT);
 		if (!b) return false;

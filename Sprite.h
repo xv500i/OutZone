@@ -6,7 +6,7 @@
 
 
 struct KeyFrame {
-	int frameId;		/* The frame identificator */
+	int frameId;		/* The frame identifier */
 	int duration;		/* Duration of this frame inside the animation */
 	int tx, ty;			/* Translation performed by the object during this frame */
 };
@@ -35,4 +35,3 @@ public:
 	bool load(const char *filename, const char *ext, int type = GL_RGBA, int wraps = GL_REPEAT, 
 			  int wrapt = GL_REPEAT, int magf = GL_NEAREST, int minf = GL_NEAREST, bool mipmap = false);
 };
-
