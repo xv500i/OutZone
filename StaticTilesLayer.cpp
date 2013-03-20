@@ -163,19 +163,23 @@ void StaticTilesLayer::renderTile(int tileIndex, int posX, int posY, int depth, 
 	// Rendering
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, data->getTileSheetID(getTileSheetIndex()));
+	glPushMatrix();
+	glTranslatef(posX, -posY, 0.0f);
 	glBegin(GL_QUADS);
+		// Top-left
 		glTexCoord2f(coordS, coordT);
-		glVertex3i(posX, heightInTiles*tileHeightInPixels - posY, depth);	// Top-left
-
+		glVertex3i(0, heightInTiles*tileHeightInPixels, depth);	
+		// Top-right
 		glTexCoord2f(coordS + tileOffsetX, coordT);
-		glVertex3i(posX + tileWidthInPixels, heightInTiles*tileHeightInPixels - posY, depth);	// Top-right
-
+		glVertex3i(tileWidthInPixels, heightInTiles*tileHeightInPixels, depth);
+		// Bottom-right
 		glTexCoord2f(coordS + tileOffsetX, coordT + tileOffsetY);
-		glVertex3i(posX + tileWidthInPixels, heightInTiles*tileHeightInPixels - (posY + tileHeightInPixels), depth);	// Bottom-right
-
+		glVertex3i(tileWidthInPixels, heightInTiles*tileHeightInPixels - tileHeightInPixels, depth);	
+		// Bottom-left
 		glTexCoord2f(coordS, coordT + tileOffsetY);
-		glVertex3i(posX, heightInTiles*tileHeightInPixels - (posY + tileHeightInPixels), depth);	// Bottom-left
+		glVertex3i(0, heightInTiles*tileHeightInPixels - tileHeightInPixels, depth);	
 	glEnd();
+	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
 }
 

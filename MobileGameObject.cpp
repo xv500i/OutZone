@@ -138,7 +138,7 @@ void MobileGameObject::render() const
 		angle = 315.0f;
 		break;
 	}
-	glColor3f(1.0f, 1.0f, 1.0f);
+	/*glColor3f(1.0f, 1.0f, 1.0f);
 	glPushMatrix();
 	glTranslatef(getX(), getY(), 0.0f);
 	glRotatef(angle, 0.0f, 0.0f, 1.0f);
@@ -148,5 +148,28 @@ void MobileGameObject::render() const
 		glVertex3i(+ getWidth()/2 , + getLength()/2, 1);
 		glVertex3i(+ getWidth()/2 , - getLength()/2, 1);
 	glEnd();
+	glPopMatrix();*/
+
+	float offset = 16.0f/128.0f;
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 2);
+	glPushMatrix();
+	glTranslatef(getX(), getY(), 0.0f);
+	glBegin(GL_QUADS);
+		// Bottom-left
+		glTexCoord2f(0.0f, offset*3);
+		glVertex3i(- 32/2 , - 32/2, 1);
+		// Top-left
+		glTexCoord2f(0.0f, offset);
+		glVertex3i(- 32/2 , + 32/2, 1);
+		// Top-right
+		glTexCoord2f(offset*2, offset);
+		glVertex3i(+ 32/2 , + 32/2, 1);
+		// Bottom-right
+		glTexCoord2f(offset*2, offset*3);
+		glVertex3i(+ 32/2 , - 32/2, 1);	
+	glEnd();
 	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
 }
