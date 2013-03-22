@@ -95,6 +95,8 @@ void MobileGameObject::update(std::vector<GameObject> &collisionableObjects)
 			dir = RIGHT;
 		} 
 	}
+	if (abs(getVX()) > 0.0f || abs(getVY()) > 0.0f) setPlayerAction(WALK);
+	else setPlayerAction(STATIC);
 }
 
 Directions MobileGameObject::getDirection() const

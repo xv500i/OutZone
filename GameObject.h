@@ -32,6 +32,8 @@ public:
 	void setPhantom(bool b);
 	float distance(GameObject &g);
 	virtual float getAngleVelocity() const;
+	PlayerAction getPlayerAction() const;
+	void setPlayerAction(PlayerAction action);
 protected:
 	char type;
 

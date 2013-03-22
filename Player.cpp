@@ -68,6 +68,7 @@ void Player::shotPrimaryWeapon(std::vector<Bullet> &v)
 			vx = -catet;
 			vy = -catet;
 			break;
+
 	}
 	//MobileGameObject* bala = new MobileGameObject(getX(), getY(), -1, 5, 5, true, vx, vy);
 	//v.push_back(*bala);
@@ -75,7 +76,7 @@ void Player::shotPrimaryWeapon(std::vector<Bullet> &v)
 	
 	//std::pair<float, float> p(1.0f, 1.0f);
 	mainWeapon.fire(getX(), getY(), vx, vy, v);
-	
+	setPlayerAction(SHOT);
 }
 
 void Player::update(std::vector<GameObject> &collisionableObjects)

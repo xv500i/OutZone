@@ -25,7 +25,7 @@ void GameObject::render(GameData *data) const
 	if (idTexture != -1) {
 		float offsetX, offsetY, s,t;
 		int w,h;
-		data->getSpriteFrameInfo(idTexture,PlayerAction::WALK,&s,&t,&w,&h,&offsetX,&offsetY);
+		data->getSpriteFrameInfo(idTexture,pa,&s,&t,&w,&h,&offsetX,&offsetY);
 		
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, data->getSpriteID(idTexture));
@@ -149,4 +149,14 @@ float GameObject::distance(GameObject &g)
 float GameObject::getAngleVelocity() const
 {
 	return 0.0f;
+}
+
+PlayerAction GameObject::getPlayerAction() const
+{
+	return pa;
+}
+
+void GameObject::setPlayerAction(PlayerAction action)
+{
+	pa = action;
 }
