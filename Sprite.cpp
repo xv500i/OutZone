@@ -81,22 +81,26 @@ bool Sprite::loadDescriptionFile(const char *filename)
 }
 
 /* Getters */
-void Sprite::getFrameInfo(PlayerAction action, int *s, int *t, int *width, int *height, float *offsetX, float *offsetY)
+void Sprite::getFrameInfo(PlayerAction action, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY)
 {
 	if (currentAction == action) currentAnimationIndex++;
-	else currentAnimationIndex = 0;
+	else {
+		currentAction = action;
+		currentAnimationIndex = 0;
+	}
 
 	std::vector<KeyFrame> animation = animations.at(action);
+	if (currentAnimationIndex == animation.size()) currentAnimationIndex = 0;
 	KeyFrame keyFrame = animation.at(currentAnimationIndex);
 	Frame frame = frames.at(keyFrame.frameId);
 
 	int textureWidth, textureHeight;
 	getSizeInPixels(&textureWidth, &textureHeight);
 
-	*s = frame.s/textureWidth;
-	*t = frame.t/textureHeight;
+	*s = (float)frame.s/(float)textureWidth;
+	*t = (float)frame.t/(float)textureHeight;
 	*width = frame.width;
 	*height = frame.height;
-	*offsetX = frame.width/textureWidth;
-	*offsetY = frame.height/textureHeight;
+	*offsetX = (float)frame.width/(float)textureWidth;
+	*offsetY = (float)frame.height/(float)textureHeight;
 }

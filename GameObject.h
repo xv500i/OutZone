@@ -4,7 +4,7 @@
 #include <gl/glut.h>
 #include "BoundingBox.h"
 #include "GameData.h"
-
+#include "PlayerAction.h"
 class GameObject
 {
 public:
@@ -36,6 +36,7 @@ protected:
 	char type;
 
 private:
+	PlayerAction pa;
 	float x;
 	float y;
 	bool phantom;

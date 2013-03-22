@@ -40,5 +40,5 @@ public:
 			  int wrapt = GL_REPEAT, int magf = GL_NEAREST, int minf = GL_NEAREST, bool mipmap = false);
 
 	/* Getters */
-	void getFrameInfo(PlayerAction action, int *s, int *t, int *width, int *height, float *offsetX, float *offsetY);
+	void getFrameInfo(PlayerAction action, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY);
 };

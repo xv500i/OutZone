@@ -6,6 +6,7 @@ GameObject::GameObject(const float x, const float y, const int idTexture, const 
 	phantom = true;
 	this->b = new BoundingBox(y+length/2, y-length/2, x-width/2, x+width/2);
 	type = 'u';
+	pa = STATIC;
 }
 
 GameObject::GameObject()
@@ -22,11 +23,12 @@ void GameObject::render(GameData *data) const
 {
 	float angle = getAngleVelocity();
 	if (idTexture != -1) {
-		float w,h,s,t,offsetX, offsetY;
-		//data->getSpriteFrameInfo(idTexture,pa,s,t,w,h,offsetX,offsetY);
+		float offsetX, offsetY, s,t;
+		int w,h;
+		data->getSpriteFrameInfo(idTexture,PlayerAction::WALK,&s,&t,&w,&h,&offsetX,&offsetY);
 		
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, idTexture);
+		glBindTexture(GL_TEXTURE_2D, data->getSpriteID(idTexture));
 		glPushMatrix();
 		glTranslatef(getX(), getY(), 0.0f);
 		glRotatef(angle, 0.0f, 0.0f, 1.0f);
