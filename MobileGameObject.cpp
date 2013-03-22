@@ -108,22 +108,10 @@ void MobileGameObject::collision(GameObject &g)
 	
 	}
 }
-
-void MobileGameObject::render() const
+/*
+void MobileGameObject::render(GameData *data) const
 {
 	float angle = getAngleVelocity();
-	
-	/*glColor3f(1.0f, 1.0f, 1.0f);
-	glPushMatrix();
-	glTranslatef(getX(), getY(), 0.0f);
-	glRotatef(angle, 0.0f, 0.0f, 1.0f);
-	glBegin(GL_QUADS);
-		glVertex3i(- getWidth()/2 , - getLength()/2, 1);
-		glVertex3i(- getWidth()/2 , + getLength()/2, 1);
-		glVertex3i(+ getWidth()/2 , + getLength()/2, 1);
-		glVertex3i(+ getWidth()/2 , - getLength()/2, 1);
-	glEnd();
-	glPopMatrix();*/
 
 	float offset = 16.0f/128.0f;
 
@@ -149,7 +137,7 @@ void MobileGameObject::render() const
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
 }
-
+*/
 float MobileGameObject::getAngleVelocity() const
 {
 	float angle;

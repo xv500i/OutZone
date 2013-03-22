@@ -17,7 +17,7 @@ public:
 	void update(std::vector<GameObject> &collisionableObjects);
 	Directions getDirection() const;
 	void collision(GameObject &g);
-	void render() const;
+	//void render(GameData *data) const;
 	virtual float getAngleVelocity() const;
 
 private:

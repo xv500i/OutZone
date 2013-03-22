@@ -3,7 +3,7 @@
 
 #include <gl/glut.h>
 #include "BoundingBox.h"
-
+#include "GameData.h"
 
 class GameObject
 {
@@ -13,7 +13,7 @@ public:
 	~GameObject(void);
 
 	/* Drawing */
-	void render() const;
+	void render(GameData *data) const;
 	void update();
 	bool isIntersecting(const GameObject &go) const;
 	void setX(const float x);
@@ -31,6 +31,7 @@ public:
 	bool shouldNotEnterObjects() const;
 	void setPhantom(bool b);
 	float distance(GameObject &g);
+	virtual float getAngleVelocity() const;
 protected:
 	char type;
 

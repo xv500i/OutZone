@@ -18,18 +18,47 @@ GameObject::~GameObject(void)
 }
 
 /* Drawing */
-void GameObject::render() const
+void GameObject::render(GameData *data) const
 {
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glPushMatrix();
-	glTranslatef(getX(), getY(), 0.0f);
-	glBegin(GL_QUADS);
-		glVertex3i(- width/2 , - length/2, 1);
-		glVertex3i(- width/2 , + length/2, 1);
-		glVertex3i(+ width/2 , + length/2, 1);
-		glVertex3i(+ width/2 , - length/2, 1);
-	glEnd();
-	glPopMatrix();
+	float angle = getAngleVelocity();
+	if (idTexture != -1) {
+		float w,h,s,t,offsetX, offsetY;
+		//data->getFrameInfo(idTexture,pa,s,t,w,h,offsetX,offsetY);
+		
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 2);
+		glPushMatrix();
+		glTranslatef(getX(), getY(), 0.0f);
+		glRotatef(angle, 0.0f, 0.0f, 1.0f);
+		glBegin(GL_QUADS);
+			// Bottom-left
+			glTexCoord2f(s, t+offsetY);
+			glVertex3i(- w/2 , - h/2, 1);
+			// Top-left
+			glTexCoord2f(s, t);
+			glVertex3i(- w/2 , + h/2, 1);
+			// Top-right
+			glTexCoord2f(s+offsetX, t);
+			glVertex3i(+ w/2 , + h/2, 1);
+			// Bottom-right
+			glTexCoord2f(s+offsetX, t+offsetY);
+			glVertex3i(+ w/2 , - h/2, 1);	
+		glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+	} else {
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glPushMatrix();
+		glTranslatef(getX(), getY(), 0.0f);
+		glRotatef(angle, 0.0f, 0.0f, 1.0f);
+		glBegin(GL_QUADS);
+			glVertex3i(- width/2 , - length/2, 1);
+			glVertex3i(- width/2 , + length/2, 1);
+			glVertex3i(+ width/2 , + length/2, 1);
+			glVertex3i(+ width/2 , - length/2, 1);
+		glEnd();
+		glPopMatrix();
+	}
 }
 
 void GameObject::update()
@@ -113,4 +142,9 @@ void GameObject::setPhantom(bool b)
 float GameObject::distance(GameObject &g)
 {
 	return sqrt(pow(x-g.x,2) + pow(y-g.y,2));
+}
+
+float GameObject::getAngleVelocity() const
+{
+	return 0.0f;
 }

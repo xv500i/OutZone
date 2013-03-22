@@ -56,21 +56,21 @@ void Scene::render(int level, GameData *data, Viewport *viewport)
 
 	unsigned int i;
 	for (i = 0; i < obstacles.size(); i++) {
-		obstacles[i].render();
+		obstacles[i].render(data);
 	}
 
-	player.render();
+	player.render(data);
 	
 	for (i = 0; i < enemies.size(); i++) {
-		enemies[i].render();
+		enemies[i].render(data);
 	}
 	
 	for (i = 0; i < playerShots.size(); i++) {
-		playerShots[i].render();
+		playerShots[i].render(data);
 	}
 
 	for (i = 0; i < enemyShots.size(); i++) {
-		enemyShots[i].render();
+		enemyShots[i].render(data);
 	}
 }
 
