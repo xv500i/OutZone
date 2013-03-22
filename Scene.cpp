@@ -182,6 +182,16 @@ void Scene::update(Viewport *viewport)
 			for(std::vector<GameObject>::iterator ito = obstacles.begin(); !hasCollisioned && ito != obstacles.end(); ito++) {
 				hasCollisioned = it->isIntersecting(*ito);
 			}
+			for(std::vector<Enemy>::iterator ie = enemies.begin(); !hasCollisioned && ie != enemies.end(); ) {
+				if (it->isIntersecting(*ie)) {
+					/* kill enemy */
+					// TODO ANIMATION
+					hasCollisioned = true;
+					ie = enemies.erase(ie);
+				} else {
+					ie++;
+				}
+			}
 			if (!hasCollisioned && !it->isDead()) it++;
 			else {
 				it = playerShots.erase(it);
@@ -190,13 +200,71 @@ void Scene::update(Viewport *viewport)
 	}
 	for (it = enemyShots.begin() ; it != enemyShots.end(); ) {
 		it->update(obstacles);
-		it++;
-		//TODO colisions amb el player o enemics si es vol
+		float x = it->getX();
+		float y = it->getY();
+		vector<GameObject> v;
+		getCollisioningGameObjects(v);
+		if (maxX < x || minX > x || maxY < y || minY > y) {
+			it = enemyShots.erase(it);
+		} else {
+			bool hasCollisioned = false;
+			for(std::vector<GameObject>::iterator ito = obstacles.begin(); !hasCollisioned && ito != obstacles.end(); ito++) {
+				hasCollisioned = it->isIntersecting(*ito);
+			}
+			if (it->isIntersecting(player)) {
+				/* kill player */
+				// TODO ANIMATION
+				hasCollisioned = true;
+			}
+			if (!hasCollisioned && !it->isDead()) it++;
+			else {
+				it = enemyShots.erase(it);
+			}
+		}
 	}
 	player.update(obstacles);
-
+	if (player.getX() + player.getWidth()/2 > maxX) {
+		float inc = maxX - player.getWidth()/2 - player.getX();
+		player.updateBBox(inc, 0.0f);
+		player.setX(maxX - player.getWidth()/2);
+	}
+	else if (player.getX() - player.getWidth()/2 < minX) {
+		float inc = minX  + player.getWidth()/2 - player.getX();
+		player.updateBBox(inc, 0.0f);
+		player.setX(minX + player.getWidth()/2);
+	}
+	if (player.getY() + player.getLength()/2 > maxY) {
+		float inc = maxY - player.getLength()/2 - player.getY();
+		player.updateBBox(0.0f, inc);
+		player.setY(maxY - player.getLength()/2);
+	}
+	else if (player.getY() - player.getLength()/2 < minY) {
+		float inc = minY + player.getLength()/2 - player.getY();
+		player.updateBBox(0.0f, inc);
+		player.setY(minY + player.getLength()/2);
+	}
 	for (unsigned int i = 0; i < enemies.size(); i++) {
 		enemies[i].update(obstacles, enemyShots);
+		if (enemies[i].getX() + enemies[i].getWidth()/2 > maxX) {
+			float inc = maxX - enemies[i].getWidth()/2 - enemies[i].getX();
+			enemies[i].updateBBox(inc, 0.0f);
+			enemies[i].setX(maxX - enemies[i].getWidth()/2);
+		}
+		else if (enemies[i].getX() - enemies[i].getWidth()/2 < minX) {
+			float inc = minX  + enemies[i].getWidth()/2 - enemies[i].getX();
+			enemies[i].updateBBox(inc, 0.0f);
+			enemies[i].setX(minX + enemies[i].getWidth()/2);
+		}
+		if (enemies[i].getY() + enemies[i].getLength()/2 > maxY) {
+			float inc = maxY - enemies[i].getLength()/2 - enemies[i].getY();
+			enemies[i].updateBBox(0.0f, inc);
+			enemies[i].setY(maxY - enemies[i].getLength()/2);
+		}
+		else if (enemies[i].getY() - enemies[i].getLength()/2 < minY) {
+			float inc = minY + enemies[i].getLength()/2 - enemies[i].getY();
+			enemies[i].updateBBox(0.0f, inc);
+			enemies[i].setY(minY + enemies[i].getLength()/2);
+		}
 	}
 
 	viewport->updateWithPosition(player.getX(), player.getY());
