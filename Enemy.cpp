@@ -22,6 +22,14 @@ Enemy::Enemy(const float x, const float y, const int idTexture, const int width,
 	ai->initialize();
 }
 
+Enemy::Enemy(Player &p, const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx, const float vy)
+	: MobileGameObject(x, y, idTexture, width, length, isWalkable, vx, vy)
+{
+	ai = new NPC_AI(0,1,0);
+	PursueState *pur = new PursueState(p, 200.0f, 250.f, 50.0f, 2.0f);
+	ai->setTriggerState(0, *pur);
+}
+
 
 Enemy::~Enemy(void)
 {

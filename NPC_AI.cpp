@@ -30,10 +30,10 @@ NPC_AI::~NPC_AI(void)
 
 void NPC_AI::update(Enemy &e)
 {
-	int trigger = getFirstTriggeredState();
+	int trigger = getFirstTriggeredState(e);
 	if (trigger != -1) {
 		triggerStates[trigger].update(e);
-	} else {
+	} else if (states.size() > 0) {
 		GuardPathState *s = &states[actualState];
 		s->update(e);
 		if (s->isFinished()) {
@@ -46,7 +46,9 @@ void NPC_AI::update(Enemy &e)
 
 void NPC_AI::initialize()
 {
-	states[actualState].initialize();
+	if (states.size() > 0) {
+		states[actualState].initialize();
+	}
 }
 
 void NPC_AI::setState(int i, GuardPathState &s)
@@ -59,11 +61,11 @@ void NPC_AI::setTriggerState(int i, PursueState &e)
 	triggerStates[i] = e;
 }
 
-int NPC_AI::getFirstTriggeredState()
+int NPC_AI::getFirstTriggeredState(Enemy &e)
 {
 	int res = -1;
 	for (unsigned int i = 0; i < triggerStates.size() && res == -1; i++){
-		if (triggerStates[i].isTriggered()) {
+		if (triggerStates[i].isTriggered(e)) {
 			res = i;
 		}
 	} 

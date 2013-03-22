@@ -21,9 +21,9 @@ PursueState::PursueState(Player &p, float alertDistance, float maxDist, float mi
 void PursueState::update(Enemy &e)
 {
 	float dist = e.distance(*target);
-	if (isFired && (dist < maxDist || dist > minDist)) {
+	float vx = 0.0f, vy = 0.0f;
+	if (isFired && dist < maxDist && dist > minDist) {
 		/* move between maxDist and minDist */
-		float vx, vy;
 		vx = target->getX() - e.getX();
 		vy = target->getY() - e.getY();
 		float length = sqrt(vx*vx + vy*vy);
@@ -33,14 +33,16 @@ void PursueState::update(Enemy &e)
 		/* scale */
 		vx *= v;
 		vy *= v;
-		e.setVX(vx);
-		e.setVY(vy);
 	} else {
-		isFired = (dist <= alertDistance);
+		vx = vy = 0.0f;
 	}
+	e.setVX(vx);
+	e.setVY(vy);
 }
 
-bool PursueState::isTriggered()
+bool PursueState::isTriggered(Enemy &e)
 {
+	float dist = e.distance(*target);
+	isFired = isFired || (dist <= alertDistance);
 	return isFired;
 }

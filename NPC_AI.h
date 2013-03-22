@@ -25,7 +25,7 @@ public:
 	void setTriggerState(int i, PursueState &e);
 	void initialize();
 private:
-	int getFirstTriggeredState();
+	int getFirstTriggeredState(Enemy &e);
 
 	std::vector<PursueState> triggerStates;
 	std::vector<GuardPathState> states;

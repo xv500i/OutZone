@@ -14,7 +14,7 @@ public:
 	PursueState(Player &p, float alertDistance, float maxDist, float minDist, float v, bool firePermission = false, int reloadTime = 15);
 	~PursueState(void);
 	void update(Enemy &e);
-	bool isTriggered();
+	bool isTriggered(Enemy &e);
 private:
 	float alertDistance;
 	Player *target;

@@ -24,9 +24,15 @@ bool Scene::loadLevel(int level, GameData *data)
 	Enemy en(120.0f, 130.f, -1, 16, 16, true);
 	en.setPhantom(false);
 	enemies.push_back(en);
+
 	Enemy en2(300.0f, 50.f, -1, 16, 16, true);
 	en2.setPhantom(false);
 	enemies.push_back(en2);
+
+	Enemy en3(player, 120.0f, 550.f, -1, 16, 16, true);
+	en3.setPhantom(false);
+	enemies.push_back(en3);
+
 	player = Player(50.0f, 50.0f, -1, 16, 16, true, 0.0f, 0.0f);
 	player.setPhantom(false);
 	
