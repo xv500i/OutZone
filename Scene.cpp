@@ -38,7 +38,7 @@ bool Scene::loadLevel(int level, GameData *data)
 	en4.setPhantom(false);
 	enemies.push_back(en4);
 
-	player = Player(50.0f, 50.0f, GameData::PLAYER1_SPRITE_INDEX, 16, 16, true, 0.0f, 0.0f);
+	player = Player(50.0f, 50.0f, GameData::PLAYER1_SPRITE_INDEX, 20, 20, true, 0.0f, 0.0f);
 	player.setPhantom(false);
 	
 	// Loading layers
