@@ -10,7 +10,8 @@ const char* Sprite::DESCRIPTOR_FILE_EXT = ".txt";
 Sprite::Sprite(void) 
 {
 	currentAnimationIndex = -1;
-	currentAction = STATIC;
+	currentAnimationDuration = 0;
+	currentAction = (PlayerAction)-1;
 }
 
 Sprite::~Sprite(void) {}
@@ -83,14 +84,31 @@ bool Sprite::loadDescriptionFile(const char *filename)
 /* Getters */
 void Sprite::getFrameInfo(PlayerAction action, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY)
 {
-	if (currentAction == action) currentAnimationIndex++;
+	// If we continue with the same action...
+	if (currentAction == action) {
+		// Obtain the actual frame
+		std::vector<KeyFrame> currentAnimation = animations.at(currentAction);
+		KeyFrame currentFrame = currentAnimation.at(currentAnimationIndex);
+
+		// Increment the animation duration
+		currentAnimationDuration++;
+
+		// If we have reached the end of the frame, change it
+		if (currentAnimationDuration == currentFrame.duration) {
+			currentAnimationDuration = 0;
+			currentAnimationIndex++;
+			if (currentAnimationIndex == currentAnimation.size()) currentAnimationIndex = 0;
+		}
+	}
+	// If we have changed the action...
 	else {
 		currentAction = action;
 		currentAnimationIndex = 0;
+		currentAnimationDuration = 0;
 	}
 
+	// Obtain the frame that we have to render
 	std::vector<KeyFrame> animation = animations.at(action);
-	if (currentAnimationIndex == animation.size()) currentAnimationIndex = 0;
 	KeyFrame keyFrame = animation.at(currentAnimationIndex);
 	Frame frame = frames.at(keyFrame.frameId);
 

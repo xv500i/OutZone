@@ -26,8 +26,9 @@ private:
 	std::vector<Frame> frames;						/* Contains all the sprite frames */
 	std::vector<std::vector<KeyFrame>> animations;	/* Each vector contains the keyframes associated with an animation */
 
-	PlayerAction currentAction;	/* Contains the current action */
-	int currentAnimationIndex;	/* Contains the index in the animation vector of the current keyFrame */
+	PlayerAction currentAction;		/* Contains the current action */
+	int currentAnimationIndex;		/* Contains the index in the animation vector of the current keyFrame */
+	int currentAnimationDuration;	/* Contains the time used by the current animation */
 
 	bool loadDescriptionFile(const char *filename);
 

@@ -120,7 +120,7 @@ void Scene::resolveInput(InputHandler &input) {
 
 	
 	float vx = 0.0f, vy = 0.0f;
-	float catet = 5.0f;
+	float catet = 2.0f;
 	float absv = sqrt(catet*catet*2);
 	if (something) {
 		switch (d) {
