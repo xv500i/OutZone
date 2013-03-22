@@ -30,15 +30,23 @@ Enemy::Enemy(Player &p, const float x, const float y, const int idTexture, const
 	ai->setTriggerState(0, *pur);
 }
 
+Enemy::Enemy(Player &p, int fireDelay, const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx, const float vy)
+	: MobileGameObject(x, y, idTexture, width, length, isWalkable, vx, vy)
+{
+	ai = new NPC_AI(0,1,0);
+	PursueState *pur = new PursueState(p, 200.0f, 250.f, 50.0f, 2.0f, true, fireDelay);
+	ai->setTriggerState(0, *pur);
+}
+
 
 Enemy::~Enemy(void)
 {
 }
 
-void Enemy::update(std::vector<GameObject> &collisionableObjects)
+void Enemy::update(std::vector<GameObject> &collisionableObjects, std::vector<Bullet> &bullets)
 {
 	MobileGameObject::update(collisionableObjects);
-	ai->update(*this);
+	ai->update(bullets, *this);
 }
 
 void Enemy::setAI(NPC_AI *art)

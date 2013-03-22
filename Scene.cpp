@@ -21,6 +21,7 @@ bool Scene::loadLevel(int level, GameData *data)
 	GameObject go4(120.0f, 100.0f, -1, 15, 15, false);
 	obstacles.push_back(go4);
 	playerShots.clear();
+	enemyShots.clear();
 	Enemy en(120.0f, 130.f, -1, 16, 16, true);
 	en.setPhantom(false);
 	enemies.push_back(en);
@@ -32,6 +33,10 @@ bool Scene::loadLevel(int level, GameData *data)
 	Enemy en3(player, 120.0f, 550.f, -1, 16, 16, true);
 	en3.setPhantom(false);
 	enemies.push_back(en3);
+
+	Enemy en4(player, 50, 120.0f, 850.f, -1, 16, 16, true);
+	en4.setPhantom(false);
+	enemies.push_back(en4);
 
 	player = Player(50.0f, 50.0f, -1, 16, 16, true, 0.0f, 0.0f);
 	player.setPhantom(false);
@@ -62,6 +67,10 @@ void Scene::render(int level, GameData *data, Viewport *viewport)
 	
 	for (i = 0; i < playerShots.size(); i++) {
 		playerShots[i].render();
+	}
+
+	for (i = 0; i < enemyShots.size(); i++) {
+		enemyShots[i].render();
 	}
 }
 
@@ -159,7 +168,8 @@ void Scene::update(Viewport *viewport)
 	getLevelSizeInPixels(currentLevel, maxX, maxY);
 	
 	int size = playerShots.size();
-	for (std::vector<Bullet>::iterator it = playerShots.begin() ; it != playerShots.end(); ) {
+	std::vector<Bullet>::iterator it;
+	for (it = playerShots.begin() ; it != playerShots.end(); ) {
 		it->update(obstacles);
 		float x = it->getX();
 		float y = it->getY();
@@ -178,10 +188,15 @@ void Scene::update(Viewport *viewport)
 			}
 		}
 	}
+	for (it = enemyShots.begin() ; it != enemyShots.end(); ) {
+		it->update(obstacles);
+		it++;
+		//TODO colisions amb el player o enemics si es vol
+	}
 	player.update(obstacles);
 
 	for (unsigned int i = 0; i < enemies.size(); i++) {
-		enemies[i].update(obstacles);
+		enemies[i].update(obstacles, enemyShots);
 	}
 
 	viewport->updateWithPosition(player.getX(), player.getY());

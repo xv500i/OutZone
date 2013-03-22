@@ -15,11 +15,13 @@ PursueState::PursueState(Player &p, float alertDistance, float maxDist, float mi
 {
 	target = &p;
 	isFired = false;
+	reloadLeft = 0;
 }
 
 
-void PursueState::update(Enemy &e)
+void PursueState::update(std::vector<Bullet> &bullets, Enemy &e)
 {
+	reloadLeft = (reloadLeft <= 0 ? 0 : reloadLeft - 1);
 	float dist = e.distance(*target);
 	float vx = 0.0f, vy = 0.0f;
 	if (isFired && dist < maxDist && dist > minDist) {
@@ -28,11 +30,21 @@ void PursueState::update(Enemy &e)
 		vy = target->getY() - e.getY();
 		float length = sqrt(vx*vx + vy*vy);
 		/* normalize */
-		vx /= length;
-		vy /= length;
+		float nvx = vx/length;
+		float nvy = vy/length;
 		/* scale */
-		vx *= v;
-		vy *= v;
+		vx = nvx*v;
+		vy = nvy*v;
+		if (firePermission && reloadLeft == 0) {
+			//fireForward
+			// HARDCODED
+			float bulletV = 5.0f;
+			Bullet *b = new Bullet(e.getX(), e.getY(), -1, 3, 3, true, nvx*bulletV, nvy*bulletV);
+			// FIXME de moment escena no retira les bales
+			b->setTicksLeft(50);
+			bullets.push_back(*b);
+			reloadLeft = reloadTime;
+		}
 	} else {
 		vx = vy = 0.0f;
 	}

@@ -28,11 +28,11 @@ NPC_AI::~NPC_AI(void)
 {
 }
 
-void NPC_AI::update(Enemy &e)
+void NPC_AI::update(std::vector<Bullet> &bullets, Enemy &e)
 {
 	int trigger = getFirstTriggeredState(e);
 	if (trigger != -1) {
-		triggerStates[trigger].update(e);
+		triggerStates[trigger].update(bullets, e);
 	} else if (states.size() > 0) {
 		GuardPathState *s = &states[actualState];
 		s->update(e);

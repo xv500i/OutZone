@@ -7,6 +7,7 @@
 #include "GuardPathState.h"
 #include "PursueState.h"
 #include "Enemy.h"
+#include "Bullet.h"
 
 class Enemy;
 class GuardPathState;
@@ -20,7 +21,7 @@ public:
 	NPC_AI(int numberOfStates, int initialState);
 	NPC_AI(int numberOfStates, int numberOfTriggeredStates, int initialState);
 	~NPC_AI(void);
-	void update(Enemy &e);
+	void update(std::vector<Bullet> &bullets, Enemy &e);
 	void setState(int i, GuardPathState &e);
 	void setTriggerState(int i, PursueState &e);
 	void initialize();

@@ -27,6 +27,7 @@ private:
 	Level levels[NUM_LEVELS];
 	Player player;
 	vector<Bullet> playerShots;
+	vector<Bullet> enemyShots;
 	vector<GameObject> obstacles;
 	vector<Enemy> enemies;
 	int currentLevel;
