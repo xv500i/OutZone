@@ -5,9 +5,23 @@ NPC_AI::NPC_AI(void)
 {
 }
 
+NPC_AI::NPC_AI(int numberOfStates)
+{
+	states = std::vector<GuardPathState>(numberOfStates);
+	triggerStates = std::vector<PursueState>(0);
+	actualState = 0;
+}
+
 NPC_AI::NPC_AI(int numberOfStates, int initialState) : actualState(initialState)
 {
 	states = std::vector<GuardPathState>(numberOfStates);
+	triggerStates = std::vector<PursueState>(0);
+}
+
+NPC_AI::NPC_AI(int numberOfStates, int numberOfTriggeredStates, int initialState) : actualState(initialState)
+{
+	states = std::vector<GuardPathState>(numberOfStates);
+	triggerStates = std::vector<PursueState>(numberOfTriggeredStates);
 }
 
 NPC_AI::~NPC_AI(void)
@@ -16,12 +30,17 @@ NPC_AI::~NPC_AI(void)
 
 void NPC_AI::update(Enemy &e)
 {
-	GuardPathState *s = &states[actualState];
-	s->update(e);
-	if (s->isFinished()) {
-		actualState = s->getNextState();
-		GuardPathState *next = &states[actualState];
-		next->initialize();
+	int trigger = getFirstTriggeredState();
+	if (trigger != -1) {
+		triggerStates[trigger].update(e);
+	} else {
+		GuardPathState *s = &states[actualState];
+		s->update(e);
+		if (s->isFinished()) {
+			actualState = s->getNextState();
+			GuardPathState *next = &states[actualState];
+			next->initialize();
+		}
 	}
 }
 
@@ -33,4 +52,20 @@ void NPC_AI::initialize()
 void NPC_AI::setState(int i, GuardPathState &s)
 {
 	states[i] = s;
+}
+
+void NPC_AI::setTriggerState(int i, PursueState &e)
+{
+	triggerStates[i] = e;
+}
+
+int NPC_AI::getFirstTriggeredState()
+{
+	int res = -1;
+	for (unsigned int i = 0; i < triggerStates.size() && res == -1; i++){
+		if (triggerStates[i].isTriggered()) {
+			res = i;
+		}
+	} 
+	return res;
 }

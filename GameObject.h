@@ -30,6 +30,7 @@ public:
 	char getType()const;
 	bool shouldNotEnterObjects() const;
 	void setPhantom(bool b);
+	float distance(GameObject &g);
 protected:
 	char type;
 

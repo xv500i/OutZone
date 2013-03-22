@@ -1,4 +1,4 @@
-
+#include <cmath>
 #include "GameObject.h"
 
 GameObject::GameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable) : x(x), y(y), idTexture(idTexture), width(width), length(length)
@@ -108,4 +108,9 @@ bool GameObject::shouldNotEnterObjects() const
 void GameObject::setPhantom(bool b)
 {
 	phantom = b;
+}
+
+float GameObject::distance(GameObject &g)
+{
+	return sqrt(pow(x-g.x,2) + pow(y-g.y,2));
 }
