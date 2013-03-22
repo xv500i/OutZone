@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Texture.h"
+#include "PlayerAction.h"
 
 
 struct KeyFrame {
@@ -25,6 +26,9 @@ private:
 	std::vector<Frame> frames;						/* Contains all the sprite frames */
 	std::vector<std::vector<KeyFrame>> animations;	/* Each vector contains the keyframes associated with an animation */
 
+	PlayerAction currentAction;	/* Contains the current action */
+	int currentAnimationIndex;	/* Contains the index in the animation vector of the current keyFrame */
+
 	bool loadDescriptionFile(const char *filename);
 
 public:
@@ -34,4 +38,7 @@ public:
 	/* Loading */
 	bool load(const char *filename, const char *ext, int type = GL_RGBA, int wraps = GL_REPEAT, 
 			  int wrapt = GL_REPEAT, int magf = GL_NEAREST, int minf = GL_NEAREST, bool mipmap = false);
+
+	/* Getters */
+	void getFrameInfo(PlayerAction action, int *s, int *t, int *width, int *height, float *offsetX, float *offsetY);
 };

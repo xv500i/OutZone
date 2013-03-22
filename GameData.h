@@ -52,4 +52,5 @@ public:
 	bool loadSprites();
 	int getSpriteID(int spriteIndex);
 	void getSpriteSizeInPixels(int spriteIndex, int *width, int *height);
+	void getSpriteFrameInfo(int spriteIndex, PlayerAction action, int *s, int *t, int *width, int *height, float *offsetX, float *offsetY);
 };

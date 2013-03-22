@@ -7,7 +7,11 @@
 
 const char* Sprite::DESCRIPTOR_FILE_EXT = ".txt";
 
-Sprite::Sprite(void) {}
+Sprite::Sprite(void) 
+{
+	currentAnimationIndex = -1;
+	currentAction = STATIC;
+}
 
 Sprite::~Sprite(void) {}
 
@@ -74,4 +78,25 @@ bool Sprite::loadDescriptionFile(const char *filename)
 		std::cout << "Error carregant el fitxer de descripcio de l'sprite " << filename << std::endl;
 		return false;
 	}
+}
+
+/* Getters */
+void Sprite::getFrameInfo(PlayerAction action, int *s, int *t, int *width, int *height, float *offsetX, float *offsetY)
+{
+	if (currentAction == action) currentAnimationIndex++;
+	else currentAnimationIndex = 0;
+
+	std::vector<KeyFrame> animation = animations.at(action);
+	KeyFrame keyFrame = animation.at(currentAnimationIndex);
+	Frame frame = frames.at(keyFrame.frameId);
+
+	int textureWidth, textureHeight;
+	getSizeInPixels(&textureWidth, &textureHeight);
+
+	*s = frame.s/textureWidth;
+	*t = frame.t/textureHeight;
+	*width = frame.width;
+	*height = frame.height;
+	*offsetX = frame.width/textureWidth;
+	*offsetY = frame.height/textureHeight;
 }
