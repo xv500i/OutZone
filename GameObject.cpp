@@ -23,7 +23,7 @@ void GameObject::render(GameData *data) const
 	float angle = getAngleVelocity();
 	if (idTexture != -1) {
 		float w,h,s,t,offsetX, offsetY;
-		//data->getFrameInfo(idTexture,pa,s,t,w,h,offsetX,offsetY);
+		//data->getSpriteFrameInfo(idTexture,pa,s,t,w,h,offsetX,offsetY);
 		
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, idTexture);
