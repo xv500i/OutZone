@@ -26,7 +26,7 @@ void GameObject::render(GameData *data) const
 		//data->getFrameInfo(idTexture,pa,s,t,w,h,offsetX,offsetY);
 		
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 2);
+		glBindTexture(GL_TEXTURE_2D, idTexture);
 		glPushMatrix();
 		glTranslatef(getX(), getY(), 0.0f);
 		glRotatef(angle, 0.0f, 0.0f, 1.0f);
