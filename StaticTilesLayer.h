@@ -19,6 +19,10 @@ private:
 	const static char* FILE_NAME_PREFIX;
 	const static char* FILE_EXT;
 
+	/* Tile size constants */
+	const static int TILE_WIDTH_IN_PIXELS = 32;
+	const static int TILE_HEIGHT_IN_PIXELS = 32;
+
 	int widthInTiles;		/* Level width in tiles */
 	int heightInTiles;		/* Level height in tiles */
 	int tileWidthInPixels;	/* Tile width in pixels */

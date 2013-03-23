@@ -14,7 +14,7 @@ private:
 	const static char* TILESHEET_EXT;
 
 	/* Sprites */
-	const static int NUM_SPRITES = 2;	// TODO: modificar depenent del numero de sprites carregats
+	const static int NUM_SPRITES = 4;	// TODO: modificar depenent del numero de sprites carregats
 	const static char* SPRITE_EXT;
 
 	std::vector<TileSheet> tileSheets;	/* All loaded tile sheets */
@@ -36,6 +36,8 @@ public:
 	/* Sprite indexes */	// TODO: afegir indexs de tots els sprites carregats
 	const static int PLAYER1_SPRITE_INDEX = 0;
 	const static int PLAYER2_SPRITE_INDEX = 1;
+	const static int FIRE_SPRITE_INDEX = 2;
+	const static int FIRE2_SPRITE_INDEX = 3;
 
 	GameData(void);
 	~GameData(void);

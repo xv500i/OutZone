@@ -39,7 +39,8 @@ bool Weapon::fire(float x, float y, float dirX, float dirY, std::vector<Bullet> 
     
     float nx = c * dirX - s * dirY;
     float ny = s * dirX + c * dirY;
-	Bullet* bala = new Bullet(x, y, -1, w, h, true, nx, ny);
+	Bullet* bala = new Bullet(x, y, GameData::FIRE_SPRITE_INDEX, w, h, true, nx, ny);
+	bala->setPlayerAction(STATIC);	//TODO : HARDCODED! Hi ha que veure com fer lu del "PlayerAction" a sprite, ja que no tots els sprites son players!
 	bala->setTicksLeft(ticksMax);
 	v.push_back(*bala);
 	waitToFire = reloadTime;

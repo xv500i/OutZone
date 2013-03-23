@@ -55,8 +55,8 @@ bool StaticTilesLayer::loadHeader(std::ifstream &file)
 	if (file.is_open()) {
 		for (unsigned int i = 0; i < 4; i++) {
 			getline(file, line);
-			if (line.find("tilewidth") != std::string::npos) tileWidthInPixels = 2*atoi(line.substr(line.find("=") + 1).c_str());
-			else if (line.find("tileheight") != std::string::npos) tileHeightInPixels = 2*atoi(line.substr(line.find("=") + 1).c_str());
+			if (line.find("tilewidth") != std::string::npos) tileWidthInPixels = TILE_WIDTH_IN_PIXELS;
+			else if (line.find("tileheight") != std::string::npos) tileHeightInPixels = TILE_HEIGHT_IN_PIXELS;
 			else if (line.find("width") != std::string::npos) widthInTiles = atoi(line.substr(line.find("=") + 1).c_str());
 			else if (line.find("height") != std::string::npos) heightInTiles = atoi(line.substr(line.find("=") + 1).c_str());
 			else return false;

@@ -95,8 +95,8 @@ void MobileGameObject::update(std::vector<GameObject> &collisionableObjects)
 			dir = RIGHT;
 		} 
 	}
-	if (abs(getVX()) > 0.0f || abs(getVY()) > 0.0f) setPlayerAction(WALK);
-	else setPlayerAction(STATIC);
+	//if (abs(getVX()) > 0.0f || abs(getVY()) > 0.0f) setPlayerAction(WALK);
+	//else setPlayerAction(STATIC);	// TODO: Problema, al fer aixo en el MobileGameObject, tambe ho fan les bullets!
 }
 
 Directions MobileGameObject::getDirection() const

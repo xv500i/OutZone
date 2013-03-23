@@ -18,7 +18,7 @@ private:
 
 public:
 	const static int GAME_WIDTH = 480;
-	const static int GAME_HEIGHT = 480;
+	const static int GAME_HEIGHT = 720;
 	const static int FRAMERATE = 50;
 
 	OutZone(void);
