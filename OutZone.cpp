@@ -4,11 +4,27 @@
 #include <time.h>
 #include <random>
 
+// FMOD FIXME
+#pragma comment(lib,"fmodex_vc")
+#include <windows.h>
+#include <stdio.h>
+#include <conio.h>
+#include "fmod.hpp"
+#include "fmod_errors.h"
+
 
 OutZone::OutZone(void) {}
 
 OutZone::~OutZone(void) {}
 
+void ERRCHECK(FMOD_RESULT result)
+{
+    if (result != FMOD_OK)
+    {
+        printf("FMOD error! (%d) %s\n", result, FMOD_ErrorString(result));
+        exit(-1);
+    }
+}
 
 /* Initialization & Finalization */
 bool OutZone::init() 
@@ -27,6 +43,34 @@ bool OutZone::init()
 	if (!data.loadSprites()) return false;
 	if (!scene.loadLevel(1, &data)) return false;	// TODO: no carregar el nivell inicial, sino la main screen
 
+	// Music FIXME
+	FMOD::System     *system;
+    FMOD::Sound      *sound1;
+    FMOD::Channel    *channel = 0;
+    FMOD_RESULT       result;
+
+	result = FMOD::System_Create(&system);
+    ERRCHECK(result);
+
+	result = system->init(32, FMOD_INIT_NORMAL, 0);
+    ERRCHECK(result);
+
+	result = system->createSound("Jungle_Theme.mp3", FMOD_HARDWARE, 0, &sound1);
+    ERRCHECK(result);
+
+	result = system->playSound(FMOD_CHANNEL_FREE, sound1, false, &channel);
+    ERRCHECK(result);
+
+	// FMOD FIXME
+	/*
+	result = sound3->release();
+    ERRCHECK(result);
+    result = system->close();
+    ERRCHECK(result);
+    result = system->release();
+    ERRCHECK(result);
+	*/
+
 	// Camera initialization
 	viewport.init(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
 	int width, height;
@@ -36,7 +80,10 @@ bool OutZone::init()
 	return true;
 }
 
-void OutZone::finalize() {}
+void OutZone::finalize()
+{
+	
+}
 
 
 /* Input */
