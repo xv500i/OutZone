@@ -34,6 +34,7 @@ public:
 	virtual float getAngleVelocity() const;
 	PlayerAction getPlayerAction() const;
 	void setPlayerAction(PlayerAction action);
+	int getId();
 protected:
 	char type;
 
@@ -47,5 +48,7 @@ private:
 	int width;
 	int length;
 	bool isWalkable;
+	static int current_id;
+	int id;
 };
 

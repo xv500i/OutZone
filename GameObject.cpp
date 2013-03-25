@@ -1,12 +1,15 @@
 #include <cmath>
 #include "GameObject.h"
 
+int GameObject::current_id = 0;
+
 GameObject::GameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable) : x(x), y(y), idTexture(idTexture), width(width), length(length)
 {
 	phantom = true;
 	this->b = new BoundingBox(y+length/2, y-length/2, x-width/2, x+width/2);
 	type = 'u';
 	pa = STATIC;
+	id = current_id++;
 }
 
 GameObject::GameObject()
@@ -159,4 +162,9 @@ PlayerAction GameObject::getPlayerAction() const
 void GameObject::setPlayerAction(PlayerAction action)
 {
 	pa = action;
+}
+
+int GameObject::getId()
+{
+	return id;
 }

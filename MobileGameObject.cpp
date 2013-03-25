@@ -51,7 +51,7 @@ void MobileGameObject::update(std::vector<GameObject> &collisionableObjects)
 		updateBBox(vx, vy);
 		// look for any x or y restriction
 		for(std::vector<GameObject>::iterator ito = collisionableObjects.begin(); ito != collisionableObjects.end(); ito++) {
-			if (isIntersecting(*ito)) {
+			if (getId() != ito->getId() && isIntersecting(*ito)) {
 				// test X
 				updateBBox(0, -vy);
 				if (isIntersecting(*ito)) {

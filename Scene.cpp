@@ -166,15 +166,17 @@ void Scene::update(Viewport *viewport)
 	int maxX, maxY, minX, minY;
 	minX = minY = 0;
 	getLevelSizeInPixels(currentLevel, maxX, maxY);
-	
+
 	int size = playerShots.size();
+	vector<GameObject> v;
+	getCollisioningGameObjects(v);
 	std::vector<Bullet>::iterator it;
 	for (it = playerShots.begin() ; it != playerShots.end(); ) {
 		it->update(obstacles);
 		float x = it->getX();
 		float y = it->getY();
-		vector<GameObject> v;
-		getCollisioningGameObjects(v);
+		
+
 		if (maxX < x || minX > x || maxY < y || minY > y) {
 			it = playerShots.erase(it);
 		} else {
@@ -202,8 +204,6 @@ void Scene::update(Viewport *viewport)
 		it->update(obstacles);
 		float x = it->getX();
 		float y = it->getY();
-		vector<GameObject> v;
-		getCollisioningGameObjects(v);
 		if (maxX < x || minX > x || maxY < y || minY > y) {
 			it = enemyShots.erase(it);
 		} else {
@@ -222,7 +222,7 @@ void Scene::update(Viewport *viewport)
 			}
 		}
 	}
-	player.update(obstacles);
+	player.update(v);
 	if (player.getX() + player.getWidth()/2 > maxX) {
 		float inc = maxX - player.getWidth()/2 - player.getX();
 		player.updateBBox(inc, 0.0f);
@@ -244,7 +244,7 @@ void Scene::update(Viewport *viewport)
 		player.setY(minY + player.getLength()/2);
 	}
 	for (unsigned int i = 0; i < enemies.size(); i++) {
-		enemies[i].update(obstacles, enemyShots);
+		enemies[i].update(v, enemyShots);
 		if (enemies[i].getX() + enemies[i].getWidth()/2 > maxX) {
 			float inc = maxX - enemies[i].getWidth()/2 - enemies[i].getX();
 			enemies[i].updateBBox(inc, 0.0f);
@@ -278,5 +278,13 @@ void Scene::getLevelSizeInPixels(int level, int &w, int &h)
 void Scene::getCollisioningGameObjects(vector<GameObject> &v)
 {
 	// FIXME I'M FAMOUS
-	v = obstacles;
+	//AB.reserve( A.size() + B.size() ); // preallocate memory
+	//AB.insert( AB.end(), A.begin(), A.end() );
+	//AB.insert( AB.end(), B.begin(), B.end() );
+	std::vector<GameObject> res;
+	res.reserve(obstacles.size() + 1 + enemies.size());
+	res.insert(res.end(), obstacles.begin(), obstacles.end());
+	res.insert(res.end(), enemies.begin(), enemies.end());
+	res.push_back(player);
+	v = res;
 }
