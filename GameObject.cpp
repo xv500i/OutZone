@@ -22,7 +22,7 @@ GameObject::~GameObject(void)
 void GameObject::render(GameData *data) const
 {
 	float angle = getAngleVelocity();
-	if (idTexture != -1) {
+	if (false && idTexture != -1) {
 		float offsetX, offsetY, s,t;
 		int w,h;
 		data->getSpriteFrameInfo(idTexture,pa,&s,&t,&w,&h,&offsetX,&offsetY);
