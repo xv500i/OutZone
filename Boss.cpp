@@ -42,8 +42,8 @@ void Boss::update(std::vector<Bullet> &shots, float x, float y)
 	case FIRE_TO_PLAYER:
 		if (t > 0) {
 			if(t%9 == 0) centerTail.fireTo(shots,x,y);
-			else if(t%9 == 3) leftTail.fireTo(shots,x,y);
-			else if(t%9 == 6) rightTail.fireTo(shots,x,y);
+			else if(t%9 == 1) leftTail.fireTo(shots,x,y);
+			else if(t%9 == 2) rightTail.fireTo(shots,x,y);
 		} else {
 			t = 450 + ((int)rand()) % 100;
 			ia = SWINGING;

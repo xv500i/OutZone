@@ -53,12 +53,15 @@ void BossTail::render(GameData *data) const
 
 void BossTail::fireTo(std::vector<Bullet> &shots, float x, float y)
 {
-	float v = 8.0f;
-	float ix = x - bg.getX();
-	float iy = y - bg.getY()-bg.getLength()/2;
+	float v = 13.0f;
+	float LO = -30.0f;
+	float HI = 30.0f;
+	float ix = x - bg.getX() + LO + (float)rand()/((float)RAND_MAX/(HI-LO));
+	float iy = y - bg.getY()-bg.getLength()/2 + LO + (float)rand()/((float)RAND_MAX/(HI-LO));
 	float modul = sqrt(ix*ix + iy*iy);
 	float vx = ix/modul*v;
 	float vy = iy/modul*v;
 	Bullet *b = new Bullet(bg.getX(), bg.getY()-bg.getLength()/2, -1, 8, 8, true, vx, vy);
+	b->setTicksLeft(200);
 	shots.push_back(*b);
 }
