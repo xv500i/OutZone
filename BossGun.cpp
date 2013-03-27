@@ -9,9 +9,9 @@ BossGun::BossGun(const float x, const float y, const int idTexture, const int wi
 	: BossPart(x,y,idTexture, width, length, isWalkable, life)
 {
 	minY = y;
-	maxX = x+150.0f;
-	minX = x-150.0f;
-	maxY = y + 100.0f;
+	maxX = x+50.0f;
+	minX = x-50.0f;
+	maxY = y + 50.0f;
 	fireRate = 35;
 	//float angle = LO + (float)rand()/((float)RAND_MAX/(HI-LO));
 	ticksMoving = ( (int)rand() % 60 );

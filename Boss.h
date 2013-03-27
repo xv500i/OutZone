@@ -14,5 +14,7 @@ private:
 	int life;
 	bool invul;
 	BossTail centerTail;
+	BossTail leftTail;
+	BossTail rightTail;
 };
 

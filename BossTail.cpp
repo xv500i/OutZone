@@ -26,16 +26,19 @@ void BossTail::update()
 	//GameObject::update();
 	bg.update();
 	float targetX = bg.getX(), targetY = bg.getY();
-	//bool end = std::abs(targetX) < 0.01f && std::abs(targetY) < 0.01f;
-	for(int i = parts.size()-1; i >= 0; i--) {
+	float fx = parts[parts.size()-1].getX();
+	float fy = parts[parts.size()-1].getY();
+	bool end = std::abs(targetX-fx) < 0.01f && std::abs(targetY-fy) < 0.01f;
+	parts[parts.size()-1].setLimits(bg.getX() + bg.getWidth(), bg.getY() + bg.getLength(), bg.getX() - bg.getWidth(), bg.getY() - bg.getLength());
+	for(int i = parts.size()-1; i >= 0 && !end; i--) {
 		float movedX = 0.0f, movedY = 0.0f;
 		parts[i].moveTo(targetX, targetY, movedX, movedY);
 		if ((unsigned)i < parts.size()-1) {
 			parts[i+1].setLimits(parts[i].getX() + parts[i].getWidth(), parts[i].getY() + parts[i].getLength(), parts[i].getX() - parts[i].getWidth(), parts[i].getY() - parts[i].getLength());
 		}
-		//targetX -= movedX;
-		//targetY -= movedY;
-		//end = std::abs(targetX) < 0.01f && std::abs(targetY) < 0.01f;
+		targetX = parts[i].getX();
+		targetY = parts[i].getY();
+		end = std::abs(targetX) < 0.01f && std::abs(targetY) < 0.01f;
 	}
 }
 
