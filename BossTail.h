@@ -11,6 +11,7 @@ public:
 	~BossTail(void);
 	void update(std::vector<Bullet> &shots);
 	void render(GameData *data) const;
+	void fireTo(std::vector<Bullet> &shots, float x, float y);
 private:
 	int life;
 	std::vector<BossPart> parts;
