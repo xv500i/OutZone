@@ -11,6 +11,7 @@
 #include "Enemy.h"
 #include "Bullet.h"
 #include "Viewport.h"
+#include "Boss.h"
 
 using namespace std;
 
@@ -31,6 +32,7 @@ private:
 	vector<GameObject> obstacles;
 	vector<Enemy> enemies;
 	int currentLevel;
+	Boss boss;
 
 public:
 	Scene(void);

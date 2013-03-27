@@ -5,20 +5,20 @@
 #include <random>
 
 // FMOD FIXME
-/*
+
 #pragma comment(lib,"fmodex_vc")
 #include <windows.h>
 #include <stdio.h>
 #include <conio.h>
 #include "fmod.hpp"
 #include "fmod_errors.h"
-*/
+
 
 OutZone::OutZone(void) {}
 
 OutZone::~OutZone(void) {}
 
-/*
+
 void ERRCHECK(FMOD_RESULT result)
 {
     if (result != FMOD_OK)
@@ -27,7 +27,7 @@ void ERRCHECK(FMOD_RESULT result)
         exit(-1);
     }
 }
-*/
+
 
 /* Initialization & Finalization */
 bool OutZone::init() 
@@ -47,7 +47,7 @@ bool OutZone::init()
 	if (!scene.loadLevel(1, &data)) return false;	// TODO: no carregar el nivell inicial, sino la main screen
 
 	// Music FIXME
-	/*
+	
 	FMOD::System     *system;
     FMOD::Sound      *sound1;
     FMOD::Channel    *channel = 0;
@@ -64,7 +64,7 @@ bool OutZone::init()
 
 	result = system->playSound(FMOD_CHANNEL_FREE, sound1, false, &channel);
     ERRCHECK(result);
-	*/
+	
 
 	// FMOD FIXME
 	/*

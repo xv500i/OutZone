@@ -40,6 +40,8 @@ bool Scene::loadLevel(int level, GameData *data)
 
 	player = Player(50.0f, 50.0f, GameData::PLAYER1_SPRITE_INDEX, 20, 20, true, 0.0f, 0.0f);
 	player.setPhantom(false);
+
+	boss = Boss(200.0f, 800.0f, -1, 300.0f, 100.0f, true, 100);
 	
 	// Loading layers
 	bool b = levels[level - 1].staticTilesLayer.load(level, data);
@@ -72,6 +74,8 @@ void Scene::render(int level, GameData *data, Viewport *viewport)
 	for (i = 0; i < enemyShots.size(); i++) {
 		enemyShots[i].render(data);
 	}
+
+	boss.render(data);
 }
 
 void Scene::getLevelSize(int level, int *width, int *height)
@@ -166,7 +170,7 @@ void Scene::update(Viewport *viewport)
 	int maxX, maxY, minX, minY;
 	minX = minY = 0;
 	getLevelSizeInPixels(currentLevel, maxX, maxY);
-
+	
 	int size = playerShots.size();
 	vector<GameObject> v;
 	getCollisioningGameObjects(v);
@@ -266,6 +270,8 @@ void Scene::update(Viewport *viewport)
 			enemies[i].setY(minY + enemies[i].getLength()/2);
 		}
 	}
+
+	boss.update();
 
 	viewport->updateWithPosition(player.getX(), player.getY());
 }

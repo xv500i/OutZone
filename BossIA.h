@@ -1,0 +1,6 @@
+#ifndef BOSS_IA
+#define BOSS_IA
+
+enum BossIA {DAMAGED, FIRE_PLAYER_POSITION, SWINGING, AIMING_PLAYER, FIRE}
+
+#endif
