@@ -9,7 +9,7 @@ public:
 	BossTail(void);
 	BossTail(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, int life, int nparts);
 	~BossTail(void);
-	void update();
+	void update(std::vector<Bullet> &shots);
 	void render(GameData *data) const;
 private:
 	int life;

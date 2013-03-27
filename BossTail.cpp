@@ -21,10 +21,10 @@ BossTail::~BossTail(void)
 {
 }
 
-void BossTail::update()
+void BossTail::update(std::vector<Bullet> &shots)
 {
 	//GameObject::update();
-	bg.update();
+	bg.update(shots);
 	float targetX = bg.getX(), targetY = bg.getY();
 	float fx = parts[parts.size()-1].getX();
 	float fy = parts[parts.size()-1].getY();

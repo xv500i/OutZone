@@ -18,12 +18,12 @@ Boss::~Boss(void)
 {
 }
 
-void Boss::update()
+void Boss::update(std::vector<Bullet> &shots)
 {
 	GameObject::update();
-	centerTail.update();
-	leftTail.update();
-	rightTail.update();
+	centerTail.update(shots);
+	leftTail.update(shots);
+	rightTail.update(shots);
 }
 
 void Boss::render(GameData *data) const

@@ -271,7 +271,7 @@ void Scene::update(Viewport *viewport)
 		}
 	}
 
-	boss.update();
+	boss.update(enemyShots);
 
 	viewport->updateWithPosition(player.getX(), player.getY());
 }
