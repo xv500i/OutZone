@@ -43,8 +43,10 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	SpriteAction getAction() const;
+	virtual float getAngleVelocity() const;
 	BoundingBox* getBoundingBox() const;
-	char getType()const;
+	bool shouldNotEnterObjects() const;
+	char getType() const;
 	int getId();
 
 	/* Setters */
@@ -54,13 +56,12 @@ public:
 	void setHeight(int height);
 	void setAction(SpriteAction action);
 	void setPhantom(bool phantom);
+	void setType(char type);
 
 
 	bool isIntersecting(const GameObject &go) const;
 	void updateBBox(const float x, const float y);
 	void collision(GameObject &g);
-	bool shouldNotEnterObjects() const;
 	float distance(GameObject &g);
-	virtual float getAngleVelocity() const;
 };
 

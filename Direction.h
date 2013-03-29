@@ -1,6 +1,7 @@
-#ifndef _GAME_DIRECTIONS_
-#define _GAME_DIRECTIONS_
-enum Directions
+#ifndef _OBJECT_DIRECTION_
+#define _OBJECT_DIRECTION_
+
+enum Direction
 {
 	UP = 0,
 	DOWN,
@@ -11,4 +12,5 @@ enum Directions
 	UP_LEFT,
 	DOWN_LEFT
 };
+
 #endif

@@ -5,7 +5,8 @@
 
 int GameObject::current_id = 0;
 
-GameObject::GameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable) : x(x), y(y), spriteIndex(spriteIndex), width(width), height(height)
+GameObject::GameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable) 
+	: x(x), y(y), spriteIndex(spriteIndex), width(width), height(height)
 {
 	phantom = true;
 	this->b = new BoundingBox(y + height/2, y - height/2, x - width/2, x + width/2);
@@ -90,6 +91,11 @@ BoundingBox* GameObject::getBoundingBox() const
 	return b;
 }
 
+bool GameObject::shouldNotEnterObjects() const
+{
+	return !phantom;
+}
+
 char GameObject::getType() const
 {
 	return type;
@@ -132,7 +138,10 @@ void GameObject::setPhantom(bool phantom)
 	this->phantom = phantom;
 }
 
-
+void GameObject::setType(char type)
+{
+	this->type = type;
+}
 
 
 
@@ -147,15 +156,7 @@ void GameObject::updateBBox(const float x, const float y)
 	b->translate(x,y);
 }
 
-void GameObject::collision(GameObject &g)
-{
-	
-}
-
-bool GameObject::shouldNotEnterObjects() const
-{
-	return !phantom;
-}
+void GameObject::collision(GameObject &g) {}
 
 float GameObject::distance(GameObject &g)
 {

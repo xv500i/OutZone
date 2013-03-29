@@ -1,3 +1,4 @@
+
 #include "BoundingBox.h"
 
 
@@ -9,10 +10,8 @@ BoundingBox::BoundingBox(const float top, const float bottom, const float left, 
 	this->right = right;
 }
 
+BoundingBox::~BoundingBox(void) {}
 
-BoundingBox::~BoundingBox(void)
-{
-}
 
 bool BoundingBox::isIntersectedBy(const BoundingBox &b) const
 {
@@ -30,15 +29,15 @@ void BoundingBox::translate(const float x, const float y)
 
 bool BoundingBox::contains(const float x, const float y) const
 {
-	return ( top > y && bottom < y && left < x && right > x);
+	return (top > y && bottom < y && left < x && right > x);
 }
 
 bool BoundingBox::containsX(const float x) const
 {
-	return (x>left && x<right);
+	return (x > left && x < right);
 }
 
 bool BoundingBox::containsY(const float y) const
 {
-	return (y>bottom && y<top);
+	return (y > bottom && y < top);
 }

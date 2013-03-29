@@ -1,28 +1,37 @@
-#pragma once
-#include "gameobject.h"
-#include "Directions.h"
-#include <vector>
 
-class MobileGameObject :
-	public GameObject
+#pragma once
+
+#include <vector>
+#include "GameObject.h"
+#include "Direction.h"
+
+
+class MobileGameObject : public GameObject
 {
+private:
+	float vx;				/* X axis component of the MobileGameObject velocity */ 
+	float vy;				/* Y axis component of the MobileGameObject velocity */
+	Direction direction;	/* MobileGameObject direction (8 possible directions) */
+
 public:
 	MobileGameObject();
 	MobileGameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx = 0, const float vy = 0);
 	~MobileGameObject(void);
+	
+	/* Drawing */
+	void update(GameData *data, std::vector<GameObject> &collisionableObjects);
+	
+	/* Getters */
 	float getVX() const;
 	float getVY() const;
-	void setVX(const float v);
-	void setVY(const float v);
-	void update(std::vector<GameObject> &collisionableObjects);
-	Directions getDirection() const;
-	void collision(GameObject &g);
-	//void render(GameData *data) const;
+	Direction getDirection() const;
 	virtual float getAngleVelocity() const;
 
-private:
-	float vx;
-	float vy;
-	Directions dir;
+	/* Setters */
+	void setVX(const float vx);
+	void setVY(const float vy);
+
+
+	void collision(GameObject &g);
 };
 
