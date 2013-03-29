@@ -6,7 +6,8 @@
 #include "GameData.h"
 #include "Viewport.h"
 #include "Scene.h"
-
+#include "GameState.h"
+#include "GameMenu.h"
 
 class OutZone
 {
@@ -15,6 +16,11 @@ private:
 	GameData data;		/* Game data */
 	Viewport viewport;	/* Game viewport */
 	Scene scene;		/* Game scene */
+	GameState gs;
+	GameMenu mainMenu;
+	GameMenu instructionsMenu;
+	GameMenu pauseMenu;
+	GameMenu gameOverMenu;
 
 public:
 	const static int GAME_WIDTH = 480;

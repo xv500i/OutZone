@@ -77,6 +77,13 @@ bool OutZone::init()
     ERRCHECK(result);
 	*/
 
+	// Menus init
+	gs = MAIN_MENU;
+	mainMenu.createMain();
+	instructionsMenu.createInstructions();
+	pauseMenu.createPause();
+	gameOverMenu.createGameOver();
+
 	// Camera initialization
 	viewport.init(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
 	int width, height;
