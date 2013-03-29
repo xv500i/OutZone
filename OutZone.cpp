@@ -45,7 +45,7 @@ bool OutZone::init()
 	// Data loading
 	if (!data.loadTileSheets()) return false;
 	if (!data.loadSprites()) return false;
-	if (!scene.loadLevel(1, &data)) return false;	// TODO: no carregar el nivell inicial, sino la main screen
+	if (!scene.loadLevel(1, &data)) return false;
 
 	// Music FIXME
 	/*
@@ -137,8 +137,15 @@ void OutZone::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	/* Scene drawing */
-	scene.render(1, &data, &viewport);
+	switch(gs){
+	case PLAYING:
+		/* Scene drawing */
+		scene.render(1, &data, &viewport);
+		break;
+	case MAIN_MENU:
+		mainMenu.render(&data);
+	}
+	
 
 	glutSwapBuffers();
 }

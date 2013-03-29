@@ -26,5 +26,6 @@ private:
 	std::vector<MenuOption> opts;
 	int currentOption;
 	MenuOption selected;
+	void paint(int idTexture, float x, float y, float w, float h);
 };
 

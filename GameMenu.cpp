@@ -46,6 +46,12 @@ void GameMenu::createInstructions()
 void GameMenu::render(GameData *data)
 {
 	// TODO: opts.size() quads with textures
+	float xi = 200.0f;
+	float yi = 200.0f;
+	for (unsigned int i = 0; i < opts.size(); i++) {
+		paint(-1, xi, yi, 100, 50);
+		yi -= (100.0f + 10.0f);
+	}
 	// TODO: one quad if cursor is visible with the cursor texture between the location of the selected option
 }
 
@@ -78,4 +84,31 @@ void GameMenu::enterPressed()
 MenuOption GameMenu::getSelected()
 {
 	return selected;
+}
+
+void GameMenu::paint(int idTexture, float x, float y, float w, float h)
+{
+	//float offsetX, offsetY, s,t;
+	//int w,h;
+	//data->getSpriteFrameInfo(idTexture,pa,&s,&t,&w,&h,&offsetX,&offsetY);
+	//glEnable(GL_TEXTURE_2D);
+	//glBindTexture(GL_TEXTURE_2D, data->getSpriteID(idTexture));
+	glPushMatrix();
+	glTranslatef(x, y, 0.0f);
+	glBegin(GL_QUADS);
+		// Bottom-left
+		//glTexCoord2f(s, t+offsetY);
+		glVertex3i(- w/2 , - h/2, 1);
+		// Top-left
+		//glTexCoord2f(s, t);
+		glVertex3i(- w/2 , + h/2, 1);
+		// Top-right
+		//glTexCoord2f(s+offsetX, t);
+		glVertex3i(+ w/2 , + h/2, 1);
+		// Bottom-right
+		//glTexCoord2f(s+offsetX, t+offsetY);
+		glVertex3i(+ w/2 , - h/2, 1);	
+	glEnd();
+	glPopMatrix();
+	//glDisable(GL_TEXTURE_2D);
 }
