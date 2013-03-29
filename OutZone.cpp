@@ -111,11 +111,23 @@ void OutZone::handleMouse(int button, int state, int x, int y) {}	// No mouse
 /* Game phases */
 bool OutZone::process() 
 {
-	// Process input
-	scene.resolveInput(input);
+	switch(gs) {
+	case PLAYING:
+		// Process input
+		scene.resolveInput(input);
+		// Scene update
+		scene.update(&viewport);
+		break;
+	case MAIN_MENU:
+		mainMenu.update();
+		if (input.keyIsDown(input.getPrimaryWeaponKey())) {
+			gs = PLAYING;
+		}
+		break;
+	}
 
-	// Scene update
-	scene.update(&viewport);
+
+	// FIXME: return gs != QUIT;
 
 	return true;
 }
