@@ -2,6 +2,7 @@
 *
 !*.cpp
 !*.h
+!*.hpp
 !*.png
 !*.txt
 !*.mp3
