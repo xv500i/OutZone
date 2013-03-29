@@ -7,12 +7,7 @@
 
 const char* Sprite::DESCRIPTOR_FILE_EXT = ".txt";
 
-Sprite::Sprite(void) 
-{
-	currentAnimationIndex = -1;
-	currentAnimationDuration = 0;
-	currentAction = (PlayerAction)-1;
-}
+Sprite::Sprite(void) {}
 
 Sprite::~Sprite(void) {}
 
@@ -56,7 +51,11 @@ bool Sprite::loadDescriptionFile(const char *filename)
 			}
 			// Read animation info
 			else if (lineType == 'A') {
-				std::vector<KeyFrame> animation;
+				Animation anim;
+				char animationType;
+				sstr >> animationType;
+				if (animationType == 'L') anim.loop = true;
+				else anim.loop = false;
 				while (sstr.peek() == ' ') {
 					sstr.ignore();
 					KeyFrame keyFrame;
@@ -67,9 +66,9 @@ bool Sprite::loadDescriptionFile(const char *filename)
 					sstr >> keyFrame.tx;
 					if (sstr.peek() == ',') sstr.ignore();
 					sstr >> keyFrame.ty;
-					animation.push_back(keyFrame);
+					anim.animation.push_back(keyFrame);
 				}
-				animations.push_back(animation);
+				animations.push_back(anim);
 			}
 		}
 		file.close();
@@ -82,43 +81,26 @@ bool Sprite::loadDescriptionFile(const char *filename)
 }
 
 /* Getters */
-void Sprite::getFrameInfo(PlayerAction action, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY)
+void Sprite::getFrameInfo(int animationIndex, int frameIndex, int *s, int *t, int *width, int *height)
 {
-	// If we continue with the same action...
-	if (currentAction == action) {
-		// Obtain the actual frame
-		std::vector<KeyFrame> currentAnimation = animations.at(currentAction);
-		KeyFrame currentFrame = currentAnimation.at(currentAnimationIndex);
-
-		// Increment the animation duration
-		currentAnimationDuration++;
-
-		// If we have reached the end of the frame, change it
-		if (currentAnimationDuration == currentFrame.duration) {
-			currentAnimationDuration = 0;
-			currentAnimationIndex++;
-			if (currentAnimationIndex == currentAnimation.size()) currentAnimationIndex = 0;
-		}
-	}
-	// If we have changed the action...
-	else {
-		currentAction = action;
-		currentAnimationIndex = 0;
-		currentAnimationDuration = 0;
-	}
-
-	// Obtain the frame that we have to render
-	std::vector<KeyFrame> animation = animations.at(action);
-	KeyFrame keyFrame = animation.at(currentAnimationIndex);
-	Frame frame = frames.at(keyFrame.frameId);
-
-	int textureWidth, textureHeight;
-	getSizeInPixels(&textureWidth, &textureHeight);
-
-	*s = (float)frame.s/(float)textureWidth;
-	*t = (float)frame.t/(float)textureHeight;
+	Frame frame = frames[animations[animationIndex].animation[frameIndex].frameId];
+	*s = frame.s;
+	*t = frame.t;
 	*width = frame.width;
 	*height = frame.height;
-	*offsetX = (float)frame.width/(float)textureWidth;
-	*offsetY = (float)frame.height/(float)textureHeight;
+}
+
+int Sprite::getFrameDuration(int animationIndex, int frameIndex)
+{
+	return animations[animationIndex].animation[frameIndex].duration;
+}
+
+int Sprite::getAnimationNumFrames(int animationIndex)
+{
+	return animations[animationIndex].animation.size();
+}
+
+bool Sprite::isAnimationLoop(int animationIndex)
+{
+	return animations[animationIndex].loop;
 }

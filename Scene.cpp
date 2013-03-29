@@ -41,7 +41,7 @@ bool Scene::loadLevel(int level, GameData *data)
 	player = Player(50.0f, 50.0f, GameData::PLAYER1_SPRITE_INDEX, 20, 20, true, 0.0f, 0.0f);
 	player.setPhantom(false);
 
-	boss = Boss(240.0f, 800.0f, -1, 480.0f, 100.0f, true, 100);
+	boss = Boss(200.0f, 800.0f, -1, 300.0f, 100.0f, true, 100);
 	
 	// Loading layers
 	bool b = levels[level - 1].staticTilesLayer.load(level, data);

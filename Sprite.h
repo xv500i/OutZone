@@ -3,13 +3,18 @@
 
 #include <vector>
 #include "Texture.h"
-#include "PlayerAction.h"
+#include "SpriteAction.h"
 
 
 struct KeyFrame {
 	int frameId;		/* The frame identifier */
 	int duration;		/* Duration of this frame inside the animation */
 	int tx, ty;			/* Translation performed by the object during this frame */
+};
+
+struct Animation {
+	std::vector<KeyFrame> animation;	/* The keyframes that conforms the animation */
+	bool loop;							/* If true, the keyframes start all over again when the animation finish */
 };
 
 struct Frame {
@@ -23,12 +28,8 @@ private:
 	/* File constants */
 	const static char* DESCRIPTOR_FILE_EXT;
 
-	std::vector<Frame> frames;						/* Contains all the sprite frames */
-	std::vector<std::vector<KeyFrame>> animations;	/* Each vector contains the keyframes associated with an animation */
-
-	PlayerAction currentAction;		/* Contains the current action */
-	int currentAnimationIndex;		/* Contains the index in the animation vector of the current keyFrame */
-	int currentAnimationDuration;	/* Contains the time used by the current animation */
+	std::vector<Frame> frames;			/* Contains all the sprite frames */
+	std::vector<Animation> animations;	/* Contains all the animations */
 
 	bool loadDescriptionFile(const char *filename);
 
@@ -41,5 +42,8 @@ public:
 			  int wrapt = GL_REPEAT, int magf = GL_NEAREST, int minf = GL_NEAREST, bool mipmap = false);
 
 	/* Getters */
-	void getFrameInfo(PlayerAction action, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY);
+	void getFrameInfo(int animationIndex, int frameIndex, int *s, int *t, int *width, int *height);
+	int getFrameDuration(int animationIndex, int frameIndex);
+	int getAnimationNumFrames(int animationIndex);
+	bool isAnimationLoop(int animationIndex);
 };
