@@ -4,6 +4,7 @@
 #include <gl/glut.h>
 #include "StaticTilesLayer.h"
 #include "MobileTilesLayer.h"
+#include "ObjectsLayer.h"
 #include "Player.h"
 #include "InputHandler.h"
 #include <vector>
@@ -19,6 +20,7 @@ using namespace std;
 struct Level {
 	StaticTilesLayer staticTilesLayer;
 	MobileTilesLayer mobileTilesLayer;
+	ObjectsLayer objectsLayer;
 };
 
 class Scene

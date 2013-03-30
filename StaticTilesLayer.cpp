@@ -206,15 +206,13 @@ void StaticTilesLayer::getTileSizeInPixels(int *width, int *height)
 	*height = tileHeightInPixels;
 }
 
-int StaticTilesLayer::getTileSheetIndex()	// TODO: Descomentar a mesura que s'afegeixin tileSheets
+int StaticTilesLayer::getTileSheetIndex()	// TOCHANGE: Descomentar a mesura que s'afegeixin tileSheets
 {
 	int level = getLevel();
 	switch (level) {
 	case 1: return GameData::LEVEL1_TILES_INDEX;
 	//case 2: return GameData::LEVEL2_TILES_INDEX;
-	//case 3: return GameData::LEVEL3_TILES_INDEX;
-	//case 4: return GameData::LEVEL4_TILES_INDEX;
-	//case 5: return GameData::LEVEL5_TILES_INDEX;
+	//...
 	default: return -1;
 	}
 }

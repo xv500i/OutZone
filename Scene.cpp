@@ -12,14 +12,14 @@ Scene::~Scene(void)
 bool Scene::loadLevel(int level, GameData *data)
 {
 	currentLevel = level;
-	GameObject go(100.0f, 100.0f, 1, 30, 30, false);
+	/*GameObject go(100.0f, 100.0f, 1, 30, 30, false);
 	obstacles.push_back(go);
 	GameObject go2(75.0f, 300.0f, 1, 60, 30, false);
 	obstacles.push_back(go2);
 	GameObject go3(100.0f, 200.0f, 1, 30, 60, false);
 	obstacles.push_back(go3);
 	GameObject go4(120.0f, 100.0f, 1, 15, 15, false);
-	obstacles.push_back(go4);
+	obstacles.push_back(go4);*/
 	playerShots.clear();
 	enemyShots.clear();
 	Enemy en(120.0f, 130.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
@@ -47,7 +47,7 @@ bool Scene::loadLevel(int level, GameData *data)
 	bool b = levels[level - 1].staticTilesLayer.load(level, data);
 	if (!b) return false;
 	//return levels[level - 1].mobileTilesLayer.load(level, data);
-	return true;
+	return levels[level - 1].objectsLayer.load(level, data);
 }
 
 void Scene::render(int level, GameData *data, Viewport *viewport)
@@ -55,11 +55,12 @@ void Scene::render(int level, GameData *data, Viewport *viewport)
 	// Rendering layers
 	levels[level - 1].staticTilesLayer.render(data, viewport);
 	//levels[level - 1].mobileTilesLayer.render(data);
+	levels[level - 1].objectsLayer.render(data, viewport);
 
 	unsigned int i;
-	for (i = 0; i < obstacles.size(); i++) {
+	/*for (i = 0; i < obstacles.size(); i++) {
 		obstacles[i].render(data);
-	}
+	}*/
 
 	player.render(data);
 	
@@ -167,6 +168,9 @@ void Scene::resolveInput(InputHandler &input) {
 
 void Scene::update(GameData *data, Viewport *viewport)
 {
+	// Layers update 
+	levels[currentLevel - 1].objectsLayer.update(data);
+
 	int maxX, maxY, minX, minY;
 	minX = minY = 0;
 	getLevelSizeInPixels(currentLevel, maxX, maxY);
