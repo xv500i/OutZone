@@ -39,7 +39,6 @@ void SpriteInstance::getFrameInfo(SpriteAction action, bool *finished, float *s,
 					else {
 						animationHasFinished = true;
 						currentAnimationIndex = -1;
-						currentAction = (SpriteAction)-1;
 					}
 				}
 			}
