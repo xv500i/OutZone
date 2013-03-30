@@ -24,6 +24,7 @@ void InputHandler::resetDefaults()
 	secondaryWeaponKey = DEFAULT_SECONDARYWEAPON_KEY;
 
 	// Menu keys
+	menuSelectionKey = DEFAULT_MENUSELECTION_KEY;
 	pauseMenuKey = DEFAULT_PAUSEMENU_KEY;
 }
 
@@ -67,6 +68,11 @@ unsigned char InputHandler::getPrimaryWeaponKey()
 unsigned char InputHandler::getSecondaryWeaponKey()
 {
 	return secondaryWeaponKey;
+}
+
+unsigned char InputHandler::getMenuSelectionKey()
+{
+	return menuSelectionKey;
 }
 
 unsigned char InputHandler::getPauseMenuKey()
@@ -124,6 +130,15 @@ bool InputHandler::setSecondaryWeaponKey(unsigned char newSecondaryWeaponKey)
 {
 	if (newSecondaryWeaponKey >= MIN_KEY && newSecondaryWeaponKey <= MAX_KEY) {
 		this->secondaryWeaponKey = newSecondaryWeaponKey;
+		return true;
+	}
+	return false;
+}
+
+bool InputHandler::setMenuSelectionKey(unsigned char newMenuSelectionKey)
+{
+	if (newMenuSelectionKey >= MIN_KEY && newMenuSelectionKey <= MAX_KEY) {
+		this->menuSelectionKey = newMenuSelectionKey;
 		return true;
 	}
 	return false;

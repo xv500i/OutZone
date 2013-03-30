@@ -1,6 +1,7 @@
 
 #pragma once
 
+
 #include <gl/glut.h>
 
 
@@ -18,7 +19,8 @@ private:
 	const static unsigned char DEFAULT_MOVERIGHT_KEY = 'd';
 	const static unsigned char DEFAULT_PRIMARYWEAPON_KEY = ' ';
 	const static unsigned char DEFAULT_SECONDARYWEAPON_KEY = 'm';
-	const static unsigned char DEFAULT_PAUSEMENU_KEY = '\n';
+	const static unsigned char DEFAULT_MENUSELECTION_KEY = ' ';
+	const static unsigned char DEFAULT_PAUSEMENU_KEY = 'p';
 
 	/* Movement keys */
 	unsigned char moveUpKey;
@@ -31,6 +33,7 @@ private:
 	unsigned char secondaryWeaponKey;
 
 	/* Menu keys */
+	unsigned char menuSelectionKey;
 	unsigned char pauseMenuKey;
 
 	bool keys[256];		/* Keyboard keys array */
@@ -53,6 +56,7 @@ public:
 	unsigned char getMoveRightKey();
 	unsigned char getPrimaryWeaponKey();
 	unsigned char getSecondaryWeaponKey();
+	unsigned char getMenuSelectionKey();
 	unsigned char getPauseMenuKey();
 
 	/* Setters */
@@ -62,5 +66,6 @@ public:
 	bool setMoveRightKey(unsigned char newMoveRightKey);
 	bool setPrimaryWeaponKey(unsigned char newPrimaryWeaponKey);
 	bool setSecondaryWeaponKey(unsigned char newSecondaryWeaponKey);
+	bool setMenuSelectionKey(unsigned char newMenuSelectionKey);
 	bool setPauseMenuKey(unsigned char newPauseMenuKey);
 };

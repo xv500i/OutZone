@@ -9,14 +9,17 @@
 #include "GameState.h"
 #include "GameMenu.h"
 
+
 class OutZone
 {
 private:
-	InputHandler input;	/* Game input handler */
-	GameData data;		/* Game data */
-	Viewport viewport;	/* Game viewport */
-	Scene scene;		/* Game scene */
-	GameState gs;
+	InputHandler input;		/* Game input handler */
+	GameData data;			/* Game data */
+	Viewport viewport;		/* Game viewport */
+	Scene scene;			/* Game scene */
+	GameState gameState;	/* Game state */
+
+	/* Game menus */
 	GameMenu mainMenu;
 	GameMenu instructionsMenu;
 	GameMenu pauseMenu;
@@ -42,6 +45,5 @@ public:
 	bool process();
 	void render();
 	bool gameLoop();
-
 };
 

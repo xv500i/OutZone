@@ -28,6 +28,7 @@ class Scene
 private:
 	const static int NUM_LEVELS = 1;
 	Level levels[NUM_LEVELS];
+
 	Player player;
 	vector<Bullet> playerShots;
 	vector<Bullet> enemyShots;
