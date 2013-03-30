@@ -28,11 +28,25 @@ void GameObject::render(GameData *data) const
 	float angle = getAngleVelocity();
 
 	float offsetX, offsetY, s, t;
-	int width, height;
+	int spriteWidth, spriteHeight;
 	bool finished;
-	data->getSpriteFrameInfo(spriteInstanceIndex, action, &finished, &s, &t, &width, &height, &offsetX, &offsetY);
+	data->getSpriteFrameInfo(spriteInstanceIndex, action, &finished, &s, &t, &spriteWidth, &spriteHeight, &offsetX, &offsetY);
 		
-	// TODO: Canviar el tamany proporcionalment, de forma que tots els objectes tinguin +- el mateix tamany, independentment dels pixels de l'sprite en si
+	// Change the render size (a sprite can be bigger in pixels than the size that we have to render)
+	int width, height;
+	if (spriteWidth > spriteHeight) {
+		height = STANDARD_SIZE;
+		width = spriteWidth*((float)STANDARD_SIZE/(float)spriteHeight);
+	}
+	else if (spriteHeight > spriteWidth) {
+		width = STANDARD_SIZE;
+		height = spriteHeight*((float)STANDARD_SIZE/(float)spriteWidth);
+	}
+	else {
+		width = STANDARD_SIZE;
+		height = STANDARD_SIZE;
+	}
+
 	if (!finished) {
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, data->getSpriteID(spriteIndex));

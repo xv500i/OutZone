@@ -10,6 +10,8 @@
 class GameObject
 {
 private:
+	const static int STANDARD_SIZE = 32;
+
 	float x;					/* X axis component of the GameObject position */
 	float y;					/* Y axis component of the GameObject position */
 	int width;					/* GameObject width */
