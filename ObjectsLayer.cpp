@@ -40,7 +40,7 @@ bool ObjectsLayer::load(int level, GameData *data)
 			sstr >> height;
 			if (sstr.peek() == ',') sstr.ignore();
 			sstr >> spriteIndex;
-			GameObject object(x*TILE_WIDTH_IN_PIXELS, y*TILE_HEIGHT_IN_PIXELS, spriteIndex, width, height, false);
+			GameObject object(x*TILE_WIDTH_IN_PIXELS + width/2, y*TILE_HEIGHT_IN_PIXELS + height/2, spriteIndex, width, height, false);
 			objects.push_back(object);
 		}
 		return true;

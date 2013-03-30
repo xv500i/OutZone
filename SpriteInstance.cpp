@@ -59,3 +59,8 @@ void SpriteInstance::getFrameInfo(SpriteAction action, bool *finished, float *s,
 		*offsetY = (float)*height/(float)textureHeight;
 	}
 }
+
+bool SpriteInstance::isInitialized()
+{
+	return sprite != NULL;
+}

@@ -53,5 +53,6 @@ public:
 	void getSizeInTiles(int *width, int *height);
 	void getSizeInPixels(int *width, int *height);
 	void getTileSizeInPixels(int *width, int *height);
+	std::vector<bool> getCollisionMap();
 };
 

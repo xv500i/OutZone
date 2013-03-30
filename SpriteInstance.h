@@ -18,6 +18,8 @@ public:
 	SpriteInstance(Sprite *sprite);
 	~SpriteInstance(void);
 
+	/* Getters */
 	void getFrameInfo(SpriteAction action, bool *finished, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY);
+	bool isInitialized();
 };
 

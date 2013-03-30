@@ -77,17 +77,28 @@ void GameData::getSpriteSizeInPixels(int spriteIndex, int *width, int *height)
 int GameData::createSpriteInstance(int spriteIndex)
 {
 	if (spriteIndex >= 0) {
-	SpriteInstance spriteInstance(&sprites[spriteIndex]);
-	// TODO: Per millorar l'eficiència del vector, s'hauria de recorrer per trobar forats que hagin quedat buits
-	spriteInstances.push_back(spriteInstance);
-	return spriteInstances.size() - 1;
+		SpriteInstance spriteInstance(&sprites[spriteIndex]);
+		// Look for empty spaces in the spriteInstances vector
+		for (unsigned int i = 0; i < spriteInstances.size(); i++) {
+			if (!spriteInstances[i].isInitialized()) {
+				spriteInstances[i] = spriteInstance;
+				return i;
+			}
+		}
+		// If we haven't found any empty space, push back the new sprite instance 
+		spriteInstances.push_back(spriteInstance);
+		return spriteInstances.size() - 1;
 	}
 	else return -1;
 }
 
 void GameData::removeSpriteInstance(int spriteInstanceIndex)
 {
-	// TODO: Per fer (per millorar eficiència)
+	if (spriteInstanceIndex == spriteInstances.size() - 1) spriteInstances.pop_back();
+	else {
+		SpriteInstance spriteInstance(NULL);
+		spriteInstances[spriteInstanceIndex] = spriteInstance;
+	}
 }
 
 void GameData::getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, bool *finished, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY)
