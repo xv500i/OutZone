@@ -113,6 +113,7 @@ void OutZone::handleMouse(int button, int state, int x, int y) {}	// No mouse
 /* Game phases */
 bool OutZone::process() 
 {
+	MenuOption m;
 	switch(gs) {
 	case PLAYING:
 		// Process input
@@ -129,11 +130,14 @@ bool OutZone::process()
 		if (input.keyIsDown(input.getPrimaryWeaponKey())) {
 			mainMenu.enterPressed();
 		}
-		MenuOption m = mainMenu.getSelected();
+		m = mainMenu.getSelected();
 		if (m == START) gs = PLAYING;
 		else if (m == INSTRUCTIONS) gs = INSTRUCTIONS_MENU;
 		else if (m == QUIT) gs = EXIT;
 		mainMenu.update();
+		break;
+	case INSTRUCTIONS_MENU:
+
 		break;
 	}
 

@@ -8,7 +8,7 @@ GameMenu::GameMenu(void)
 	selected = NONE_SELECTED;
 	maxTicks = 25;
 	currentTicks = maxTicks;
-	interactionTicksMax = 25;
+	interactionTicksMax = 18;
 	currentInteractionTicks = interactionTicksMax;
 }
 
@@ -66,7 +66,7 @@ void GameMenu::render(GameData *data)
 		paint(-1, xi, yi, w, h);
 		yi -= (h + margin);
 	}
-	if (true || showCursor) {
+	if (showCursor) {
 		float cx = xi - w;
 		float cy = 500.0f - currentOption*(h+margin);
 		float cw = 50;
