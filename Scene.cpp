@@ -22,19 +22,19 @@ bool Scene::loadLevel(int level, GameData *data)
 	obstacles.push_back(go4);
 	playerShots.clear();
 	enemyShots.clear();
-	Enemy en(120.0f, 130.f, 2, 16, 16, true);
+	Enemy en(120.0f, 130.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
 	en.setPhantom(false);
 	enemies.push_back(en);
 
-	Enemy en2(300.0f, 50.f, 2, 16, 16, true);
+	Enemy en2(300.0f, 50.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
 	en2.setPhantom(false);
 	enemies.push_back(en2);
 
-	Enemy en3(player, 120.0f, 550.f, 2, 16, 16, true);
+	Enemy en3(player, 120.0f, 550.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
 	en3.setPhantom(false);
 	enemies.push_back(en3);
 
-	Enemy en4(player, 50, 120.0f, 850.f, 2, 16, 16, true);
+	Enemy en4(player, 50, 120.0f, 850.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
 	en4.setPhantom(false);
 	enemies.push_back(en4);
 

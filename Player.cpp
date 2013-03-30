@@ -8,7 +8,7 @@ Player::Player(const float x, const float y, const int spriteIndex, const int wi
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
 	mainWeapon = Weapon(3, 10, 30, 30, 1, 0.0f, 0.2f);
-	mainWeapon.setTicksMax(100);
+	mainWeapon.setTicksMax(30);
 	setType('p');
 }
 

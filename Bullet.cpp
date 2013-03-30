@@ -24,7 +24,7 @@ void Bullet::update(GameData *data, std::vector<GameObject> &collisionableObject
 /* Getters */
 float Bullet::getAngleVelocity() const
 {
-	float angle = (atan2(getVY(), getVX()) * 180 / 3.1415926f) - 90.0f + 180.0f;
+	float angle = (atan2(getVY(), getVX()) * 180 / 3.1415926f) - 90.0f;
 	return angle;
 }
 
