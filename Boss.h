@@ -1,17 +1,14 @@
+
 #pragma once
-#include "gameobject.h"
+
+#include "GameObject.h"
 #include "BossTail.h"
 #include "Bullet.h"
 #include "BossIA.h"
-class Boss :
-	public GameObject
+
+
+class Boss : public GameObject
 {
-public:
-	Boss(void);
-	Boss(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, int life);
-	~Boss(void);
-	void update(std::vector<Bullet> &shots, float x, float y);
-	void render(GameData *data) const;
 private:
 	int life;
 	bool invul;
@@ -20,5 +17,12 @@ private:
 	BossTail rightTail;
 	BossIA ia;
 	int t;
+
+public:
+	Boss(void);
+	Boss(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life);
+	~Boss(void);
+	void update(GameData *data, std::vector<Bullet> &shots, float x, float y);
+	void render(GameData *data) const;
 };
 

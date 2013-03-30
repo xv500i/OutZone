@@ -4,8 +4,8 @@ BossGun::BossGun(void)
 {
 }
 
-BossGun::BossGun(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, int life)
-	: BossPart(x,y,idTexture, width, length, isWalkable, life)
+BossGun::BossGun(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life)
+	: BossPart(x, y, spriteIndex, width, height, isWalkable, life)
 {
 	minY = y;
 	maxX = x+50.0f;
@@ -25,7 +25,7 @@ BossGun::~BossGun(void)
 {
 }
 
-void BossGun::update(std::vector<Bullet> &shots)
+void BossGun::update(GameData *data, std::vector<Bullet> &shots)
 {
 	if (ticksMoving == 0) {
 		ticksMoving = ( (int)rand() % 60 );
@@ -56,7 +56,7 @@ void BossGun::update(std::vector<Bullet> &shots)
 	} else {
 		fireDelay--;
 	}
-	GameObject::update();
+	GameObject::update(data);
 }
 
 void BossGun::render(GameData *data) const

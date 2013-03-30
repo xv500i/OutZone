@@ -1,13 +1,16 @@
+
 #pragma once
-#include "bosspart.h"
-class BossGun :
-	public BossPart
+
+#include "BossPart.h"
+
+
+class BossGun : public BossPart
 {
 public:
 	BossGun(void);
-	BossGun(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, int life);
+	BossGun(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life);
 	~BossGun(void);
-	void update(std::vector<Bullet> &shots);
+	void update(GameData *data, std::vector<Bullet> &shots);
 	void render(GameData *data) const;
 private:
 	int fireRate;

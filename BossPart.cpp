@@ -1,3 +1,4 @@
+
 #include "BossPart.h"
 
 
@@ -5,13 +6,13 @@ BossPart::BossPart(void)
 {
 }
 
-BossPart::BossPart(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, int life)
-	: GameObject(x,y,idTexture, width, length, isWalkable), life(life)
+BossPart::BossPart(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life)
+	: GameObject(x, y, spriteIndex, width, height, isWalkable), life(life)
 {
 	maxX = x + width/2;
 	minX = x - width/2;
-	maxY = y + length/2;
-	minY = y - length/2;
+	maxY = y + height/2;
+	minY = y - height/2;
 }
 
 
@@ -19,9 +20,9 @@ BossPart::~BossPart(void)
 {
 }
 
-void BossPart::update()
+void BossPart::update(GameData *data)
 {
-	GameObject::update();
+	GameObject::update(data);
 }
 
 void BossPart::render(GameData *data) const

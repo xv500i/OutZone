@@ -116,7 +116,7 @@ bool OutZone::process()
 		// Process input
 		scene.resolveInput(input);
 		// Scene update
-		scene.update(&viewport);
+		scene.update(&data, &viewport);
 		break;
 	case MAIN_MENU:
 		mainMenu.update();

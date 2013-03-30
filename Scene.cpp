@@ -12,36 +12,36 @@ Scene::~Scene(void)
 bool Scene::loadLevel(int level, GameData *data)
 {
 	currentLevel = level;
-	GameObject go(100.0f, 100.0f, -1, 30, 30, false);
+	GameObject go(100.0f, 100.0f, 1, 30, 30, false);
 	obstacles.push_back(go);
-	GameObject go2(75.0f, 300.0f, -1, 60, 30, false);
+	GameObject go2(75.0f, 300.0f, 1, 60, 30, false);
 	obstacles.push_back(go2);
-	GameObject go3(100.0f, 200.0f, -1, 30, 60, false);
+	GameObject go3(100.0f, 200.0f, 1, 30, 60, false);
 	obstacles.push_back(go3);
-	GameObject go4(120.0f, 100.0f, -1, 15, 15, false);
+	GameObject go4(120.0f, 100.0f, 1, 15, 15, false);
 	obstacles.push_back(go4);
 	playerShots.clear();
 	enemyShots.clear();
-	Enemy en(120.0f, 130.f, -1, 16, 16, true);
+	Enemy en(120.0f, 130.f, 2, 16, 16, true);
 	en.setPhantom(false);
 	enemies.push_back(en);
 
-	Enemy en2(300.0f, 50.f, -1, 16, 16, true);
+	Enemy en2(300.0f, 50.f, 2, 16, 16, true);
 	en2.setPhantom(false);
 	enemies.push_back(en2);
 
-	Enemy en3(player, 120.0f, 550.f, -1, 16, 16, true);
+	Enemy en3(player, 120.0f, 550.f, 2, 16, 16, true);
 	en3.setPhantom(false);
 	enemies.push_back(en3);
 
-	Enemy en4(player, 50, 120.0f, 850.f, -1, 16, 16, true);
+	Enemy en4(player, 50, 120.0f, 850.f, 2, 16, 16, true);
 	en4.setPhantom(false);
 	enemies.push_back(en4);
 
 	player = Player(50.0f, 50.0f, GameData::PLAYER1_SPRITE_INDEX, 20, 20, true, 0.0f, 0.0f);
 	player.setPhantom(false);
 
-	boss = Boss(200.0f, 800.0f, -1, 300.0f, 100.0f, true, 100);
+	boss = Boss(200.0f, 800.0f, 2, 300.0f, 100.0f, true, 100);
 	
 	// Loading layers
 	bool b = levels[level - 1].staticTilesLayer.load(level, data);
@@ -91,7 +91,7 @@ void Scene::getLevelTileSize(int level, int *width, int *height)
 void Scene::resolveInput(InputHandler &input) {
 	// player control
 	// HARDCODED
-	Directions d;
+	Direction d;
 	bool up = input.keyIsDown(input.getMoveUpKey());
 	bool down = input.keyIsDown(input.getMoveDownKey());
 	bool left = input.keyIsDown(input.getMoveLeftKey());
@@ -165,7 +165,7 @@ void Scene::resolveInput(InputHandler &input) {
 	}
 }
 
-void Scene::update(Viewport *viewport)
+void Scene::update(GameData *data, Viewport *viewport)
 {
 	int maxX, maxY, minX, minY;
 	minX = minY = 0;
@@ -176,7 +176,7 @@ void Scene::update(Viewport *viewport)
 	getCollisioningGameObjects(v);
 	std::vector<Bullet>::iterator it;
 	for (it = playerShots.begin() ; it != playerShots.end(); ) {
-		it->update(obstacles);
+		it->update(data, obstacles);
 		float x = it->getX();
 		float y = it->getY();
 		
@@ -205,7 +205,7 @@ void Scene::update(Viewport *viewport)
 		}
 	}
 	for (it = enemyShots.begin() ; it != enemyShots.end(); ) {
-		it->update(obstacles);
+		it->update(data, obstacles);
 		float x = it->getX();
 		float y = it->getY();
 		if (maxX < x || minX > x || maxY < y || minY > y) {
@@ -226,7 +226,7 @@ void Scene::update(Viewport *viewport)
 			}
 		}
 	}
-	player.update(v);
+	player.update(data, v);
 	if (player.getX() + player.getWidth()/2 > maxX) {
 		float inc = maxX - player.getWidth()/2 - player.getX();
 		player.updateBBox(inc, 0.0f);
@@ -237,18 +237,18 @@ void Scene::update(Viewport *viewport)
 		player.updateBBox(inc, 0.0f);
 		player.setX(minX + player.getWidth()/2);
 	}
-	if (player.getY() + player.getLength()/2 > maxY) {
-		float inc = maxY - player.getLength()/2 - player.getY();
+	if (player.getY() + player.getHeight()/2 > maxY) {
+		float inc = maxY - player.getHeight()/2 - player.getY();
 		player.updateBBox(0.0f, inc);
-		player.setY(maxY - player.getLength()/2);
+		player.setY(maxY - player.getHeight()/2);
 	}
-	else if (player.getY() - player.getLength()/2 < minY) {
-		float inc = minY + player.getLength()/2 - player.getY();
+	else if (player.getY() - player.getHeight()/2 < minY) {
+		float inc = minY + player.getHeight()/2 - player.getY();
 		player.updateBBox(0.0f, inc);
-		player.setY(minY + player.getLength()/2);
+		player.setY(minY + player.getHeight()/2);
 	}
 	for (unsigned int i = 0; i < enemies.size(); i++) {
-		enemies[i].update(v, enemyShots);
+		enemies[i].update(data, v, enemyShots);
 		if (enemies[i].getX() + enemies[i].getWidth()/2 > maxX) {
 			float inc = maxX - enemies[i].getWidth()/2 - enemies[i].getX();
 			enemies[i].updateBBox(inc, 0.0f);
@@ -259,19 +259,19 @@ void Scene::update(Viewport *viewport)
 			enemies[i].updateBBox(inc, 0.0f);
 			enemies[i].setX(minX + enemies[i].getWidth()/2);
 		}
-		if (enemies[i].getY() + enemies[i].getLength()/2 > maxY) {
-			float inc = maxY - enemies[i].getLength()/2 - enemies[i].getY();
+		if (enemies[i].getY() + enemies[i].getHeight()/2 > maxY) {
+			float inc = maxY - enemies[i].getHeight()/2 - enemies[i].getY();
 			enemies[i].updateBBox(0.0f, inc);
-			enemies[i].setY(maxY - enemies[i].getLength()/2);
+			enemies[i].setY(maxY - enemies[i].getHeight()/2);
 		}
-		else if (enemies[i].getY() - enemies[i].getLength()/2 < minY) {
-			float inc = minY + enemies[i].getLength()/2 - enemies[i].getY();
+		else if (enemies[i].getY() - enemies[i].getHeight()/2 < minY) {
+			float inc = minY + enemies[i].getHeight()/2 - enemies[i].getY();
 			enemies[i].updateBBox(0.0f, inc);
-			enemies[i].setY(minY + enemies[i].getLength()/2);
+			enemies[i].setY(minY + enemies[i].getHeight()/2);
 		}
 	}
 
-	boss.update(enemyShots, player.getX(), player.getY());
+	boss.update(data, enemyShots, player.getX(), player.getY());
 
 	viewport->updateWithPosition(player.getX(), player.getY());
 }

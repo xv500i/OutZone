@@ -13,6 +13,7 @@ GameObject::GameObject(const float x, const float y, const int spriteIndex, cons
 	type = 'u';
 	action = STATIC;
 	id = current_id++;
+	spriteInstanceIndex = -1;
 }
 
 GameObject::GameObject() {}
@@ -23,6 +24,7 @@ GameObject::~GameObject(void) {}
 /* Drawing */
 void GameObject::render(GameData *data) const
 {
+	if (spriteInstanceIndex >= 0) {
 	float angle = getAngleVelocity();
 
 	float offsetX, offsetY, s, t;
@@ -52,6 +54,7 @@ void GameObject::render(GameData *data) const
 	glEnd();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
+	}
 }
 
 void GameObject::update(GameData *data) 

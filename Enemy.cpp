@@ -1,12 +1,11 @@
+
 #include "Enemy.h"
-#include "GuardPathState.h"
 
-Enemy::Enemy(void)
-{
-}
 
-Enemy::Enemy(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx, const float vy)
-	: MobileGameObject(x, y, idTexture, width, length, isWalkable, vx, vy)
+Enemy::Enemy(void) {}
+
+Enemy::Enemy(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
+	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
 	float v = 3.0f;
 	int ticks = 60;
@@ -22,33 +21,34 @@ Enemy::Enemy(const float x, const float y, const int idTexture, const int width,
 	ai->initialize();
 }
 
-Enemy::Enemy(Player &p, const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx, const float vy)
-	: MobileGameObject(x, y, idTexture, width, length, isWalkable, vx, vy)
+Enemy::Enemy(Player &p, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
+	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
 	ai = new NPC_AI(0,1,0);
 	PursueState *pur = new PursueState(p, 200.0f, 250.f, 50.0f, 2.0f);
 	ai->setTriggerState(0, *pur);
 }
 
-Enemy::Enemy(Player &p, int fireDelay, const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx, const float vy)
-	: MobileGameObject(x, y, idTexture, width, length, isWalkable, vx, vy)
+Enemy::Enemy(Player &p, int fireDelay, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
+	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
 	ai = new NPC_AI(0,1,0);
 	PursueState *pur = new PursueState(p, 200.0f, 250.f, 50.0f, 2.0f, true, fireDelay);
 	ai->setTriggerState(0, *pur);
 }
 
+Enemy::~Enemy(void) {}
 
-Enemy::~Enemy(void)
-{
-}
 
-void Enemy::update(std::vector<GameObject> &collisionableObjects, std::vector<Bullet> &bullets)
+/* Drawing */
+void Enemy::update(GameData *data, std::vector<GameObject> &collisionableObjects, std::vector<Bullet> &bullets)
 {
-	MobileGameObject::update(collisionableObjects);
+	MobileGameObject::update(data, collisionableObjects);
 	ai->update(bullets, *this);
 }
 
+
+/* Setters */
 void Enemy::setAI(NPC_AI *art)
 {
 	ai = art;
