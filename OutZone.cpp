@@ -129,14 +129,12 @@ bool OutZone::process()
 			mainMenu.enterPressed();
 		}
 		MenuOption m = mainMenu.getSelected();
-		std::cout<< m << std::endl;
+		std::cout << m << std::endl;
+		if (m == START) gs = PLAYING;
+		else if (m == INSTRUCTIONS) gs = INSTRUCTIONS_MENU;
 		mainMenu.update();
-		
 		break;
 	}
-
-
-	// FIXME: return gs != QUIT;
 
 	return true;
 }

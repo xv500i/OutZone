@@ -62,7 +62,7 @@ void GameMenu::render(GameData *data)
 		paint(-1, xi, yi, w, h);
 		yi -= (h + margin);
 	}
-	if (showCursor) {
+	if (true || showCursor) {
 		float cx = xi - w;
 		float cy = 500.0f - currentOption*(h+margin);
 		float cw = 50;
