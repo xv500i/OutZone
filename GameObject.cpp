@@ -29,37 +29,39 @@ void GameObject::render(GameData *data) const
 
 	float offsetX, offsetY, s, t;
 	int width, height;
-	data->getSpriteFrameInfo(spriteInstanceIndex, action, &s, &t, &width, &height, &offsetX, &offsetY);
+	bool finished;
+	data->getSpriteFrameInfo(spriteInstanceIndex, action, &finished, &s, &t, &width, &height, &offsetX, &offsetY);
 		
 	// TODO: Canviar el tamany proporcionalment, de forma que tots els objectes tinguin +- el mateix tamany, independentment dels pixels de l'sprite en si
-
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, data->getSpriteID(spriteIndex));
-	glPushMatrix();
-	glTranslatef(x, y, 0.0f);
-	glRotatef(angle, 0.0f, 0.0f, 1.0f);
-	glBegin(GL_QUADS);
-		// Bottom-left
-		glTexCoord2f(s, t + offsetY);
-		glVertex3i(-width/2 , -height/2, 1);
-		// Top-left
-		glTexCoord2f(s, t);
-		glVertex3i(-width/2 , height/2, 1);
-		// Top-right
-		glTexCoord2f(s + offsetX, t);
-		glVertex3i(width/2 , height/2, 1);
-		// Bottom-right
-		glTexCoord2f(s + offsetX, t + offsetY);
-		glVertex3i(width/2 , -height/2, 1);	
-	glEnd();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
+	if (!finished) {
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, data->getSpriteID(spriteIndex));
+		glPushMatrix();
+		glTranslatef(x, y, 0.0f);
+		glRotatef(angle, 0.0f, 0.0f, 1.0f);
+		glBegin(GL_QUADS);
+			// Bottom-left
+			glTexCoord2f(s, t + offsetY);
+			glVertex3i(-width/2 , -height/2, 1);
+			// Top-left
+			glTexCoord2f(s, t);
+			glVertex3i(-width/2 , height/2, 1);
+			// Top-right
+			glTexCoord2f(s + offsetX, t);
+			glVertex3i(width/2 , height/2, 1);
+			// Bottom-right
+			glTexCoord2f(s + offsetX, t + offsetY);
+			glVertex3i(width/2 , -height/2, 1);	
+		glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		}
 	}
 }
 
 void GameObject::update(GameData *data) 
 {
-	if (!spriteInstanceIndex) spriteInstanceIndex = data->createSpriteInstance(spriteIndex);
+	if (spriteInstanceIndex < 0) spriteInstanceIndex = data->createSpriteInstance(spriteIndex);
 }
 
 

@@ -76,10 +76,13 @@ void GameData::getSpriteSizeInPixels(int spriteIndex, int *width, int *height)
 /* Sprite instances */
 int GameData::createSpriteInstance(int spriteIndex)
 {
+	if (spriteIndex >= 0) {
 	SpriteInstance spriteInstance(&sprites[spriteIndex]);
 	// TODO: Per millorar l'eficiència del vector, s'hauria de recorrer per trobar forats que hagin quedat buits
 	spriteInstances.push_back(spriteInstance);
 	return spriteInstances.size() - 1;
+	}
+	else return -1;
 }
 
 void GameData::removeSpriteInstance(int spriteInstanceIndex)
@@ -87,7 +90,7 @@ void GameData::removeSpriteInstance(int spriteInstanceIndex)
 	// TODO: Per fer (per millorar eficiència)
 }
 
-void GameData::getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY)
+void GameData::getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, bool *finished, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY)
 {
-	spriteInstances[spriteInstanceIndex].getFrameInfo(action, s, t, width, height, offsetX, offsetY);
+	spriteInstances[spriteInstanceIndex].getFrameInfo(action, finished, s, t, width, height, offsetX, offsetY);
 }

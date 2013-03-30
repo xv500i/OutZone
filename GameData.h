@@ -56,5 +56,5 @@ public:
 	/* Sprite instances */
 	int createSpriteInstance(int spriteIndex);
 	void removeSpriteInstance(int spriteInstanceIndex);
-	void getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY);
+	void getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, bool *finished, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY);
 };
