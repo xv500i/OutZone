@@ -35,11 +35,10 @@ void GameMenu::createMain()
 
 void GameMenu::createPause()
 {
-	opts = std::vector<MenuOption>(4);
+	opts = std::vector<MenuOption>(3);
 	opts[0] = RESTART;
 	opts[1] = TO_MAIN_MENU;
-	opts[2] = INSTRUCTIONS;
-	opts[3] = QUIT;
+	opts[2] = QUIT;
 	type = 'p';
 }
 

@@ -137,7 +137,46 @@ bool OutZone::process()
 		mainMenu.update();
 		break;
 	case INSTRUCTIONS_MENU:
-
+		if (input.keyIsDown(input.getMoveDownKey())) {
+			instructionsMenu.downPressed();
+		} else if (input.keyIsDown(input.getMoveUpKey())) {
+			instructionsMenu.upPressed();
+		}
+		if (input.keyIsDown(input.getPrimaryWeaponKey())) {
+			instructionsMenu.enterPressed();
+		}
+		m = instructionsMenu.getSelected();
+		if (m == TO_MAIN_MENU) gs = MAIN_MENU;
+		instructionsMenu.update();
+		break;
+	case PAUSE_MENU:
+		if (input.keyIsDown(input.getMoveDownKey())) {
+			pauseMenu.downPressed();
+		} else if (input.keyIsDown(input.getMoveUpKey())) {
+			pauseMenu.upPressed();
+		}
+		if (input.keyIsDown(input.getPrimaryWeaponKey())) {
+			pauseMenu.enterPressed();
+		}
+		m = pauseMenu.getSelected();
+		if (m == RESTART) gs = PLAYING;
+		else if (m == TO_MAIN_MENU) gs = MAIN_MENU;
+		else if (m == QUIT) gs = EXIT;
+		pauseMenu.update();
+		break;
+	case GAMEOVER_MENU:
+		if (input.keyIsDown(input.getMoveDownKey())) {
+			gameOverMenu.downPressed();
+		} else if (input.keyIsDown(input.getMoveUpKey())) {
+			gameOverMenu.upPressed();
+		}
+		if (input.keyIsDown(input.getPrimaryWeaponKey())) {
+			gameOverMenu.enterPressed();
+		}
+		m = gameOverMenu.getSelected();
+		if (m == TO_MAIN_MENU) gs = MAIN_MENU;
+		else if (m == QUIT) gs = EXIT;
+		gameOverMenu.update();
 		break;
 	}
 
