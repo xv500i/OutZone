@@ -1,4 +1,5 @@
 #include "GameMenu.h"
+#include "OutZone.h"
 
 
 GameMenu::GameMenu(void)
@@ -45,9 +46,13 @@ void GameMenu::createInstructions()
 
 void GameMenu::render(GameData *data)
 {
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, OutZone::GAME_WIDTH, 0, OutZone::GAME_HEIGHT, -3.0f, 1.0f);
+	glMatrixMode(GL_MODELVIEW);
 	// TODO: opts.size() quads with textures
-	float xi = 200.0f;
-	float yi = 200.0f;
+	float xi = 240.0f;
+	float yi = 500.0f;
 	for (unsigned int i = 0; i < opts.size(); i++) {
 		paint(-1, xi, yi, 100, 50);
 		yi -= (100.0f + 10.0f);
