@@ -6,8 +6,10 @@ GameMenu::GameMenu(void)
 {
 	currentOption = 0;
 	selected = NONE_SELECTED;
-	maxTicks = 100;
+	maxTicks = 25;
 	currentTicks = maxTicks;
+	interactionTicksMax = 25;
+	currentInteractionTicks = interactionTicksMax;
 }
 
 GameMenu::~GameMenu(void)
@@ -53,9 +55,19 @@ void GameMenu::render(GameData *data)
 	// TODO: opts.size() quads with textures
 	float xi = 240.0f;
 	float yi = 500.0f;
+	float w = 100;
+	float h = 50;
+	float margin = 30.f;
 	for (unsigned int i = 0; i < opts.size(); i++) {
-		paint(-1, xi, yi, 100, 50);
-		yi -= (100.0f + 10.0f);
+		paint(-1, xi, yi, w, h);
+		yi -= (h + margin);
+	}
+	if (showCursor) {
+		float cx = xi - w;
+		float cy = 500.0f - currentOption*(h+margin);
+		float cw = 50;
+		float ch = 50;
+		paint(-1, cx, cy, cw, ch);
 	}
 	// TODO: one quad if cursor is visible with the cursor texture between the location of the selected option
 }
@@ -67,23 +79,30 @@ void GameMenu::update()
 		showCursor = !showCursor;
 		currentTicks = maxTicks;
 	}
+	if (currentInteractionTicks > 0) currentInteractionTicks--;
 }
 
 void GameMenu::upPressed()
 {
-	currentOption++;
-	if (currentOption >= (signed)opts.size()) currentOption = 0;
+	if (currentInteractionTicks > 0) return;
+	currentOption--;
+	if (currentOption < 0) currentOption = opts.size() - 1;
+	currentInteractionTicks = interactionTicksMax;
 }
 
 void GameMenu::downPressed()
 {
-	currentOption--;
-	if (currentOption < 0) currentOption = opts.size() - 1;
+	if (currentInteractionTicks > 0) return;
+	currentOption++;
+	if (currentOption >= (signed)opts.size()) currentOption = 0;
+	currentInteractionTicks = interactionTicksMax;
 }
 
 void GameMenu::enterPressed()
 {
+	if (currentInteractionTicks > 0) return;
 	selected = opts[currentOption];
+	currentInteractionTicks = interactionTicksMax;
 }
 
 MenuOption GameMenu::getSelected()

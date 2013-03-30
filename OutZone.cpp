@@ -12,6 +12,7 @@
 #include <conio.h>
 #include "fmod.hpp"
 #include "fmod_errors.h"
+#include <iostream>
 
 
 OutZone::OutZone(void) {}
@@ -119,10 +120,18 @@ bool OutZone::process()
 		scene.update(&data, &viewport);
 		break;
 	case MAIN_MENU:
-		mainMenu.update();
-		if (input.keyIsDown(input.getPrimaryWeaponKey())) {
-			gs = PLAYING;
+		if (input.keyIsDown(input.getMoveDownKey())) {
+			mainMenu.downPressed();
+		} else if (input.keyIsDown(input.getMoveUpKey())) {
+			mainMenu.upPressed();
 		}
+		if (input.keyIsDown(input.getPrimaryWeaponKey())) {
+			mainMenu.enterPressed();
+		}
+		MenuOption m = mainMenu.getSelected();
+		std::cout<< m << std::endl;
+		mainMenu.update();
+		
 		break;
 	}
 

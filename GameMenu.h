@@ -20,6 +20,8 @@ public:
 	void enterPressed();
 	MenuOption getSelected();
 private:
+	int currentInteractionTicks;
+	int interactionTicksMax;
 	int currentTicks;
 	bool showCursor;
 	int maxTicks;
