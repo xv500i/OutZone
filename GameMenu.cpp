@@ -21,6 +21,7 @@ void GameMenu::createGameOver()
 	opts = std::vector<MenuOption>(2);
 	opts[0] = TO_MAIN_MENU;
 	opts[1] = QUIT;
+	type = 'g';
 }
 
 void GameMenu::createMain()
@@ -29,6 +30,7 @@ void GameMenu::createMain()
 	opts[0] = START;
 	opts[1] = INSTRUCTIONS;
 	opts[2] = QUIT;
+	type = 'm';
 }
 
 void GameMenu::createPause()
@@ -38,12 +40,14 @@ void GameMenu::createPause()
 	opts[1] = TO_MAIN_MENU;
 	opts[2] = INSTRUCTIONS;
 	opts[3] = QUIT;
+	type = 'p';
 }
 
 void GameMenu::createInstructions()
 {
 	opts = std::vector<MenuOption>(1);
 	opts[0] = TO_MAIN_MENU;
+	type = 'i';
 }
 
 void GameMenu::render(GameData *data)

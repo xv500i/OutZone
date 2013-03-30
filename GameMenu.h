@@ -29,5 +29,6 @@ private:
 	int currentOption;
 	MenuOption selected;
 	void paint(int idTexture, float x, float y, float w, float h);
+	char type;
 };
 

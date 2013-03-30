@@ -3,6 +3,7 @@
 #include <string>
 #include <time.h>
 #include <random>
+#include "gl\glut.h"
 
 // FMOD FIXME
 
@@ -129,14 +130,14 @@ bool OutZone::process()
 			mainMenu.enterPressed();
 		}
 		MenuOption m = mainMenu.getSelected();
-		std::cout << m << std::endl;
 		if (m == START) gs = PLAYING;
 		else if (m == INSTRUCTIONS) gs = INSTRUCTIONS_MENU;
+		else if (m == QUIT) gs = EXIT;
 		mainMenu.update();
 		break;
 	}
 
-	return true;
+	return gs != EXIT;
 }
 
 void OutZone::render() 
@@ -170,5 +171,8 @@ bool OutZone::gameLoop()
 		t2 = glutGet(GLUT_ELAPSED_TIME);
 	} while (t2 - t1 < 20);
 
-	return true;
+	if (!b) {
+		exit(0);
+	}
+	return b;
 }
