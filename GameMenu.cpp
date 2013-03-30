@@ -82,6 +82,7 @@ void GameMenu::update()
 		showCursor = !showCursor;
 		currentTicks = maxTicks;
 	}
+	selected = NONE_SELECTED;
 	if (currentInteractionTicks > 0) currentInteractionTicks--;
 }
 

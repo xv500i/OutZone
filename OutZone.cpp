@@ -117,9 +117,13 @@ bool OutZone::process()
 	switch(gs) {
 	case PLAYING:
 		// Process input
-		scene.resolveInput(input);
-		// Scene update
-		scene.update(&data, &viewport);
+		if (input.keyIsDown(27)) {
+			gs = PAUSE_MENU;
+		} else {
+			scene.resolveInput(input);
+			// Scene update
+			scene.update(&data, &viewport);
+		}
 		break;
 	case MAIN_MENU:
 		if (input.keyIsDown(input.getMoveDownKey())) {
@@ -195,6 +199,16 @@ void OutZone::render()
 		break;
 	case MAIN_MENU:
 		mainMenu.render(&data);
+		break;
+	case PAUSE_MENU:
+		pauseMenu.render(&data);
+		break;
+	case GAMEOVER_MENU:
+		gameOverMenu.render(&data);
+		break;
+	case INSTRUCTIONS_MENU:
+		instructionsMenu.render(&data);
+		break;
 	}
 	
 
