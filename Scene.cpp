@@ -1,13 +1,17 @@
 
 #include "Scene.h"
 
-Scene::Scene(void)
+
+Scene::Scene(void) 
 {
+	levels = vector<Level>(NUM_LEVELS);
+	for (unsigned int i = 0; i < NUM_LEVELS; i++) {
+		levels[i] = Level(i + 1);
+	}
 }
 
-Scene::~Scene(void)
-{
-}
+Scene::~Scene(void) {}
+
 
 bool Scene::loadLevel(int level, GameData *data)
 {
@@ -43,19 +47,15 @@ bool Scene::loadLevel(int level, GameData *data)
 
 	boss = Boss(200.0f, 800.0f, 2, 300.0f, 100.0f, true, 100);
 	
-	// Loading layers
-	bool b = levels[level - 1].staticTilesLayer.load(level, data);
+	// Loading level
+	bool b = levels[level - 1].load(data);
 	if (!b) return false;
-	//return levels[level - 1].mobileTilesLayer.load(level, data);
-	return levels[level - 1].objectsLayer.load(level, data);
 }
 
 void Scene::render(int level, GameData *data, Viewport *viewport)
 {
-	// Rendering layers
-	levels[level - 1].staticTilesLayer.render(data, viewport);
-	//levels[level - 1].mobileTilesLayer.render(data);
-	levels[level - 1].objectsLayer.render(data, viewport);
+	// Rendering the level
+	levels[level - 1].render(data, viewport);
 
 	unsigned int i;
 	/*for (i = 0; i < obstacles.size(); i++) {
@@ -79,19 +79,12 @@ void Scene::render(int level, GameData *data, Viewport *viewport)
 	boss.render(data);
 }
 
-void Scene::getLevelSize(int level, int *width, int *height)
-{
-	levels[level - 1].staticTilesLayer.getSizeInTiles(width, height);
-}
 
-void Scene::getLevelTileSize(int level, int *width, int *height)
-{
-	levels[level - 1].staticTilesLayer.getTileSizeInPixels(width, height);
-}
 
 void Scene::resolveInput(InputHandler &input) {
 	// player control
 	// HARDCODED
+	// Hauria de ser del pal player.resolveInput(input);
 	Direction d;
 	bool up = input.keyIsDown(input.getMoveUpKey());
 	bool down = input.keyIsDown(input.getMoveDownKey());
@@ -99,64 +92,31 @@ void Scene::resolveInput(InputHandler &input) {
 	bool right = input.keyIsDown(input.getMoveRightKey());
 	bool something = up || down || right || left;
 	if (up) {
-		if (right) {
-			d = UP_RIGHT;	
-		} else if (left) {
-			d = UP_LEFT;
-		} else {
-			d = UP;
-		}
-		
-	} else if (down) {
-		if (right) {
-			d = DOWN_RIGHT;
-		} else if (left) {
-			d = DOWN_LEFT;
-		} else {
-			d = DOWN;
-		}
-	} else if (right) {
-		d = RIGHT;
-	} else if (left) {
-		d = LEFT;
-	} else {
-	
+		if (right) d = UP_RIGHT;	
+		else if (left) d = UP_LEFT;
+		else d = UP;
+	} 
+	else if (down) {
+		if (right) d = DOWN_RIGHT;
+		else if (left) d = DOWN_LEFT;
+		else d = DOWN;
 	}
-
+	else if (right) d = RIGHT;
+	else if (left) d = LEFT;
 	
 	float vx = 0.0f, vy = 0.0f;
 	float catet = 2.0f;
 	float absv = sqrt(catet*catet*2);
 	if (something) {
 		switch (d) {
-			case UP:
-				vy = absv;
-				break;
-			case DOWN:
-				vy = -absv;
-				break;
-			case LEFT:
-				vx = -absv;
-				break;
-			case RIGHT:
-				vx = absv;
-				break;
-			case UP_RIGHT:
-				vx = catet;
-				vy = catet;
-				break;
-			case DOWN_RIGHT:
-				vx = catet;
-				vy = -catet;
-				break;
-			case UP_LEFT:
-				vx = -catet;
-				vy = catet;
-				break;
-			case DOWN_LEFT:
-				vx = -catet;
-				vy = -catet;
-				break;
+		case UP:		vy = absv; break;
+		case DOWN:		vy = -absv; break;
+		case LEFT:		vx = -absv; break;
+		case RIGHT:		vx = absv; break;
+		case UP_RIGHT:	vx = catet; vy = catet; break;
+		case DOWN_RIGHT:vx = catet; vy = -catet; break;
+		case UP_LEFT:	vx = -catet; vy = catet; break;
+		case DOWN_LEFT:	vx = -catet; vy = -catet; break;
 		}
 	}
 	player.setVX(vx);
@@ -168,8 +128,8 @@ void Scene::resolveInput(InputHandler &input) {
 
 void Scene::update(GameData *data, Viewport *viewport)
 {
-	// Layers update 
-	levels[currentLevel - 1].objectsLayer.update(data);
+	// Level update 
+	levels[currentLevel - 1].update(data, viewport);
 
 	int maxX, maxY, minX, minY;
 	minX = minY = 0;
@@ -280,9 +240,21 @@ void Scene::update(GameData *data, Viewport *viewport)
 	viewport->updateWithPosition(player.getX(), player.getY());
 }
 
+
+/* Getters */
 void Scene::getLevelSizeInPixels(int level, int &w, int &h) 
 {
-	levels[level - 1].staticTilesLayer.getSizeInPixels(&w, &h);
+	levels[level - 1].getSizeInPixels(&w, &h);
+}
+
+void Scene::getLevelSize(int level, int *width, int *height)
+{
+	levels[level - 1].getSizeInTiles(width, height);
+}
+
+void Scene::getLevelTileSize(int level, int *width, int *height)
+{
+	levels[level - 1].getTileSizeInPixels(width, height);
 }
 
 void Scene::getCollisioningGameObjects(vector<GameObject> &v)

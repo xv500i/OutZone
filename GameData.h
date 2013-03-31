@@ -5,6 +5,7 @@
 #include "TileSheet.h"
 #include "Sprite.h"
 #include "SpriteInstance.h"
+#include "Sound.h"
 
 
 class GameData
@@ -18,9 +19,14 @@ private:
 	const static int NUM_SPRITES = 5;		// TOCHANGE: modificar depenent del numero de sprites carregats
 	const static char* SPRITE_EXT;
 
+	/* Sounds */
+	const static int NUM_SOUNDS = 1;		// TOCHANGE: modificar depenent del numero de sons carregats
+	const static char* SOUND_EXT;
+
 	std::vector<TileSheet> tileSheets;				/* All loaded tile sheets */
 	std::vector<Sprite> sprites;					/* All loaded sprites */
 	std::vector<SpriteInstance> spriteInstances;	/* All sprite instances of the loaded sprites */
+	std::vector<Sound> sounds;
 
 public:
 	/* TileSheet indexes */		// TOCHANGE: afegir indexs de tots els tile sheets carregats
@@ -54,4 +60,9 @@ public:
 	int createSpriteInstance(int spriteIndex);
 	void removeSpriteInstance(int spriteInstanceIndex);
 	void getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, bool *finished, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY);
+
+	/* Sounds */
+	bool loadSounds();
+	void playSound(int soundIndex);
+	void stopSound(int soundIndex);
 };

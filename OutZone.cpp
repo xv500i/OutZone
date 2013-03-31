@@ -6,10 +6,7 @@
 
 // FMOD FIXME
 
-#pragma comment(lib,"fmodex_vc")
-#include <windows.h>
-#include <stdio.h>
-#include <conio.h>
+
 #include "fmod.hpp"
 #include "fmod_errors.h"
 #include <iostream>
@@ -18,16 +15,6 @@
 OutZone::OutZone(void) {}
 
 OutZone::~OutZone(void) {}
-
-
-void ERRCHECK(FMOD_RESULT result)
-{
-    if (result != FMOD_OK)
-    {
-        printf("FMOD error! (%d) %s\n", result, FMOD_ErrorString(result));
-        exit(-1);
-    }
-}
 
 
 /* Initialization & Finalization */
@@ -45,7 +32,7 @@ bool OutZone::init()
 	// Data loading
 	if (!data.loadTileSheets()) return false;
 	if (!data.loadSprites()) return false;
-	//if (!data.loadSounds()) return false;				// TODO: descomentar quan hi hagi sons
+	if (!data.loadSounds()) return false;	
 	if (!scene.loadLevel(1, &data)) return false;		// TODO: load each level when it has to be loaded
 
 	// Menu loading

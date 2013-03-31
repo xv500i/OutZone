@@ -13,21 +13,16 @@
 #include "Bullet.h"
 #include "Viewport.h"
 #include "Boss.h"
+#include "Level.h"
 
 using namespace std;
 
-
-struct Level {
-	StaticTilesLayer staticTilesLayer;
-	MobileTilesLayer mobileTilesLayer;
-	ObjectsLayer objectsLayer;
-};
 
 class Scene
 {
 private:
 	const static int NUM_LEVELS = 1;
-	Level levels[NUM_LEVELS];
+	vector<Level> levels;
 
 	Player player;
 	vector<Bullet> playerShots;
@@ -45,10 +40,13 @@ public:
 	void render(int level, GameData *data, Viewport *viewport);
 
 	void update(GameData *data, Viewport *viewport);
+
+	void resolveInput(InputHandler &input);
+
+	/* Getters */
 	void getLevelSizeInPixels(int level, int &w, int &h);
 	void getLevelSize(int level, int *width, int *height);
 	void getLevelTileSize(int level, int *width, int *height);
-	void resolveInput(InputHandler &input);
 	void getCollisioningGameObjects(vector<GameObject> &v);
 };
 

@@ -4,11 +4,13 @@
 
 const char* GameData::TILESHEET_EXT = ".png";
 const char* GameData::SPRITE_EXT = ".png";
+const char* GameData::SOUND_EXT = ".mp3";
 
 GameData::GameData(void) 
 {
 	tileSheets = std::vector<TileSheet>(NUM_TILESHEETS);
 	sprites = std::vector<Sprite>(NUM_SPRITES);
+	sounds = std::vector<Sound>(NUM_SOUNDS);
 }
 
 GameData::~GameData(void) {}
@@ -104,4 +106,26 @@ void GameData::removeSpriteInstance(int spriteInstanceIndex)
 void GameData::getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, bool *finished, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY)
 {
 	spriteInstances[spriteInstanceIndex].getFrameInfo(action, finished, s, t, width, height, offsetX, offsetY);
+}
+
+
+/* Sounds */
+bool GameData::loadSounds()
+{
+	const char* filenames[NUM_SOUNDS] = {"Jungle_Theme"};		// TOCHANGE: afegir el nom dels sounds
+	for (unsigned int i = 0; i < sounds.size(); i++) {
+		bool b = sounds[i].load(filenames[i], SOUND_EXT);
+		if (!b) return false;
+	}
+	return true;
+}
+
+void GameData::playSound(int soundIndex)
+{
+	sounds[soundIndex].play();
+}
+
+void GameData::stopSound(int soundIndex)
+{
+	sounds[soundIndex].stop();
 }

@@ -6,7 +6,7 @@
 #include "fmod_errors.h"
 
 
-class GameSound
+class Sound
 {
 private:
 	FMOD::System *system;
@@ -16,8 +16,8 @@ private:
 	void errorCheck(FMOD_RESULT result);
 
 public:
-	GameSound(void);
-	~GameSound(void);
+	Sound(void);
+	~Sound(void);
 
 	/* Loading */
 	bool load(const char *filename, const char *ext);
