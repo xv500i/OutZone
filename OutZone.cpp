@@ -33,6 +33,7 @@ bool OutZone::init()
 	if (!data.loadTileSheets()) return false;
 	if (!data.loadSprites()) return false;
 	if (!data.loadSounds()) return false;	
+	if (!data.loadTextures()) return false;
 	if (!scene.loadLevel(1, &data)) return false;		// TODO: load each level when it has to be loaded
 
 	// Menu loading

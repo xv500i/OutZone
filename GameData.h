@@ -84,4 +84,5 @@ public:
 
 	/* Textures */
 	bool loadTextures();
+	int getTextureID(int textureIndex);
 };

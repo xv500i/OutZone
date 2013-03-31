@@ -34,6 +34,11 @@ int GameData::getTileSheetID(int tileSheetIndex)
 	return tileSheets[tileSheetIndex].getID();
 }
 
+int GameData::getTextureID(int textureIndex)
+{
+	return textures[textureIndex].getID();
+}
+
 void GameData::getTileSheetSizeInPixels(int tileSheetIndex, int *width, int *height)
 {
 	tileSheets[tileSheetIndex].getSizeInPixels(width, height);
@@ -69,7 +74,7 @@ bool GameData::loadSprites()
 /* Textures */
 bool GameData::loadTextures()
 {
-	const char* filenames[NUM_TEXTURES] = {"button_restart", "button_start", "button_help", "button_quit", "button_mainmenu", "gameover", "pause", "title", "instructions"};		// TOCHANGE: afegir el nom dels sprites
+	const char* filenames[NUM_TEXTURES] = {"button_mainmenu", "instructions", "pause", "gameover", "button_quit", "button_start","button_help", "button_restart", "title"};		// TOCHANGE: afegir el nom dels sprites
 	for (unsigned int i = 0; i < textures.size(); i++) {
 		bool b = textures[i].load(filenames[i], TEXTURE_EXT);
 		if (!b) return false;

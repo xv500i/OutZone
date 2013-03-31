@@ -55,14 +55,46 @@ void GameMenu::render(GameData *data)
 	glLoadIdentity();
 	glOrtho(0, OutZone::GAME_WIDTH, 0, OutZone::GAME_HEIGHT, -3.0f, 1.0f);
 	glMatrixMode(GL_MODELVIEW);
-	// TODO: opts.size() quads with textures
+	int tex;
+	switch(type) {
+	case 'm':
+		tex = GameData::TITLE_INDEX;
+		break;
+	case 'p':
+		tex = GameData::PAUSE_INDEX;
+		break;
+	case 'i':
+		tex = GameData::INSTRUCTIONS_INDEX;
+		break;
+	case 'g':
+		tex = GameData::GAMEOVER_INDEX;
+		break;
+	}
+	paint(data->getTextureID(tex), 240, 650, 300, 100);
 	float xi = 240.0f;
 	float yi = 500.0f;
 	float w = 100;
 	float h = 50;
 	float margin = 30.f;
 	for (unsigned int i = 0; i < opts.size(); i++) {
-		paint(-1, xi, yi, w, h);
+		switch(opts[i]) {
+		case RESTART:
+			tex = GameData::RESTART_INDEX;
+			break;
+		case QUIT:
+			tex = GameData::QUIT_INDEX;
+			break;
+		case TO_MAIN_MENU:
+			tex = GameData::RETURN_INDEX;
+			break;
+		case START:
+			tex = GameData::START_INDEX;
+			break;
+		case INSTRUCTIONS:
+			tex = GameData::INSTRUCTIONS_INDEX;
+			break;
+		}
+		paint(data->getTextureID(tex), xi, yi, w, h);
 		yi -= (h + margin);
 	}
 	if (showCursor) {
@@ -116,27 +148,24 @@ MenuOption GameMenu::getSelected()
 
 void GameMenu::paint(int idTexture, float x, float y, float w, float h)
 {
-	//float offsetX, offsetY, s,t;
-	//int w,h;
-	//data->getSpriteFrameInfo(idTexture,pa,&s,&t,&w,&h,&offsetX,&offsetY);
-	//glEnable(GL_TEXTURE_2D);
-	//glBindTexture(GL_TEXTURE_2D, data->getSpriteID(idTexture));
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, idTexture);
 	glPushMatrix();
 	glTranslatef(x, y, 0.0f);
 	glBegin(GL_QUADS);
 		// Bottom-left
-		//glTexCoord2f(s, t+offsetY);
+		glTexCoord2f(0, 1);
 		glVertex3i(- w/2 , - h/2, 1);
 		// Top-left
-		//glTexCoord2f(s, t);
+		glTexCoord2f(0, 0);
 		glVertex3i(- w/2 , + h/2, 1);
 		// Top-right
-		//glTexCoord2f(s+offsetX, t);
+		glTexCoord2f(1, 0);
 		glVertex3i(+ w/2 , + h/2, 1);
 		// Bottom-right
-		//glTexCoord2f(s+offsetX, t+offsetY);
+		glTexCoord2f(1, 1);
 		glVertex3i(+ w/2 , - h/2, 1);	
 	glEnd();
 	glPopMatrix();
-	//glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_2D);
 }
