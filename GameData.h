@@ -23,10 +23,15 @@ private:
 	const static int NUM_SOUNDS = 1;		// TOCHANGE: modificar depenent del numero de sons carregats
 	const static char* SOUND_EXT;
 
+	/* Textures */
+	const static int NUM_TEXTURES = 9;		// TOCHANGE: modificar depenent del numero de sons carregats
+	const static char* TEXTURE_EXT;
+
 	std::vector<TileSheet> tileSheets;				/* All loaded tile sheets */
 	std::vector<Sprite> sprites;					/* All loaded sprites */
 	std::vector<SpriteInstance> spriteInstances;	/* All sprite instances of the loaded sprites */
 	std::vector<Sound> sounds;
+	std::vector<Texture> textures;
 
 public:
 	/* TileSheet indexes */		// TOCHANGE: afegir indexs de tots els tile sheets carregats
@@ -39,6 +44,17 @@ public:
 	const static int FIRE_SPRITE_INDEX = 2;
 	const static int FIRE2_SPRITE_INDEX = 3;
 	const static int ALIEN1_SPRITE_INDEX = 4;
+
+	/* Texture indexes */
+	const static int TITLE_INDEX = 0;
+	const static int INSTRUCTIONS_INDEX = 1;
+	const static int PAUSE_INDEX = 2;
+	const static int GAMEOVER_INDEX = 3;
+	const static int QUIT_INDEX = 4;
+	const static int START_INDEX = 5;
+	const static int HELP_INDEX = 6;
+	const static int RESTART_INDEX = 7;
+	const static int RETURN_INDEX = 8;
 
 	GameData(void);
 	~GameData(void);
@@ -65,4 +81,7 @@ public:
 	bool loadSounds();
 	void playSound(int soundIndex);
 	void stopSound(int soundIndex);
+
+	/* Textures */
+	bool loadTextures();
 };

@@ -5,12 +5,14 @@
 const char* GameData::TILESHEET_EXT = ".png";
 const char* GameData::SPRITE_EXT = ".png";
 const char* GameData::SOUND_EXT = ".mp3";
+const char* GameData::TEXTURE_EXT = ".png";
 
 GameData::GameData(void) 
 {
 	tileSheets = std::vector<TileSheet>(NUM_TILESHEETS);
 	sprites = std::vector<Sprite>(NUM_SPRITES);
 	sounds = std::vector<Sound>(NUM_SOUNDS);
+	textures = std::vector<Texture>(NUM_TEXTURES);
 }
 
 GameData::~GameData(void) {}
@@ -63,6 +65,18 @@ bool GameData::loadSprites()
 	}
 	return true;
 }
+
+/* Textures */
+bool GameData::loadTextures()
+{
+	const char* filenames[NUM_TEXTURES] = {"button_restart", "button_start", "button_help", "button_quit", "button_mainmenu", "gameover", "pause", "title", "instructions"};		// TOCHANGE: afegir el nom dels sprites
+	for (unsigned int i = 0; i < textures.size(); i++) {
+		bool b = textures[i].load(filenames[i], TEXTURE_EXT);
+		if (!b) return false;
+	}
+	return true;
+}
+
 
 int GameData::getSpriteID(int spriteIndex)
 {
