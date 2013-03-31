@@ -102,9 +102,9 @@ void GameMenu::render(GameData *data)
 		float cy = 500.0f - currentOption*(h+margin);
 		float cw = 50;
 		float ch = 50;
-		paint(-1, cx, cy, cw, ch);
+		paint(data->getTextureID(GameData::CURSOR_INDEX), cx, cy, cw, ch);
 	}
-	// TODO: one quad if cursor is visible with the cursor texture between the location of the selected option
+	
 }
 
 void GameMenu::update()

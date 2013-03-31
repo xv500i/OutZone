@@ -24,7 +24,7 @@ private:
 	const static char* SOUND_EXT;
 
 	/* Textures */
-	const static int NUM_TEXTURES = 9;		// TOCHANGE: modificar depenent del numero de sons carregats
+	const static int NUM_TEXTURES = 10;		// TOCHANGE: modificar depenent del numero de sons carregats
 	const static char* TEXTURE_EXT;
 
 	std::vector<TileSheet> tileSheets;				/* All loaded tile sheets */
@@ -55,6 +55,7 @@ public:
 	const static int HELP_INDEX = 6;
 	const static int RESTART_INDEX = 7;
 	const static int RETURN_INDEX = 8;
+	const static int CURSOR_INDEX = 9;
 
 	GameData(void);
 	~GameData(void);
