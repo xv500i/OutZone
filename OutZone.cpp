@@ -4,13 +4,6 @@
 #include <time.h>
 #include <random>
 
-// FMOD FIXME
-
-
-#include "fmod.hpp"
-#include "fmod_errors.h"
-#include <iostream>
-
 
 OutZone::OutZone(void) {}
 
@@ -47,46 +40,12 @@ bool OutZone::init()
 	viewport.init(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
 	int width, height;
 	scene.getLevelSizeInPixels(1, width, height);
-	viewport.setLimits(0.0f, height, width, 0.0f);	// TODO: fer update de setLimits al carregar un nivell, no al inici
+	viewport.setLimits(0.0f, height, width, 0.0f);		// TODO: fer update de setLimits al carregar un nivell, no al inici
 	
 	return true;
-
-
-	// Music FIXME
-	/*
-	FMOD::System     *system;
-    FMOD::Sound      *sound1;
-    FMOD::Channel    *channel = 0;
-    FMOD_RESULT       result;
-
-	result = FMOD::System_Create(&system);
-    ERRCHECK(result);
-
-	result = system->init(32, FMOD_INIT_NORMAL, 0);
-    ERRCHECK(result);
-
-	result = system->createSound("Jungle_Theme.mp3", FMOD_HARDWARE, 0, &sound1);
-    ERRCHECK(result);
-
-	result = system->playSound(FMOD_CHANNEL_FREE, sound1, false, &channel);
-    ERRCHECK(result);
-	*/
-
-	// FMOD FIXME
-	/*
-	result = sound1->release();
-    ERRCHECK(result);
-    result = system->close();
-    ERRCHECK(result);
-    result = system->release();
-    ERRCHECK(result);
-	*/
 }
 
-void OutZone::finalize()
-{
-	
-}
+void OutZone::finalize() {}
 
 
 /* Input */
@@ -104,7 +63,6 @@ bool OutZone::process()
 	MenuOption m;
 	switch(gameState) {
 	case PLAYING:
-		// Process input
 		if (input.keyIsDown(input.getPauseMenuKey())) gameState = PAUSE_MENU;
 		else {
 			scene.resolveInput(input);

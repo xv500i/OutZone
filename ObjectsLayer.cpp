@@ -62,7 +62,22 @@ void ObjectsLayer::update(GameData *data)
 /* Rendering */
 void ObjectsLayer::render(GameData *data, Viewport *viewport)
 {
+	// Simulate an object with the viewport coordinates
+	GameObject viewportObject = GameObject(viewport->getLeft() + viewport->getWidth()/2,
+										   viewport->getTop() - viewport->getHeight()/2,
+										   -1, viewport->getWidth(), viewport->getHeight(), false);
 	for (unsigned int i = 0; i < objects.size(); i++) {
-		objects[i].render(data);
+		if (objects[i].isIntersecting(viewportObject)) objects[i].render(data);
 	}
+}
+
+/* Getters */
+std::vector<GameObject> ObjectsLayer::getCollisionObjects()
+{
+	std::vector<GameObject> collisionObjects;
+	collisionObjects.reserve(objects.size());
+	for (unsigned int i = 0; i < objects.size(); i++) {
+		if (objects[i].shouldNotEnterObjects()) collisionObjects.push_back(objects[i]);
+	}
+	return collisionObjects;
 }
