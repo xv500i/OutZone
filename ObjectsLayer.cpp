@@ -72,7 +72,7 @@ void ObjectsLayer::render(GameData *data, Viewport *viewport)
 }
 
 /* Getters */
-std::vector<GameObject> ObjectsLayer::getCollisionObjects()
+std::vector<GameObject>& ObjectsLayer::getCollisionObjects()
 {
 	std::vector<GameObject> collisionObjects;
 	collisionObjects.reserve(objects.size());

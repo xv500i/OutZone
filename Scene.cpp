@@ -8,25 +8,57 @@ Scene::Scene(void)
 	for (unsigned int i = 0; i < NUM_LEVELS; i++) {
 		levels[i] = Level(i + 1);
 	}
+	currentLevel = -1;
 }
 
 Scene::~Scene(void) {}
 
 
-bool Scene::loadLevel(int level, GameData *data)
+
+
+void Scene::render(int level, GameData *data, Viewport *viewport)
 {
-	currentLevel = level;
-	/*GameObject go(100.0f, 100.0f, 1, 30, 30, false);
-	obstacles.push_back(go);
-	GameObject go2(75.0f, 300.0f, 1, 60, 30, false);
-	obstacles.push_back(go2);
-	GameObject go3(100.0f, 200.0f, 1, 30, 60, false);
-	obstacles.push_back(go3);
-	GameObject go4(120.0f, 100.0f, 1, 15, 15, false);
-	obstacles.push_back(go4);*/
-	playerShots.clear();
+	// Rendering the level
+	levels[level - 1].render(data, viewport);
+
+	player.render(data);
+	
+	unsigned int i;
+	for (i = 0; i < enemies.size(); i++) {
+		enemies[i].render(data);
+	}
+
+	for (i = 0; i < enemyShots.size(); i++) {
+		enemyShots[i].render(data);
+	}
+
+	boss.render(data);
+}
+
+
+/* Loading */
+bool Scene::changeLevel(int newLevel, GameData *data, Viewport *viewport)
+{
+	currentLevel = newLevel;
+	if (!loadLevel(data)) return false;
+
+	int width, height;
+	getLevelSizeInPixels(1, width, height);
+	viewport->setLimits(0.0f, height, width, 0.0f);
+	return true;
+}
+
+bool Scene::loadLevel(GameData *data)
+{
 	enemyShots.clear();
-	Enemy en(120.0f, 130.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
+
+	boss = Boss(200.0f, 800.0f, 2, 300.0f, 100.0f, true, 100);
+	
+	// Loading level
+	if (!levels[currentLevel - 1].load(data)) return false;
+	return true;
+
+	/*Enemy en(120.0f, 130.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
 	en.setPhantom(false);
 	enemies.push_back(en);
 
@@ -40,90 +72,14 @@ bool Scene::loadLevel(int level, GameData *data)
 
 	Enemy en4(player, 50, 120.0f, 850.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
 	en4.setPhantom(false);
-	enemies.push_back(en4);
-
-	player = Player(50.0f, 50.0f, GameData::PLAYER1_SPRITE_INDEX, 20, 20, true, 0.0f, 0.0f);
-	player.setPhantom(false);
-
-	boss = Boss(200.0f, 800.0f, 2, 300.0f, 100.0f, true, 100);
-	
-	// Loading level
-	bool b = levels[level - 1].load(data);
-	if (!b) return false;
+	enemies.push_back(en4);*/
 }
 
-void Scene::render(int level, GameData *data, Viewport *viewport)
+
+/* Updating */
+void Scene::resolveInput(InputHandler &input) 
 {
-	// Rendering the level
-	levels[level - 1].render(data, viewport);
-
-	unsigned int i;
-	/*for (i = 0; i < obstacles.size(); i++) {
-		obstacles[i].render(data);
-	}*/
-
-	player.render(data);
-	
-	for (i = 0; i < enemies.size(); i++) {
-		enemies[i].render(data);
-	}
-	
-	for (i = 0; i < playerShots.size(); i++) {
-		playerShots[i].render(data);
-	}
-
-	for (i = 0; i < enemyShots.size(); i++) {
-		enemyShots[i].render(data);
-	}
-
-	boss.render(data);
-}
-
-
-
-void Scene::resolveInput(InputHandler &input) {
-	// player control
-	// HARDCODED
-	// Hauria de ser del pal player.resolveInput(input);
-	Direction d;
-	bool up = input.keyIsDown(input.getMoveUpKey());
-	bool down = input.keyIsDown(input.getMoveDownKey());
-	bool left = input.keyIsDown(input.getMoveLeftKey());
-	bool right = input.keyIsDown(input.getMoveRightKey());
-	bool something = up || down || right || left;
-	if (up) {
-		if (right) d = UP_RIGHT;	
-		else if (left) d = UP_LEFT;
-		else d = UP;
-	} 
-	else if (down) {
-		if (right) d = DOWN_RIGHT;
-		else if (left) d = DOWN_LEFT;
-		else d = DOWN;
-	}
-	else if (right) d = RIGHT;
-	else if (left) d = LEFT;
-	
-	float vx = 0.0f, vy = 0.0f;
-	float catet = 2.0f;
-	float absv = sqrt(catet*catet*2);
-	if (something) {
-		switch (d) {
-		case UP:		vy = absv; break;
-		case DOWN:		vy = -absv; break;
-		case LEFT:		vx = -absv; break;
-		case RIGHT:		vx = absv; break;
-		case UP_RIGHT:	vx = catet; vy = catet; break;
-		case DOWN_RIGHT:vx = catet; vy = -catet; break;
-		case UP_LEFT:	vx = -catet; vy = catet; break;
-		case DOWN_LEFT:	vx = -catet; vy = -catet; break;
-		}
-	}
-	player.setVX(vx);
-	player.setVY(vy);
-	if (input.keyIsDown(input.getPrimaryWeaponKey())) {
-		player.shotPrimaryWeapon(playerShots);
-	}
+	levels[currentLevel -1].resolveInput(&input);
 }
 
 void Scene::update(GameData *data, Viewport *viewport)
@@ -135,9 +91,9 @@ void Scene::update(GameData *data, Viewport *viewport)
 	minX = minY = 0;
 	getLevelSizeInPixels(currentLevel, maxX, maxY);
 	
-	int size = playerShots.size();
+	//int size = playerShots.size();
 	vector<GameObject> v;
-	getCollisioningGameObjects(v);
+	getCollisionEntities(v);
 	std::vector<Bullet>::iterator it;
 	for (it = playerShots.begin() ; it != playerShots.end(); ) {
 		it->update(data, obstacles);
@@ -257,16 +213,9 @@ void Scene::getLevelTileSize(int level, int *width, int *height)
 	levels[level - 1].getTileSizeInPixels(width, height);
 }
 
-void Scene::getCollisioningGameObjects(vector<GameObject> &v)
+void Scene::getCollisionEntities(vector<GameObject> *objects, vector<bool> *tiles)
 {
-	// FIXME I'M FAMOUS
-	//AB.reserve( A.size() + B.size() ); // preallocate memory
-	//AB.insert( AB.end(), A.begin(), A.end() );
-	//AB.insert( AB.end(), B.begin(), B.end() );
-	std::vector<GameObject> res;
-	res.reserve(obstacles.size() + 1 + enemies.size());
-	res.insert(res.end(), obstacles.begin(), obstacles.end());
-	res.insert(res.end(), enemies.begin(), enemies.end());
-	res.push_back(player);
-	v = res;
+	*tiles = levels[currentLevel - 1].getCollisionMap();
+	*objects = levels[currentLevel - 1].getCollisionObjects();
+	//TODO: afegir els enemics i el player!!
 }

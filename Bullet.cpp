@@ -2,6 +2,8 @@
 #include "Bullet.h"
 
 
+const float Bullet::DEFAULT_BULLET_VELOCITY = 10.0f;
+
 Bullet::Bullet(void) {}
 
 Bullet::Bullet(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)

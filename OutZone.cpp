@@ -23,11 +23,10 @@ bool OutZone::init()
 	glEnable(GL_DEPTH_TEST);	// Z-Buffer
 
 	// Data loading
+	if (!data.loadTextures()) return false;
 	if (!data.loadTileSheets()) return false;
 	if (!data.loadSprites()) return false;
 	if (!data.loadSounds()) return false;	
-	if (!data.loadTextures()) return false;
-	if (!scene.loadLevel(1, &data)) return false;		// TODO: load each level when it has to be loaded
 
 	// Menu loading
 	gameState = MAIN_MENU;
@@ -38,9 +37,6 @@ bool OutZone::init()
 
 	// Camera initialization
 	viewport.init(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
-	int width, height;
-	scene.getLevelSizeInPixels(1, width, height);
-	viewport.setLimits(0.0f, height, width, 0.0f);		// TODO: fer update de setLimits al carregar un nivell, no al inici
 	
 	return true;
 }
@@ -78,7 +74,7 @@ bool OutZone::process()
 		m = mainMenu.getSelected();
 		if (m == START) {
 			gameState = PLAYING;
-			//scene.changeLevel(1);	// From the main menu, we start the first level
+			scene.changeLevel(1, &data, &viewport);		// From the main menu, we start the first level
 		}
 		else if (m == INSTRUCTIONS) gameState = INSTRUCTIONS_MENU;
 		else if (m == QUIT) gameState = EXIT;

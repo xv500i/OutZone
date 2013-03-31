@@ -2,6 +2,9 @@
 #include "Level.h"
 
 
+const float Level::PLAYER_INITIAL_X = 240.0f;
+const float Level::PLAYER_INITIAL_Y = 112.0f;
+
 Level::Level()
 {
 	levelNumber = -1;
@@ -21,15 +24,29 @@ bool Level::load(GameData *data)
 	//if (!b) return false;
 	b = objectsLayer.load(levelNumber, data);
 	if (!b) return false;
+	//b = enemiesLayer.load(levelNumber, data);
+	//if (!b) return false;
+	player = Player(PLAYER_INITIAL_X, PLAYER_INITIAL_Y, GameData::PLAYER1_SPRITE_INDEX, 20, 20, true, 0.0f, 0.0f);
+	player.setPhantom(false);
 	return true;
 }
+
+
+/* Input */
+void Level::resolveInput(InputHandler *input)
+{
+	player.resolveInput(input);
+}
+
 
 /* Updating */
 void Level::update(GameData *data, Viewport *viewport)
 {
-	//mobileTilesLayer.update();
+	//mobileTilesLayer.update(data);
 	objectsLayer.update(data);
+	//enemiesLayer.update(data);
 }
+
 
 /* Rendering */
 void Level::render(GameData *data, Viewport *viewport)
@@ -37,7 +54,9 @@ void Level::render(GameData *data, Viewport *viewport)
 	staticTilesLayer.render(data, viewport);
 	mobileTilesLayer.render(data, viewport);
 	objectsLayer.render(data, viewport);
+	//enemiesLayer.render(data, viewport);
 }
+
 
 /* Getters */
 void Level::getSizeInPixels(int *width, int *height)
@@ -53,4 +72,14 @@ void Level::getSizeInTiles(int *width, int *height)
 void Level::getTileSizeInPixels(int *width, int *height)
 {
 	staticTilesLayer.getTileSizeInPixels(width, height);
+}
+
+std::vector<bool>& Level::getCollisionMap()
+{
+	return staticTilesLayer.getCollisionMap();
+}
+
+std::vector<GameObject>& Level::getCollisionObjects()
+{
+	return objectsLayer.getCollisionObjects();
 }

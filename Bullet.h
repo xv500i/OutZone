@@ -10,6 +10,8 @@ private:
 	int ticksLeft;
 
 public:
+	const static float DEFAULT_BULLET_VELOCITY;
+
 	Bullet(void);
 	Bullet(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);
 	~Bullet(void);

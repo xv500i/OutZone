@@ -24,29 +24,32 @@ private:
 	const static int NUM_LEVELS = 1;
 	vector<Level> levels;
 
-	Player player;
-	vector<Bullet> playerShots;
 	vector<Bullet> enemyShots;
 	vector<GameObject> obstacles;
 	vector<Enemy> enemies;
 	int currentLevel;
 	Boss boss;
 
+	bool loadLevel(GameData *data);
+
 public:
 	Scene(void);
 	~Scene(void);
 
-	bool loadLevel(int level, GameData *data);
-	void render(int level, GameData *data, Viewport *viewport);
+	/* Loading */
+	bool changeLevel(int newLevel, GameData *data, Viewport *viewport);
 
+	/* Updating */ 
+	void resolveInput(InputHandler &input);
 	void update(GameData *data, Viewport *viewport);
 
-	void resolveInput(InputHandler &input);
+	/* Drawing */
+	void render(int level, GameData *data, Viewport *viewport);
 
 	/* Getters */
 	void getLevelSizeInPixels(int level, int &w, int &h);
 	void getLevelSize(int level, int *width, int *height);
 	void getLevelTileSize(int level, int *width, int *height);
-	void getCollisioningGameObjects(vector<GameObject> &v);
+	void getCollisionEntities(vector<GameObject> *objects, vector<bool> *tiles);
 };
 
