@@ -1,7 +1,6 @@
 
 #include "Player.h"
 
-
 const float Player::DEFAULT_PLAYER_VELOCITY = 2.0f;
 
 Player::Player(void) {}
@@ -81,8 +80,20 @@ void Player::shotPrimaryWeapon()
 	case UP_LEFT:	vx = -catet; vy = catet; break;
 	case DOWN_LEFT:	vx = -catet; vy = -catet; break;
 	}
-
-	mainWeapon.fire(getX(), getY(), vx, vy, playerShots);
+	// arma del jugador respecte el seu punt mig
+	float vecx = -getWidth()/3.1f;
+	float vecy = getHeight();
+	float angle = getAngleVelocity();
+	float fconv = 3.1415f / 180.0f;
+	
+	float s = sinf(angle*fconv);
+    float c = cosf(angle*fconv);
+    
+    float nx = c * vecx - s * vecy;
+    float ny = s * vecx + c * vecy;
+	float fx = getX() + nx;
+	float fy = getY() + ny;
+	mainWeapon.fire(fx, fy, vx, vy, playerShots);
 	setAction(SHOT);
 }
 
