@@ -31,6 +31,7 @@ bool Scene::loadLevel(GameData *data)
 	//boss = Boss(200.0f, 800.0f, 2, 300.0f, 100.0f, true, 100);
 	
 	// Loading level
+	data->playSound(GameData::JUNGLE_THEME_INDEX);
 	if (!levels[currentLevel - 1].load(data)) return false;
 	return true;
 

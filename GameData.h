@@ -57,6 +57,9 @@ public:
 	const static int FIRE2_SPRITE_INDEX = 3;
 	const static int ALIEN1_SPRITE_INDEX = 4;
 
+	/* Sounds indexes */
+	const static int JUNGLE_THEME_INDEX = 0;
+
 	GameData(void);
 	~GameData(void);
 
