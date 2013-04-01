@@ -16,39 +16,48 @@ MobileGameObject::~MobileGameObject(void) {}
 
 
 /* Drawing */
-void MobileGameObject::update(GameData *data, std::vector<GameObject> &collisionableObjects)
+bool MobileGameObject::update(GameData *data, std::vector<GameObject> &collisionObjects)
 {
+	bool collision = false;
 	GameObject::update(data);
 
-	// COLLISION
+	// Objects collision testing
 	float actualX = getX();
 	float actualY = getY();
 	float tempX = getX() + vx;
 	float tempY = getY() + vy;
 
 	if (shouldNotEnterObjects()) {
-		updateBBox(vx, vy);
 		// Look for any x or y restriction
-		for (std::vector<GameObject>::iterator ito = collisionableObjects.begin(); ito != collisionableObjects.end(); ito++) {
+		for (std::vector<GameObject>::iterator ito = collisionObjects.begin(); ito != collisionObjects.end(); ito++) {
+			// Test intersecting X
+			updateBBox(vx, 0);
 			if (getId() != ito->getId() && isIntersecting(*ito)) {
-				// Test X
-				updateBBox(0, -vy);
-				if (isIntersecting(*ito)) tempX = actualX;	
-				// Test Y
-				updateBBox(-vx, vy);
-				if (isIntersecting(*ito)) tempY = actualY;	
-				updateBBox(vx, 0);
+				collision = true;
+				tempX = actualX;
 			}
+			// Test intersecting Y
+			updateBBox(-vx, vy);
+			if (getId() != ito->getId() && isIntersecting(*ito)) {
+				collision = true;
+				tempY = actualY;
+			}
+			updateBBox(0, -vy);
 		}
-		updateBBox(-vx, -vy);
 	}
-	
-	// Change the object position
 	setX(tempX);
 	setY(tempY);
 	updateBBox(tempX - actualX, tempY - actualY);
 
-	// Set the object direction
+	// Change the direction and action of the gameObject
+	updateDirectionAndAction();
+
+	return collision;
+}
+
+void MobileGameObject::updateDirectionAndAction()
+{
+	// Object direction
 	if (vy > 0) {
 		if (vx < 0) direction = UP_LEFT;
 		else if (vx > 0) direction = UP_RIGHT;
@@ -64,7 +73,7 @@ void MobileGameObject::update(GameData *data, std::vector<GameObject> &collision
 		else if (vx > 0) direction = RIGHT;
 	}
 
-	// Set the object action
+	// Object action
 	if (abs(vx) > 0.0f || abs(vy) > 0.0f) setAction(MOVE);
 	else setAction(STATIC);
 }
@@ -113,8 +122,3 @@ void MobileGameObject::setVY(const float vy)
 {
 	this->vy = vy;
 }
-
-
-
-
-void MobileGameObject::collision(GameObject &g) {}

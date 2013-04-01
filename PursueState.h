@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Bullet.h"
+class Player;
 class Enemy;
 
 class PursueState

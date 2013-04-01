@@ -6,6 +6,10 @@
 #include "Weapon.h"
 #include "Bullet.h"
 #include "InputHandler.h"
+#include "Viewport.h"
+#include "Enemy.h"
+
+class Enemy;
 
 
 class Player : public MobileGameObject
@@ -27,7 +31,7 @@ public:
 	void resolveInput(InputHandler *input);
 
 	/* Updating */
-	void update(GameData *data, std::vector<GameObject> &collisionableObjects);
+	void update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<Enemy> &enemies);
 
 	/* Drawing */
 	void render(GameData *data);

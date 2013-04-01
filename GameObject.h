@@ -35,9 +35,11 @@ public:
 	GameObject();
 	~GameObject(void);
 
+	/* Updating */
+	void update(GameData *data);
+
 	/* Drawing */
 	void render(GameData *data) const;
-	void update(GameData *data);
 
 	/* Getters */
 	float getX() const;
@@ -63,7 +65,5 @@ public:
 
 	bool isIntersecting(const GameObject &go) const;
 	void updateBBox(const float x, const float y);
-	void collision(GameObject &g);
 	float distance(GameObject &g);
 };
-

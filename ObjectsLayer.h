@@ -45,6 +45,6 @@ public:
 	virtual void render(GameData *data, Viewport *viewport);
 
 	/* Getters */
-	std::vector<GameObject>& getCollisionObjects();
+	std::vector<GameObject> getCollisionObjects();
 };
 

@@ -24,8 +24,6 @@ private:
 	const static int NUM_LEVELS = 1;
 	vector<Level> levels;
 
-	vector<Bullet> enemyShots;
-	vector<GameObject> obstacles;
 	vector<Enemy> enemies;
 	int currentLevel;
 	Boss boss;
@@ -44,7 +42,7 @@ public:
 	void update(GameData *data, Viewport *viewport);
 
 	/* Drawing */
-	void render(int level, GameData *data, Viewport *viewport);
+	void render(GameData *data, Viewport *viewport);
 
 	/* Getters */
 	void getLevelSizeInPixels(int level, int &w, int &h);

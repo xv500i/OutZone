@@ -8,6 +8,7 @@
 #include "NPC_AI.h"
 #include "Player.h"
 
+class Player;
 class NPC_AI;
 
 
@@ -16,6 +17,7 @@ class Enemy :
 {
 private:
 	NPC_AI *ai;
+	std::vector<Bullet> enemyShots;
 
 public:
 	Enemy(void);
@@ -24,9 +26,12 @@ public:
 	Enemy(Player &p, int fireDelay, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);
 	~Enemy(void);
 	
-	/* Drawing */
-	void update(GameData *data, std::vector<GameObject> &collisionableObjects, std::vector<Bullet> &bullets);
+	/* Updating */
+	void update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, Player &player);
 	
+	/* Drawing */
+	void render(GameData *data);
+
 	/* Setters */
 	void setAI(NPC_AI *art);
 };

@@ -42,6 +42,6 @@ public:
 	void getSizeInPixels(int *width, int *height);
 	void getSizeInTiles(int *width, int *height);
 	void getTileSizeInPixels(int *width, int *height);
-	std::vector<bool>& getCollisionMap();
-	std::vector<GameObject>& getCollisionObjects();
+	std::vector<bool> getCollisionMap();
+	std::vector<GameObject> getCollisionObjects();
 };

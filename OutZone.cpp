@@ -124,7 +124,7 @@ void OutZone::render()
 	glLoadIdentity();
 
 	switch (gameState) {
-	case PLAYING:			scene.render(1, &data, &viewport); break;
+	case PLAYING:			scene.render(&data, &viewport); break;
 	case MAIN_MENU:			mainMenu.render(&data); break;
 	case PAUSE_MENU:		pauseMenu.render(&data); break;
 	case GAMEOVER_MENU:		gameOverMenu.render(&data); break;

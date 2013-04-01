@@ -13,13 +13,15 @@ private:
 	float vy;				/* Y axis component of the MobileGameObject velocity */
 	Direction direction;	/* MobileGameObject direction (8 possible directions) */
 
+	void updateDirectionAndAction();
+
 public:
 	MobileGameObject();
 	MobileGameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx = 0, const float vy = 0);
 	~MobileGameObject(void);
 	
-	/* Drawing */
-	void update(GameData *data, std::vector<GameObject> &collisionableObjects);
+	/* Updating */
+	bool update(GameData *data, std::vector<GameObject> &collisionObjects);
 	
 	/* Getters */
 	float getVX() const;
@@ -30,8 +32,4 @@ public:
 	/* Setters */
 	void setVX(const float vx);
 	void setVY(const float vy);
-
-
-	void collision(GameObject &g);
 };
-

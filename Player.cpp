@@ -88,10 +88,52 @@ void Player::shotPrimaryWeapon()
 
 
 /* Updating */
-void Player::update(GameData *data, std::vector<GameObject> &collisionableObjects)
+void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<Enemy> &enemies)
 {
-	MobileGameObject::update(data, collisionableObjects);
+	MobileGameObject::update(data, collisionObjects);
 	mainWeapon.update();
+
+	// Screen collision testing
+	int minX = viewport->getLeft();
+	int maxX = viewport->getLeft() + viewport->getWidth();
+	int minY = viewport->getTop() - viewport->getHeight();
+	int maxY = viewport->getTop();
+	if (getX() + getWidth()/2 > maxX) {
+		float inc = maxX - getWidth()/2 - getX();
+		updateBBox(inc, 0.0f);
+		setX(maxX - getWidth()/2);
+	}
+	else if (getX() - getWidth()/2 < minX) {
+		float inc = minX + getWidth()/2 - getX();
+		updateBBox(inc, 0.0f);
+		setX(minX + getWidth()/2);
+	}
+	if (getY() + getHeight()/2 > maxY) {
+		float inc = maxY - getHeight()/2 - getY();
+		updateBBox(0.0f, inc);
+		setY(maxY - getHeight()/2);
+	}
+	else if (getY() - getHeight()/2 < minY) {
+		float inc = minY + getHeight()/2 - getY();
+		updateBBox(0.0f, inc);
+		setY(minY + getHeight()/2);
+	}
+
+	// PlayerShots update
+	for (std::vector<Bullet>::iterator it = playerShots.begin(); it != playerShots.end();) {
+		bool collision = it->update(data, collisionObjects, (std::vector<GameObject>&)enemies);
+
+		// Remove the bullet if it goes off-screen
+		float x = it->getX();
+		float y = it->getY();	
+		if (y > viewport->getTop() || y < (viewport->getTop() - viewport->getHeight()) || 
+			x > (viewport->getLeft() + viewport->getWidth()) || x < viewport->getLeft()) {
+			it = playerShots.erase(it);
+		} 
+		// Remove the bullet if it has collisioned
+		else if (collision || it->isDead()) it = playerShots.erase(it);
+		else it++;
+	}
 }
 
 

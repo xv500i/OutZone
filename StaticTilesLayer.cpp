@@ -217,7 +217,7 @@ int StaticTilesLayer::getTileSheetIndex()	// TOCHANGE: Descomentar a mesura que 
 	}
 }
 
-std::vector<bool>& StaticTilesLayer::getCollisionMap()
+std::vector<bool> StaticTilesLayer::getCollisionMap()
 {
 	std::vector<bool> collisionMap = std::vector<bool>(backgroundLayer.size());
 	for (unsigned int i = 0; i < backgroundLayer.size(); i++) {

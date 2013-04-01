@@ -175,8 +175,6 @@ void GameObject::updateBBox(const float x, const float y)
 	b->translate(x,y);
 }
 
-void GameObject::collision(GameObject &g) {}
-
 float GameObject::distance(GameObject &g)
 {
 	return sqrt(pow(x-g.x,2) + pow(y-g.y,2));
