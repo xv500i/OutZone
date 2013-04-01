@@ -73,7 +73,7 @@ void GameMenu::render(GameData *data)
 	paint(data->getTextureID(tex), 240, 650, 300, 100);
 	float xi = 240.0f;
 	float yi = 500.0f;
-	float w = 100;
+	float w = 200;
 	float h = 50;
 	float margin = 30.f;
 	for (unsigned int i = 0; i < opts.size(); i++) {
