@@ -57,15 +57,14 @@ public:
 	const static int FIRE2_SPRITE_INDEX = 3;
 	const static int ALIEN1_SPRITE_INDEX = 4;
 	const static int BULLET_SPRITE_INDEX = 5;
-
-	/* Sounds indexes */
+	
+	/* Sounds indexes */		// TOCHANGE: afegir indexs de tots els sounds carregats
 	const static int JUNGLE_THEME_INDEX = 0;
 	const static int BOSS_THEME_INDEX = 1;
 	const static int INTRO_THEME_INDEX = 2;
 	const static int GAME_OVER_INDEX = 3;
 	const static int GUN_SOUND_INDEX = 4;
 	const static int FLAMMER_SOUND_INDEX = 5;
-	
 
 	GameData(void);
 	~GameData(void);
@@ -86,8 +85,9 @@ public:
 	/* Sprite instances */
 	int createSpriteInstance(int spriteIndex);
 	void removeSpriteInstance(int spriteInstanceIndex);
-	void getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, bool *finished, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY);
-
+	void getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, bool *finished, float *s, float *t, float *offsetX, float *offsetY, 
+																		  int *width, int *height, int *tx, int *ty, float *angle);
+	
 	/* Sounds */
 	bool loadSounds();
 	void playSound(int soundIndex);

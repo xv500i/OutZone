@@ -8,16 +8,17 @@ Player::Player(void) {}
 Player::Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy) 
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
-	mainWeapon = Weapon(FLAMETHROWER);
+	mainWeapon = Weapon(SINGLE_SHOT);
 	setDirection(UP);
 	setType('p');
+	shooting = false;
 }
 
 Player::~Player(void) {}
 
 
 /* Input */
-void Player::resolveInput(InputHandler *input, GameData* data)
+void Player::resolveInput(InputHandler *input)
 {
 	// Velocity change
 	bool up = input->keyIsDown(input->getMoveUpKey());
@@ -59,11 +60,11 @@ void Player::resolveInput(InputHandler *input, GameData* data)
 
 	// Shooting
 	if (input->keyIsDown(input->getPrimaryWeaponKey())) {
-		shotPrimaryWeapon(data);
+		shotPrimaryWeapon();
 	}
 }
 
-void Player::shotPrimaryWeapon(GameData* data) 
+void Player::shotPrimaryWeapon() 
 {
 	// Arma del jugador respecte el seu punt mig
 	float vecx = -getWidth()/3.1f;
@@ -79,8 +80,7 @@ void Player::shotPrimaryWeapon(GameData* data)
 	float fx = getX() + nx;
 	float fy = getY() + ny;
 
-	mainWeapon.fire(fx, fy, getDirection(), playerShots, data);
-	setAction(SHOT);
+	if (mainWeapon.fire(fx, fy, getDirection(), playerShots)) shooting = true;
 }
 
 
@@ -89,6 +89,10 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 {
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	mainWeapon.update();
+	if (shooting) {
+		setAction(SHOT);
+		shooting = false;
+	}
 
 	// Screen collision testing
 	int minX = viewport->getLeft();
@@ -142,6 +146,3 @@ void Player::render(GameData *data)
 		playerShots[i].render(data);
 	}
 }
-
-
-void Player::collision(GameObject &g) {}

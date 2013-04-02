@@ -14,7 +14,8 @@ SpriteInstance::~SpriteInstance(void) {}
 
 
 /* Getters */
-void SpriteInstance::getFrameInfo(SpriteAction action, bool *finished, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY)
+void SpriteInstance::getFrameInfo(SpriteAction action, bool *finished, float *s, float *t, float *offsetX, float *offsetY, 
+													   int *width, int *height, int *tx, int *ty, float *angle)
 {
 	// Case: the action has changed
 	if (currentAction != action) {
@@ -53,10 +54,15 @@ void SpriteInstance::getFrameInfo(SpriteAction action, bool *finished, float *s,
 		int textureWidth, textureHeight;
 		sprite->getSizeInPixels(&textureWidth, &textureHeight);
 
+		// Information needed to bind the texture
 		*s = (float)sSprite/(float)textureWidth;
 		*t = (float)tSprite/(float)textureHeight;
 		*offsetX = (float)frameWidth/(float)textureWidth;
 		*offsetY = (float)frameHeight/(float)textureHeight;
+
+		// Information needed to render the object
+		sprite->getFrameTranslation(currentAction, currentAnimationIndex, tx, ty);
+		*angle = sprite->getFrameRotation(currentAction, currentAnimationIndex);
 	}
 }
 

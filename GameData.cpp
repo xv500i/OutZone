@@ -122,9 +122,10 @@ void GameData::removeSpriteInstance(int spriteInstanceIndex)
 	}
 }
 
-void GameData::getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, bool *finished, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY)
+void GameData::getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, bool *finished, float *s, float *t, float *offsetX, float *offsetY, 
+																		        int *width, int *height, int *tx, int *ty, float *angle)
 {
-	spriteInstances[spriteInstanceIndex].getFrameInfo(action, finished, s, t, width, height, offsetX, offsetY);
+	spriteInstances[spriteInstanceIndex].getFrameInfo(action, finished, s, t, offsetX, offsetY, width, height, tx, ty, angle);
 }
 
 

@@ -23,7 +23,8 @@ private:
 	float bulletVelocity;	/* Bullet velocity */
 	float ticksMax;			/* Time that a bullet lasts without dying */
 	int spriteIndex;		/* Index of the sprite used by the weapon */
-	WeaponType wt;
+	WeaponType weaponType;	
+
 public:
 	Weapon(void);
 	Weapon(WeaponType type);
@@ -31,7 +32,7 @@ public:
 	~Weapon(void);
 
 	/* Fire */
-	bool fire(float x, float y, Direction dir, std::vector<Bullet> &v, GameData* data);
+	bool fire(float x, float y, Direction dir, std::vector<Bullet> &v);
 
 	/* Updating */
 	void update();

@@ -32,9 +32,9 @@ bool Level::load(GameData *data)
 
 
 /* Input */
-void Level::resolveInput(InputHandler *input, GameData* data)
+void Level::resolveInput(InputHandler *input)
 {
-	player.resolveInput(input, data);
+	player.resolveInput(input);
 }
 
 

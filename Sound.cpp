@@ -23,6 +23,7 @@ bool Sound::load(const char *filename, const char *ext, bool loop, float volume)
 	std::stringstream ss;
 	ss << filename << ext;
 	this->volume = volume;
+
 	FMOD_RESULT result;
 	channel = NULL;
 	result = FMOD::System_Create(&system);

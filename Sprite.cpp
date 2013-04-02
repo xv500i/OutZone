@@ -70,6 +70,8 @@ bool Sprite::loadDescriptionFile(const char *filename)
 					sstr >> keyFrame.tx;
 					if (sstr.peek() == ',') sstr.ignore();
 					sstr >> keyFrame.ty;
+					if (sstr.peek() == ',') sstr.ignore();
+					sstr >> keyFrame.angle;
 					anim.animation.push_back(keyFrame);
 				}
 				animations.push_back(anim);
@@ -99,6 +101,17 @@ void Sprite::getFrameInfo(int animationIndex, int frameIndex, int *s, int *t, in
 int Sprite::getFrameDuration(int animationIndex, int frameIndex)
 {
 	return animations[animationIndex].animation[frameIndex].duration;
+}
+
+void Sprite::getFrameTranslation(int animationIndex, int frameIndex, int *tx, int *ty)
+{
+	*tx = animations[animationIndex].animation[frameIndex].tx;
+	*ty = animations[animationIndex].animation[frameIndex].ty;
+}
+
+float Sprite::getFrameRotation(int animationIndex, int frameIndex)
+{
+	return animations[animationIndex].animation[frameIndex].angle;
 }
 
 int Sprite::getAnimationNumFrames(int animationIndex)

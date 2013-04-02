@@ -37,7 +37,10 @@ bool OutZone::init()
 
 	// Camera initialization
 	viewport.init(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
+	
+	// Intro sound
 	data.playSound(GameData::INTRO_THEME_INDEX);
+
 	return true;
 }
 
@@ -61,7 +64,7 @@ bool OutZone::process()
 	case PLAYING:
 		if (input.keyIsDown(input.getPauseMenuKey())) gameState = PAUSE_MENU;
 		else {
-			scene.resolveInput(input, &data);
+			scene.resolveInput(input);
 			scene.update(&data, &viewport);
 		}
 		break;

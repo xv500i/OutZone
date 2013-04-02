@@ -5,10 +5,10 @@
 
 Weapon::Weapon(WeaponType type)
 {
-	wt = type;
+	weaponType = type;
 	switch (type) {
 	case SINGLE_SHOT:
-		this->reloadTime = 25;
+		this->reloadTime = 20;
 		this->bulletWidth = 6;
 		this->bulletHeight = 6;
 		this->bulletVelocity = 5;
@@ -19,7 +19,7 @@ Weapon::Weapon(WeaponType type)
 		this->ticksMax = 80;
 		break;
 	case THREE_SHOTS:
-		this->reloadTime = 25;
+		this->reloadTime = 20;
 		this->bulletWidth = 6;
 		this->bulletHeight = 6;
 		this->bulletVelocity = 5;
@@ -30,7 +30,7 @@ Weapon::Weapon(WeaponType type)
 		this->ticksMax = 80;
 		break;
 	case FIVE_SHOTS:
-		this->reloadTime = 25;
+		this->reloadTime = 20;
 		this->bulletWidth = 6;
 		this->bulletHeight = 6;
 		this->bulletVelocity = 5;
@@ -48,14 +48,13 @@ Weapon::Weapon(WeaponType type)
 		this->spriteIndex = GameData::FIRE_SPRITE_INDEX;
 		this->bulletsPerShot = 1;
 		this->separationAngle = 0;
-		this->dispersionAngle = 15;
+		this->dispersionAngle = 10;
 		this->ticksMax = 20;
 		break;
 	default: break;
 	}
 
 	waitToFire = 0;
-	// HOLA NATXO T'anava lag perque no borraves les bales? ticksMax = -1;
 }
 
 Weapon::Weapon(long reloadTime, float bulletVelocity, int bulletWidth, int bulletHeight, int spriteIndex, int bulletsPerShot, float separationAngle, float dispersionAngle)
@@ -71,7 +70,7 @@ Weapon::~Weapon(void) {}
 
 
 /* Fire */
-bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v, GameData* data)
+bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v)
 {
 	if (waitToFire > 0) return false;
 
@@ -114,9 +113,7 @@ bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v, GameD
 		bala->setTicksLeft(ticksMax);
 		v.push_back(*bala);
 	}
-	if (wt != FLAMETHROWER) data->playSound(GameData::GUN_SOUND_INDEX);
-	// FIXME I'M FAMOUS
-	//else data->playSound(GameData::FLAMMER_SOUND_INDEX);
+
 	waitToFire = reloadTime;
 	return true;
 }

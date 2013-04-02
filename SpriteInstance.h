@@ -19,7 +19,8 @@ public:
 	~SpriteInstance(void);
 
 	/* Getters */
-	void getFrameInfo(SpriteAction action, bool *finished, float *s, float *t, int *width, int *height, float *offsetX, float *offsetY);
+	void getFrameInfo(SpriteAction action, bool *finished, float *s, float *t, float *offsetX, float *offsetY, 
+										   int *width, int *height, int *tx, int *ty, float *angle);
 	bool isInitialized();
 };
 

@@ -10,6 +10,7 @@ struct KeyFrame {
 	int frameId;		/* The frame identifier */
 	int duration;		/* Duration of this frame inside the animation */
 	int tx, ty;			/* Translation performed by the object during this frame */
+	float angle;		/* Rotation performed by the object during this frame */
 };
 
 struct Animation {
@@ -45,6 +46,8 @@ public:
 	/* Getters */
 	void getFrameInfo(int animationIndex, int frameIndex, int *s, int *t, int *width, int *height, int *widthToRender, int *heightToRender);
 	int getFrameDuration(int animationIndex, int frameIndex);
+	void getFrameTranslation(int animationIndex, int frameIndex, int *tx, int *ty);
+	float getFrameRotation(int animationIndex, int frameIndex);
 	int getAnimationNumFrames(int animationIndex);
 	bool isAnimationLoop(int animationIndex);
 };

@@ -13,6 +13,7 @@ private:
 	FMOD::Sound *sound;
 	FMOD::Channel *channel;
 	float volume;
+
 	void errorCheck(FMOD_RESULT result);
 
 public:

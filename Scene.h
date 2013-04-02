@@ -38,7 +38,7 @@ public:
 	bool changeLevel(int newLevel, GameData *data, Viewport *viewport);
 
 	/* Updating */ 
-	void resolveInput(InputHandler &input, GameData* data);
+	void resolveInput(InputHandler &input);
 	void update(GameData *data, Viewport *viewport);
 
 	/* Drawing */

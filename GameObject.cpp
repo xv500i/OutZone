@@ -25,19 +25,20 @@ GameObject::~GameObject(void) {}
 void GameObject::render(GameData *data) const
 {	
 	if (spriteInstanceIndex >= 0) {
-		float angle = getAngleVelocity();
+		//float angle = getAngleVelocity();
 
-		float offsetX, offsetY, s, t;
-		int width, height;
+		float s, t, offsetX, offsetY, angle;
+		int width, height, tx, ty;
 		bool finished;
-		data->getSpriteFrameInfo(spriteInstanceIndex, action, &finished, &s, &t, &width, &height, &offsetX, &offsetY);
+		data->getSpriteFrameInfo(spriteInstanceIndex, action, &finished, &s, &t, &offsetX, &offsetY, &width, &height, &tx, &ty, &angle);
 
 		if (!finished) {
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, data->getSpriteID(spriteIndex));
 			glPushMatrix();
-			glTranslatef(x, y, 0.0f);
-			glRotatef(angle, 0.0f, 0.0f, 1.0f);
+			glTranslatef(x, y, 0.0f);			// Move the game object to his position
+			glTranslatef(tx, ty, 0.0f);			// Move the object as needed by the sprite
+			glRotatef(angle, 0.0f, 0.0f, 1.0f);	// Rotate the object as needed by the sprite
 			glBegin(GL_QUADS);
 				// Bottom-left
 				glTexCoord2f(s, t + offsetY);
