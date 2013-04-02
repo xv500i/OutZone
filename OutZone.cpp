@@ -37,7 +37,7 @@ bool OutZone::init()
 
 	// Camera initialization
 	viewport.init(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
-	
+	data.playSound(GameData::INTRO_THEME_INDEX);
 	return true;
 }
 
@@ -61,7 +61,7 @@ bool OutZone::process()
 	case PLAYING:
 		if (input.keyIsDown(input.getPauseMenuKey())) gameState = PAUSE_MENU;
 		else {
-			scene.resolveInput(input);
+			scene.resolveInput(input, &data);
 			scene.update(&data, &viewport);
 		}
 		break;
@@ -73,6 +73,7 @@ bool OutZone::process()
 
 		m = mainMenu.getSelected();
 		if (m == START) {
+			data.stopSound(GameData::INTRO_THEME_INDEX);
 			gameState = PLAYING;
 			scene.changeLevel(1, &data, &viewport);		// From the main menu, we start the first level
 		}

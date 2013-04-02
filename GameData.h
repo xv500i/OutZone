@@ -24,7 +24,7 @@ private:
 	const static char* SPRITE_EXT;
 
 	/* Sounds */
-	const static int NUM_SOUNDS = 1;		// TOCHANGE: modificar depenent del numero de sons carregats
+	const static int NUM_SOUNDS = 5;		// TOCHANGE: modificar depenent del numero de sons carregats
 	const static char* SOUND_EXT;
 
 	std::vector<Texture> textures;					/* All loaded textures */
@@ -60,6 +60,12 @@ public:
 
 	/* Sounds indexes */
 	const static int JUNGLE_THEME_INDEX = 0;
+	const static int BOSS_THEME_INDEX = 1;
+	const static int INTRO_THEME_INDEX = 2;
+	const static int GAME_OVER_INDEX = 3;
+	const static int GUN_SOUND_INDEX = 4;
+	const static int FLAMMER_SOUND_INDEX = 5;
+	
 
 	GameData(void);
 	~GameData(void);

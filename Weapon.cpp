@@ -5,9 +5,10 @@
 
 Weapon::Weapon(WeaponType type)
 {
+	wt = type;
 	switch (type) {
 	case SINGLE_SHOT:
-		this->reloadTime = 8;
+		this->reloadTime = 25;
 		this->bulletWidth = 6;
 		this->bulletHeight = 6;
 		this->bulletVelocity = 5;
@@ -15,10 +16,10 @@ Weapon::Weapon(WeaponType type)
 		this->bulletsPerShot = 1;
 		this->separationAngle = 0;
 		this->dispersionAngle = 0;
-		this->ticksMax = 40;
+		this->ticksMax = 80;
 		break;
 	case THREE_SHOTS:
-		this->reloadTime = 8;
+		this->reloadTime = 25;
 		this->bulletWidth = 6;
 		this->bulletHeight = 6;
 		this->bulletVelocity = 5;
@@ -26,10 +27,10 @@ Weapon::Weapon(WeaponType type)
 		this->bulletsPerShot = 3;
 		this->separationAngle = 15;
 		this->dispersionAngle = 0;
-		this->ticksMax = 40;
+		this->ticksMax = 80;
 		break;
 	case FIVE_SHOTS:
-		this->reloadTime = 8;
+		this->reloadTime = 25;
 		this->bulletWidth = 6;
 		this->bulletHeight = 6;
 		this->bulletVelocity = 5;
@@ -37,7 +38,7 @@ Weapon::Weapon(WeaponType type)
 		this->bulletsPerShot = 5;
 		this->separationAngle = 10;
 		this->dispersionAngle = 0;
-		this->ticksMax = 40;
+		this->ticksMax = 80;
 		break;
 	case FLAMETHROWER:
 		this->reloadTime = 1;
@@ -47,14 +48,14 @@ Weapon::Weapon(WeaponType type)
 		this->spriteIndex = GameData::FIRE_SPRITE_INDEX;
 		this->bulletsPerShot = 1;
 		this->separationAngle = 0;
-		this->dispersionAngle = 10;
-		this->ticksMax = 25;
+		this->dispersionAngle = 15;
+		this->ticksMax = 20;
 		break;
 	default: break;
 	}
 
 	waitToFire = 0;
-	ticksMax = -1;
+	// HOLA NATXO T'anava lag perque no borraves les bales? ticksMax = -1;
 }
 
 Weapon::Weapon(long reloadTime, float bulletVelocity, int bulletWidth, int bulletHeight, int spriteIndex, int bulletsPerShot, float separationAngle, float dispersionAngle)
@@ -70,7 +71,7 @@ Weapon::~Weapon(void) {}
 
 
 /* Fire */
-bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v)
+bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v, GameData* data)
 {
 	if (waitToFire > 0) return false;
 
@@ -113,7 +114,9 @@ bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v)
 		bala->setTicksLeft(ticksMax);
 		v.push_back(*bala);
 	}
-
+	if (wt != FLAMETHROWER) data->playSound(GameData::GUN_SOUND_INDEX);
+	// FIXME I'M FAMOUS
+	//else data->playSound(GameData::FLAMMER_SOUND_INDEX);
 	waitToFire = reloadTime;
 	return true;
 }

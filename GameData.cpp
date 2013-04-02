@@ -131,9 +131,11 @@ void GameData::getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, 
 /* Sounds */
 bool GameData::loadSounds()
 {
-	const char* filenames[NUM_SOUNDS] = {"Jungle_Theme"};		// TOCHANGE: afegir el nom dels sounds
+	const char* filenames[NUM_SOUNDS] = {"Jungle_Theme", "Boss_Battle", "Title_Theme", "Game_Over", "gun"};		// TOCHANGE: afegir el nom dels sounds
+	const bool loop[NUM_SOUNDS] = {true, true, false, false, false};
+	const float volumes[NUM_SOUNDS] = {1.0f, 1.0f, 1.0f, 1.0f, 0.5f};
 	for (unsigned int i = 0; i < sounds.size(); i++) {
-		bool b = sounds[i].load(filenames[i], SOUND_EXT);
+		bool b = sounds[i].load(filenames[i], SOUND_EXT, loop[i], volumes[i]);
 		if (!b) return false;
 	}
 	return true;
