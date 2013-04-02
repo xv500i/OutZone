@@ -70,7 +70,7 @@ void GameMenu::render(GameData *data)
 		tex = GameData::GAMEOVER_INDEX;
 		break;
 	}
-	paint(data->getTextureID(tex), 240, 650, 300, 100);
+	paint(data->getTextureID(tex), 240, 650, 450, 150);
 	float xi = 240.0f;
 	float yi = 500.0f;
 	float w = 200;
@@ -91,17 +91,18 @@ void GameMenu::render(GameData *data)
 			tex = GameData::START_INDEX;
 			break;
 		case INSTRUCTIONS:
-			tex = GameData::INSTRUCTIONS_INDEX;
+			tex = GameData::HELP_INDEX;
 			break;
 		}
 		paint(data->getTextureID(tex), xi, yi, w, h);
 		yi -= (h + margin);
 	}
 	if (showCursor) {
-		float cx = xi - w;
-		float cy = 500.0f - currentOption*(h+margin);
 		float cw = 50;
 		float ch = 50;
+		float cx = xi - w/2 - cw/2;
+		float cy = 500.0f - currentOption*(h+margin);
+		
 		paint(data->getTextureID(GameData::CURSOR_INDEX), cx, cy, cw, ch);
 	}
 	
