@@ -17,11 +17,11 @@ private:
 
 public:
 	MobileGameObject();
-	MobileGameObject(const float x, const float y, const int idTexture, const int width, const int length, const bool isWalkable, const float vx = 0, const float vy = 0);
+	MobileGameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);
 	~MobileGameObject(void);
 	
 	/* Updating */
-	bool update(GameData *data, std::vector<GameObject> &collisionObjects);
+	bool update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles);
 	
 	/* Getters */
 	float getVX() const;

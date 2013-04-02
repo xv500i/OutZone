@@ -46,10 +46,9 @@ void Level::update(GameData *data, Viewport *viewport)
 	objectsLayer.update(data);
 	//enemiesLayer.update(data);
 
-	// TODO: Change that shit
-	std::vector<GameObject> shit1;
-	std::vector<Enemy> shit2;
-	player.update(data, viewport, shit1, shit2);
+	// TODO: Afegir els enemics 
+	std::vector<Enemy> shit;
+	player.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), shit);
 
 	// Viewport
 	viewport->updateWithPosition(player.getX(), player.getY());
@@ -83,12 +82,8 @@ void Level::getTileSizeInPixels(int *width, int *height)
 	staticTilesLayer.getTileSizeInPixels(width, height);
 }
 
-std::vector<bool> Level::getCollisionMap()
-{
-	return staticTilesLayer.getCollisionMap();
-}
-
 std::vector<GameObject> Level::getCollisionObjects()
 {
 	return objectsLayer.getCollisionObjects();
+	//TODO: afegir els enemics i el player!!
 }

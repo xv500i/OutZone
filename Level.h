@@ -21,6 +21,8 @@ private:
 	//EnemiesLayer enemiesLayer;
 	Player player;
 
+	std::vector<GameObject> Level::getCollisionObjects();
+
 public:
 	Level();
 	Level(int levelNumber);
@@ -42,6 +44,4 @@ public:
 	void getSizeInPixels(int *width, int *height);
 	void getSizeInTiles(int *width, int *height);
 	void getTileSizeInPixels(int *width, int *height);
-	std::vector<bool> getCollisionMap();
-	std::vector<GameObject> getCollisionObjects();
 };

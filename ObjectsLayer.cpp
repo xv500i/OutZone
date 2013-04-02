@@ -31,6 +31,7 @@ bool ObjectsLayer::load(int level, GameData *data)
 			getline(file, line);
 			std::stringstream sstr(line);
 			int x, y, width, height, spriteIndex;
+			char phantom;
 			sstr >> x;
 			if (sstr.peek() == ',') sstr.ignore();
 			sstr >> y;
@@ -40,7 +41,11 @@ bool ObjectsLayer::load(int level, GameData *data)
 			sstr >> height;
 			if (sstr.peek() == ',') sstr.ignore();
 			sstr >> spriteIndex;
+			if (sstr.peek() == ',') sstr.ignore();
+			sstr >> phantom;
 			GameObject object(x*TILE_WIDTH_IN_PIXELS + width/2, y*TILE_HEIGHT_IN_PIXELS + height/2, spriteIndex, width, height, false);
+			if (phantom == 'C') object.setPhantom(false);
+			else if (phantom == 'P') object.setPhantom(true);
 			objects.push_back(object);
 		}
 		return true;

@@ -15,20 +15,20 @@ MobileGameObject::MobileGameObject() : GameObject() {}
 MobileGameObject::~MobileGameObject(void) {}
 
 
-/* Drawing */
-bool MobileGameObject::update(GameData *data, std::vector<GameObject> &collisionObjects)
+/* Updating */
+bool MobileGameObject::update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles)
 {
 	bool collision = false;
 	GameObject::update(data);
 
-	// Objects collision testing
+	// Collisions
 	float actualX = getX();
 	float actualY = getY();
 	float tempX = getX() + vx;
 	float tempY = getY() + vy;
 
 	if (shouldNotEnterObjects()) {
-		// Look for any x or y restriction
+		// Object collision
 		for (std::vector<GameObject>::iterator ito = collisionObjects.begin(); ito != collisionObjects.end(); ito++) {
 			// Test intersecting X
 			updateBBox(vx, 0);
@@ -43,6 +43,38 @@ bool MobileGameObject::update(GameData *data, std::vector<GameObject> &collision
 				tempY = actualY;
 			}
 			updateBBox(0, -vy);
+		}
+		// Tile collision
+		int minX, maxX, minY, maxY;
+		int tileWidthInPixels = 32;						// TODO: Canviar hardcoded
+		int tileHeightInPixels = 32;					// TODO: Canviar hardcoded
+		int widthInTiles = 15;							// TODO: Canviar hardcoded
+		int heightInTiles = collisionTiles.size()/15;	// TODO: Canviar hardcoded
+		// Test X collision
+		minX = (tempX - getWidth()/2)/tileWidthInPixels;
+		minY = heightInTiles - (actualY + getHeight()/2)/tileHeightInPixels;
+		maxX = (tempX + getWidth()/2)/tileWidthInPixels;
+		maxY = heightInTiles - (actualY - getHeight()/2)/tileHeightInPixels;
+		for (int y = minY; y <= maxY; y++) {
+			for (int x = minX; x <= maxX; x++) {
+				if (collisionTiles[y*widthInTiles + x]) {
+					collision = true;
+					tempX = actualX;
+				}
+			}
+		}
+		// Test Y collision
+		minX = (actualX - getWidth()/2)/tileWidthInPixels;
+		minY = heightInTiles - (tempY + getHeight()/2)/tileHeightInPixels;
+		maxX = (actualX + getWidth()/2)/tileWidthInPixels;
+		maxY = heightInTiles - (tempY - getHeight()/2)/tileHeightInPixels;
+		for (int y = minY; y <= maxY; y++) {
+			for (int x = minX; x <= maxX; x++) {
+				if (collisionTiles[y*widthInTiles + x]) {
+					collision = true;
+					tempY = actualY;
+				}
+			}
 		}
 	}
 	setX(tempX);

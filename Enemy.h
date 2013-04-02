@@ -27,7 +27,7 @@ public:
 	~Enemy(void);
 	
 	/* Updating */
-	void update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, Player &player);
+	void update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player);
 	
 	/* Drawing */
 	void render(GameData *data);

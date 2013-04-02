@@ -17,7 +17,7 @@ public:
 	~Bullet(void);
 	
 	/* Drawing */
-	bool update(GameData *data, std::vector<GameObject> &collisionableObjects, std::vector<GameObject> &objectives);
+	bool update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, std::vector<GameObject> &objectives);
 
 	/* Getters */
 	virtual float getAngleVelocity() const;

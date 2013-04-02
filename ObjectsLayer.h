@@ -10,14 +10,15 @@ class ObjectsLayer : public Layer
 {
 private:
 	/***** File estructure *****
-	x,y,width,height,spriteIndex
-	x,y,width,height,spriteIndex
+	x,y,width,height,spriteIndex,phantom
+	x,y,width,height,spriteIndex,phantom
 	...
 	x = x position IN TILES
 	y = y position IN TILES
 	width = object width
 	height = object height
 	spriteIndex = index of the sprite used by this object
+	phantom = C --> Collisionable, P --> Phantom
 	****************************/
 
 	/* File constants */

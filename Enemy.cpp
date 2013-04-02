@@ -41,9 +41,9 @@ Enemy::~Enemy(void) {}
 
 
 /* Updating */
-void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, Player &player)
+void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player)
 {
-	MobileGameObject::update(data, collisionObjects);
+	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	ai->update(enemyShots, *this);
 
 	// Screen collision testing
@@ -76,7 +76,7 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 	for (std::vector<Bullet>::iterator it = enemyShots.begin(); it != enemyShots.end();) {
 		std::vector<Player> players;
 		players.push_back(player);
-		bool collision = it->update(data, collisionObjects, (std::vector<GameObject>&)players);
+		bool collision = it->update(data, collisionObjects, collisionTiles, (std::vector<GameObject>&)players);
 
 		// Remove the bullet if it goes off-screen
 		float x = it->getX();

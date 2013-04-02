@@ -8,7 +8,7 @@ int GameObject::current_id = 0;
 GameObject::GameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable) 
 	: x(x), y(y), spriteIndex(spriteIndex), width(width), height(height)
 {
-	phantom = true;
+	phantom = false;
 	this->b = new BoundingBox(y + height/2, y - height/2, x - width/2, x + width/2);
 	type = 'u';
 	action = STATIC;

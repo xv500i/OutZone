@@ -80,6 +80,7 @@ void Player::shotPrimaryWeapon()
 	case UP_LEFT:	vx = -catet; vy = catet; break;
 	case DOWN_LEFT:	vx = -catet; vy = -catet; break;
 	}
+
 	// arma del jugador respecte el seu punt mig
 	float vecx = -getWidth()/3.1f;
 	float vecy = getHeight();
@@ -99,9 +100,9 @@ void Player::shotPrimaryWeapon()
 
 
 /* Updating */
-void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<Enemy> &enemies)
+void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies)
 {
-	MobileGameObject::update(data, collisionObjects);
+	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	mainWeapon.update();
 
 	// Screen collision testing
@@ -132,7 +133,7 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 
 	// PlayerShots update
 	for (std::vector<Bullet>::iterator it = playerShots.begin(); it != playerShots.end();) {
-		bool collision = it->update(data, collisionObjects, (std::vector<GameObject>&)enemies);
+		bool collision = it->update(data, collisionObjects, collisionTiles, (std::vector<GameObject>&)enemies);
 
 		// Remove the bullet if it goes off-screen
 		float x = it->getX();

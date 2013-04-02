@@ -16,10 +16,10 @@ Bullet::~Bullet(void) {}
 
 
 /* Drawing */
-bool Bullet::update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &objectives)
+bool Bullet::update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, std::vector<GameObject> &objectives)
 {
 	if (ticksLeft > 0) ticksLeft--;
-	bool collision = MobileGameObject::update(data, collisionObjects);
+	bool collision = MobileGameObject::update(data, collisionObjects, collisionTiles);
 
 	for (std::vector<GameObject>::iterator iobj = objectives.begin(); iobj != objectives.end();) {
 		if (isIntersecting(*iobj)) {

@@ -99,10 +99,3 @@ void Scene::getLevelTileSize(int level, int *width, int *height)
 {
 	levels[level - 1].getTileSizeInPixels(width, height);
 }
-
-void Scene::getCollisionEntities(vector<GameObject> *objects, vector<bool> *tiles)
-{
-	*tiles = levels[currentLevel - 1].getCollisionMap();
-	*objects = levels[currentLevel - 1].getCollisionObjects();
-	//TODO: afegir els enemics i el player!!
-}

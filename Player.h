@@ -31,7 +31,7 @@ public:
 	void resolveInput(InputHandler *input);
 
 	/* Updating */
-	void update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<Enemy> &enemies);
+	void update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies);
 
 	/* Drawing */
 	void render(GameData *data);

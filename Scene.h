@@ -48,6 +48,5 @@ public:
 	void getLevelSizeInPixels(int level, int &w, int &h);
 	void getLevelSize(int level, int *width, int *height);
 	void getLevelTileSize(int level, int *width, int *height);
-	void getCollisionEntities(vector<GameObject> *objects, vector<bool> *tiles);
 };
 
