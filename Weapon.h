@@ -32,10 +32,13 @@ public:
 	~Weapon(void);
 
 	/* Fire */
-	bool fire(float x, float y, Direction dir, std::vector<Bullet> &v, GameData* data);
+	bool fire(float x, float y, Direction dir, std::vector<Bullet> &v);
 
 	/* Updating */
 	void update();
+
+	/* Getters */
+	WeaponType getWeaponType();
 
 	/* Setters */
 	void setTicksMax(int x);

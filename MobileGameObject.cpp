@@ -68,8 +68,8 @@ bool MobileGameObject::update(GameData *data, std::vector<GameObject> &collision
 		minY = heightInTiles - (tempY + getHeight()/2)/tileHeightInPixels;
 		maxX = (actualX + getWidth()/2)/tileWidthInPixels;
 		maxY = heightInTiles - (tempY - getHeight()/2)/tileHeightInPixels;
-		for (int y = minY; y <= maxY; y++) {
-			for (int x = minX; x <= maxX; x++) {
+		for (int y = minY; y < maxY; y++) {
+			for (int x = minX; x < maxX; x++) {
 				if (collisionTiles[y*widthInTiles + x]) {
 					collision = true;
 					tempY = actualY;

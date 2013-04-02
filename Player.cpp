@@ -19,7 +19,7 @@ Player::~Player(void) {}
 
 
 /* Input */
-void Player::resolveInput(InputHandler *input, GameData* data)
+void Player::resolveInput(InputHandler *input)
 {
 	// Velocity change
 	bool up = input->keyIsDown(input->getMoveUpKey());
@@ -61,11 +61,11 @@ void Player::resolveInput(InputHandler *input, GameData* data)
 
 	// Shooting
 	if (input->keyIsDown(input->getPrimaryWeaponKey())) {
-		shotPrimaryWeapon(data);
+		shotPrimaryWeapon();
 	}
 }
 
-void Player::shotPrimaryWeapon(GameData* data) 
+void Player::shotPrimaryWeapon() 
 {
 	// Arma del jugador respecte el seu punt mig
 	float vecx = -getWidth()/3.1f;
@@ -81,7 +81,7 @@ void Player::shotPrimaryWeapon(GameData* data)
 	float fx = getX() + nx;
 	float fy = getY() + ny;
 
-	if (mainWeapon.fire(fx, fy, getDirection(), playerShots, data)) shooting = true;
+	if (mainWeapon.fire(fx, fy, getDirection(), playerShots)) shooting = true;
 }
 
 
@@ -90,19 +90,29 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 {
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	mainWeapon.update();
+	
+	// Update action if shooting
 	if (shooting) {
-		Direction direction = getDirection();
-		switch (direction) {
-		case UP:			setAction(SHOT_UP); break;
-		case DOWN:			setAction(SHOT_DOWN); break;
-		case LEFT:			setAction(SHOT_LEFT); break;
-		case RIGHT:			setAction(SHOT_RIGHT); break;
-		case UP_LEFT:		setAction(SHOT_UP_LEFT); break;
-		case DOWN_LEFT:		setAction(SHOT_DOWN_LEFT); break;
-		case DOWN_RIGHT:	setAction(SHOT_DOWN_RIGHT); break;
-		case UP_RIGHT:		setAction(SHOT_UP_RIGHT); break;
-		default: break;
+		if (mainWeapon.getWeaponType() != FLAMETHROWER) {
+			// Action
+			Direction direction = getDirection();
+			switch (direction) {
+			case UP:			setAction(SHOT_UP); break;
+			case DOWN:			setAction(SHOT_DOWN); break;
+			case LEFT:			setAction(SHOT_LEFT); break;
+			case RIGHT:			setAction(SHOT_RIGHT); break;
+			case UP_LEFT:		setAction(SHOT_UP_LEFT); break;
+			case DOWN_LEFT:		setAction(SHOT_DOWN_LEFT); break;
+			case DOWN_RIGHT:	setAction(SHOT_DOWN_RIGHT); break;
+			case UP_RIGHT:		setAction(SHOT_UP_RIGHT); break;
+			default: break;
+			}
+			// Sound
+			data->playSound(GameData::GUN_SOUND_INDEX);
 		}
+		// TODO: descomentar quan hi hagi so pel llançaflames
+		//else data->playSound(GameData::FLAMETHROWER_SOUND_INDEX);
+
 		shooting = false;
 	}
 

@@ -21,7 +21,7 @@ private:
 	bool shooting;
 	std::vector<Bullet> playerShots;
 
-	void shotPrimaryWeapon(GameData* data);
+	void shotPrimaryWeapon();
 
 public:
 	Player(void);
@@ -29,7 +29,7 @@ public:
 	~Player(void);
 
 	/* Input */
-	void resolveInput(InputHandler *input, GameData* data);
+	void resolveInput(InputHandler *input);
 
 	/* Updating */
 	void update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies);

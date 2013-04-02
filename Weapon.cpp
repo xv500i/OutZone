@@ -70,7 +70,7 @@ Weapon::~Weapon(void) {}
 
 
 /* Fire */
-bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v, GameData* data)
+bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v)
 {
 	if (waitToFire > 0) return false;
 
@@ -112,8 +112,7 @@ bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v, GameD
 		bala->setTicksLeft(ticksMax);
 		v.push_back(*bala);
 	}
-	if (weaponType == FLAMETHROWER) {}
-	else data->playSound(GameData::GUN_SOUND_INDEX);
+
 	waitToFire = reloadTime;
 	return true;
 }
@@ -122,6 +121,12 @@ bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v, GameD
 void Weapon::update()
 {
 	waitToFire = std::max(0L, waitToFire - 1);
+}
+
+/* Getters */
+WeaponType Weapon::getWeaponType()
+{
+	return weaponType;
 }
 
 /* Setters */

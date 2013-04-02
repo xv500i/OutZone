@@ -64,7 +64,7 @@ public:
 	const static int INTRO_THEME_INDEX = 2;
 	const static int GAME_OVER_INDEX = 3;
 	const static int GUN_SOUND_INDEX = 4;
-	const static int FLAMMER_SOUND_INDEX = 5;
+	const static int FLAMETHROWER_SOUND_INDEX = 5;
 
 	GameData(void);
 	~GameData(void);

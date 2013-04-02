@@ -64,7 +64,7 @@ bool OutZone::process()
 	case PLAYING:
 		if (input.keyIsDown(input.getPauseMenuKey())) gameState = PAUSE_MENU;
 		else {
-			scene.resolveInput(input, &data);
+			scene.resolveInput(input);
 			scene.update(&data, &viewport);
 		}
 		break;

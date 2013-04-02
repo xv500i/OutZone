@@ -37,8 +37,8 @@ void GameObject::render(GameData *data) const
 			glBindTexture(GL_TEXTURE_2D, data->getSpriteID(spriteIndex));
 			glPushMatrix();
 			glTranslatef(x, y, 0.0f);			// Move the game object to his position
-			glTranslatef(tx, ty, 0.0f);			// Move the object as needed by the sprite
 			glRotatef(angle, 0.0f, 0.0f, 1.0f);	// Rotate the object as needed by the sprite
+			glTranslatef(tx, ty, 0.0f);			// Move the object as needed by the sprite
 			glBegin(GL_QUADS);
 				// Bottom-left
 				glTexCoord2f(s, t + offsetY);
