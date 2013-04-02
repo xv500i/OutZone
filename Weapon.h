@@ -32,7 +32,7 @@ public:
 	~Weapon(void);
 
 	/* Fire */
-	bool fire(float x, float y, Direction dir, std::vector<Bullet> &v);
+	bool fire(float x, float y, Direction dir, std::vector<Bullet> &v, GameData* data);
 
 	/* Updating */
 	void update();

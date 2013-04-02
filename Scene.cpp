@@ -54,9 +54,9 @@ bool Scene::loadLevel(GameData *data)
 
 
 /* Updating */
-void Scene::resolveInput(InputHandler &input) 
+void Scene::resolveInput(InputHandler &input, GameData* data) 
 {
-	levels[currentLevel -1].resolveInput(&input);
+	levels[currentLevel -1].resolveInput(&input, data);
 }
 
 void Scene::update(GameData *data, Viewport *viewport)

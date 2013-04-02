@@ -32,7 +32,7 @@ public:
 	bool load(GameData *data);
 
 	/* Input */
-	void resolveInput(InputHandler *input);
+	void resolveInput(InputHandler *input, GameData* data);
 
 	/* Updating */
 	void update(GameData *data, Viewport *viewport);

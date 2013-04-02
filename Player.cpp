@@ -19,7 +19,7 @@ Player::~Player(void) {}
 
 
 /* Input */
-void Player::resolveInput(InputHandler *input)
+void Player::resolveInput(InputHandler *input, GameData* data)
 {
 	// Velocity change
 	bool up = input->keyIsDown(input->getMoveUpKey());
@@ -61,11 +61,11 @@ void Player::resolveInput(InputHandler *input)
 
 	// Shooting
 	if (input->keyIsDown(input->getPrimaryWeaponKey())) {
-		shotPrimaryWeapon();
+		shotPrimaryWeapon(data);
 	}
 }
 
-void Player::shotPrimaryWeapon() 
+void Player::shotPrimaryWeapon(GameData* data) 
 {
 	// Arma del jugador respecte el seu punt mig
 	float vecx = -getWidth()/3.1f;
@@ -81,7 +81,7 @@ void Player::shotPrimaryWeapon()
 	float fx = getX() + nx;
 	float fy = getY() + ny;
 
-	if (mainWeapon.fire(fx, fy, getDirection(), playerShots)) shooting = true;
+	if (mainWeapon.fire(fx, fy, getDirection(), playerShots, data)) shooting = true;
 }
 
 
