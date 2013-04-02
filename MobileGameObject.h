@@ -32,4 +32,5 @@ public:
 	/* Setters */
 	void setVX(const float vx);
 	void setVY(const float vy);
+	void setDirection(Direction direction);
 };

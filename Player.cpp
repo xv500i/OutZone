@@ -8,7 +8,8 @@ Player::Player(void) {}
 Player::Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy) 
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
-	mainWeapon = Weapon(SINGLE_SHOT);
+	mainWeapon = Weapon(FLAMETHROWER);
+	setDirection(UP);
 	setType('p');
 }
 
@@ -64,23 +65,7 @@ void Player::resolveInput(InputHandler *input)
 
 void Player::shotPrimaryWeapon() 
 {
-	float vx = 0.0f, vy = 0.0f;
-	float catet = Bullet::DEFAULT_BULLET_VELOCITY;
-	float hipotenusa = sqrt(catet*catet*2);
-
-	Direction dir = getDirection();
-	switch (dir) {
-	case UP:		vy = hipotenusa; break;
-	case DOWN:		vy = -hipotenusa; break;
-	case LEFT:		vx = -hipotenusa; break;
-	case RIGHT:		vx = hipotenusa; break;
-	case UP_RIGHT:	vx = catet; vy = catet; break;
-	case DOWN_RIGHT:vx = catet; vy = -catet; break;
-	case UP_LEFT:	vx = -catet; vy = catet; break;
-	case DOWN_LEFT:	vx = -catet; vy = -catet; break;
-	}
-
-	// arma del jugador respecte el seu punt mig
+	// Arma del jugador respecte el seu punt mig
 	float vecx = -getWidth()/3.1f;
 	float vecy = getHeight();
 	float angle = getAngleVelocity();
@@ -89,11 +74,12 @@ void Player::shotPrimaryWeapon()
 	float s = sinf(angle*fconv);
     float c = cosf(angle*fconv);
     
-    float nx = c * vecx - s * vecy;
-    float ny = s * vecx + c * vecy;
+    float nx = c*vecx - s*vecy;
+    float ny = s*vecx + c*vecy;
 	float fx = getX() + nx;
 	float fy = getY() + ny;
-	mainWeapon.fire(fx, fy, vx, vy, playerShots);
+
+	mainWeapon.fire(fx, fy, getDirection(), playerShots);
 	setAction(SHOT);
 }
 

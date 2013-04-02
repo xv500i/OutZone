@@ -8,8 +8,9 @@ Weapon::Weapon(WeaponType type)
 	switch (type) {
 	case SINGLE_SHOT:
 		this->reloadTime = 6;
-		this->width = 6;
-		this->height = 6;
+		this->bulletWidth = 6;
+		this->bulletHeight = 6;
+		this->bulletVelocity = 5;
 		this->spriteIndex = GameData::BULLET_SPRITE_INDEX;
 		this->bulletsPerShot = 1;
 		this->separationAngle = 0;
@@ -18,31 +19,35 @@ Weapon::Weapon(WeaponType type)
 		break;
 	case THREE_SHOTS:
 		this->reloadTime = 6;
-		this->width = 6;
-		this->height = 6;
+		this->bulletWidth = 6;
+		this->bulletHeight = 6;
+		this->bulletVelocity = 5;
 		this->spriteIndex = GameData::BULLET_SPRITE_INDEX;
 		this->bulletsPerShot = 3;
-		this->separationAngle = 20;
+		this->separationAngle = 15;
 		this->dispersionAngle = 0;
 		this->ticksMax = 40;
 		break;
 	case FIVE_SHOTS:
 		this->reloadTime = 6;
-		this->width = 6;
-		this->height = 6;
+		this->bulletWidth = 6;
+		this->bulletHeight = 6;
+		this->bulletVelocity = 5;
 		this->spriteIndex = GameData::BULLET_SPRITE_INDEX;
 		this->bulletsPerShot = 5;
-		this->separationAngle = 15;
+		this->separationAngle = 10;
 		this->dispersionAngle = 0;
 		this->ticksMax = 40;
+		break;
 	case FLAMETHROWER:
 		this->reloadTime = 1;
-		this->width = 15;
-		this->height = 20;
+		this->bulletWidth = 15;
+		this->bulletHeight = 20;
+		this->bulletVelocity = 10;
 		this->spriteIndex = GameData::FIRE_SPRITE_INDEX;
 		this->bulletsPerShot = 1;
 		this->separationAngle = 0;
-		this->dispersionAngle = 0.15f;
+		this->dispersionAngle = 10;
 		this->ticksMax = 25;
 		break;
 	default: break;
@@ -52,50 +57,74 @@ Weapon::Weapon(WeaponType type)
 	ticksMax = -1;
 }
 
-Weapon::Weapon(long reloadTime, float v, int width, int height, int spriteIndex, int bulletsPerShot, float separationAngle, float dispersionAngle)
-	: reloadTime(reloadTime), v(v), width(width), height(height), spriteIndex(spriteIndex), bulletsPerShot(bulletsPerShot), separationAngle(separationAngle), dispersionAngle(dispersionAngle)
+Weapon::Weapon(long reloadTime, float bulletVelocity, int bulletWidth, int bulletHeight, int spriteIndex, int bulletsPerShot, float separationAngle, float dispersionAngle)
+	: reloadTime(reloadTime), bulletVelocity(bulletVelocity), bulletWidth(bulletWidth), bulletHeight(bulletHeight), spriteIndex(spriteIndex), bulletsPerShot(bulletsPerShot), separationAngle(separationAngle), dispersionAngle(dispersionAngle)
 {
 	waitToFire = 0;
 	ticksMax = -1;
 }
 
-Weapon::Weapon(void)
+Weapon::Weapon(void) {}
+
+Weapon::~Weapon(void) {}
+
+
+/* Fire */
+bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v)
 {
+	if (waitToFire > 0) return false;
+
+	// Calculate velocity (depending on the direction)
+	float vx = 0.0f, vy = 0.0f;
+	float catet = bulletVelocity;
+	float hipotenusa = sqrt(catet*catet*2);
+
+	switch (dir) {
+	case UP:		vy = hipotenusa; break;
+	case DOWN:		vy = -hipotenusa; break;
+	case LEFT:		vx = -hipotenusa; break;
+	case RIGHT:		vx = hipotenusa; break;
+	case UP_RIGHT:	vx = catet; vy = catet; break;
+	case DOWN_RIGHT:vx = catet; vy = -catet; break;
+	case UP_LEFT:	vx = -catet; vy = catet; break;
+	case DOWN_LEFT:	vx = -catet; vy = -catet; break;
+	}
+
+	// Calculate angle
+ 	float totalAngle = (bulletsPerShot - 1)*separationAngle;	// Angle between the first and last bullet
+	float halfAngle = totalAngle/2;								// Angle between the front player direction and the last (or first) bullet
+
+	for (int i = 0; i < bulletsPerShot; i++) {
+		float angle = halfAngle - i*separationAngle;		// Angle of this particular bullet
+		
+		// Dispersion
+		float LO = angle - dispersionAngle;
+		float HI = angle + dispersionAngle;
+		angle = LO + (float)rand()/((float)RAND_MAX/(HI - LO));
+
+		float fconv = 3.1415926f/180.0f;
+		float s = sinf(angle*fconv);
+		float c = cosf(angle*fconv);
+		float nx = c*vx - s*vy;
+		float ny = s*vx + c*vy;
+
+		Bullet* bala = new Bullet(x, y, spriteIndex, bulletWidth, bulletHeight, true, nx, ny);
+		bala->setAction(MOVE);
+		bala->setTicksLeft(ticksMax);
+		v.push_back(*bala);
+	}
+
+	waitToFire = reloadTime;
+	return true;
 }
 
-Weapon::~Weapon(void)
-{
-}
-
+/* Updating */
 void Weapon::update()
 {
 	waitToFire = std::max(0L, waitToFire - 1);
 }
 
-bool Weapon::fire(float x, float y, float dirX, float dirY, std::vector<Bullet> &v)
-{
-	if (waitToFire > 0) return false;
-
-	/* aply modifiers */
-	
-	//Vector2D dir(dirX, dirY);
-	float LO = -dispersionAngle;
-	float HI = dispersionAngle;
-	float angle = LO + (float)rand()/((float)RAND_MAX/(HI-LO));
-	//dir.Rotate(angle);
-	float s = sinf(angle);
-    float c = cosf(angle);
-    
-    float nx = c * dirX - s * dirY;
-    float ny = s * dirX + c * dirY;
-	Bullet* bala = new Bullet(x, y, spriteIndex, width, height, true, nx, ny);
-	bala->setAction(MOVE);
-	bala->setTicksLeft(ticksMax);
-	v.push_back(*bala);
-	waitToFire = reloadTime;
-	return true;
-}
-
+/* Setters */
 void Weapon::setTicksMax(int x)
 {
 	ticksMax = x;

@@ -14,23 +14,28 @@ class Weapon
 {
 private:
 	long waitToFire;
-	long reloadTime;
-	int bulletsPerShot;
-	float separationAngle;
-	int width;
-	int height;
-	float dispersionAngle;
-	float v;
-	float ticksMax;
-	int spriteIndex;
+	long reloadTime;		/* Time between bullet shots */
+	int bulletsPerShot;		/* Bullets shot in one shot */
+	float separationAngle;	/* Separation angle between bullets (in case bulletsPerShot > 1) */
+	float dispersionAngle;	/* Max angle separation between bullets */
+	int bulletWidth;		/* Bullet width */
+	int bulletHeight;		/* Bullet height */
+	float bulletVelocity;	/* Bullet velocity */
+	float ticksMax;			/* Time that a bullet lasts without dying */
+	int spriteIndex;		/* Index of the sprite used by the weapon */
 
 public:
 	Weapon(void);
 	Weapon(WeaponType type);
-	Weapon(long reloadTime, float v, int width, int height, int spriteIndex, int bulletsPerShot = 1, float separationAngle = 0, float dispersionAngle = 0);
+	Weapon(long reloadTime, float bulletVelocity, int bulletWidth, int bulletHeight, int spriteIndex, int bulletsPerShot = 1, float separationAngle = 0, float dispersionAngle = 0);
 	~Weapon(void);
-	bool fire(float x, float y, float dirX, float dirY, std::vector<Bullet> &v);
+
+	/* Fire */
+	bool fire(float x, float y, Direction dir, std::vector<Bullet> &v);
+
+	/* Updating */
 	void update();
+
+	/* Setters */
 	void setTicksMax(int x);
 };
-

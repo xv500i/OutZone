@@ -154,3 +154,8 @@ void MobileGameObject::setVY(const float vy)
 {
 	this->vy = vy;
 }
+
+void MobileGameObject::setDirection(Direction direction)
+{
+	this->direction = direction;
+}

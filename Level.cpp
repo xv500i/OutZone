@@ -27,7 +27,6 @@ bool Level::load(GameData *data)
 	//b = enemiesLayer.load(levelNumber, data);
 	//if (!b) return false;
 	player = Player(PLAYER_INITIAL_X, PLAYER_INITIAL_Y, GameData::PLAYER1_SPRITE_INDEX, 20, 20, true, 0.0f, 0.0f);
-	player.setPhantom(false);
 	return true;
 }
 
