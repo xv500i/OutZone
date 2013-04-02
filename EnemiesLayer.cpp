@@ -15,7 +15,7 @@ EnemiesLayer::~EnemiesLayer(void) {}
 
 
 /* Loading */
-bool EnemiesLayer::load(int level, GameData *data) {}
+bool EnemiesLayer::load(int level, GameData *data) {return true;}
 
 /* Updating */
 void EnemiesLayer::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player *player)
