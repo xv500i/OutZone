@@ -12,6 +12,15 @@ class Player;
 class NPC_AI;
 
 
+enum EnemyType {
+	GUARD_NOSHOT,
+	GUARD_SHOT,
+	PURSUE_NOSHOT,
+	PURSUE_SHOT,
+	GUARD_PURSUE_NOSHOT,
+	GUARD_PURSUE_SHOT
+};
+
 class Enemy :
 	public MobileGameObject
 {

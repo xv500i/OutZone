@@ -7,7 +7,7 @@ Weapon::Weapon(WeaponType type)
 {
 	switch (type) {
 	case SINGLE_SHOT:
-		this->reloadTime = 6;
+		this->reloadTime = 8;
 		this->bulletWidth = 6;
 		this->bulletHeight = 6;
 		this->bulletVelocity = 5;
@@ -18,7 +18,7 @@ Weapon::Weapon(WeaponType type)
 		this->ticksMax = 40;
 		break;
 	case THREE_SHOTS:
-		this->reloadTime = 6;
+		this->reloadTime = 8;
 		this->bulletWidth = 6;
 		this->bulletHeight = 6;
 		this->bulletVelocity = 5;
@@ -29,7 +29,7 @@ Weapon::Weapon(WeaponType type)
 		this->ticksMax = 40;
 		break;
 	case FIVE_SHOTS:
-		this->reloadTime = 6;
+		this->reloadTime = 8;
 		this->bulletWidth = 6;
 		this->bulletHeight = 6;
 		this->bulletVelocity = 5;

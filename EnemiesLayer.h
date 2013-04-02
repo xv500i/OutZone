@@ -3,23 +3,15 @@
 
 #include <vector>
 #include "Layer.h"
-#include "GameObject.h"
+#include "Enemy.h"
 
 
-class ObjectsLayer : public Layer 
+class EnemiesLayer : public Layer
 {
 private:
 	/***** File structure *****
-	x,y,width,height,spriteIndex,phantom
-	x,y,width,height,spriteIndex,phantom
-	...
-	x = x position IN TILES
-	y = y position IN TILES
-	width = object width
-	height = object height
-	spriteIndex = index of the sprite used by this object
-	phantom = C --> Collisionable, P --> Phantom
-	****************************/
+
+	***************************/
 
 	/* File constants */
 	const static char* FILE_NAME_PREFIX;
@@ -30,22 +22,22 @@ private:
 	const static int TILE_WIDTH_IN_PIXELS = 32;
 	const static int TILE_HEIGHT_IN_PIXELS = 32;
 
-	std::vector<GameObject> objects;
+	std::vector<Enemy> enemies;
 
 public:
-	ObjectsLayer(void);
-	~ObjectsLayer(void);
+	EnemiesLayer(void);
+	~EnemiesLayer(void);
 
 	/* Loading */
 	virtual bool load(int level, GameData *data);
 
 	/* Updating */
-	virtual void update(GameData *data);
+	virtual void update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player *player);
 
 	/* Rendering */
 	virtual void render(GameData *data, Viewport *viewport);
 
 	/* Getters */
-	std::vector<GameObject> getCollisionObjects();
+	std::vector<Enemy> getEnemies();
 };
 
