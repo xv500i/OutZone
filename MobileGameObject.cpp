@@ -89,25 +89,60 @@ bool MobileGameObject::update(GameData *data, std::vector<GameObject> &collision
 
 void MobileGameObject::updateDirectionAndAction()
 {
-	// Object direction
+	// Moving
 	if (vy > 0) {
-		if (vx < 0) direction = UP_LEFT;
-		else if (vx > 0) direction = UP_RIGHT;
-		else direction = UP;
+		if (vx < 0) {
+			direction = UP_LEFT;
+			setAction(MOVE_UP_LEFT);
+		}
+		else if (vx > 0) {
+			direction = UP_RIGHT;
+			setAction(MOVE_UP_RIGHT);
+		}
+		else {
+			direction = UP;
+			setAction(MOVE_UP);
+		}
 	}
 	else if (vy < 0) {
-		if (vx < 0) direction = DOWN_LEFT;
-		else if (vx > 0) direction = DOWN_RIGHT;
-		else direction = DOWN;
+		if (vx < 0) {
+			direction = DOWN_LEFT;
+			setAction(MOVE_DOWN_LEFT);
+		}
+		else if (vx > 0) {
+			direction = DOWN_RIGHT;
+			setAction(MOVE_DOWN_RIGHT);
+		}
+		else {
+			direction = DOWN;
+			setAction(MOVE_DOWN);
+		}
 	} 
 	else {
-		if (vx < 0) direction = LEFT;
-		else if (vx > 0) direction = RIGHT;
+		if (vx < 0) {
+			direction = LEFT;
+			setAction(MOVE_LEFT);
+		}
+		else if (vx > 0) {
+			direction = RIGHT;
+			setAction(MOVE_RIGHT);
+		}
 	}
 
-	// Object action
-	if (abs(vx) > 0.0f || abs(vy) > 0.0f) setAction(MOVE);
-	else setAction(STATIC);
+	// Static
+	if (abs(vx) == 0.0f && abs(vy) == 0.0f) {
+		switch (direction) {
+		case UP:			setAction(STATIC_UP); break;
+		case DOWN:			setAction(STATIC_DOWN); break;
+		case LEFT:			setAction(STATIC_LEFT); break;
+		case RIGHT:			setAction(STATIC_RIGHT); break;
+		case UP_LEFT:		setAction(STATIC_UP_LEFT); break;
+		case DOWN_LEFT:		setAction(STATIC_DOWN_LEFT); break;
+		case DOWN_RIGHT:	setAction(STATIC_DOWN_RIGHT); break;
+		case UP_RIGHT:		setAction(STATIC_UP_RIGHT); break;
+		default: break;
+		}
+	}
 }
 
 

@@ -11,7 +11,7 @@ GameObject::GameObject(const float x, const float y, const int spriteIndex, cons
 	phantom = false;
 	this->b = new BoundingBox(y + height/2, y - height/2, x - width/2, x + width/2);
 	type = 'u';
-	action = STATIC;
+	action = STATIC_DOWN;
 	id = current_id++;
 	spriteInstanceIndex = -1;
 }

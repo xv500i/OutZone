@@ -10,6 +10,7 @@ Player::Player(const float x, const float y, const int spriteIndex, const int wi
 {
 	mainWeapon = Weapon(SINGLE_SHOT);
 	setDirection(UP);
+	setAction(STATIC_UP);
 	setType('p');
 	shooting = false;
 }
@@ -90,7 +91,18 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	mainWeapon.update();
 	if (shooting) {
-		setAction(SHOT);
+		Direction direction = getDirection();
+		switch (direction) {
+		case UP:			setAction(SHOT_UP); break;
+		case DOWN:			setAction(SHOT_DOWN); break;
+		case LEFT:			setAction(SHOT_LEFT); break;
+		case RIGHT:			setAction(SHOT_RIGHT); break;
+		case UP_LEFT:		setAction(SHOT_UP_LEFT); break;
+		case DOWN_LEFT:		setAction(SHOT_DOWN_LEFT); break;
+		case DOWN_RIGHT:	setAction(SHOT_DOWN_RIGHT); break;
+		case UP_RIGHT:		setAction(SHOT_UP_RIGHT); break;
+		default: break;
+		}
 		shooting = false;
 	}
 

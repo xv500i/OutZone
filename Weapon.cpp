@@ -109,7 +109,6 @@ bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v)
 		float ny = s*vx + c*vy;
 
 		Bullet* bala = new Bullet(x, y, spriteIndex, bulletWidth, bulletHeight, true, nx, ny);
-		bala->setAction(MOVE);
 		bala->setTicksLeft(ticksMax);
 		v.push_back(*bala);
 	}
