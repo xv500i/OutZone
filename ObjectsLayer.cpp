@@ -35,15 +35,15 @@ bool ObjectsLayer::load(int level, GameData *data)
 			sstr >> x;
 			if (sstr.peek() == ',') sstr.ignore();
 			sstr >> y;
-			if (sstr.peek() == ',') sstr.ignore();
+			if (sstr.peek() == ' ') sstr.ignore();
 			sstr >> width;
 			if (sstr.peek() == ',') sstr.ignore();
 			sstr >> height;
-			if (sstr.peek() == ',') sstr.ignore();
+			if (sstr.peek() == ' ') sstr.ignore();
 			sstr >> spriteIndex;
 			if (sstr.peek() == ',') sstr.ignore();
 			sstr >> phantom;
-			GameObject object(x*TILE_WIDTH_IN_PIXELS + width/2, y*TILE_HEIGHT_IN_PIXELS + height/2, spriteIndex, width, height, false);
+			GameObject object(x*TILE_WIDTH_IN_PIXELS + TILE_WIDTH_IN_PIXELS/2, y*TILE_HEIGHT_IN_PIXELS + TILE_HEIGHT_IN_PIXELS/2, spriteIndex, width, height, false);
 			if (phantom == 'C') object.setPhantom(false);
 			else if (phantom == 'P') object.setPhantom(true);
 			objects.push_back(object);

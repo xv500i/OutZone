@@ -48,15 +48,15 @@ void SpriteInstance::getFrameInfo(SpriteAction action, bool *finished, float *s,
 	*finished = animationHasFinished;
 	if (!animationHasFinished) {
 		// Obtain the info of the frame that we have to render
-		int sSprite, tSprite;
-		sprite->getFrameInfo(currentAction, currentAnimationIndex, &sSprite, &tSprite, width, height);
+		int sSprite, tSprite, frameWidth, frameHeight;
+		sprite->getFrameInfo(currentAction, currentAnimationIndex, &sSprite, &tSprite, &frameWidth, &frameHeight, width, height);
 		int textureWidth, textureHeight;
 		sprite->getSizeInPixels(&textureWidth, &textureHeight);
 
 		*s = (float)sSprite/(float)textureWidth;
 		*t = (float)tSprite/(float)textureHeight;
-		*offsetX = (float)*width/(float)textureWidth;
-		*offsetY = (float)*height/(float)textureHeight;
+		*offsetX = (float)frameWidth/(float)textureWidth;
+		*offsetY = (float)frameHeight/(float)textureHeight;
 	}
 }
 

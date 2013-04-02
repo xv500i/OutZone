@@ -18,8 +18,9 @@ struct Animation {
 };
 
 struct Frame {
-	int s, t;			/* Frame texture coords */
-	int width, height;	/* Frame size */
+	int s, t;							/* Frame texture coords */
+	int width, height;					/* Frame size */
+	int widthToRender, heightToRender;	/* Frame size used to render the frame */
 };
 
 class Sprite : public Texture
@@ -42,7 +43,7 @@ public:
 			  int wrapt = GL_REPEAT, int magf = GL_NEAREST, int minf = GL_NEAREST, bool mipmap = false);
 
 	/* Getters */
-	void getFrameInfo(int animationIndex, int frameIndex, int *s, int *t, int *width, int *height);
+	void getFrameInfo(int animationIndex, int frameIndex, int *s, int *t, int *width, int *height, int *widthToRender, int *heightToRender);
 	int getFrameDuration(int animationIndex, int frameIndex);
 	int getAnimationNumFrames(int animationIndex);
 	bool isAnimationLoop(int animationIndex);

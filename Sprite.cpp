@@ -47,6 +47,10 @@ bool Sprite::loadDescriptionFile(const char *filename)
 				sstr >> frame.width;
 				if (sstr.peek() == ',') sstr.ignore();
 				sstr >> frame.height;
+				if (sstr.peek() == ' ') sstr.ignore();
+				sstr >> frame.widthToRender;
+				if (sstr.peek() == ',') sstr.ignore();
+				sstr >> frame.heightToRender;
 				frames.push_back(frame);
 			}
 			// Read animation info
@@ -81,13 +85,15 @@ bool Sprite::loadDescriptionFile(const char *filename)
 }
 
 /* Getters */
-void Sprite::getFrameInfo(int animationIndex, int frameIndex, int *s, int *t, int *width, int *height)
+void Sprite::getFrameInfo(int animationIndex, int frameIndex, int *s, int *t, int *width, int *height, int *widthToRender, int *heightToRender)
 {
 	Frame frame = frames[animations[animationIndex].animation[frameIndex].frameId];
 	*s = frame.s;
 	*t = frame.t;
 	*width = frame.width;
 	*height = frame.height;
+	*widthToRender = frame.widthToRender;
+	*heightToRender = frame.heightToRender;
 }
 
 int Sprite::getFrameDuration(int animationIndex, int frameIndex)

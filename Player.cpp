@@ -8,8 +8,7 @@ Player::Player(void) {}
 Player::Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy) 
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
-	mainWeapon = Weapon(3, 10, 30, 30, 1, 0.0f, 0.2f);
-	mainWeapon.setTicksMax(30);
+	mainWeapon = Weapon(SINGLE_SHOT);
 	setType('p');
 }
 
@@ -153,7 +152,7 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 void Player::render(GameData *data)
 {
 	MobileGameObject::render(data);
-	for (unsigned int i = 0; i < playerShots.size(); i++) {
+	for (int i = playerShots.size() - 1; i >= 0; i--) {
 		playerShots[i].render(data);
 	}
 }
