@@ -48,7 +48,5 @@ void Sound::play()
 
 void Sound::stop()
 {
-	FMOD_RESULT result;
-	result = system->playSound(FMOD_CHANNEL_FREE, sound, true, &channel);
-	errorCheck(result);
+	channel->stop();
 }
