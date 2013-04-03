@@ -51,12 +51,12 @@ bool MobileGameObject::update(GameData *data, std::vector<GameObject> &collision
 		int widthInTiles = 15;							// TODO: Canviar hardcoded
 		int heightInTiles = collisionTiles.size()/15;	// TODO: Canviar hardcoded
 		// Test X collision
-		minX = (tempX - getWidth()/2)/tileWidthInPixels;
-		minY = heightInTiles - (actualY + getHeight()/2)/tileHeightInPixels;
-		maxX = (tempX + getWidth()/2)/tileWidthInPixels;
-		maxY = heightInTiles - (actualY - getHeight()/2)/tileHeightInPixels;
-		for (int y = minY; y < maxY; y++) {
-			for (int x = minX; x < maxX; x++) {
+		minX = std::max(0.0f, (tempX - getWidth()/2)/tileWidthInPixels);
+		minY = std::max(0.0f, heightInTiles - (actualY + getHeight()/2)/tileHeightInPixels);
+		maxX = std::min((float)widthInTiles - 1, (tempX + getWidth()/2)/tileWidthInPixels);
+		maxY = std::min((float)heightInTiles - 1, heightInTiles - (actualY - getHeight()/2)/tileHeightInPixels);
+		for (int y = minY; y <= maxY; y++) {
+			for (int x = minX; x <= maxX; x++) {
 				if (collisionTiles[y*widthInTiles + x]) {
 					collision = true;
 					tempX = actualX;
@@ -64,12 +64,12 @@ bool MobileGameObject::update(GameData *data, std::vector<GameObject> &collision
 			}
 		}
 		// Test Y collision
-		minX = (actualX - getWidth()/2)/tileWidthInPixels;
-		minY = heightInTiles - (tempY + getHeight()/2)/tileHeightInPixels;
-		maxX = (actualX + getWidth()/2)/tileWidthInPixels;
-		maxY = heightInTiles - (tempY - getHeight()/2)/tileHeightInPixels;
-		for (int y = minY; y < maxY; y++) {
-			for (int x = minX; x < maxX; x++) {
+		minX = std::max(0.0f, (actualX - getWidth()/2)/tileWidthInPixels);
+		minY = std::max(0.0f, heightInTiles - (tempY + getHeight()/2)/tileHeightInPixels);
+		maxX = std::min((float)widthInTiles - 1, (actualX + getWidth()/2)/tileWidthInPixels);
+		maxY = std::min((float)heightInTiles - 1, heightInTiles - (tempY - getHeight()/2)/tileHeightInPixels);
+		for (int y = minY; y <= maxY; y++) {
+			for (int x = minX; x <= maxX; x++) {
 				if (collisionTiles[y*widthInTiles + x]) {
 					collision = true;
 					tempY = actualY;

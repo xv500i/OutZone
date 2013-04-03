@@ -8,7 +8,7 @@ Player::Player(void) {}
 Player::Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy) 
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
-	mainWeapon = Weapon(SINGLE_SHOT);
+	mainWeapon = Weapon(FLAMETHROWER);
 	setDirection(UP);
 	setAction(STATIC_UP);
 	setType('p');
