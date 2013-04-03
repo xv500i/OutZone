@@ -70,6 +70,8 @@ void Player::shotPrimaryWeapon()
 	// Arma del jugador respecte el seu punt mig
 	float vecx = 0;
 	float vecy = getHeight();
+	if (getDirection() == RIGHT) vecx -=6.0f;
+	else if (getDirection() == LEFT) vecx += 6.0f;
 	float angle = getAngleVelocity();
 	float fconv = 3.1415f / 180.0f;
 	
