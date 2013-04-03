@@ -21,7 +21,7 @@ GameData::~GameData(void) {}
 /* Textures */
 bool GameData::loadTextures()
 {
-	const char* filenames[NUM_TEXTURES] = {"title", "instructions", "pause", "gameover", "button_quit", "button_start","button_help", "button_restart", "button_mainmenu", "cursor"};		// TOCHANGE: afegir el nom de les textures
+	const char* filenames[NUM_TEXTURES] = {"title", "instructions", "pause", "gameover", "button_quit", "button_start","button_help", "button_restart", "button_mainmenu", "cursor"};
 	for (unsigned int i = 0; i < textures.size(); i++) {
 		bool b = textures[i].load(filenames[i], TEXTURE_EXT);
 		if (!b) return false;
@@ -33,7 +33,7 @@ bool GameData::loadTextures()
 /* Tile Sheets */
 bool GameData::loadTileSheets()
 {
-	const char* filenames[NUM_TILESHEETS] = {"Level1Tileset"};	// TOCHANGE: afegir el nom dels tileSheets
+	const char* filenames[NUM_TILESHEETS] = {"Level1Tileset"};
 	for (unsigned int i = 0; i < tileSheets.size(); i++) {
 		bool b = tileSheets[i].load(filenames[i], TILESHEET_EXT);
 		if (!b) return false;
@@ -75,7 +75,7 @@ void GameData::getTileSheetTileOffset(int tileSheetIndex, float *offsetX, float 
 /* Sprites */
 bool GameData::loadSprites()
 {
-	const char* filenames[NUM_SPRITES] = {"Player1", "Player2", "Fire", "Fire2", "Alien1", "Bullet"};		// TOCHANGE: afegir el nom dels sprites
+	const char* filenames[NUM_SPRITES] = {"Player1", "Player2", "Fire", "Fire2", "Alien1", "Bullet", "HUD"};
 	for (unsigned int i = 0; i < sprites.size(); i++) {
 		bool b = sprites[i].load(filenames[i], SPRITE_EXT);
 		if (!b) return false;
@@ -132,7 +132,7 @@ void GameData::getSpriteFrameInfo(int spriteInstanceIndex, SpriteAction action, 
 /* Sounds */
 bool GameData::loadSounds()
 {
-	const char* filenames[NUM_SOUNDS] = {"Jungle_Theme", "Boss_Battle", "Title_Theme", "Game_Over", "gun", "flamer"};		// TOCHANGE: afegir el nom dels sounds
+	const char* filenames[NUM_SOUNDS] = {"Jungle_Theme", "Boss_Battle", "Title_Theme", "Game_Over", "gun", "flamer"};
 	const bool loop[NUM_SOUNDS] = {true, true, false, false, false, false};
 	const float volumes[NUM_SOUNDS] = {1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 0.8f};
 	for (unsigned int i = 0; i < sounds.size(); i++) {
