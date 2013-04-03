@@ -4,7 +4,7 @@
 #include "StaticTilesLayer.h"
 #include "MobileTilesLayer.h"
 #include "ObjectsLayer.h"
-//#include "EnemiesLayer.h"
+#include "EnemiesLayer.h"
 #include "Player.h"
 
 
@@ -18,7 +18,7 @@ private:
 	StaticTilesLayer staticTilesLayer;
 	MobileTilesLayer mobileTilesLayer;
 	ObjectsLayer objectsLayer;
-	//EnemiesLayer enemiesLayer;
+	EnemiesLayer enemiesLayer;
 	Player player;
 
 	std::vector<GameObject> Level::getCollisionObjects();

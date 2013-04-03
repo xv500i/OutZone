@@ -51,6 +51,7 @@ void Sound::stop()
 	channel->stop();
 }
 
+/* Getters */
 bool Sound::isPlaying()
 {
 	bool res;

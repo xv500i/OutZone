@@ -10,8 +10,7 @@ class ObjectsLayer : public Layer
 {
 private:
 	/***** File structure *****
-	x,y,width,height,spriteIndex,phantom
-	x,y,width,height,spriteIndex,phantom
+	x,y width,height spriteIndex,phantom
 	...
 	x = x position IN TILES
 	y = y position IN TILES

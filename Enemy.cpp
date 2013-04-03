@@ -4,8 +4,8 @@
 
 Enemy::Enemy(void) {}
 
-Enemy::Enemy(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
-	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
+Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex, const int width, const int height)
+	: MobileGameObject(x, y, spriteIndex, width, height, false)
 {
 	float v = 3.0f;
 	int ticks = 60;
@@ -20,6 +20,23 @@ Enemy::Enemy(const float x, const float y, const int spriteIndex, const int widt
 	ai->setState(3, *s4);
 	ai->initialize();
 }
+
+/*Enemy::Enemy(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
+	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
+{
+	float v = 3.0f;
+	int ticks = 60;
+	GuardPathState *s1 = new GuardPathState(1, v, 0.0f, ticks);
+	GuardPathState *s2 = new GuardPathState(2, 0.0f, v, ticks);
+	GuardPathState *s3 = new GuardPathState(3, -v, 0.0f, ticks);
+	GuardPathState *s4 = new GuardPathState(0, 0.0f, -v, ticks);
+	ai = new NPC_AI(4,0);
+	ai->setState(0, *s1);
+	ai->setState(1, *s2);
+	ai->setState(2, *s3);
+	ai->setState(3, *s4);
+	ai->initialize();
+}*/
 
 Enemy::Enemy(Player &p, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
@@ -46,7 +63,7 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	ai->update(enemyShots, *this);
 
-	// Screen collision testing
+	// TODO: No s'ha de fer collision amb el viewport, sino amb el nivell!
 	int minX = viewport->getLeft();
 	int maxX = viewport->getLeft() + viewport->getWidth();
 	int minY = viewport->getTop() - viewport->getHeight();
@@ -61,7 +78,7 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		updateBBox(inc, 0.0f);
 		setX(minX + getWidth()/2);
 	}
-	if (getY() + getHeight()/2 > maxY) {
+	/*if (getY() + getHeight()/2 > maxY) {
 		float inc = maxY - getHeight()/2 - getY();
 		updateBBox(0.0f, inc);
 		setY(maxY - getHeight()/2);
@@ -70,7 +87,7 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		float inc = minY + getHeight()/2 - getY();
 		updateBBox(0.0f, inc);
 		setY(minY + getHeight()/2);
-	}
+	}*/
 
 	// EnemyShots update
 	for (std::vector<Bullet>::iterator it = enemyShots.begin(); it != enemyShots.end();) {

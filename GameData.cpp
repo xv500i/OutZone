@@ -152,7 +152,7 @@ void GameData::stopSound(int soundIndex)
 	sounds[soundIndex].stop();
 }
 
-bool GameData::isPlaying(int soundIndex)
+bool GameData::isSoundPlaying(int soundIndex)
 {
 	return sounds[soundIndex].isPlaying();
 }

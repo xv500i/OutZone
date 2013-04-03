@@ -69,6 +69,10 @@ public:
 	GameData(void);
 	~GameData(void);
 
+	/* Textures */
+	bool loadTextures();
+	int getTextureID(int textureIndex);
+
 	/* Tile Sheets */
 	bool loadTileSheets();
 	int getTileSheetID(int tileSheetIndex);
@@ -90,11 +94,7 @@ public:
 	
 	/* Sounds */
 	bool loadSounds();
-	bool isPlaying(int soundIndex);
 	void playSound(int soundIndex);
 	void stopSound(int soundIndex);
-
-	/* Textures */
-	bool loadTextures();
-	int getTextureID(int textureIndex);
+	bool isSoundPlaying(int soundIndex);
 };

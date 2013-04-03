@@ -26,6 +26,8 @@ public:
 	/* Playing */
 	void play();
 	void stop();
+
+	/* Getters */
 	bool isPlaying();
 };
 

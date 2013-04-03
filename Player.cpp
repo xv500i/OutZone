@@ -8,7 +8,7 @@ Player::Player(void) {}
 Player::Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy) 
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
-	mainWeapon = Weapon(FLAMETHROWER);
+	mainWeapon = Weapon(SINGLE_SHOT);
 	setDirection(UP);
 	setAction(STATIC_UP);
 	setType('p');
@@ -68,7 +68,7 @@ void Player::resolveInput(InputHandler *input)
 void Player::shotPrimaryWeapon() 
 {
 	// Arma del jugador respecte el seu punt mig
-	float vecx = 0.0f;
+	float vecx = 0;
 	float vecy = getHeight();
 	float angle = getAngleVelocity();
 	float fconv = 3.1415f / 180.0f;
@@ -109,14 +109,15 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 			}
 			// Sound
 			data->playSound(GameData::GUN_SOUND_INDEX);
-		} else {
-			if (!data->isPlaying(GameData::FLAMETHROWER_SOUND_INDEX))data->playSound(GameData::FLAMETHROWER_SOUND_INDEX);
+		}
+		else {
+			if (!data->isSoundPlaying(GameData::FLAMETHROWER_SOUND_INDEX)) data->playSound(GameData::FLAMETHROWER_SOUND_INDEX);
 		}
 
 		shooting = false;
 	}
 
-	// Screen collision testing
+	// Screen collision testing. TODO: la colisio s'ha de fer amb el nivell (en aquest cas, es indiferent, amb el player funciona)
 	int minX = viewport->getLeft();
 	int maxX = viewport->getLeft() + viewport->getWidth();
 	int minY = viewport->getTop() - viewport->getHeight();
@@ -144,7 +145,9 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 
 	// PlayerShots update
 	for (std::vector<Bullet>::iterator it = playerShots.begin(); it != playerShots.end();) {
-		bool collision = it->update(data, collisionObjects, collisionTiles, (std::vector<GameObject>&)enemies);
+		std::vector<GameObject> objectEnemies;
+		objectEnemies.assign(enemies.begin(), enemies.end());
+		bool collision = it->update(data, collisionObjects, collisionTiles, objectEnemies);
 
 		// Remove the bullet if it goes off-screen
 		float x = it->getX();
