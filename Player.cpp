@@ -109,9 +109,9 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 			}
 			// Sound
 			data->playSound(GameData::GUN_SOUND_INDEX);
+		} else {
+			data->playSound(GameData::FLAMETHROWER_SOUND_INDEX);
 		}
-		// TODO: descomentar quan hi hagi so pel llançaflames
-		//else data->playSound(GameData::FLAMETHROWER_SOUND_INDEX);
 
 		shooting = false;
 	}
