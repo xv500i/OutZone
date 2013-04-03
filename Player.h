@@ -20,12 +20,13 @@ private:
 	Weapon mainWeapon;
 	bool shooting;
 	bool invul;
+	bool lanternActivated;
 	int ticksMaxInvul;
 	int ticksInvul;
 	std::vector<Bullet> playerShots;
 
 	void shotPrimaryWeapon();
-
+	void renderLantern(int idTexture);
 public:
 	Player(void);
 	Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy);

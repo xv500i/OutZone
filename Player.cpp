@@ -16,6 +16,8 @@ Player::Player(const float x, const float y, const int spriteIndex, const int wi
 	invul = false;
 	ticksMaxInvul = 150;
 	ticksInvul = 0;
+	//FIXME:
+	lanternActivated = true;
 }
 
 Player::~Player(void) {}
@@ -176,6 +178,7 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 void Player::render(GameData *data)
 {
 	if (!(invul && (ticksInvul % 8) > 3)) MobileGameObject::render(data);
+	if (lanternActivated) renderLantern(data->getTextureID(GameData::LANTERN_INDEX));
 	for (int i = playerShots.size() - 1; i >= 0; i--) {
 		playerShots[i].render(data);
 	}
@@ -190,4 +193,29 @@ void Player::setInvul()
 {
 	invul = true;
 	ticksInvul = ticksMaxInvul;
+}
+
+void Player::renderLantern(int idTexture)
+{
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, idTexture);
+	glPushMatrix();
+	glTranslatef(getX(), getY(), 0.0f);
+	glRotatef(getAngleVelocity(), 0.0f, 0.0f, 1.0f);
+	glBegin(GL_QUADS);
+		// Bottom-left
+		glTexCoord2f(0, 1);
+		glVertex3i(- 4000/2 , - 4000/2, 1.5);
+		// Top-left
+		glTexCoord2f(0, 0);
+		glVertex3i(- 4000/2 , + 4000/2, 1.5);
+		// Top-right
+		glTexCoord2f(1, 0);
+		glVertex3i(+ 4000/2 , + 4000/2, 1.5);
+		// Bottom-right
+		glTexCoord2f(1, 1);
+		glVertex3i(+ 4000/2 , - 4000/2, 1.5);	
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
 }
