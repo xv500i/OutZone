@@ -110,7 +110,7 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 			// Sound
 			data->playSound(GameData::GUN_SOUND_INDEX);
 		} else {
-			data->playSound(GameData::FLAMETHROWER_SOUND_INDEX);
+			if (!data->isPlaying(GameData::FLAMETHROWER_SOUND_INDEX))data->playSound(GameData::FLAMETHROWER_SOUND_INDEX);
 		}
 
 		shooting = false;

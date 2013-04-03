@@ -90,6 +90,7 @@ public:
 	
 	/* Sounds */
 	bool loadSounds();
+	bool isPlaying(int soundIndex);
 	void playSound(int soundIndex);
 	void stopSound(int soundIndex);
 

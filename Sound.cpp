@@ -50,3 +50,10 @@ void Sound::stop()
 {
 	channel->stop();
 }
+
+bool Sound::isPlaying()
+{
+	bool res;
+	channel->isPlaying(&res);
+	return res;
+}
