@@ -19,6 +19,9 @@ private:
 
 	Weapon mainWeapon;
 	bool shooting;
+	bool invul;
+	int ticksMaxInvul;
+	int ticksInvul;
 	std::vector<Bullet> playerShots;
 
 	void shotPrimaryWeapon();
@@ -36,4 +39,7 @@ public:
 
 	/* Drawing */
 	void render(GameData *data);
+
+	bool isInvul() const;
+	void setInvul();
 };

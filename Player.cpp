@@ -13,6 +13,9 @@ Player::Player(const float x, const float y, const int spriteIndex, const int wi
 	setAction(STATIC_UP);
 	setType('p');
 	shooting = false;
+	invul = false;
+	ticksMaxInvul = 150;
+	ticksInvul = 0;
 }
 
 Player::~Player(void) {}
@@ -67,6 +70,7 @@ void Player::resolveInput(InputHandler *input)
 
 void Player::shotPrimaryWeapon() 
 {
+	// test setInvul();
 	// Arma del jugador respecte el seu punt mig
 	float vecx = 0;
 	float vecy = getHeight();
@@ -92,7 +96,10 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 {
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	mainWeapon.update();
-	
+	if (invul) {
+		if (ticksInvul > 0) ticksInvul--;
+		invul = (ticksInvul > 0);
+	}
 	// Update action if shooting
 	if (shooting) {
 		if (mainWeapon.getWeaponType() != FLAMETHROWER) {
@@ -168,8 +175,19 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 /* Drawing */
 void Player::render(GameData *data)
 {
-	MobileGameObject::render(data);
+	if (!(invul && (ticksInvul % 8) > 3)) MobileGameObject::render(data);
 	for (int i = playerShots.size() - 1; i >= 0; i--) {
 		playerShots[i].render(data);
 	}
+}
+
+bool Player::isInvul() const
+{
+	return invul;
+}
+
+void Player::setInvul()
+{
+	invul = true;
+	ticksInvul = ticksMaxInvul;
 }
