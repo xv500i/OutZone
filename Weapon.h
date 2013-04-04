@@ -26,6 +26,7 @@ private:
 	float bulletVelocity;	/* Bullet velocity */
 	float ticksMax;			/* Time that a bullet lasts without dying */
 	int spriteIndex;		/* Index of the sprite used by the weapon */
+	int damage;
 	WeaponType weaponType;	
 
 public:

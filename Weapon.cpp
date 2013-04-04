@@ -17,6 +17,7 @@ Weapon::Weapon(WeaponType type)
 		this->separationAngle = 0;
 		this->dispersionAngle = 0;
 		this->ticksMax = 80;
+		this->damage = 10;
 		break;
 	case THREE_SHOTS:
 		this->reloadTime = 20;
@@ -28,6 +29,7 @@ Weapon::Weapon(WeaponType type)
 		this->separationAngle = 15;
 		this->dispersionAngle = 0;
 		this->ticksMax = 80;
+		this->damage = 10;
 		break;
 	case FIVE_SHOTS:
 		this->reloadTime = 20;
@@ -39,6 +41,7 @@ Weapon::Weapon(WeaponType type)
 		this->separationAngle = 10;
 		this->dispersionAngle = 0;
 		this->ticksMax = 80;
+		this->damage = 10;
 		break;
 	case FLAMETHROWER:
 		this->reloadTime = 1;
@@ -50,6 +53,7 @@ Weapon::Weapon(WeaponType type)
 		this->separationAngle = 0;
 		this->dispersionAngle = 10;
 		this->ticksMax = 20;
+		this->damage = 1;
 		break;
 	case ENEMY_BASIC_WEAPON:
 		this->reloadTime = 40;
@@ -61,6 +65,7 @@ Weapon::Weapon(WeaponType type)
 		this->separationAngle = 0;
 		this->dispersionAngle = 0;
 		this->ticksMax = 80;
+		this->damage = 1;
 		break;
 	default: break;
 	}
@@ -119,7 +124,7 @@ bool Weapon::fire(float x, float y, Direction dir, std::vector<Bullet> &v)
 		float nx = c*vx - s*vy;
 		float ny = s*vx + c*vy;
 
-		Bullet* bala = new Bullet(x, y, spriteIndex, bulletWidth, bulletHeight, true, nx, ny);
+		Bullet* bala = new Bullet(x, y, spriteIndex, bulletWidth, bulletHeight, true, nx, ny, damage);
 		bala->setTicksLeft(ticksMax);
 		v.push_back(*bala);
 	}

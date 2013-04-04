@@ -10,7 +10,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 	guard = gps;
 	switch(type) {
 	case BAT_1:
-		life = 10;
+		life = 20;
 		detectionDistance = 300.0f;
 		pursue = false;
 		firePermission = false;
@@ -32,7 +32,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 		weapon = Weapon(ENEMY_BASIC_WEAPON);
 		break;
 	case BAT_3:
-		life = 50;
+		life = 40;
 		detectionDistance = 400.0f;
 		pursue = true;
 		firePermission = true;
@@ -43,7 +43,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 		weapon = Weapon(ENEMY_BASIC_WEAPON);
 		break;
 	case SPIDER_1:
-		life = 30;
+		life = 20;
 		detectionDistance = 500.0f;
 		pursue = true;
 		firePermission = false;
@@ -54,7 +54,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 		weapon = Weapon(ENEMY_BASIC_WEAPON);
 		break;
 	case SPIDER_2:
-		life = 50;
+		life = 30;
 		detectionDistance = 600.0f;
 		pursue = true;
 		firePermission = false;
