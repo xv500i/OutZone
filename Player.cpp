@@ -101,11 +101,14 @@ void Player::shotPrimaryWeapon()
 /* Updating */
 int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies)
 {
-	if (hasBeenKilled == true) {
-		hasBeenKilled = false;
-		data->playSound(GameData::PLAYER_SCREAM_INDEX);
+	
+	if (isDead()) {
+		if (hasBeenKilled) {
+			hasBeenKilled = false;
+			data->playSound(GameData::PLAYER_SCREAM_INDEX);
+		}
+		return -1;
 	}
-	if (isDead()) return -1;
 	if (hasBeenHit) {
 		data->playSound(GameData::PLAYER_OUCH_INDEX);
 		hasBeenHit = false;
