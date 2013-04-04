@@ -2,18 +2,12 @@
 #pragma once
 
 #include <gl/glut.h>
-#include "StaticTilesLayer.h"
-#include "MobileTilesLayer.h"
-#include "ObjectsLayer.h"
-#include "Player.h"
-#include "InputHandler.h"
 #include <vector>
 #include <iterator>
-#include "Enemy.h"
-#include "Bullet.h"
+#include "InputHandler.h"
 #include "Viewport.h"
-#include "Boss.h"
 #include "Level.h"
+#include "HUD.h"
 
 using namespace std;
 
@@ -22,11 +16,10 @@ class Scene
 {
 private:
 	const static int NUM_LEVELS = 1;
+	
 	vector<Level> levels;
-
-	vector<Enemy> enemies;
+	HUD hud;
 	int currentLevel;
-	Boss boss;
 
 	bool loadLevel(GameData *data);
 

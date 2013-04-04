@@ -17,6 +17,10 @@ Scene::~Scene(void) {}
 /* Loading */
 bool Scene::changeLevel(int newLevel, GameData *data, Viewport *viewport)
 {
+	// HUD loading
+	hud.load(viewport);
+
+	// Level loading
 	currentLevel = newLevel;
 	if (!loadLevel(data)) return false;
 
@@ -34,22 +38,6 @@ bool Scene::loadLevel(GameData *data)
 	data->playSound(GameData::JUNGLE_THEME_INDEX);
 	if (!levels[currentLevel - 1].load(data)) return false;
 	return true;
-
-	/*Enemy en(120.0f, 130.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
-	en.setPhantom(false);
-	enemies.push_back(en);
-
-	Enemy en2(300.0f, 50.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
-	en2.setPhantom(false);
-	enemies.push_back(en2);
-
-	Enemy en3(player, 120.0f, 550.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
-	en3.setPhantom(false);
-	enemies.push_back(en3);
-
-	Enemy en4(player, 50, 120.0f, 850.f, GameData::ALIEN1_SPRITE_INDEX, 16, 16, true);
-	en4.setPhantom(false);
-	enemies.push_back(en4);*/
 }
 
 
@@ -64,6 +52,10 @@ void Scene::update(GameData *data, Viewport *viewport)
 	// Level update 
 	levels[currentLevel - 1].update(data, viewport);
 
+	// TODO: passar la vida del player! level.getPlayerLife() --> player.getLife()
+	// HUD update
+	hud.update(data, viewport, 3);
+
 	//boss.update(data, enemyShots, player.getX(), player.getY());
 }
 
@@ -71,14 +63,11 @@ void Scene::update(GameData *data, Viewport *viewport)
 /* Rendering */
 void Scene::render(GameData *data, Viewport *viewport)
 {
+	// Rendering the HUD
+	hud.render(data, viewport);
+
 	// Rendering the level
 	levels[currentLevel - 1].render(data, viewport);
-	
-	// TODO: Canviar per enemiesLayer!!
-	unsigned int i;
-	for (i = 0; i < enemies.size(); i++) {
-		enemies[i].render(data);
-	}
 
 	//boss.render(data);
 }
