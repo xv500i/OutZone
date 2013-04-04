@@ -105,6 +105,9 @@ void GameMenu::render(GameData *data)
 		
 		paint(data->getTextureID(GameData::CURSOR_INDEX), cx, cy, cw, ch);
 	}
+	if (type == 'i') {
+		paint(data->getTextureID(GameData::LANTERN_INDEX), xi, yi - 2*(h + margin),  400, 400);
+	}
 	
 }
 
