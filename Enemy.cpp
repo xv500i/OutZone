@@ -4,32 +4,85 @@
 
 Enemy::Enemy(void) {}
 
-Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex, const int width, const int height)
+Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex, const int width, const int height, std::vector<GuardPathState> &gps)
 	: MobileGameObject(x, y, spriteIndex, width, height, false)
 {
-	life = 1;
+	guard = gps;
+	switch(type) {
+	case BAT_1:
+		life = 10;
+		detectionDistance = 300.0f;
+		pursue = false;
+		firePermission = false;
+		pursueVelocity = 2.0f;
+		minDistance = 150.0f;
+		minPursueDistance = 250.0f;
+		gunVelocity = 4.0f;
+		weapon = Weapon(ENEMY_BASIC_WEAPON);
+		break;
+	case BAT_2:
+		life = 30;
+		detectionDistance = 300.0f;
+		pursue = false;
+		firePermission = true;
+		pursueVelocity = 2.0f;
+		minDistance = 150.0f;
+		minPursueDistance = 250.0f;
+		gunVelocity = 5.0f;
+		weapon = Weapon(ENEMY_BASIC_WEAPON);
+		break;
+	case BAT_3:
+		life = 50;
+		detectionDistance = 400.0f;
+		pursue = true;
+		firePermission = true;
+		pursueVelocity = 2.0f;
+		minDistance = 150.0f;
+		minPursueDistance = 350.0f;
+		gunVelocity = 4.0f;
+		weapon = Weapon(ENEMY_BASIC_WEAPON);
+		break;
+	case SPIDER_1:
+		life = 30;
+		detectionDistance = 500.0f;
+		pursue = true;
+		firePermission = false;
+		pursueVelocity = 2.0f;
+		minDistance = 10.0f;
+		minPursueDistance = 400.0f;
+		gunVelocity = 4.0f;
+		weapon = Weapon(ENEMY_BASIC_WEAPON);
+		break;
+	case SPIDER_2:
+		life = 50;
+		detectionDistance = 600.0f;
+		pursue = true;
+		firePermission = false;
+		pursueVelocity = 4.0f;
+		minDistance = 10.0f;
+		minPursueDistance = 800.0f;
+		gunVelocity = 4.0f;
+		weapon = Weapon(ENEMY_BASIC_WEAPON);
+		break;
+	}
+	
+	/*
 	float v = 3.0f;
 	int ticks = 60;
 	GuardPathState *s1 = new GuardPathState(v, 0.0f, ticks);
 	GuardPathState *s2 = new GuardPathState(0.0f, v, ticks);
 	GuardPathState *s3 = new GuardPathState(-v, 0.0f, ticks);
 	GuardPathState *s4 = new GuardPathState(0.0f, -v, ticks);
+	
 	guard.reserve(4);
 	guard.push_back(*s1);
 	guard.push_back(*s2);
 	guard.push_back(*s3);
 	guard.push_back(*s4);
+	*/
 	guardIndex = 0;
-	guard[guardIndex].initialize();
+	if (guard.size() > 0) guard[guardIndex].initialize();
 	state = GUARD;
-	detectionDistance = 300.0f;
-	pursueVelocity = 2.0f;
-	minDistance = 150.0f;
-	minPursueDistance = 250.0f;
-
-	gunVelocity = 4.0f;
-
-	weapon = Weapon(ENEMY_BASIC_WEAPON);
 
 	/*
 	ai = new NPC_AI(4,0);
