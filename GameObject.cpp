@@ -9,6 +9,7 @@ GameObject::GameObject(const float x, const float y, const int spriteIndex, cons
 	: x(x), y(y), spriteIndex(spriteIndex), width(width), height(height)
 {
 	phantom = false;
+	interactive = false;
 	this->b = new BoundingBox(y + height/2, y - height/2, x - width/2, x + width/2);
 	type = 'u';
 	action = STATIC_DOWN;
@@ -101,6 +102,11 @@ bool GameObject::shouldNotEnterObjects() const
 	return !phantom;
 }
 
+bool GameObject::isInteractive() const
+{
+	return interactive;
+}
+
 char GameObject::getType() const
 {
 	return type;
@@ -141,6 +147,11 @@ void GameObject::setAction(SpriteAction action)
 void GameObject::setPhantom(bool phantom)
 {
 	this->phantom = phantom;
+}
+
+void GameObject::setInteractive(bool interactive)
+{
+	this->interactive = interactive;
 }
 
 void GameObject::setType(char type)

@@ -30,7 +30,7 @@ bool EnemiesLayer::load(int level, GameData *data)
 		while (file.good()) {
 			getline(file, line);
 			std::stringstream sstr(line);
-			int x, y, width, height, spriteIndex;
+			int x, y, width, height;
 			char enemyCategory;
 			char enemyType;
 			sstr >> enemyCategory;

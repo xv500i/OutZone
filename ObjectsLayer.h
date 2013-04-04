@@ -10,8 +10,8 @@ class ObjectsLayer : public Layer
 {
 private:
 	/***** File structure *****
-	x,y width,height spriteIndex,phantom
-	...
+	type x,y width,height spriteIndex,phantom
+	type = object type
 	x = x position IN TILES
 	y = y position IN TILES
 	width = object width
@@ -46,5 +46,6 @@ public:
 
 	/* Getters */
 	std::vector<GameObject> getCollisionObjects();
+	std::vector<GameObject*> getInteractiveObjects();
 };
 

@@ -22,6 +22,7 @@ private:
 
 
 	bool phantom;
+	bool interactive;
 
 	BoundingBox *b;
 	
@@ -32,6 +33,11 @@ private:
 
 public:
 	const static char PLAYER_TYPE = 'P';
+	const static char SINGLESHOT_WEAPON_TYPE = 'S';
+	const static char THREESHOT_WEAPON_TYPE = 'T';
+	const static char FIVESHOT_WEAPON_TYPE = 'V';
+	const static char FLAMETHROWER_WEAPON_TYPE = 'F';
+	const static char FIRSTAIDKIT_TYPE = 'B';
 
 	GameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable);
 	GameObject();
@@ -52,6 +58,7 @@ public:
 	virtual float getAngleVelocity() const;
 	BoundingBox* getBoundingBox() const;
 	bool shouldNotEnterObjects() const;
+	bool isInteractive() const;
 	char getType() const;
 	int getId();
 
@@ -62,6 +69,7 @@ public:
 	void setHeight(int height);
 	void setAction(SpriteAction action);
 	void setPhantom(bool phantom);
+	void setInteractive(bool interactive);
 	void setType(char type);
 	void setSpriteIndex(int spriteIndex);
 

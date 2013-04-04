@@ -20,8 +20,9 @@ bool HUD::load(Viewport *viewport)
 
 	x = viewport->getLeft() + MARGIN_LIFE + LIFE_ELEMENT_SIZE/2;
 	y = viewport->getTop() - MARGIN_LIFE - LIFE_ELEMENT_SIZE/2;
+	playerLife = std::vector<GameObject>(MAX_LIFE);
 	for (unsigned i = 0; i < MAX_LIFE; i++) {
-		playerLife.push_back(GameObject(x + i*LIFE_ELEMENT_SIZE, y, GameData::LIFEHUD_SPRITE_INDEX, LIFE_ELEMENT_SIZE, LIFE_ELEMENT_SIZE, false));
+		playerLife[i] = GameObject(x + i*LIFE_ELEMENT_SIZE, y, GameData::LIFEHUD_SPRITE_INDEX, LIFE_ELEMENT_SIZE, LIFE_ELEMENT_SIZE, false);
 	}
 	return true;
 }

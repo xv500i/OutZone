@@ -31,7 +31,9 @@ bool ObjectsLayer::load(int level, GameData *data)
 			getline(file, line);
 			std::stringstream sstr(line);
 			int x, y, width, height, spriteIndex;
-			char phantom;
+			char type, objectProperty;
+			sstr >> type;
+			if (sstr.peek() == ' ') sstr.ignore();
 			sstr >> x;
 			if (sstr.peek() == ',') sstr.ignore();
 			sstr >> y;
@@ -42,10 +44,21 @@ bool ObjectsLayer::load(int level, GameData *data)
 			if (sstr.peek() == ' ') sstr.ignore();
 			sstr >> spriteIndex;
 			if (sstr.peek() == ',') sstr.ignore();
-			sstr >> phantom;
+			sstr >> objectProperty;
 			GameObject object(x*TILE_WIDTH_IN_PIXELS + TILE_WIDTH_IN_PIXELS/2, y*TILE_HEIGHT_IN_PIXELS + TILE_HEIGHT_IN_PIXELS/2, spriteIndex, width, height, false);
-			if (phantom == 'C') object.setPhantom(false);
-			else if (phantom == 'P') object.setPhantom(true);
+			object.setType(type);
+			if (objectProperty == 'C') {
+				object.setPhantom(false);
+				object.setInteractive(false);
+			}
+			else if (objectProperty == 'P') {
+				object.setPhantom(true);
+				object.setInteractive(false);
+			}
+			else if (objectProperty == 'I') {
+				object.setPhantom(true);
+				object.setInteractive(true);
+			}
 			objects.push_back(object);
 		}
 		return true;
@@ -85,4 +98,12 @@ std::vector<GameObject> ObjectsLayer::getCollisionObjects()
 		if (objects[i].shouldNotEnterObjects()) collisionObjects.push_back(objects[i]);
 	}
 	return collisionObjects;
+}
+
+std::vector<GameObject*> ObjectsLayer::getInteractiveObjects()
+{
+	std::vector<GameObject*> interactiveObjects;
+	for (unsigned int i = 0; i < objects.size(); i++) {
+		if (objects[i].isInteractive()) interactiveObjects.push_back(&objects[i]);
+	}
 }
