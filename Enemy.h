@@ -21,12 +21,20 @@ enum EnemyType {
 	GUARD_PURSUE_SHOT
 };
 
+enum EnemyState {
+	GUARD,
+	ALERTED
+};
+
 class Enemy :
 	public MobileGameObject
 {
 private:
-	NPC_AI *ai;
+	//NPC_AI *ai;
+	std::vector<GuardPathState> guard;
 	std::vector<Bullet> enemyShots;
+	int guardIndex;
+	EnemyState state;
 
 public:
 	Enemy(void);
@@ -43,7 +51,7 @@ public:
 	void render(GameData *data);
 
 	/* Setters */
-	void setAI(NPC_AI *art);
+	//void setAI(NPC_AI *art);
 };
 
 #endif

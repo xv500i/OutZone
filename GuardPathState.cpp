@@ -5,21 +5,13 @@ GuardPathState::GuardPathState(void)
 {
 }
 
-GuardPathState::GuardPathState(int nextState, float vx, float vy , int ticksMax) : nextState(nextState), vx(vx), vy(vy), ticksMax(ticksMax)
+GuardPathState::GuardPathState(float vx, float vy , int ticksMax) : vx(vx), vy(vy), ticksMax(ticksMax)
 {
 
 }
-
 
 GuardPathState::~GuardPathState(void)
 {
-}
-
-void GuardPathState::update(Enemy &e)
-{
-	if (ticksLeft > 0) ticksLeft--;
-	e.setVX(vx);
-	e.setVY(vy);
 }
 
 bool GuardPathState::isFinished()
@@ -32,7 +24,22 @@ void GuardPathState::initialize()
 	ticksLeft = ticksMax;
 }
 
-int GuardPathState::getNextState()
+int GuardPathState::getTicksLeft()
 {
-	return nextState;
+	return ticksLeft;
+}
+
+int GuardPathState::getVX()
+{
+	return vx;
+}
+
+int GuardPathState::getVY()
+{
+	return vy;
+}
+
+void GuardPathState::update()
+{
+	ticksLeft--;
 }

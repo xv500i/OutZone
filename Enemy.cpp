@@ -9,16 +9,26 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 {
 	float v = 3.0f;
 	int ticks = 60;
-	GuardPathState *s1 = new GuardPathState(1, v, 0.0f, ticks);
-	GuardPathState *s2 = new GuardPathState(2, 0.0f, v, ticks);
-	GuardPathState *s3 = new GuardPathState(3, -v, 0.0f, ticks);
-	GuardPathState *s4 = new GuardPathState(0, 0.0f, -v, ticks);
+	GuardPathState *s1 = new GuardPathState(v, 0.0f, ticks);
+	GuardPathState *s2 = new GuardPathState(0.0f, v, ticks);
+	GuardPathState *s3 = new GuardPathState(-v, 0.0f, ticks);
+	GuardPathState *s4 = new GuardPathState(0.0f, -v, ticks);
+	guard.reserve(4);
+	guard.push_back(*s1);
+	guard.push_back(*s2);
+	guard.push_back(*s3);
+	guard.push_back(*s4);
+	guardIndex = 0;
+	guard[guardIndex].initialize();
+	state = GUARD;
+	/*
 	ai = new NPC_AI(4,0);
 	ai->setState(0, *s1);
 	ai->setState(1, *s2);
 	ai->setState(2, *s3);
 	ai->setState(3, *s4);
 	ai->initialize();
+	*/
 }
 
 /*Enemy::Enemy(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
@@ -41,17 +51,17 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 Enemy::Enemy(Player &p, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
-	ai = new NPC_AI(0,1,0);
+	//ai = new NPC_AI(0,1,0);
 	PursueState *pur = new PursueState(p, 200.0f, 250.f, 50.0f, 2.0f);
-	ai->setTriggerState(0, *pur);
+	//ai->setTriggerState(0, *pur);
 }
 
 Enemy::Enemy(Player &p, int fireDelay, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
-	ai = new NPC_AI(0,1,0);
+	//ai = new NPC_AI(0,1,0);
 	PursueState *pur = new PursueState(p, 200.0f, 250.f, 50.0f, 2.0f, true, fireDelay);
-	ai->setTriggerState(0, *pur);
+	//ai->setTriggerState(0, *pur);
 }
 
 Enemy::~Enemy(void) {}
@@ -61,7 +71,22 @@ Enemy::~Enemy(void) {}
 void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player)
 {
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
-	ai->update(enemyShots, *this);
+	//ai->update(enemyShots, *this);
+	switch(state){
+	case GUARD:
+		if (guard[guardIndex].isFinished()) {
+			// Agafar la seguent
+			guardIndex = (guardIndex+1)%guard.size();
+			guard[guardIndex].initialize();
+		}
+		// aplicar ruta
+		guard[guardIndex].update();
+		setVX(guard[guardIndex].getVX());
+		setVY(guard[guardIndex].getVY());
+		break;
+	case ALERTED:
+		break;
+	}
 
 	// TODO: No s'ha de fer collision amb el viewport, sino amb el nivell!
 	int minX = viewport->getLeft();
@@ -120,7 +145,9 @@ void Enemy::render(GameData *data)
 
 
 /* Setters */
+/*
 void Enemy::setAI(NPC_AI *art)
 {
 	ai = art;
 }
+*/
