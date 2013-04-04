@@ -26,9 +26,9 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 	minDistance = 150.0f;
 	minPursueDistance = 250.0f;
 
-	reloadTime = 40;
-	actualReloadTime = 0;
 	gunVelocity = 4.0f;
+
+	weapon = Weapon(ENEMY_BASIC_WEAPON);
 
 	/*
 	ai = new NPC_AI(4,0);
@@ -80,8 +80,7 @@ Enemy::~Enemy(void) {}
 void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player)
 {
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
-	//ai->update(enemyShots, *this);
-	if (actualReloadTime > 0) actualReloadTime--;
+	weapon.update();
 	float distanceToPlayer = distance(player);
 	float auxx = player.getX() - getX();
 	float auxy = player.getY() - getY();
@@ -89,7 +88,6 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 	/* normalize */
 	float nvx = auxx/length;
 	float nvy = auxy/length;
-	int ticksMax = 100;
 	switch(state){
 	case GUARD:
 		if (guard[guardIndex].isFinished()) {
@@ -105,11 +103,15 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		if (distanceToPlayer < detectionDistance) {
 			if (pursue) state = ALERTED;
 			// TODO disparar si te permis
-			if (firePermission && actualReloadTime <= 0) {
+			if (firePermission) {
+				weapon.fire(getX() + nvx*getWidth(), getY() + nvy*getHeight(), nvx*gunVelocity, nvy*gunVelocity , enemyShots); 
+				/*
 				Bullet* b = new Bullet(getX(), getY(), GameData::BULLET_SPRITE_INDEX, 6, 6, true, nvx*gunVelocity, nvy*gunVelocity);
 				enemyShots.push_back(*b);
 				b->setTicksLeft(ticksMax);
 				actualReloadTime = reloadTime;
+				*/
+				
 			}
 		}
 
@@ -130,11 +132,8 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 				fvy = nvy*pursueVelocity;
 			}
 			// TODO disparar si te permis
-			if (firePermission && actualReloadTime <= 0) {
-				Bullet* b = new Bullet(getX() + nvx*getWidth(), getY() + nvy*getHeight(), GameData::BULLET_SPRITE_INDEX, 6, 6, true, nvx*gunVelocity, nvy*gunVelocity);
-				b->setTicksLeft(ticksMax);
-				enemyShots.push_back(*b);
-				actualReloadTime = reloadTime;
+			if (firePermission) {
+				weapon.fire(getX() + nvx*getWidth(), getY() + nvy*getHeight(), nvx*gunVelocity, nvy*gunVelocity , enemyShots);
 			}
 		}
 

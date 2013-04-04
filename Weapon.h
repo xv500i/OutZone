@@ -7,7 +7,8 @@ enum WeaponType {
 	SINGLE_SHOT,
 	THREE_SHOTS,
 	FIVE_SHOTS,
-	FLAMETHROWER
+	FLAMETHROWER,
+	ENEMY_BASIC_WEAPON
 };
 
 class Weapon
@@ -33,7 +34,7 @@ public:
 
 	/* Fire */
 	bool fire(float x, float y, Direction dir, std::vector<Bullet> &v);
-
+	bool fire(float x, float y, float vx, float vy, std::vector<Bullet> &v);
 	/* Updating */
 	void update();
 

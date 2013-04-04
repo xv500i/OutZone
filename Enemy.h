@@ -8,6 +8,7 @@
 #include "GuardPathState.h"
 #include "PursueState.h"
 #include "Player.h"
+#include "Weapon.h"
 
 class Player;
 class NPC_AI;
@@ -36,14 +37,13 @@ private:
 	int guardIndex;
 	float pursueVelocity;
 	bool firePermission;
-	int reloadTime;
-	int actualReloadTime;
 	float gunVelocity;
 	bool pursue;
 	float detectionDistance;
 	float minDistance;
 	float minPursueDistance;
 	EnemyState state;
+	Weapon weapon;
 
 public:
 	Enemy(void);
