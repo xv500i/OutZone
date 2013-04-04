@@ -4,12 +4,13 @@
 
 Enemy::Enemy(void) {}
 
-Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex, const int width, const int height, std::vector<GuardPathState> &gps)
+Enemy::Enemy(EnemyType type, const float x, const float y, const int width, const int height, std::vector<GuardPathState> &gps, int spriteIndex)
 	: MobileGameObject(x, y, spriteIndex, width, height, false)
 {
 	guard = gps;
 	switch(type) {
 	case BAT_1:
+		setSpriteIndex(GameData::ALIEN1_SPRITE_INDEX);
 		life = 20;
 		detectionDistance = 300.0f;
 		pursue = false;
@@ -21,6 +22,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 		weapon = Weapon(ENEMY_BASIC_WEAPON);
 		break;
 	case BAT_2:
+		setSpriteIndex(GameData::ALIEN2_SPRITE_INDEX);
 		life = 30;
 		detectionDistance = 300.0f;
 		pursue = false;
@@ -29,9 +31,10 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 		minDistance = 150.0f;
 		minPursueDistance = 250.0f;
 		gunVelocity = 5.0f;
-		weapon = Weapon(ENEMY_BASIC_WEAPON);
+		weapon = Weapon(FLAMETHROWER);
 		break;
 	case BAT_3:
+		setSpriteIndex(GameData::ALIEN3_SPRITE_INDEX);
 		life = 40;
 		detectionDistance = 400.0f;
 		pursue = true;
@@ -43,6 +46,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 		weapon = Weapon(ENEMY_BASIC_WEAPON);
 		break;
 	case SPIDER_1:
+		//setSpriteIndex(GameData::SPIDER1_SPRITE_INDEX);
 		life = 20;
 		detectionDistance = 500.0f;
 		pursue = true;
@@ -54,6 +58,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 		weapon = Weapon(ENEMY_BASIC_WEAPON);
 		break;
 	case SPIDER_2:
+		//setSpriteIndex(GameData::SPIDER2_SPRITE_INDEX);
 		life = 30;
 		detectionDistance = 600.0f;
 		pursue = true;

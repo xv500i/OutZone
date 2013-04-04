@@ -42,7 +42,7 @@ private:
 
 public:
 	Enemy(void);
-	Enemy(EnemyType type, const float x, const float y, const int spriteIndex, const int width, const int height, std::vector<GuardPathState> &gps);
+	Enemy(EnemyType type, const float x, const float y, const int width, const int height, std::vector<GuardPathState> &gps, int spriteIndex = -1);
 	//Enemy(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);
 	//Enemy(Player &p, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);
 	//Enemy(Player &p, int fireDelay, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);

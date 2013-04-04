@@ -43,8 +43,6 @@ bool EnemiesLayer::load(int level, GameData *data)
 			sstr >> width;
 			if (sstr.peek() == ',') sstr.ignore();
 			sstr >> height;
-			if (sstr.peek() == ' ') sstr.ignore();
-			sstr >> spriteIndex;
 	
 			// GuardPathStates
 			std::vector<GuardPathState> path;
@@ -78,7 +76,7 @@ bool EnemiesLayer::load(int level, GameData *data)
 				break;
 			default: break;
 			}
-			Enemy enemy(type, x*TILE_WIDTH_IN_PIXELS + TILE_WIDTH_IN_PIXELS/2, y*TILE_HEIGHT_IN_PIXELS + TILE_HEIGHT_IN_PIXELS/2, spriteIndex, width, height, path);
+			Enemy enemy(type, x*TILE_WIDTH_IN_PIXELS + TILE_WIDTH_IN_PIXELS/2, y*TILE_HEIGHT_IN_PIXELS + TILE_HEIGHT_IN_PIXELS/2, width, height, path);
 			enemies.push_back(enemy);
 		}
 		return true;

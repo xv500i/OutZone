@@ -63,6 +63,7 @@ public:
 	void setAction(SpriteAction action);
 	void setPhantom(bool phantom);
 	void setType(char type);
+	void setSpriteIndex(int spriteIndex);
 
 
 	bool isIntersecting(const GameObject &go) const;

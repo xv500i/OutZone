@@ -52,7 +52,7 @@ void HUD::update(GameData *data, Viewport *viewport, int life, WeaponType weapon
 		case SINGLE_SHOT: spriteIndex = GameData::SINGLESHOTWEAPON_SPRITE_INDEX;
 		case THREE_SHOTS: spriteIndex = GameData::THREESHOTWEAPON_SPRITE_INDEX;
 		case FIVE_SHOTS: spriteIndex = GameData::FIVESHOTWEAPON_SPRITE_INDEX;
-		case FLAMETHROWER: spriteIndex = GameData::FLAMETHROWER_SOUND_INDEX;
+		case FLAMETHROWER: spriteIndex = GameData::FLAMETHROWER_SPRITE_INDEX;
 		default: break;
 		}
 		weaponUsed = GameObject(0, 0, spriteIndex, WEAPON_ELEMENT_SIZE, WEAPON_ELEMENT_SIZE, false);
