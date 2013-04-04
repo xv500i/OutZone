@@ -66,6 +66,12 @@ bool OutZone::process()
 		else {
 			scene.resolveInput(input);
 			scene.update(&data, &viewport);
+			if (scene.playerIsDead()) {
+				gameState = GAMEOVER_MENU;
+				data.stopSound(GameData::JUNGLE_THEME_INDEX);
+				data.stopSound(GameData::BOSS_THEME_INDEX);
+				data.playSound(GameData::GAME_OVER_INDEX);
+			}
 		}
 		break;
 
@@ -102,7 +108,11 @@ bool OutZone::process()
 
 		m = pauseMenu.getSelected();
 		if (m == RESTART) gameState = PLAYING;
-		else if (m == TO_MAIN_MENU) gameState = MAIN_MENU;
+		else if (m == TO_MAIN_MENU) {
+			gameState = MAIN_MENU;
+			data.stopSound(GameData::JUNGLE_THEME_INDEX);
+			data.stopSound(GameData::BOSS_THEME_INDEX);
+		}
 		else if (m == QUIT) gameState = EXIT;
 		pauseMenu.update();
 		break;

@@ -93,3 +93,8 @@ WeaponType Level::getPlayerWeaponType()
 {
 	return player.getWeaponType();
 }
+
+bool Level::playerIsDead()
+{
+	return player.getLife() <= 0;
+}
