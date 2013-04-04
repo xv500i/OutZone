@@ -23,12 +23,12 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 	state = GUARD;
 	detectionDistance = 300.0f;
 	pursueVelocity = 2.0f;
-	minDistance = 80.0f;
+	minDistance = 150.0f;
 	minPursueDistance = 250.0f;
 
-	reloadTime = 20;
+	reloadTime = 40;
 	actualReloadTime = 0;
-	gunVelocity = 3.0f;
+	gunVelocity = 4.0f;
 
 	/*
 	ai = new NPC_AI(4,0);
@@ -81,7 +81,7 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 {
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	//ai->update(enemyShots, *this);
-	if (reloadTime > 0) reloadTime--;
+	if (actualReloadTime > 0) actualReloadTime--;
 	float distanceToPlayer = distance(player);
 	float auxx = player.getX() - getX();
 	float auxy = player.getY() - getY();
@@ -89,6 +89,7 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 	/* normalize */
 	float nvx = auxx/length;
 	float nvy = auxy/length;
+	int ticksMax = 100;
 	switch(state){
 	case GUARD:
 		if (guard[guardIndex].isFinished()) {
@@ -101,16 +102,18 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		setVX(guard[guardIndex].getVX());
 		setVY(guard[guardIndex].getVY());
 		
-		if (distanceToPlayer < detectionDistance && pursue) {
-			state = ALERTED;
+		if (distanceToPlayer < detectionDistance) {
+			if (pursue) state = ALERTED;
+			// TODO disparar si te permis
+			if (firePermission && actualReloadTime <= 0) {
+				Bullet* b = new Bullet(getX(), getY(), GameData::BULLET_SPRITE_INDEX, 6, 6, true, nvx*gunVelocity, nvy*gunVelocity);
+				enemyShots.push_back(*b);
+				b->setTicksLeft(ticksMax);
+				actualReloadTime = reloadTime;
+			}
 		}
 
-		// TODO disparar si te permis
-		if (firePermission && reloadTime <= 0) {
-			Bullet* b = new Bullet(getX(), getY(), GameData::BULLET_SPRITE_INDEX, 6, 6, true, auxx*gunVelocity, auxy*gunVelocity);
-			//enemyShots.push_back(*b);
-			actualReloadTime = reloadTime;
-		}
+		
 		break;
 	case ALERTED:
 		float fvx = 0.0f;
@@ -127,9 +130,10 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 				fvy = nvy*pursueVelocity;
 			}
 			// TODO disparar si te permis
-			if (firePermission && reloadTime <= 0) {
-				Bullet* b = new Bullet(getX(), getY(), GameData::BULLET_SPRITE_INDEX, 6, 6, true, auxx*gunVelocity, auxy*gunVelocity);
-				//enemyShots.push_back(*b);
+			if (firePermission && actualReloadTime <= 0) {
+				Bullet* b = new Bullet(getX() + nvx*getWidth(), getY() + nvy*getHeight(), GameData::BULLET_SPRITE_INDEX, 6, 6, true, nvx*gunVelocity, nvy*gunVelocity);
+				b->setTicksLeft(ticksMax);
+				enemyShots.push_back(*b);
 				actualReloadTime = reloadTime;
 			}
 		}
@@ -168,9 +172,9 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 
 	// EnemyShots update
 	for (std::vector<Bullet>::iterator it = enemyShots.begin(); it != enemyShots.end();) {
-		std::vector<Player> players;
+		std::vector<GameObject> players;
 		players.push_back(player);
-		bool collision = it->update(data, collisionObjects, collisionTiles, (std::vector<GameObject>&)players);
+		bool collision = it->update(data, collisionObjects, collisionTiles, players);
 
 		// Remove the bullet if it goes off-screen
 		float x = it->getX();
