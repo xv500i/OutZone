@@ -17,7 +17,7 @@ Player::Player(const float x, const float y, const int spriteIndex, const int wi
 	ticksMaxInvul = 150;
 	ticksInvul = 0;
 	//FIXME:
-	lanternActivated = true;
+	lanternActivated = false;
 }
 
 Player::~Player(void) {}

@@ -34,6 +34,14 @@ private:
 	std::vector<GuardPathState> guard;
 	std::vector<Bullet> enemyShots;
 	int guardIndex;
+	float pursueVelocity;
+	bool firePermission;
+	int reloadTime;
+	int actualReloadTime;
+	bool pursue;
+	float detectionDistance;
+	float minDistance;
+	float minPursueDistance;
 	EnemyState state;
 
 public:

@@ -21,6 +21,11 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 	guardIndex = 0;
 	guard[guardIndex].initialize();
 	state = GUARD;
+	detectionDistance = 300.0f;
+	pursueVelocity = 2.0f;
+	minDistance = 80.0f;
+	minPursueDistance = 250.0f;
+
 	/*
 	ai = new NPC_AI(4,0);
 	ai->setState(0, *s1);
@@ -72,6 +77,7 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 {
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	//ai->update(enemyShots, *this);
+	float distanceToPlayer = distance(player);
 	switch(state){
 	case GUARD:
 		if (guard[guardIndex].isFinished()) {
@@ -83,8 +89,35 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		guard[guardIndex].update();
 		setVX(guard[guardIndex].getVX());
 		setVY(guard[guardIndex].getVY());
+		
+		if (distanceToPlayer < detectionDistance) {
+			state = ALERTED;
+		}
 		break;
 	case ALERTED:
+		float fvx = 0.0f;
+		float fvy = 0.0f;
+
+
+		if (distanceToPlayer < minPursueDistance) {
+			// dins del rang d'accio
+			float auxx = player.getX() - getX();
+			float auxy = player.getY() - getY();
+			float length = sqrt(auxx*auxx + auxy*auxy);
+			/* normalize */
+			float nvx = auxx/length;
+			float nvy = auxy/length;
+			// Si cal aproparse
+			if (distanceToPlayer > minDistance) {
+				/* scale */
+				fvx = nvx*pursueVelocity;
+				fvy = nvy*pursueVelocity;
+			}
+		}
+
+		// TODO disparar si te permis
+		setVX(fvx);
+		setVY(fvy);
 		break;
 	}
 
