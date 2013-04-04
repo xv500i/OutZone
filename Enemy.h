@@ -6,6 +6,7 @@
 
 #include "MobileGameObject.h"
 #include "GuardPathState.h"
+#include "PursueState.h"
 #include "Player.h"
 
 class Player;
