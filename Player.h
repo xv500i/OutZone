@@ -25,6 +25,8 @@ private:
 	int ticksMaxInvul;
 	int ticksInvul;
 	int life;
+	bool hasBeenHit;
+	bool hasBeenKilled;
 	std::vector<Bullet> playerShots;
 
 	void shotPrimaryWeapon();

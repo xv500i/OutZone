@@ -20,6 +20,8 @@ Player::Player(const float x, const float y, const int spriteIndex, const int wi
 	ticksInvul = 0;
 	//FIXME:
 	lanternActivated = false;
+	hasBeenHit = false;
+	hasBeenKilled = false;
 }
 
 Player::~Player(void) {}
@@ -98,8 +100,15 @@ void Player::shotPrimaryWeapon()
 /* Updating */
 int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies)
 {
+	if (hasBeenKilled) {
+		hasBeenKilled = false;
+		data->playSound(GameData::PLAYER_SCREAM_INDEX);
+	}
 	if (isDead()) return -1;
-	
+	if (hasBeenHit) {
+		data->playSound(GameData::PLAYER_OUCH_INDEX);
+		hasBeenHit = false;
+	}	
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	mainWeapon.update();
 
@@ -274,6 +283,8 @@ void Player::decrementLife()
 {
 	if (!invul) {
 		life--;
+		hasBeenHit = true;
+		hasBeenKilled = (life == 0);
 		if (life <= 0) {
 			Direction direction = getDirection();
 			switch (direction) {
