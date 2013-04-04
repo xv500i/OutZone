@@ -46,6 +46,9 @@ public:
 
 	/* Getters */
 	std::vector<GameObject> getCollisionObjects();
-	std::vector<GameObject*> getInteractiveObjects();
+	std::vector<GameObject> getInteractiveObjects();
+
+	/* Modifiers */
+	void removeObject(int index);
 };
 

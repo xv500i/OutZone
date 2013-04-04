@@ -58,6 +58,7 @@ bool ObjectsLayer::load(int level, GameData *data)
 			else if (objectProperty == 'I') {
 				object.setPhantom(true);
 				object.setInteractive(true);
+				object.setAction(STATIC_UP);
 			}
 			objects.push_back(object);
 		}
@@ -100,10 +101,17 @@ std::vector<GameObject> ObjectsLayer::getCollisionObjects()
 	return collisionObjects;
 }
 
-std::vector<GameObject*> ObjectsLayer::getInteractiveObjects()
+std::vector<GameObject> ObjectsLayer::getInteractiveObjects()
 {
-	std::vector<GameObject*> interactiveObjects;
+	std::vector<GameObject> interactiveObjects;
 	for (unsigned int i = 0; i < objects.size(); i++) {
-		if (objects[i].isInteractive()) interactiveObjects.push_back(&objects[i]);
+		if (objects[i].isInteractive()) interactiveObjects.push_back(objects[i]);
 	}
+	return interactiveObjects;
+}
+
+/* Modifiers */
+void ObjectsLayer::removeObject(int index)
+{
+	objects.erase(objects.begin() + index);
 }

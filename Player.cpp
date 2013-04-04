@@ -9,14 +9,14 @@ Player::Player(void) {}
 Player::Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy) 
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
-	mainWeapon = Weapon(FLAMETHROWER);
+	mainWeapon = Weapon(SINGLE_SHOT);
 	setDirection(UP);
 	setAction(STATIC_UP);
 	setType(PLAYER_TYPE);
 	life = 5;
 	shooting = false;
 	invul = false;
-	ticksMaxInvul = 150;
+	ticksMaxInvul = 70;
 	ticksInvul = 0;
 	//FIXME:
 	lanternActivated = false;
@@ -96,7 +96,7 @@ void Player::shotPrimaryWeapon()
 
 
 /* Updating */
-void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies)
+int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies)
 {
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	mainWeapon.update();
@@ -156,6 +156,25 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 		setY(minY + getHeight()/2);
 	}
 
+	// Interactive objects testing
+	int index = 0;
+	int indexTrobat = -1;
+	for (std::vector<GameObject>::iterator ito = interactiveObjects.begin(); ito != interactiveObjects.end() && indexTrobat == -1; ito++) {
+		if (getId() != ito->getId() && isIntersecting(*ito)) {
+			// We have pick up an interactive object
+			indexTrobat = index;
+			switch (ito->getType()) {
+			case GameObject::SINGLESHOT_WEAPON_TYPE:	changeWeapon(SINGLE_SHOT); break;
+			case GameObject::THREESHOT_WEAPON_TYPE:		changeWeapon(THREE_SHOTS); break;
+			case GameObject::FIVESHOT_WEAPON_TYPE:		changeWeapon(FIVE_SHOTS); break;
+			case GameObject::FLAMETHROWER_WEAPON_TYPE:	changeWeapon(FLAMETHROWER); break;
+			case GameObject::FIRSTAIDKIT_TYPE:			incrementLife(); break;
+			default: break;
+			}
+		}
+		index++;
+	}
+
 	// PlayerShots update
 	for (std::vector<Bullet>::iterator it = playerShots.begin(); it != playerShots.end();) {
 		std::vector<GameObject*> objectEnemies;
@@ -175,6 +194,8 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 		else if (collision || it->isDead()) it = playerShots.erase(it);
 		else it++;
 	}
+
+	return indexTrobat;
 }
 
 
@@ -238,7 +259,7 @@ void Player::setInvul()
 
 void Player::incrementLife()
 {
-	life++;
+	if (life < MAX_LIFE) life++;
 }
 
 void Player::decrementLife()
@@ -248,4 +269,9 @@ void Player::decrementLife()
 		life--;
 		setInvul();
 	}
+}
+
+void Player::changeWeapon(WeaponType type)
+{
+	mainWeapon = Weapon(type);
 }

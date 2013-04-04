@@ -41,7 +41,8 @@ void Level::update(GameData *data, Viewport *viewport)
 	//mobileTilesLayer.update(data);
 	objectsLayer.update(data);
 	enemiesLayer.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), &player);
-	player.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), enemiesLayer.getEnemies());
+	int indexInteractiveObject = player.update(data, viewport, getCollisionObjects(), objectsLayer.getInteractiveObjects(), staticTilesLayer.getCollisionMap(), enemiesLayer.getEnemies());
+	if (indexInteractiveObject >= 0) objectsLayer.removeObject(indexInteractiveObject);
 
 	// Viewport
 	viewport->updateWithPosition(player.getX(), player.getY());

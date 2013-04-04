@@ -50,10 +50,10 @@ void HUD::update(GameData *data, Viewport *viewport, int life, WeaponType weapon
 		currentType = weaponType;
 		int spriteIndex;
 		switch (currentType) {
-		case SINGLE_SHOT: spriteIndex = GameData::SINGLESHOTWEAPON_SPRITE_INDEX;
-		case THREE_SHOTS: spriteIndex = GameData::THREESHOTWEAPON_SPRITE_INDEX;
-		case FIVE_SHOTS: spriteIndex = GameData::FIVESHOTWEAPON_SPRITE_INDEX;
-		case FLAMETHROWER: spriteIndex = GameData::FLAMETHROWER_SPRITE_INDEX;
+		case SINGLE_SHOT: spriteIndex = GameData::SINGLESHOTWEAPON_SPRITE_INDEX; break;
+		case THREE_SHOTS: spriteIndex = GameData::THREESHOTWEAPON_SPRITE_INDEX; break;
+		case FIVE_SHOTS: spriteIndex = GameData::FIVESHOTWEAPON_SPRITE_INDEX; break;
+		case FLAMETHROWER: spriteIndex = GameData::FLAMETHROWER_SPRITE_INDEX; break;
 		default: break;
 		}
 		weaponUsed = GameObject(0, 0, spriteIndex, WEAPON_ELEMENT_SIZE, WEAPON_ELEMENT_SIZE, false);

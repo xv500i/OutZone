@@ -16,6 +16,7 @@ class Player : public MobileGameObject
 {
 private:
 	const static float DEFAULT_PLAYER_VELOCITY;
+	const static int MAX_LIFE = 5;
 
 	Weapon mainWeapon;
 	bool shooting;
@@ -38,7 +39,7 @@ public:
 	void resolveInput(InputHandler *input);
 
 	/* Updating */
-	void update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies);
+	int update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies);
 
 	/* Drawing */
 	void render(GameData *data);
@@ -52,4 +53,5 @@ public:
 	void setInvul();
 	void incrementLife();
 	void decrementLife();
+	void changeWeapon(WeaponType type);
 };
