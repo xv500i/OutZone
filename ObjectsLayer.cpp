@@ -26,6 +26,7 @@ bool ObjectsLayer::load(int level, GameData *data)
 
 	// Read the file
 	std::string line;
+	objects = std::vector<GameObject>();
 	if (file.is_open()) {
 		while (file.good()) {
 			getline(file, line);

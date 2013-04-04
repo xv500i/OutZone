@@ -10,6 +10,7 @@ HUD::~HUD(void) {}
 /* Loading */
 bool HUD::load(Viewport *viewport)
 {
+	// HUD Weapon
 	int x = viewport->getLeft() + viewport->getWidth() - MARGIN_WEAPON - WEAPON_ELEMENT_SIZE/2;
 	int y = viewport->getTop() - MARGIN_WEAPON - WEAPON_ELEMENT_SIZE/2;
 	weaponUsed = GameObject(x, y, GameData::SINGLESHOTWEAPON_SPRITE_INDEX, WEAPON_ELEMENT_SIZE, WEAPON_ELEMENT_SIZE, false);
@@ -18,6 +19,7 @@ bool HUD::load(Viewport *viewport)
 	weaponHUD = GameObject(x, y, GameData::WEAPONHUD_SPRITE_INDEX, WEAPONHUD_ELEMENT_SIZE, WEAPONHUD_ELEMENT_SIZE, false);
 	currentType = SINGLE_SHOT;
 
+	// HUD Life
 	x = viewport->getLeft() + MARGIN_LIFE + LIFE_ELEMENT_SIZE/2;
 	y = viewport->getTop() - MARGIN_LIFE - LIFE_ELEMENT_SIZE/2;
 	playerLife = std::vector<GameObject>(MAX_LIFE);

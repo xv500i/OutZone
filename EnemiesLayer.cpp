@@ -26,6 +26,7 @@ bool EnemiesLayer::load(int level, GameData *data)
 
 	// Read the file
 	std::string line;
+	enemies = std::vector<Enemy>();
 	if (file.is_open()) {
 		while (file.good()) {
 			getline(file, line);
