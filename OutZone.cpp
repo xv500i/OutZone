@@ -84,6 +84,7 @@ bool OutZone::process()
 		if (m == START) {
 			data.stopSound(GameData::INTRO_THEME_INDEX);
 			gameState = PLAYING;
+			viewport.init(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
 			scene.changeLevel(1, &data, &viewport);		// From the main menu, we start the first level
 		}
 		else if (m == INSTRUCTIONS) gameState = INSTRUCTIONS_MENU;
