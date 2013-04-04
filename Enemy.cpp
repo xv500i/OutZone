@@ -26,6 +26,10 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 	minDistance = 80.0f;
 	minPursueDistance = 250.0f;
 
+	reloadTime = 20;
+	actualReloadTime = 0;
+	gunVelocity = 3.0f;
+
 	/*
 	ai = new NPC_AI(4,0);
 	ai->setState(0, *s1);
@@ -77,7 +81,14 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 {
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	//ai->update(enemyShots, *this);
+	if (reloadTime > 0) reloadTime--;
 	float distanceToPlayer = distance(player);
+	float auxx = player.getX() - getX();
+	float auxy = player.getY() - getY();
+	float length = sqrt(auxx*auxx + auxy*auxy);
+	/* normalize */
+	float nvx = auxx/length;
+	float nvy = auxy/length;
 	switch(state){
 	case GUARD:
 		if (guard[guardIndex].isFinished()) {
@@ -90,8 +101,15 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		setVX(guard[guardIndex].getVX());
 		setVY(guard[guardIndex].getVY());
 		
-		if (distanceToPlayer < detectionDistance) {
+		if (distanceToPlayer < detectionDistance && pursue) {
 			state = ALERTED;
+		}
+
+		// TODO disparar si te permis
+		if (firePermission && reloadTime <= 0) {
+			Bullet* b = new Bullet(getX(), getY(), GameData::BULLET_SPRITE_INDEX, 6, 6, true, auxx*gunVelocity, auxy*gunVelocity);
+			//enemyShots.push_back(*b);
+			actualReloadTime = reloadTime;
 		}
 		break;
 	case ALERTED:
@@ -101,21 +119,22 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 
 		if (distanceToPlayer < minPursueDistance) {
 			// dins del rang d'accio
-			float auxx = player.getX() - getX();
-			float auxy = player.getY() - getY();
-			float length = sqrt(auxx*auxx + auxy*auxy);
-			/* normalize */
-			float nvx = auxx/length;
-			float nvy = auxy/length;
+			
 			// Si cal aproparse
 			if (distanceToPlayer > minDistance) {
 				/* scale */
 				fvx = nvx*pursueVelocity;
 				fvy = nvy*pursueVelocity;
 			}
+			// TODO disparar si te permis
+			if (firePermission && reloadTime <= 0) {
+				Bullet* b = new Bullet(getX(), getY(), GameData::BULLET_SPRITE_INDEX, 6, 6, true, auxx*gunVelocity, auxy*gunVelocity);
+				//enemyShots.push_back(*b);
+				actualReloadTime = reloadTime;
+			}
 		}
 
-		// TODO disparar si te permis
+		
 		setVX(fvx);
 		setVY(fvy);
 		break;

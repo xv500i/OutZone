@@ -38,6 +38,7 @@ private:
 	bool firePermission;
 	int reloadTime;
 	int actualReloadTime;
+	float gunVelocity;
 	bool pursue;
 	float detectionDistance;
 	float minDistance;
