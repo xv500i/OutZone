@@ -4,7 +4,8 @@
 
 const float Player::DEFAULT_PLAYER_VELOCITY = 2.0f;
 
-Player::Player(void) {}
+Player::Player(void) {
+}
 
 Player::Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy) 
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
@@ -100,7 +101,7 @@ void Player::shotPrimaryWeapon()
 /* Updating */
 int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies)
 {
-	if (hasBeenKilled) {
+	if (hasBeenKilled == true) {
 		hasBeenKilled = false;
 		data->playSound(GameData::PLAYER_SCREAM_INDEX);
 	}
