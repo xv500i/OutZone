@@ -10,7 +10,7 @@ class EnemiesLayer : public Layer
 {
 private:
 	/***** File structure *****
-	type x,y width,height spriteIndex
+	type x,y width,height spriteIndex [
 	type = enemy type
 	x = x position IN TILES
 	y = y position IN TILES
