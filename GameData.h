@@ -24,7 +24,7 @@ private:
 	const static char* SPRITE_EXT;
 
 	/* Sounds */
-	const static int NUM_SOUNDS = 8;		// TOCHANGE: modificar depenent del numero de sons carregats
+	const static int NUM_SOUNDS = 9;		// TOCHANGE: modificar depenent del numero de sons carregats
 	const static char* SOUND_EXT;
 
 	std::vector<Texture> textures;					/* All loaded textures */
@@ -74,6 +74,7 @@ public:
 	const static int FLAMETHROWER_SOUND_INDEX = 5;
 	const static int STAGE_CLEAR_INDEX = 6;
 	const static int ENDING_THEME_INDEX = 7;
+	const static int ROAR_INDEX = 8;
 
 	GameData(void);
 	~GameData(void);

@@ -102,7 +102,10 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		setVY(guard[guardIndex].getVY());
 		
 		if (distanceToPlayer < detectionDistance) {
-			if (pursue) state = ALERTED;
+			if (pursue) {
+				state = ALERTED;
+				data->playSound(GameData::ROAR_INDEX);
+			}
 			// TODO disparar si te permis
 			if (firePermission) {
 				weapon.fire(getX() + nvx*getWidth(), getY() + nvy*getHeight(), nvx*gunVelocity, nvy*gunVelocity , enemyShots); 
