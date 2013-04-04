@@ -92,7 +92,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int width, cons
 	}
 	else guardIndex = -1;
 	state = GUARD;
-
+	hasBeenHit = false;
 	/*
 	ai = new NPC_AI(4,0);
 	ai->setState(0, *s1);
@@ -143,6 +143,10 @@ Enemy::~Enemy(void) {}
 void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player)
 {
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
+	if (hasBeenHit) {
+		hasBeenHit = false;
+		data->playSound(GameData::ENEMY_OUCH_INDEX);
+	}
 	weapon.update();
 	float distanceToPlayer = distance(player);
 	float auxx = player.getX() - getX();
@@ -282,5 +286,6 @@ bool Enemy::isDead()
 void Enemy::decrementLife(int decrement)
 {
 	life -= decrement;
+	hasBeenHit = true;
 	// TODO: if life <= 0, setAction(DIE)
 }

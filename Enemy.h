@@ -39,6 +39,7 @@ private:
 	EnemyState state;
 	Weapon weapon;
 	int life;
+	bool hasBeenHit;
 
 public:
 	Enemy(void);
