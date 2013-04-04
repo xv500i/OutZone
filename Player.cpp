@@ -13,7 +13,7 @@ Player::Player(const float x, const float y, const int spriteIndex, const int wi
 	setDirection(UP);
 	setAction(STATIC_UP);
 	setType(PLAYER_TYPE);
-	life = 5;
+	life = 2;
 	shooting = false;
 	invul = false;
 	ticksMaxInvul = 70;
@@ -98,8 +98,11 @@ void Player::shotPrimaryWeapon()
 /* Updating */
 int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies)
 {
+	if (isDead()) return -1;
+	
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	mainWeapon.update();
+
 	if (invul) {
 		if (ticksInvul > 0) ticksInvul--;
 		invul = (ticksInvul > 0);
@@ -240,6 +243,11 @@ bool Player::isInvul() const
 	return invul;
 }
 
+bool Player::isDead() const
+{
+	return life <= 0;
+}
+
 int Player::getLife() const
 {
 	return life;
@@ -265,9 +273,22 @@ void Player::incrementLife()
 void Player::decrementLife()
 {
 	if (!invul) {
-		// TODO: posar l'estat a "DIE" si es la ultima vida
 		life--;
-		setInvul();
+		if (life <= 0) {
+			Direction direction = getDirection();
+			switch (direction) {
+			case UP:			setAction(DIE_UP); break;
+			case DOWN:			setAction(DIE_DOWN); break;
+			case LEFT:			setAction(DIE_LEFT); break;
+			case RIGHT:			setAction(DIE_RIGHT); break;
+			case UP_LEFT:		setAction(DIE_UP_LEFT); break;
+			case DOWN_LEFT:		setAction(DIE_DOWN_LEFT); break;
+			case DOWN_RIGHT:	setAction(DIE_DOWN_RIGHT); break;
+			case UP_RIGHT:		setAction(DIE_UP_RIGHT); break;
+			default: break;
+			}
+		}
+		else setInvul();
 	}
 }
 

@@ -25,7 +25,7 @@ void BossPart::update(GameData *data)
 	GameObject::update(data);
 }
 
-void BossPart::render(GameData *data) const
+void BossPart::render(GameData *data)
 {
 	GameObject::render(data);
 }

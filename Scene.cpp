@@ -90,5 +90,5 @@ void Scene::getLevelTileSize(int level, int *width, int *height)
 
 bool Scene::playerIsDead()
 {
-	return levels[currentLevel-1].playerIsDead();
+	return levels[currentLevel-1].playerHasLost();
 }

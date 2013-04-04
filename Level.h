@@ -45,6 +45,6 @@ public:
 	void getSizeInTiles(int *width, int *height);
 	void getTileSizeInPixels(int *width, int *height);
 	int getPlayerLife();
-	bool playerIsDead();
+	bool playerHasLost();
 	WeaponType getPlayerWeaponType();
 };

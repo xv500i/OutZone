@@ -95,7 +95,7 @@ WeaponType Level::getPlayerWeaponType()
 	return player.getWeaponType();
 }
 
-bool Level::playerIsDead()
+bool Level::playerHasLost()
 {
-	return player.getLife() <= 0;
+	return player.isDead() && player.isAnimationFinished();
 }

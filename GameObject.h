@@ -23,6 +23,7 @@ private:
 
 	bool phantom;
 	bool interactive;
+	bool animationFinished;
 
 	BoundingBox *b;
 	
@@ -47,7 +48,7 @@ public:
 	void update(GameData *data);
 
 	/* Drawing */
-	void render(GameData *data) const;
+	void render(GameData *data);
 
 	/* Getters */
 	float getX() const;
@@ -59,6 +60,7 @@ public:
 	BoundingBox* getBoundingBox() const;
 	bool shouldNotEnterObjects() const;
 	bool isInteractive() const;
+	bool isAnimationFinished() const;
 	char getType() const;
 	int getId();
 

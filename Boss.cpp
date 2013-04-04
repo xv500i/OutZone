@@ -54,7 +54,7 @@ void Boss::update(GameData *data, std::vector<Bullet> &shots, float x, float y)
 	GameObject::update(data);
 }
 
-void Boss::render(GameData *data) const
+void Boss::render(GameData *data)
 {
 	GameObject::render(data);
 	centerTail.render(data);

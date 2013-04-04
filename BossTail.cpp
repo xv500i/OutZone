@@ -42,7 +42,7 @@ void BossTail::update(GameData *data, std::vector<Bullet> &shots)
 	}
 }
 
-void BossTail::render(GameData *data) const
+void BossTail::render(GameData *data)
 {
 	//GameObject::render(data);
 	for(unsigned i = 0; i < parts.size(); i++) {

@@ -23,17 +23,16 @@ GameObject::~GameObject(void) {}
 
 
 /* Drawing */
-void GameObject::render(GameData *data) const
+void GameObject::render(GameData *data)
 {	
 	if (spriteInstanceIndex >= 0) {
 		//float angle = getAngleVelocity();
 
 		float s, t, offsetX, offsetY, angle;
 		int width, height, tx, ty;
-		bool finished;
-		data->getSpriteFrameInfo(spriteInstanceIndex, action, &finished, &s, &t, &offsetX, &offsetY, &width, &height, &tx, &ty, &angle);
+		data->getSpriteFrameInfo(spriteInstanceIndex, action, &animationFinished, &s, &t, &offsetX, &offsetY, &width, &height, &tx, &ty, &angle);
 
-		if (!finished) {
+		if (!animationFinished) {
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, data->getSpriteID(spriteIndex));
 			glPushMatrix();
@@ -105,6 +104,11 @@ bool GameObject::shouldNotEnterObjects() const
 bool GameObject::isInteractive() const
 {
 	return interactive;
+}
+
+bool GameObject::isAnimationFinished() const
+{
+	return animationFinished;
 }
 
 char GameObject::getType() const

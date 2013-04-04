@@ -46,6 +46,7 @@ public:
 
 	/* Getters */
 	bool isInvul() const;
+	bool isDead() const;
 	int getLife() const;
 	WeaponType getWeaponType();
 

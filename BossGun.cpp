@@ -59,7 +59,7 @@ void BossGun::update(GameData *data, std::vector<Bullet> &shots)
 	GameObject::update(data);
 }
 
-void BossGun::render(GameData *data) const
+void BossGun::render(GameData *data)
 {
 	GameObject::render(data);
 }

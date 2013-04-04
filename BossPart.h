@@ -12,7 +12,7 @@ public:
 	BossPart(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life);
 	~BossPart(void);
 	void update(GameData *data);
-	void render(GameData *data) const;
+	void render(GameData *data);
 	void moveTo(float x, float y, float &ix, float iy);
 	void setLimits(float maxX, float maxY, float minX, float minY);
 protected:
