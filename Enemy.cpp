@@ -174,7 +174,8 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 			}
 			// TODO disparar si te permis
 			if (firePermission) {
-				weapon.fire(getX() + nvx*getWidth(), getY() + nvy*getHeight(), nvx*gunVelocity, nvy*gunVelocity , enemyShots); 
+				bool fired = weapon.fire(getX() + nvx*getWidth(), getY() + nvy*getHeight(), nvx*gunVelocity, nvy*gunVelocity , enemyShots);
+				if (fired && weapon.getWeaponType() != FLAMETHROWER) data->playSound(GameData::GUN_SOUND_INDEX);
 				/*
 				Bullet* b = new Bullet(getX(), getY(), GameData::BULLET_SPRITE_INDEX, 6, 6, true, nvx*gunVelocity, nvy*gunVelocity);
 				enemyShots.push_back(*b);
@@ -203,7 +204,8 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 			}
 			// TODO disparar si te permis
 			if (firePermission) {
-				weapon.fire(getX() + nvx*getWidth(), getY() + nvy*getHeight(), nvx*gunVelocity, nvy*gunVelocity , enemyShots);
+				bool fired = weapon.fire(getX() + nvx*getWidth(), getY() + nvy*getHeight(), nvx*gunVelocity, nvy*gunVelocity , enemyShots);
+				if (fired && weapon.getWeaponType() != FLAMETHROWER) data->playSound(GameData::GUN_SOUND_INDEX);
 			}
 		}
 

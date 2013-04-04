@@ -134,7 +134,7 @@ bool GameData::loadSounds()
 {
 	const char* filenames[NUM_SOUNDS] = {"Jungle_Theme", "Boss_Battle", "Title_Theme", "Game_Over", "gun", "flamer", "Stage_Clear", "Ending_Theme", "roar"};
 	const bool loop[NUM_SOUNDS] = {true, true, false, false, false, false, false, false, false};
-	const float volumes[NUM_SOUNDS] = {1.0f, 1.0f, 1.0f, 1.0f, 0.15f, 0.8f, 1.0f, 1.0f, 0.8f};
+	const float volumes[NUM_SOUNDS] = {1.0f, 1.0f, 1.0f, 1.0f, 0.3f, 0.8f, 1.0f, 1.0f, 0.8f};
 	for (unsigned int i = 0; i < sounds.size(); i++) {
 		bool b = sounds[i].load(filenames[i], SOUND_EXT, loop[i], volumes[i]);
 		if (!b) return false;
