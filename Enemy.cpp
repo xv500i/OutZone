@@ -80,8 +80,12 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 	guard.push_back(*s3);
 	guard.push_back(*s4);
 	*/
-	guardIndex = 0;
-	if (guard.size() > 0) guard[guardIndex].initialize();
+	
+	if (guard.size() > 0) {
+		guardIndex = 0;
+		guard[guardIndex].initialize();
+	}
+	else guardIndex = -1;
 	state = GUARD;
 
 	/*
@@ -144,16 +148,20 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 	float nvy = auxy/length;
 	switch(state){
 	case GUARD:
-		if (guard[guardIndex].isFinished()) {
-			// Agafar la seguent
-			guardIndex = (guardIndex+1)%guard.size();
-			guard[guardIndex].initialize();
+		if (guardIndex == -1) {
+			setVX(0.0f);
+			setVY(0.0f);
+		} else {
+			if (guard[guardIndex].isFinished()) {
+				// Agafar la seguent
+				guardIndex = (guardIndex+1)%guard.size();
+				guard[guardIndex].initialize();
+			}
+			// aplicar ruta
+			guard[guardIndex].update();
+			setVX(guard[guardIndex].getVX());
+			setVY(guard[guardIndex].getVY());
 		}
-		// aplicar ruta
-		guard[guardIndex].update();
-		setVX(guard[guardIndex].getVX());
-		setVY(guard[guardIndex].getVY());
-		
 		if (distanceToPlayer < detectionDistance) {
 			if (pursue) {
 				state = ALERTED;
