@@ -31,8 +31,10 @@ bool EnemiesLayer::load(int level, GameData *data)
 			getline(file, line);
 			std::stringstream sstr(line);
 			int x, y, width, height, spriteIndex;
-			char type;
-			sstr >> type;
+			char enemyCategory;
+			char enemyType;
+			sstr >> enemyCategory;
+			sstr >> enemyType;
 			if (sstr.peek() == ' ') sstr.ignore();
 			sstr >> x;
 			if (sstr.peek() == ',') sstr.ignore();
@@ -43,8 +45,40 @@ bool EnemiesLayer::load(int level, GameData *data)
 			sstr >> height;
 			if (sstr.peek() == ' ') sstr.ignore();
 			sstr >> spriteIndex;
-			// TODO: fer depenent del type!
-			Enemy enemy(GUARD_NOSHOT, x*TILE_WIDTH_IN_PIXELS + TILE_WIDTH_IN_PIXELS/2, y*TILE_HEIGHT_IN_PIXELS + TILE_HEIGHT_IN_PIXELS/2, spriteIndex, width, height);
+	
+			// GuardPathStates
+			std::vector<GuardPathState> path;
+			while (sstr.peek() == ' ') {
+				sstr.ignore();
+				int vx, vy, tics;
+				sstr >> vx;
+				if (sstr.peek() == ',') sstr.ignore();
+				sstr >> vy;
+				if (sstr.peek() == ',') sstr.ignore();
+				sstr >> tics;
+				path.push_back(GuardPathState(vx, vy, tics));
+			}
+
+			EnemyType type;
+			switch (enemyCategory) {
+			case 'B':
+				switch (enemyType) {
+				case '1': type = BAT_1; break;
+				case '2': type = BAT_2; break;
+				case '3': type = BAT_3; break;
+				default: break;
+				}
+				break;
+			case 'S':
+				switch (enemyType) {
+				case '2': type = SPIDER_1; break;
+				case '1': type = SPIDER_2; break;
+				default: break;
+				}
+				break;
+			default: break;
+			}
+			Enemy enemy(type, x*TILE_WIDTH_IN_PIXELS + TILE_WIDTH_IN_PIXELS/2, y*TILE_HEIGHT_IN_PIXELS + TILE_HEIGHT_IN_PIXELS/2, spriteIndex, width, height, path);
 			enemies.push_back(enemy);
 		}
 		return true;
