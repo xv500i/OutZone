@@ -20,7 +20,7 @@ private:
 	const static char* TILESHEET_EXT;
 
 	/* Sprites */
-	const static int NUM_SPRITES = 11;		// TOCHANGE: modificar depenent del numero de sprites carregats
+	const static int NUM_SPRITES = 13;		// TOCHANGE: modificar depenent del numero de sprites carregats
 	const static char* SPRITE_EXT;
 
 	/* Sounds */
@@ -60,10 +60,12 @@ public:
 	const static int ALIEN1_SPRITE_INDEX = 4;
 	const static int BULLET_SPRITE_INDEX = 5;
 	const static int LIFEHUD_SPRITE_INDEX = 6;
-	const static int THREESHOTWEAPON_SPRITE_INDEX = 7;
-	const static int FIVESHOTWEAPON_SPRITE_INDEX = 8;
-	const static int FLAMETHROWER_SPRITE_INDEX = 9;
-	const static int FIRSTAIDKIT_SPRITE_INDEX = 10;
+	const static int SINGLESHOTWEAPON_SPRITE_INDEX = 7;
+	const static int THREESHOTWEAPON_SPRITE_INDEX = 8;
+	const static int FIVESHOTWEAPON_SPRITE_INDEX = 9;
+	const static int FLAMETHROWER_SPRITE_INDEX = 10;
+	const static int FIRSTAIDKIT_SPRITE_INDEX = 11;
+	const static int WEAPONHUD_SPRITE_INDEX = 12;
 	
 	/* Sounds indexes */		// TOCHANGE: afegir indexs de tots els sounds carregats
 	const static int JUNGLE_THEME_INDEX = 0;

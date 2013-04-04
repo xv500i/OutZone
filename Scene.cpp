@@ -53,7 +53,7 @@ void Scene::update(GameData *data, Viewport *viewport)
 	levels[currentLevel - 1].update(data, viewport);
 
 	// HUD update
-	hud.update(data, viewport, levels[currentLevel - 1].getPlayerLife());
+	hud.update(data, viewport, levels[currentLevel - 1].getPlayerLife(), levels[currentLevel - 1].getPlayerWeaponType());
 
 	//boss.update(data, enemyShots, player.getX(), player.getY());
 }

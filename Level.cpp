@@ -88,3 +88,8 @@ int Level::getPlayerLife()
 {
 	return player.getLife();
 }
+
+WeaponType Level::getPlayerWeaponType()
+{
+	return player.getWeaponType();
+}

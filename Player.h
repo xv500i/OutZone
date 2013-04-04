@@ -46,6 +46,7 @@ public:
 	/* Getters */
 	bool isInvul() const;
 	int getLife() const;
+	WeaponType getWeaponType();
 
 	/* Setters */
 	void setInvul();

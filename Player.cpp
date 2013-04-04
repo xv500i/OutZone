@@ -224,6 +224,11 @@ int Player::getLife() const
 	return life;
 }
 
+WeaponType Player::getWeaponType()
+{
+	return mainWeapon.getWeaponType();
+}
+
 /* Setters */
 void Player::setInvul()
 {
