@@ -98,8 +98,8 @@ void GameMenu::render(GameData *data)
 		yi -= (h + margin);
 	}
 	if (showCursor) {
-		float cw = 50;
-		float ch = 50;
+		float cw = 100;
+		float ch = 100;
 		float cx = xi - w/2 - cw/2;
 		float cy = 500.0f - currentOption*(h+margin);
 		
