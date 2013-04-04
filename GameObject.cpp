@@ -166,8 +166,8 @@ void GameObject::setType(char type)
 void GameObject::setSpriteIndex(int spriteIndex)
 {
 	this->spriteIndex = spriteIndex;
+	this->spriteInstanceIndex = -1;
 }
-
 
 bool GameObject::isIntersecting(const GameObject &go) const 
 {

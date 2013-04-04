@@ -100,8 +100,7 @@ void Player::shotPrimaryWeapon()
 
 /* Updating */
 int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies)
-{
-	
+{	
 	if (isDead()) {
 		if (hasBeenKilled) {
 			hasBeenKilled = false;
@@ -113,6 +112,7 @@ int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		data->playSound(GameData::PLAYER_OUCH_INDEX);
 		hasBeenHit = false;
 	}	
+
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	mainWeapon.update();
 

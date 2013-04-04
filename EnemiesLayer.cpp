@@ -95,7 +95,7 @@ void EnemiesLayer::update(GameData *data, Viewport *viewport, std::vector<GameOb
 {
 	for (std::vector<Enemy>::iterator it = enemies.begin(); it != enemies.end();) {
 		it->update(data, viewport, collisionObjects, collisionTiles, *player);
-		if (it->isDead()) it = enemies.erase(it);
+		if (it->isDead() && it->isAnimationFinished()) it = enemies.erase(it);
 		else it++;
 	}
 }

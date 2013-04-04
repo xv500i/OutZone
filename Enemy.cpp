@@ -142,11 +142,16 @@ Enemy::~Enemy(void) {}
 /* Updating */
 void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player)
 {
-	MobileGameObject::update(data, collisionObjects, collisionTiles);
+	if (isDead()) {
+		GameObject::update(data);
+		return;
+	}
 	if (hasBeenHit) {
 		hasBeenHit = false;
 		data->playSound(GameData::ENEMY_OUCH_INDEX);
 	}
+
+	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	weapon.update();
 	float distanceToPlayer = distance(player);
 	float auxx = player.getX() - getX();
@@ -285,7 +290,12 @@ bool Enemy::isDead()
 /* Setters */
 void Enemy::decrementLife(int decrement)
 {
-	life -= decrement;
-	hasBeenHit = true;
-	// TODO: if life <= 0, setAction(DIE)
+	if (life > 0) {
+		life -= decrement;
+		hasBeenHit = true;
+		if (life <= 0) {
+  			setSpriteIndex(GameData::EXPLOSION_SPRITE_INDEX);
+			setAction(STATIC_UP);
+		}
+	}
 }
