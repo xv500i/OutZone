@@ -83,3 +83,8 @@ std::vector<GameObject> Level::getCollisionObjects()
 	collisionObjects.insert(collisionObjects.end(), player);
 	return collisionObjects;
 }
+
+int Level::getPlayerLife()
+{
+	return player.getLife();
+}

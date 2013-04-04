@@ -52,9 +52,8 @@ void Scene::update(GameData *data, Viewport *viewport)
 	// Level update 
 	levels[currentLevel - 1].update(data, viewport);
 
-	// TODO: passar la vida del player! level.getPlayerLife() --> player.getLife()
 	// HUD update
-	hud.update(data, viewport, 3);
+	hud.update(data, viewport, levels[currentLevel - 1].getPlayerLife());
 
 	//boss.update(data, enemyShots, player.getX(), player.getY());
 }

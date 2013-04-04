@@ -1,6 +1,7 @@
 
 #include "Player.h"
 
+
 const float Player::DEFAULT_PLAYER_VELOCITY = 2.0f;
 
 Player::Player(void) {}
@@ -12,6 +13,7 @@ Player::Player(const float x, const float y, const int spriteIndex, const int wi
 	setDirection(UP);
 	setAction(STATIC_UP);
 	setType('p');
+	life = 5;
 	shooting = false;
 	invul = false;
 	ticksMaxInvul = 150;
@@ -184,17 +186,6 @@ void Player::render(GameData *data)
 	}
 }
 
-bool Player::isInvul() const
-{
-	return invul;
-}
-
-void Player::setInvul()
-{
-	invul = true;
-	ticksInvul = ticksMaxInvul;
-}
-
 void Player::renderLantern(int idTexture)
 {
 	glEnable(GL_TEXTURE_2D);
@@ -218,4 +209,32 @@ void Player::renderLantern(int idTexture)
 	glEnd();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
+}
+
+/* Getters */
+bool Player::isInvul() const
+{
+	return invul;
+}
+
+int Player::getLife() const
+{
+	return life;
+}
+
+/* Setters */
+void Player::setInvul()
+{
+	invul = true;
+	ticksInvul = ticksMaxInvul;
+}
+
+void Player::incrementLife()
+{
+	life++;
+}
+
+void Player::decrementLife()
+{
+	life--;
 }

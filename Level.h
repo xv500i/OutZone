@@ -44,4 +44,5 @@ public:
 	void getSizeInPixels(int *width, int *height);
 	void getSizeInTiles(int *width, int *height);
 	void getTileSizeInPixels(int *width, int *height);
+	int getPlayerLife();
 };

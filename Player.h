@@ -23,10 +23,12 @@ private:
 	bool lanternActivated;
 	int ticksMaxInvul;
 	int ticksInvul;
+	int life;
 	std::vector<Bullet> playerShots;
 
 	void shotPrimaryWeapon();
 	void renderLantern(int idTexture);
+
 public:
 	Player(void);
 	Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy);
@@ -41,6 +43,12 @@ public:
 	/* Drawing */
 	void render(GameData *data);
 
+	/* Getters */
 	bool isInvul() const;
+	int getLife() const;
+
+	/* Setters */
 	void setInvul();
+	void incrementLife();
+	void decrementLife();
 };
