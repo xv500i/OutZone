@@ -3,10 +3,6 @@
 #ifndef STATE_G_H
 #define STATE_G_H
 
-#include "Enemy.h"
-
-class Enemy;
-
 class GuardPathState
 {
 public:
@@ -17,8 +13,8 @@ public:
 	void update();
 	void initialize();
 	int getTicksLeft();
-	int getVX();
-	int getVY();
+	float getVX();
+	float getVY();
 
 private:
 	int ticksLeft;

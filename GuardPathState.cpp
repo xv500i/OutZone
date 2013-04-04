@@ -29,12 +29,12 @@ int GuardPathState::getTicksLeft()
 	return ticksLeft;
 }
 
-int GuardPathState::getVX()
+float GuardPathState::getVX()
 {
 	return vx;
 }
 
-int GuardPathState::getVY()
+float GuardPathState::getVY()
 {
 	return vy;
 }
