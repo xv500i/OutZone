@@ -69,8 +69,8 @@ bool EnemiesLayer::load(int level, GameData *data)
 				break;
 			case 'S':
 				switch (enemyType) {
-				case '2': type = SPIDER_1; break;
-				case '1': type = SPIDER_2; break;
+				case '1': type = SPIDER_1; break;
+				case '2': type = SPIDER_2; break;
 				default: break;
 				}
 				break;

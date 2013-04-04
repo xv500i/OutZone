@@ -46,7 +46,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int width, cons
 		weapon = Weapon(ENEMY_BASIC_WEAPON);
 		break;
 	case SPIDER_1:
-		//setSpriteIndex(GameData::SPIDER1_SPRITE_INDEX);
+		setSpriteIndex(GameData::SPIDER1_SPRITE_INDEX);
 		life = 20;
 		detectionDistance = 500.0f;
 		pursue = true;
@@ -58,7 +58,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int width, cons
 		weapon = Weapon(ENEMY_BASIC_WEAPON);
 		break;
 	case SPIDER_2:
-		//setSpriteIndex(GameData::SPIDER2_SPRITE_INDEX);
+		setSpriteIndex(GameData::SPIDER2_SPRITE_INDEX);
 		life = 30;
 		detectionDistance = 600.0f;
 		pursue = true;
