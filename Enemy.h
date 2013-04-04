@@ -5,7 +5,7 @@
 #define ENEMY_H
 
 #include "MobileGameObject.h"
-#include "NPC_AI.h"
+#include "GuardPathState.h"
 #include "Player.h"
 
 class Player;
@@ -30,7 +30,6 @@ class Enemy :
 	public MobileGameObject
 {
 private:
-	//NPC_AI *ai;
 	std::vector<GuardPathState> guard;
 	std::vector<Bullet> enemyShots;
 	int guardIndex;
