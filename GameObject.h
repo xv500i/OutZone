@@ -31,6 +31,8 @@ private:
 	char type;
 
 public:
+	const static char PLAYER_TYPE = 'P';
+
 	GameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable);
 	GameObject();
 	~GameObject(void);

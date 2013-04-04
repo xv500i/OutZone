@@ -7,6 +7,7 @@ Enemy::Enemy(void) {}
 Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex, const int width, const int height)
 	: MobileGameObject(x, y, spriteIndex, width, height, false)
 {
+	life = 1;
 	float v = 3.0f;
 	int ticks = 60;
 	GuardPathState *s1 = new GuardPathState(v, 0.0f, ticks);
@@ -57,21 +58,21 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int spriteIndex
 	ai->initialize();
 }*/
 
-Enemy::Enemy(Player &p, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
+/*Enemy::Enemy(Player &p, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
 	//ai = new NPC_AI(0,1,0);
-	PursueState *pur = new PursueState(p, 200.0f, 250.f, 50.0f, 2.0f);
+	//PursueState *pur = new PursueState(p, 200.0f, 250.f, 50.0f, 2.0f);
 	//ai->setTriggerState(0, *pur);
-}
+}*/
 
-Enemy::Enemy(Player &p, int fireDelay, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
+/*Enemy::Enemy(Player &p, int fireDelay, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
 	//ai = new NPC_AI(0,1,0);
-	PursueState *pur = new PursueState(p, 200.0f, 250.f, 50.0f, 2.0f, true, fireDelay);
+	//PursueState *pur = new PursueState(p, 200.0f, 250.f, 50.0f, 2.0f, true, fireDelay);
 	//ai->setTriggerState(0, *pur);
-}
+}*/
 
 Enemy::~Enemy(void) {}
 
@@ -171,8 +172,8 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 
 	// EnemyShots update
 	for (std::vector<Bullet>::iterator it = enemyShots.begin(); it != enemyShots.end();) {
-		std::vector<GameObject> players;
-		players.push_back(player);
+		std::vector<GameObject*> players;
+		players.push_back(&player);
 		bool collision = it->update(data, collisionObjects, collisionTiles, players);
 
 		// Remove the bullet if it goes off-screen
@@ -199,10 +200,16 @@ void Enemy::render(GameData *data)
 }
 
 
-/* Setters */
-/*
-void Enemy::setAI(NPC_AI *art)
+/* Getters */
+bool Enemy::isDead()
 {
-	ai = art;
+	return life <= 0;
 }
-*/
+
+
+/* Setters */
+void Enemy::decrementLife(int decrement)
+{
+	life -= decrement;
+	// TODO: if life <= 0, setAction(DIE)
+}

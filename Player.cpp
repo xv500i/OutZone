@@ -9,10 +9,10 @@ Player::Player(void) {}
 Player::Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy) 
 	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
 {
-	mainWeapon = Weapon(FLAMETHROWER);
+	mainWeapon = Weapon(SINGLE_SHOT);
 	setDirection(UP);
 	setAction(STATIC_UP);
-	setType('p');
+	setType(PLAYER_TYPE);
 	life = 5;
 	shooting = false;
 	invul = false;
@@ -158,8 +158,10 @@ void Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> 
 
 	// PlayerShots update
 	for (std::vector<Bullet>::iterator it = playerShots.begin(); it != playerShots.end();) {
-		std::vector<GameObject> objectEnemies;
-		objectEnemies.assign(enemies.begin(), enemies.end());
+		std::vector<GameObject*> objectEnemies;
+		for (unsigned int i = 0; i < enemies.size(); i++) {
+			objectEnemies.push_back(&enemies[i]);
+		}
 		bool collision = it->update(data, collisionObjects, collisionTiles, objectEnemies);
 
 		// Remove the bullet if it goes off-screen
@@ -236,5 +238,9 @@ void Player::incrementLife()
 
 void Player::decrementLife()
 {
-	life--;
+	if (!invul) {
+		// TODO: posar l'estat a "DIE" si es la ultima vida
+		life--;
+		setInvul();
+	}
 }

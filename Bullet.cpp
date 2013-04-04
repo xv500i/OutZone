@@ -1,35 +1,51 @@
 
 #include "Bullet.h"
+#include "Enemy.h"
+#include "Player.h"
 
 
 const float Bullet::DEFAULT_BULLET_VELOCITY = 10.0f;
 
 Bullet::Bullet(void) {}
 
-Bullet::Bullet(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy)
-	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy)
+Bullet::Bullet(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy, int damage)
+	: MobileGameObject(x, y, spriteIndex, width, height, isWalkable, vx, vy), damage(damage)
 {
 	ticksLeft = -1;
+	setPhantom(true);
 }
 
 Bullet::~Bullet(void) {}
 
 
 /* Drawing */
-bool Bullet::update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, std::vector<GameObject> &objectives)
+bool Bullet::update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, std::vector<GameObject*> &objectives)
 {
-	if (ticksLeft > 0) ticksLeft--;
+	if (ticksLeft > 0) ticksLeft--; 
 	bool collision = MobileGameObject::update(data, collisionObjects, collisionTiles);
 
-	for (std::vector<GameObject>::iterator iobj = objectives.begin(); iobj != objectives.end();) {
-		if (isIntersecting(*iobj)) {
-			// Kill enemy
-			// TODO ANIMATION
-			collision = true;
-			iobj = objectives.erase(iobj);
-		} 
-		else iobj++;
+	if (!objectives.empty()) {
+		// Matem enemics
+		if (objectives[0]->getType() != PLAYER_TYPE) {
+			for (std::vector<GameObject*>::iterator iobj = objectives.begin(); iobj != objectives.end();) {
+				Enemy *enemy = (Enemy*)*iobj;
+				if (isIntersecting(*enemy)) {
+					// Hit enemy
+					enemy->decrementLife(damage);
+				} 
+				iobj++;
+			}
+		}
+		// Matem al player
+		else {
+			Player *player = (Player*)objectives[0];
+			if (isIntersecting(*player)) {
+				// Hit player
+ 				player->decrementLife();
+			}
+		}
 	}
+
 	return collision;
 }
 

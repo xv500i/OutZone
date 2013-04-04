@@ -44,6 +44,6 @@ public:
 	virtual void render(GameData *data, Viewport *viewport);
 
 	/* Getters */
-	std::vector<Enemy> getEnemies();
+	std::vector<Enemy>& getEnemies();
 };
 

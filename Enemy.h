@@ -1,17 +1,12 @@
 
 #pragma once
 
-#ifndef ENEMY_H
-#define ENEMY_H
-
 #include "MobileGameObject.h"
 #include "GuardPathState.h"
-#include "PursueState.h"
 #include "Player.h"
 #include "Weapon.h"
 
 class Player;
-class NPC_AI;
 
 
 enum EnemyType {
@@ -44,13 +39,14 @@ private:
 	float minPursueDistance;
 	EnemyState state;
 	Weapon weapon;
+	int life;
 
 public:
 	Enemy(void);
 	Enemy(EnemyType type, const float x, const float y, const int spriteIndex, const int width, const int height);
 	//Enemy(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);
-	Enemy(Player &p, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);
-	Enemy(Player &p, int fireDelay, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);
+	//Enemy(Player &p, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);
+	//Enemy(Player &p, int fireDelay, const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx = 0, const float vy = 0);
 	~Enemy(void);
 	
 	/* Updating */
@@ -58,9 +54,10 @@ public:
 	
 	/* Drawing */
 	void render(GameData *data);
+	
+	/* Getters */
+	bool isDead();
 
 	/* Setters */
-	//void setAI(NPC_AI *art);
+	void decrementLife(int decrement);
 };
-
-#endif

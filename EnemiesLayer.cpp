@@ -60,8 +60,10 @@ bool EnemiesLayer::load(int level, GameData *data)
 /* Updating */
 void EnemiesLayer::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player *player)
 {
-	for (unsigned int i = 0; i < enemies.size(); i++) {
-		enemies[i].update(data, viewport, collisionObjects, collisionTiles, *player);
+	for (std::vector<Enemy>::iterator it = enemies.begin(); it != enemies.end();) {
+		it->update(data, viewport, collisionObjects, collisionTiles, *player);
+		if (it->isDead()) it = enemies.erase(it);
+		else it++;
 	}
 }
 
@@ -78,7 +80,7 @@ void EnemiesLayer::render(GameData *data, Viewport *viewport)
 }
 
 /* Getters */
-std::vector<Enemy> EnemiesLayer::getEnemies()
+std::vector<Enemy>& EnemiesLayer::getEnemies()
 {
 	return enemies;
 }

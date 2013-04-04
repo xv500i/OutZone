@@ -27,53 +27,51 @@ bool MobileGameObject::update(GameData *data, std::vector<GameObject> &collision
 	float tempX = getX() + vx;
 	float tempY = getY() + vy;
 
-	if (shouldNotEnterObjects()) {
-		// Object collision
-		for (std::vector<GameObject>::iterator ito = collisionObjects.begin(); ito != collisionObjects.end(); ito++) {
-			// Test intersecting X
-			updateBBox(vx, 0);
-			if (getId() != ito->getId() && isIntersecting(*ito)) {
+	// Object collision
+	for (std::vector<GameObject>::iterator ito = collisionObjects.begin(); ito != collisionObjects.end(); ito++) {
+		// Test intersecting X
+		updateBBox(vx, 0);
+		if (getId() != ito->getId() && isIntersecting(*ito)) {
+			collision = true;
+			if (shouldNotEnterObjects()) tempX = actualX;
+		}
+		// Test intersecting Y
+		updateBBox(-vx, vy);
+		if (getId() != ito->getId() && isIntersecting(*ito)) {
+			collision = true;
+			if (shouldNotEnterObjects()) tempY = actualY;
+		}
+		updateBBox(0, -vy);
+	}
+	// Tile collision
+	int minX, maxX, minY, maxY;
+	int tileWidthInPixels = 32;						// TODO: Canviar hardcoded
+	int tileHeightInPixels = 32;					// TODO: Canviar hardcoded
+	int widthInTiles = 15;							// TODO: Canviar hardcoded
+	int heightInTiles = collisionTiles.size()/15;	// TODO: Canviar hardcoded
+	// Test X collision
+	minX = std::max(0.0f, (tempX - getWidth()/2)/tileWidthInPixels);
+	minY = std::max(0.0f, heightInTiles - (actualY + getHeight()/2)/tileHeightInPixels);
+	maxX = std::min((float)widthInTiles - 1, (tempX + getWidth()/2)/tileWidthInPixels);
+	maxY = std::min((float)heightInTiles - 1, heightInTiles - (actualY - getHeight()/2)/tileHeightInPixels);
+	for (int y = minY; y <= maxY; y++) {
+		for (int x = minX; x <= maxX; x++) {
+			if (collisionTiles[y*widthInTiles + x]) {
 				collision = true;
 				tempX = actualX;
 			}
-			// Test intersecting Y
-			updateBBox(-vx, vy);
-			if (getId() != ito->getId() && isIntersecting(*ito)) {
+		}
+	}
+	// Test Y collision
+	minX = std::max(0.0f, (actualX - getWidth()/2)/tileWidthInPixels);
+	minY = std::max(0.0f, heightInTiles - (tempY + getHeight()/2)/tileHeightInPixels);
+	maxX = std::min((float)widthInTiles - 1, (actualX + getWidth()/2)/tileWidthInPixels);
+	maxY = std::min((float)heightInTiles - 1, heightInTiles - (tempY - getHeight()/2)/tileHeightInPixels);
+	for (int y = minY; y <= maxY; y++) {
+		for (int x = minX; x <= maxX; x++) {
+			if (collisionTiles[y*widthInTiles + x]) {
 				collision = true;
 				tempY = actualY;
-			}
-			updateBBox(0, -vy);
-		}
-		// Tile collision
-		int minX, maxX, minY, maxY;
-		int tileWidthInPixels = 32;						// TODO: Canviar hardcoded
-		int tileHeightInPixels = 32;					// TODO: Canviar hardcoded
-		int widthInTiles = 15;							// TODO: Canviar hardcoded
-		int heightInTiles = collisionTiles.size()/15;	// TODO: Canviar hardcoded
-		// Test X collision
-		minX = std::max(0.0f, (tempX - getWidth()/2)/tileWidthInPixels);
-		minY = std::max(0.0f, heightInTiles - (actualY + getHeight()/2)/tileHeightInPixels);
-		maxX = std::min((float)widthInTiles - 1, (tempX + getWidth()/2)/tileWidthInPixels);
-		maxY = std::min((float)heightInTiles - 1, heightInTiles - (actualY - getHeight()/2)/tileHeightInPixels);
-		for (int y = minY; y <= maxY; y++) {
-			for (int x = minX; x <= maxX; x++) {
-				if (collisionTiles[y*widthInTiles + x]) {
-					collision = true;
-					tempX = actualX;
-				}
-			}
-		}
-		// Test Y collision
-		minX = std::max(0.0f, (actualX - getWidth()/2)/tileWidthInPixels);
-		minY = std::max(0.0f, heightInTiles - (tempY + getHeight()/2)/tileHeightInPixels);
-		maxX = std::min((float)widthInTiles - 1, (actualX + getWidth()/2)/tileWidthInPixels);
-		maxY = std::min((float)heightInTiles - 1, heightInTiles - (tempY - getHeight()/2)/tileHeightInPixels);
-		for (int y = minY; y <= maxY; y++) {
-			for (int x = minX; x <= maxX; x++) {
-				if (collisionTiles[y*widthInTiles + x]) {
-					collision = true;
-					tempY = actualY;
-				}
 			}
 		}
 	}
