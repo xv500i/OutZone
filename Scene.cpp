@@ -68,8 +68,6 @@ void Scene::render(GameData *data, Viewport *viewport)
 
 	// Rendering the level
 	levels[currentLevel - 1].render(data, viewport);
-
-	//boss.render(data);
 }
 
 

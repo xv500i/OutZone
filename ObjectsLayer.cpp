@@ -72,10 +72,14 @@ bool ObjectsLayer::load(int level, GameData *data)
 }
 
 /* Updating */
-void ObjectsLayer::update(GameData *data)
+void ObjectsLayer::update(GameData *data, Viewport *viewport)
 {
+	// Simulate an object with the viewport coordinates
+	GameObject viewportObject = GameObject(viewport->getLeft() + viewport->getWidth()/2,
+										   viewport->getTop() - viewport->getHeight()/2,
+										   -1, viewport->getWidth(), viewport->getHeight(), false);
 	for (unsigned int i = 0; i < objects.size(); i++) {
-		objects[i].update(data);
+		if (objects[i].isIntersecting(viewportObject)) objects[i].update(data);
 	}
 }
 

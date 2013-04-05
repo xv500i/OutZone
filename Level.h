@@ -14,10 +14,13 @@ class Level
 private:
 	const static float PLAYER_INITIAL_X;
 	const static float PLAYER_INITIAL_Y;
+	const static float BOSS_INITIAL_X;
+	const static float BOSS_INITIAL_Y;
+	const static int BOSS_LEVEL = 2;
 
 	int levelNumber;
 	StaticTilesLayer staticTilesLayer;
-	MobileTilesLayer mobileTilesLayer;
+	//MobileTilesLayer mobileTilesLayer;
 	ObjectsLayer objectsLayer;
 	EnemiesLayer enemiesLayer;
 	Player player;

@@ -93,9 +93,16 @@ bool EnemiesLayer::load(int level, GameData *data)
 /* Updating */
 void EnemiesLayer::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player *player)
 {
+	// Simulate an object with the viewport coordinates
+	GameObject viewportObject = GameObject(viewport->getLeft() + viewport->getWidth()/2,
+										   viewport->getTop() - viewport->getHeight()/2,
+										   -1, viewport->getWidth(), viewport->getHeight(), false);
 	for (std::vector<Enemy>::iterator it = enemies.begin(); it != enemies.end();) {
-		it->update(data, viewport, collisionObjects, collisionTiles, *player);
-		if (it->isDead() && it->isAnimationFinished()) it = enemies.erase(it);
+		if (it->isIntersecting(viewportObject)) {
+			it->update(data, viewport, collisionObjects, collisionTiles, *player);
+			if (it->isDead() && it->isAnimationFinished()) it = enemies.erase(it);
+			else it++;
+		}
 		else it++;
 	}
 }

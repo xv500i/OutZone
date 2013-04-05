@@ -4,6 +4,8 @@
 
 const float Level::PLAYER_INITIAL_X = 240.0f;
 const float Level::PLAYER_INITIAL_Y = 112.0f;
+const float Level::BOSS_INITIAL_X = 240.0f;
+const float Level::BOSS_INITIAL_Y = 9400.0f;
 
 Level::Level()
 {
@@ -22,8 +24,7 @@ bool Level::load(GameData *data)
 	if (!objectsLayer.load(levelNumber, data)) return false;
 	if (!enemiesLayer.load(levelNumber, data)) return false;
 	player = Player(PLAYER_INITIAL_X, PLAYER_INITIAL_Y, GameData::PLAYER1_SPRITE_INDEX, 20, 30, true, 0.0f, 0.0f);
-	//FIXME:
-	boss = Boss(240.0f, 800.0f, GameData::BOSS_TEX_INDEX, 480.0f, 232.0f, true, 100);
+	if (levelNumber == BOSS_LEVEL) boss = Boss(BOSS_INITIAL_X, BOSS_INITIAL_Y, GameData::BOSS_TEX_INDEX, 480, 232, true, 100);
 	return true;
 }
 
@@ -38,12 +39,22 @@ void Level::resolveInput(InputHandler *input)
 /* Updating */
 void Level::update(GameData *data, Viewport *viewport)
 {
-	objectsLayer.update(data);
+	// Layers
+	objectsLayer.update(data, viewport);
 	enemiesLayer.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), &player);
+	// Player
 	int indexInteractiveObject = player.update(data, viewport, getCollisionObjects(), objectsLayer.getInteractiveObjects(), staticTilesLayer.getCollisionMap(), enemiesLayer.getEnemies());
 	if (indexInteractiveObject >= 0) objectsLayer.removeObject(indexInteractiveObject);
-	//FIXME:
-	boss.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), player);
+	// Boss
+	if (levelNumber == BOSS_LEVEL) {
+		// Simulate an object with the viewport coordinates
+		GameObject viewportObject = GameObject(viewport->getLeft() + viewport->getWidth()/2,
+											   viewport->getTop() - viewport->getHeight()/2,
+										       -1, viewport->getWidth(), viewport->getHeight(), false);
+		if (boss.isIntersecting(viewportObject)) {
+			boss.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), player);
+		}
+	}
 	// Viewport
 	viewport->updateWithPosition(player.getX(), player.getY());
 }
@@ -52,11 +63,19 @@ void Level::update(GameData *data, Viewport *viewport)
 /* Rendering */
 void Level::render(GameData *data, Viewport *viewport)
 {
+	// Static layers
 	staticTilesLayer.render(data, viewport);
-	mobileTilesLayer.render(data, viewport);
+	// Player
 	player.render(data);
-	//FIXME:
-	boss.render(data);
+	// Boss
+	if (levelNumber == BOSS_LEVEL) {
+		// Simulate an object with the viewport coordinates
+		GameObject viewportObject = GameObject(viewport->getLeft() + viewport->getWidth()/2,
+											   viewport->getTop() - viewport->getHeight()/2,
+										       -1, viewport->getWidth(), viewport->getHeight(), false);
+		if (boss.isIntersecting(viewportObject)) boss.render(data);
+	}
+	// Dinamic layers
 	enemiesLayer.render(data, viewport);
 	objectsLayer.render(data, viewport);
 }

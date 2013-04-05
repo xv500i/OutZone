@@ -39,7 +39,7 @@ public:
 	virtual bool load(int level, GameData *data);
 
 	/* Updating */
-	virtual void update(GameData *data);
+	virtual void update(GameData *data, Viewport *viewport);
 
 	/* Rendering */
 	virtual void render(GameData *data, Viewport *viewport);
