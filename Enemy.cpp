@@ -24,7 +24,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int width, cons
 	case BAT_2:
 		setSpriteIndex(GameData::ALIEN2_SPRITE_INDEX);
 		life = 30;
-		detectionDistance = 300.0f;
+		detectionDistance = 200.0f;
 		pursue = false;
 		firePermission = true;
 		pursueVelocity = 2.0f;
@@ -48,7 +48,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int width, cons
 	case SPIDER_1:
 		setSpriteIndex(GameData::SPIDER1_SPRITE_INDEX);
 		life = 20;
-		detectionDistance = 500.0f;
+		detectionDistance = 200.0f;
 		pursue = true;
 		firePermission = false;
 		pursueVelocity = 2.0f;
