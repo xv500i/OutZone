@@ -78,10 +78,25 @@ void BossTail::fireTo(std::vector<Bullet> &shots, float x, float y)
 
 bool BossTail::isDead()
 {
-	return life <= 0;
+	bool acabat;
+	if (life > 0) acabat = false;
+	else {
+ 		acabat = true;
+		for (unsigned int i= 0; i < parts.size() && acabat; i++) acabat = parts[i].isAnimationFinished();
+		if (!bg.isAnimationFinished()) acabat = false;
+	}
+	return life <= 0 && acabat;
 }
 
 void BossTail::decrementLife(int life)
 {
 	this->life -= life;
+ 	if (this->life <= 0) {
+		for (unsigned int i= 0; i < parts.size(); i++) {
+			parts[i].setSpriteIndex(GameData::EXPLOSION_SPRITE_INDEX);
+			parts[i].setAction(STATIC_UP);
+		}
+		bg.setSpriteIndex(GameData::EXPLOSION_SPRITE_INDEX);
+		bg.setAction(STATIC_UP);
+	}
 }
