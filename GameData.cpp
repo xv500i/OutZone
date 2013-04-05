@@ -21,7 +21,7 @@ GameData::~GameData(void) {}
 /* Textures */
 bool GameData::loadTextures()
 {
-	const char* filenames[NUM_TEXTURES] = {"title", "instructions", "pause", "gameover", "button_quit", "button_start","button_help", "button_restart", "button_mainmenu", "cursor", "lantern", "manual"};
+	const char* filenames[NUM_TEXTURES] = {"title", "instructions", "pause", "gameover", "button_quit", "button_start","button_help", "button_restart", "button_mainmenu", "cursor", "lantern", "manual", "boss", "tentacle_piece", "tentacle_base", "tentacle_weapon"};
 	for (unsigned int i = 0; i < textures.size(); i++) {
 		bool b = textures[i].load(filenames[i], TEXTURE_EXT);
 		if (!b) return false;
