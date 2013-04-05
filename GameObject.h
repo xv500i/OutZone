@@ -34,6 +34,7 @@ private:
 
 public:
 	const static char PLAYER_TYPE = 'P';
+	const static char BOSS_TYPE = 'X';
 	const static char SINGLESHOT_WEAPON_TYPE = 'S';
 	const static char THREESHOT_WEAPON_TYPE = 'T';
 	const static char FIVESHOT_WEAPON_TYPE = 'V';

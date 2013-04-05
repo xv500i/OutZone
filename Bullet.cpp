@@ -2,6 +2,7 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "BossTail.h"
 
 
 const float Bullet::DEFAULT_BULLET_VELOCITY = 10.0f;
@@ -26,22 +27,32 @@ bool Bullet::update(GameData *data, std::vector<GameObject> &collisionObjects, s
 
 	if (!objectives.empty()) {
 		// Matem enemics
-		if (objectives[0]->getType() != PLAYER_TYPE) {
-			for (std::vector<GameObject*>::iterator iobj = objectives.begin(); iobj != objectives.end();) {
-				Enemy *enemy = (Enemy*)*iobj;
-				if (isIntersecting(*enemy)) {
-					// Hit enemy
-					enemy->decrementLife(damage);
-				} 
-				iobj++;
-			}
-		}
-		// Matem al player
-		else {
+		if (objectives[0]->getType() == PLAYER_TYPE) {
 			Player *player = (Player*)objectives[0];
 			if (isIntersecting(*player)) {
 				// Hit player
  				player->decrementLife();
+			}
+		}
+		else {
+			for (std::vector<GameObject*>::iterator iobj = objectives.begin(); iobj != objectives.end();) {
+				if ((*iobj)->getType() == BOSS_TYPE) {
+					BossTail *boss = (BossTail*)*iobj;
+					if (isIntersecting(*boss)) {
+						// Hit enemy
+						boss->decrementLife(damage);
+						data->playSound();
+						collision = true;
+					} 
+					iobj++;
+				} else {
+					Enemy *enemy = (Enemy*)*iobj;
+					if (isIntersecting(*enemy)) {
+						// Hit enemy
+						enemy->decrementLife(damage);
+					} 
+					iobj++;
+				}
 			}
 		}
 	}

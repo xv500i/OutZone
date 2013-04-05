@@ -6,9 +6,10 @@ BossTail::BossTail(void)
 }
 
 BossTail::BossTail(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life, int nparts)
-	: GameObject(x, y, spriteIndex, width, height, isWalkable), life(life)
+	: GameObject(x, y - height/2, spriteIndex, 50.0f, 50.f, isWalkable), life(life)
 {
 	float yAux = y - height/2;
+	setType(BOSS_TYPE);
 	parts = std::vector<BossPart>(nparts);
 	for(int i = 0; i < nparts; i++) {
 		int idSprite;
@@ -21,6 +22,7 @@ BossTail::BossTail(const float x, const float y, const int spriteIndex, const in
 		yAux -= 20.0f;
 	}
 	bg = BossGun(x, yAux, GameData::TENTACLE_GUN_TEX_INDEX, 30.0f, 30.0f, true, 100);
+	setPhantom(false);
 }
 
 BossTail::~BossTail(void)
@@ -81,5 +83,5 @@ bool BossTail::isDead()
 
 void BossTail::decrementLife(int life)
 {
-
+	this->life -= life;
 }
