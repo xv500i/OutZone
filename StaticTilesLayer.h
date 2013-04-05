@@ -29,6 +29,7 @@ private:
 	int tileHeightInPixels;	/* Tile height in pixels */
 	std::vector<Tile> backgroundLayer;	/* Background layer tiles array */
 	std::vector<Tile> hoverLayer;		/* Hover layer tiles array */
+	std::vector<bool> collisionLayer;	/* Collision tiles layer array */
 
 	/* Loading */
 	bool loadHeader(std::ifstream &file);
@@ -53,6 +54,6 @@ public:
 	void getSizeInTiles(int *width, int *height);
 	void getSizeInPixels(int *width, int *height);
 	void getTileSizeInPixels(int *width, int *height);
-	std::vector<bool> getCollisionMap();
+	std::vector<bool>& getCollisionMap();
 };
 

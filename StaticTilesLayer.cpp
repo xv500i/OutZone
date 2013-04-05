@@ -63,6 +63,7 @@ bool StaticTilesLayer::loadHeader(std::ifstream &file)
 		}
 		backgroundLayer = std::vector<Tile>(widthInTiles*heightInTiles);
 		hoverLayer = std::vector<Tile>(widthInTiles*heightInTiles);
+		collisionLayer = std::vector<bool>(widthInTiles*heightInTiles, false);
 		return true;
 	}
 	else return false;
@@ -80,8 +81,14 @@ bool StaticTilesLayer::loadCollisionLayer(std::ifstream &file)
 				int type;
 				ss >> type;
 				ss.ignore();	// Ignorem la coma
-				if (type == 1) backgroundLayer[i*widthInTiles + j].type = WALL;
-				else if (type == 2) backgroundLayer[i*widthInTiles + j].type = HOLE;
+				if (type == 1) {
+					backgroundLayer[i*widthInTiles + j].type = WALL;
+					collisionLayer[i*widthInTiles + j] = true;
+				}
+				else if (type == 2) {
+					backgroundLayer[i*widthInTiles + j].type = HOLE;
+					collisionLayer[i*widthInTiles + j] = true;
+				}
 				else backgroundLayer[i*widthInTiles + j].type = LAND;
 			}
 		}
@@ -216,12 +223,7 @@ int StaticTilesLayer::getTileSheetIndex()	// TOCHANGE: Descomentar a mesura que 
 	}
 }
 
-std::vector<bool> StaticTilesLayer::getCollisionMap()
+std::vector<bool>& StaticTilesLayer::getCollisionMap()
 {
-	std::vector<bool> collisionMap = std::vector<bool>(backgroundLayer.size());
-	for (unsigned int i = 0; i < backgroundLayer.size(); i++) {
-		if (backgroundLayer[i].type == WALL || backgroundLayer[i].type == HOLE) collisionMap[i] = true;
-		else collisionMap[i] = false;
-	}
-	return collisionMap;
+	return collisionLayer;
 }
