@@ -99,5 +99,5 @@ bool Scene::playerHasWon()
 
 bool Scene::gameFinished()
 {
-	return levels[NUM_LEVELS - 1].playerHasWon();
+	return currentLevel == NUM_LEVELS && levels[NUM_LEVELS - 1].playerHasWon();
 }
