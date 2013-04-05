@@ -17,7 +17,8 @@ private:
 	const static float PLAYER_INITIAL_Y;
 	const static float BOSS_INITIAL_X;
 	const static float BOSS_INITIAL_Y;
-	const static int BOSS_LEVEL = 2;
+	const static int BOSS_LEVEL = 3;
+	const static int LANTERN_LEVEL = 2;
 	const static int DEATH_WALL_LEVEL = 1;
 
 	int levelNumber;

@@ -16,7 +16,7 @@ private:
 	const static char* TEXTURE_EXT;
 	
 	/* TileSheets */
-	const static int NUM_TILESHEETS = 2;	// TOCHANGE: modificar depenent del numero de tile sheets carregats
+	const static int NUM_TILESHEETS = 3;
 	const static char* TILESHEET_EXT;
 
 	/* Sprites */
@@ -55,6 +55,7 @@ public:
 	/* TileSheet indexes */		// TOCHANGE: afegir indexs de tots els tile sheets carregats
 	const static int LEVEL1_TILES_INDEX = 0;
 	const static int LEVEL2_TILES_INDEX = 1;
+	const static int LEVEL3_TILES_INDEX = 2;
 
 	/* Sprite indexes */		// TOCHANGE: afegir indexs de tots els sprites carregats
 	const static int PLAYER1_SPRITE_INDEX = 0;

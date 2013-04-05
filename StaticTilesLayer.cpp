@@ -219,6 +219,7 @@ int StaticTilesLayer::getTileSheetIndex()	// TOCHANGE: Descomentar a mesura que 
 	switch (level) {
 	case 1: return GameData::LEVEL1_TILES_INDEX;
 	case 2: return GameData::LEVEL2_TILES_INDEX;
+	case 3: return GameData::LEVEL3_TILES_INDEX;
 	default: return -1;
 	}
 }

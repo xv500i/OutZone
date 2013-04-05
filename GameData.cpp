@@ -33,7 +33,7 @@ bool GameData::loadTextures()
 /* Tile Sheets */
 bool GameData::loadTileSheets()
 {
-	const char* filenames[NUM_TILESHEETS] = {"Level1Tileset", "Level2Tileset"};
+	const char* filenames[NUM_TILESHEETS] = {"Level1Tileset", "Level2Tileset", "Level3Tileset"};
 	for (unsigned int i = 0; i < tileSheets.size(); i++) {
 		bool b = tileSheets[i].load(filenames[i], TILESHEET_EXT);
 		if (!b) return false;

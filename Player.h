@@ -62,4 +62,5 @@ public:
 	void kill();
 	void changeWeapon(WeaponType type);
 	void victory();
+	void setLanternActivated(bool lantern);
 };

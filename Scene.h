@@ -15,7 +15,7 @@ using namespace std;
 class Scene
 {
 private:
-	const static int NUM_LEVELS = 2;
+	const static int NUM_LEVELS = 3;
 	
 	vector<Level> levels;
 	HUD hud;

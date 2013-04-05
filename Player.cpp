@@ -351,3 +351,8 @@ void Player::victory()
 {
 	winner = true;
 }
+
+void Player::setLanternActivated(bool lantern)
+{
+	lanternActivated = lantern;
+}
