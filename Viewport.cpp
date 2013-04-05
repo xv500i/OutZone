@@ -27,10 +27,11 @@ void Viewport::init(float left, float top, float width, float height)
 	minBottom = top - height;
 }
 
-void Viewport::updateWithPosition(int x, int y)
+void Viewport::updateWithPosition(int x, int y, bool topLocked)
 {
 	float newLeft = x - width/2;
 	float newTop = y + height*2/3;
+	if (newTop < top && topLocked) newTop = top;
 
 	// Viewport limit control
 	if (newLeft < minLeft) left = minLeft;

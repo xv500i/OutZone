@@ -18,6 +18,7 @@ class Player : public MobileGameObject
 private:
 	const static float DEFAULT_PLAYER_VELOCITY;
 	const static int MAX_LIFE = 5;
+	const static int LANTERN_DEPTH = 3;
 
 	Weapon mainWeapon;
 	bool shooting;

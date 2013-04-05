@@ -29,7 +29,7 @@ public:
 
 	/* Viewport lifetime */
 	void init(float left, float top, float width, float height);
-	void updateWithPosition(int x, int y);
+	void updateWithPosition(int x, int y, bool topLocked);
 
 	/* Getters */
 	float getLeft();

@@ -24,8 +24,8 @@ bool Level::load(GameData *data, Viewport *viewport)
 	if (!objectsLayer.load(levelNumber, data)) return false;
 	if (!enemiesLayer.load(levelNumber, data)) return false;
 	player = Player(PLAYER_INITIAL_X, PLAYER_INITIAL_Y, GameData::PLAYER1_SPRITE_INDEX, 20, 30, true, 0.0f, 0.0f);
-	//if (levelNumber == BOSS_LEVEL) boss = Boss(BOSS_INITIAL_X, BOSS_INITIAL_Y, GameData::BOSS_TEX_INDEX, 480, 232, true, 100);
-	if (levelNumber == BOSS_LEVEL) boss = Boss(240, 600, GameData::BOSS_TEX_INDEX, 480, 232, true, 100);
+	if (levelNumber == BOSS_LEVEL) boss = Boss(BOSS_INITIAL_X, BOSS_INITIAL_Y, GameData::BOSS_TEX_INDEX, 480, 232, true, 100);
+	//if (levelNumber == BOSS_LEVEL) boss = Boss(240, 600, GameData::BOSS_TEX_INDEX, 480, 232, true, 100);
 	player.setLanternActivated(levelNumber == LANTERN_LEVEL);
 	if (levelNumber == DEATH_WALL_LEVEL) deathWall = DeathWall(viewport->getWidth(), viewport->getHeight());
 	bossTriggered = false;
@@ -43,6 +43,7 @@ void Level::resolveInput(InputHandler *input)
 /* Updating */
 void Level::update(GameData *data, Viewport *viewport)
 {
+	bool viewportSetted;
 	// Layers
 	objectsLayer.update(data, viewport);
 	enemiesLayer.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), &player);
@@ -59,6 +60,10 @@ void Level::update(GameData *data, Viewport *viewport)
 				data->playSound(GameData::BOSS_THEME_INDEX);
 				bossTriggered = true;
 			}
+			// Viewport
+			viewport->updateWithPosition(player.getX(), player.getY(), true);
+			viewportSetted = false;
+
 			parts = boss.getAliveParts();
 			boss.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), player);
 		}
@@ -75,7 +80,7 @@ void Level::update(GameData *data, Viewport *viewport)
 		deathWall.update(data, enemiesLayer.getEnemies(), player);
 	}
 	// Viewport
-	viewport->updateWithPosition(player.getX(), player.getY());
+	if (!viewportSetted) viewport->updateWithPosition(player.getX(), player.getY(), false);
 }
 
 

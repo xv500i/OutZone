@@ -242,16 +242,16 @@ void Player::renderLantern(int idTexture)
 	glBegin(GL_QUADS);
 		// Bottom-left
 		glTexCoord2f(0, 1);
-		glVertex3i(- 4000/2 , - 4000/2, 1.5);
+		glVertex3i(- 4000/2 , - 4000/2, LANTERN_DEPTH);
 		// Top-left
 		glTexCoord2f(0, 0);
-		glVertex3i(- 4000/2 , + 4000/2, 1.5);
+		glVertex3i(- 4000/2 , + 4000/2, LANTERN_DEPTH);
 		// Top-right
 		glTexCoord2f(1, 0);
-		glVertex3i(+ 4000/2 , + 4000/2, 1.5);
+		glVertex3i(+ 4000/2 , + 4000/2, LANTERN_DEPTH);
 		// Bottom-right
 		glTexCoord2f(1, 1);
-		glVertex3i(+ 4000/2 , - 4000/2, 1.5);	
+		glVertex3i(+ 4000/2 , - 4000/2, LANTERN_DEPTH);	
 	glEnd();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
