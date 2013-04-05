@@ -44,5 +44,6 @@ public:
 	void getLevelTileSize(int level, int *width, int *height);
 	bool playerHasLost();
 	bool playerHasWon();
+	bool gameFinished();
 };
 

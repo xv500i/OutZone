@@ -61,4 +61,5 @@ public:
 
 	/* Setters */
 	void decrementLife(int decrement);
+	void kill();
 };

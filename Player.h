@@ -58,6 +58,7 @@ public:
 	void setInvul();
 	void incrementLife();
 	void decrementLife();
+	void kill();
 	void changeWeapon(WeaponType type);
 	void victory();
 };

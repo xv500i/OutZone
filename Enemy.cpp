@@ -308,3 +308,14 @@ void Enemy::decrementLife(int decrement)
 		}
 	}
 }
+
+void Enemy::kill()
+{
+	if (life > 0) {
+		life = 0;
+		hasBeenHit = true;
+		hasBeenKilled = true;
+		setSpriteIndex(GameData::EXPLOSION_SPRITE_INDEX);
+		setAction(STATIC_UP);
+	}
+}

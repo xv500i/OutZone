@@ -315,6 +315,29 @@ void Player::decrementLife()
 	}
 }
 
+void Player::kill()
+{
+	if (life > 0) {
+		life = 0;
+		hasBeenHit = true;
+		hasBeenKilled = true;
+		if (life <= 0) {
+			Direction direction = getDirection();
+			switch (direction) {
+			case UP:			setAction(DIE_UP); break;
+			case DOWN:			setAction(DIE_DOWN); break;
+			case LEFT:			setAction(DIE_LEFT); break;
+			case RIGHT:			setAction(DIE_RIGHT); break;
+			case UP_LEFT:		setAction(DIE_UP_LEFT); break;
+			case DOWN_LEFT:		setAction(DIE_DOWN_LEFT); break;
+			case DOWN_RIGHT:	setAction(DIE_DOWN_RIGHT); break;
+			case UP_RIGHT:		setAction(DIE_UP_RIGHT); break;
+			default: break;
+			}
+		}
+	}
+}
+
 void Player::changeWeapon(WeaponType type)
 {
 	mainWeapon = Weapon(type);
