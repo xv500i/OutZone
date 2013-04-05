@@ -10,8 +10,7 @@ public:
 	BossGun(void);
 	BossGun(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life);
 	~BossGun(void);
-	void update(GameData *data, std::vector<Bullet> &shots);
-	void render(GameData *data);
+	void update(GameData *data,  std::vector<Bullet> &shots);
 private:
 	int fireRate;
 	int fireDelay;

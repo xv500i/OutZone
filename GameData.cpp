@@ -21,7 +21,7 @@ GameData::~GameData(void) {}
 /* Textures */
 bool GameData::loadTextures()
 {
-	const char* filenames[NUM_TEXTURES] = {"title", "instructions", "pause", "gameover", "button_quit", "button_start","button_help", "button_restart", "button_mainmenu", "cursor", "lantern", "manual", "boss", "tentacle_piece", "tentacle_base", "tentacle_weapon"};
+	const char* filenames[NUM_TEXTURES] = {"title", "instructions", "pause", "gameover", "button_quit", "button_start","button_help", "button_restart", "button_mainmenu", "cursor", "lantern", "manual"};
 	for (unsigned int i = 0; i < textures.size(); i++) {
 		bool b = textures[i].load(filenames[i], TEXTURE_EXT);
 		if (!b) return false;
@@ -75,7 +75,7 @@ void GameData::getTileSheetTileOffset(int tileSheetIndex, float *offsetX, float 
 /* Sprites */
 bool GameData::loadSprites()
 {
-	const char* filenames[NUM_SPRITES] = {"Player1", "Player2", "Fire", "Fire2", "Alien1", "Bullet", "LifeHUD", "SingleShotWeapon", "ThreeShotWeapon", "FiveShotWeapon", "Flamethrower", "FirstAidKit", "WeaponHUD", "Alien2", "Alien3", "Spider1", "Spider2", "Explosion"};
+	const char* filenames[NUM_SPRITES] = {"Player1", "Player2", "Fire", "Fire2", "Alien1", "Bullet", "LifeHUD", "SingleShotWeapon", "ThreeShotWeapon", "FiveShotWeapon", "Flamethrower", "FirstAidKit", "WeaponHUD", "Alien2", "Alien3", "Spider1", "Spider2", "Explosion", "boss", "tentacle_piece", "tentacle_base", "tentacle_weapon"};
 	for (unsigned int i = 0; i < sprites.size(); i++) {
 		bool b = sprites[i].load(filenames[i], SPRITE_EXT);
 		if (!b) return false;

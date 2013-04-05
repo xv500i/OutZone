@@ -12,7 +12,7 @@ class GameData
 {
 private:
 	/* Textures */
-	const static int NUM_TEXTURES = 16;		// TOCHANGE: modificar depenent del numero de textures carregades
+	const static int NUM_TEXTURES = 12;		// TOCHANGE: modificar depenent del numero de textures carregades
 	const static char* TEXTURE_EXT;
 	
 	/* TileSheets */
@@ -20,7 +20,7 @@ private:
 	const static char* TILESHEET_EXT;
 
 	/* Sprites */
-	const static int NUM_SPRITES = 18;		// TOCHANGE: modificar depenent del numero de sprites carregats
+	const static int NUM_SPRITES = 22;		// TOCHANGE: modificar depenent del numero de sprites carregats
 	const static char* SPRITE_EXT;
 
 	/* Sounds */
@@ -47,10 +47,7 @@ public:
 	const static int CURSOR_INDEX = 9;
 	const static int LANTERN_INDEX = 10;
 	const static int MANUAL_INDEX = 11;
-	const static int BOSS_TEX_INDEX = 12;
-	const static int TENTACLE_BASE_TEX_INDEX = 13;
-	const static int TENTACLE_TEX_INDEX = 14;
-	const static int TENTAGLE_GUN_TEX_INDEX = 15;
+	
 
 	/* TileSheet indexes */		// TOCHANGE: afegir indexs de tots els tile sheets carregats
 	const static int LEVEL1_TILES_INDEX = 0;
@@ -75,6 +72,10 @@ public:
 	const static int SPIDER1_SPRITE_INDEX = 15;
 	const static int SPIDER2_SPRITE_INDEX = 16;
 	const static int EXPLOSION_SPRITE_INDEX = 17;
+	const static int BOSS_TEX_INDEX = 18;
+	const static int TENTACLE_TEX_INDEX = 19;
+	const static int TENTACLE_BASE_TEX_INDEX = 20;
+	const static int TENTACLE_GUN_TEX_INDEX = 21;
 	
 	/* Sounds indexes */		// TOCHANGE: afegir indexs de tots els sounds carregats
 	const static int JUNGLE_THEME_INDEX = 0;

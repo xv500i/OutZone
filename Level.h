@@ -6,6 +6,7 @@
 #include "ObjectsLayer.h"
 #include "EnemiesLayer.h"
 #include "Player.h"
+#include "Boss.h"
 
 
 class Level
@@ -20,6 +21,8 @@ private:
 	ObjectsLayer objectsLayer;
 	EnemiesLayer enemiesLayer;
 	Player player;
+	//FIXME:
+	Boss boss;
 
 	std::vector<GameObject> Level::getCollisionObjects();
 

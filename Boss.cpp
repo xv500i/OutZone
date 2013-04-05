@@ -8,11 +8,12 @@ Boss::Boss(void)
 Boss::Boss(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life)
 	: GameObject(x, y, spriteIndex, width, height, isWalkable), life(life)
 {
-	centerTail = BossTail(x, y, -1, width, height, true, 100, 7);
+	centerTail = BossTail(x, y+100, -1, width, height, true, 100, 7);
 	leftTail = BossTail(x - 100.0f, y, -1, width, height, true, 100, 5);
 	rightTail = BossTail(x + 100.0f, y, -1, width, height, true, 100, 5);
 	ia = SWINGING;
 	t = 100;
+	setAction(STATIC_UP);
 }
 
 
@@ -20,14 +21,16 @@ Boss::~Boss(void)
 {
 }
 
-void Boss::update(GameData *data, std::vector<Bullet> &shots, float x, float y)
+void Boss::update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player)
 {
+	float x = player.getX();
+	float y = player.getY();
 	switch(ia) {
 	case SWINGING:
 		if (t > 0) { 
-			centerTail.update(data, shots);
-			leftTail.update(data, shots);
-			rightTail.update(data, shots);
+			centerTail.update(data, enemyShots);
+			leftTail.update(data, enemyShots);
+			rightTail.update(data, enemyShots);
 		} else {
 			t = 100 + ((int)rand())%25;
 			ia = IDLE;
@@ -41,9 +44,9 @@ void Boss::update(GameData *data, std::vector<Bullet> &shots, float x, float y)
 		break;
 	case FIRE_TO_PLAYER:
 		if (t > 0) {
-			if(t%9 == 0) centerTail.fireTo(shots,x,y);
-			else if(t%9 == 1) leftTail.fireTo(shots,x,y);
-			else if(t%9 == 2) rightTail.fireTo(shots,x,y);
+			if(t%9 == 0) centerTail.fireTo(enemyShots,x,y);
+			else if(t%9 == 1) leftTail.fireTo(enemyShots,x,y);
+			else if(t%9 == 2) rightTail.fireTo(enemyShots,x,y);
 		} else {
 			t = 450 + ((int)rand()) % 100;
 			ia = SWINGING;
@@ -52,12 +55,16 @@ void Boss::update(GameData *data, std::vector<Bullet> &shots, float x, float y)
 	}
 	t--;
 	GameObject::update(data);
+	std::vector<GameObject*> players;
+	players.push_back(&player);
+	for(unsigned int i = 0; i < enemyShots.size(); i++) enemyShots[i].update(data, collisionObjects, collisionTiles, players);
 }
 
 void Boss::render(GameData *data)
 {
-	GameObject::render(data);
+	
 	centerTail.render(data);
 	leftTail.render(data);
 	rightTail.render(data);
+	GameObject::render(data);
 }

@@ -13,6 +13,7 @@ BossPart::BossPart(const float x, const float y, const int spriteIndex, const in
 	minX = x - width/2;
 	maxY = y + height/2;
 	minY = y - height/2;
+	setAction(STATIC_UP);
 }
 
 

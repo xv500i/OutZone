@@ -11,10 +11,16 @@ BossTail::BossTail(const float x, const float y, const int spriteIndex, const in
 	float yAux = y - height/2;
 	parts = std::vector<BossPart>(nparts);
 	for(int i = 0; i < nparts; i++) {
-		parts[i] = BossPart(x,yAux,-1,20.f,20.f,true,100);
+		int idSprite;
+		if (i == 0) {
+			idSprite = GameData::TENTACLE_BASE_TEX_INDEX;
+		} else {
+			idSprite = GameData::TENTACLE_TEX_INDEX;
+		}
+		parts[i] = BossPart(x,yAux,idSprite,20.f,20.f,true,100);
 		yAux -= 20.0f;
 	}
-	bg = BossGun(x, yAux, -1, 30.0f, 30.0f, true, 100);
+	bg = BossGun(x, yAux, GameData::TENTACLE_GUN_TEX_INDEX, 30.0f, 30.0f, true, 100);
 }
 
 BossTail::~BossTail(void)
@@ -25,6 +31,7 @@ void BossTail::update(GameData *data, std::vector<Bullet> &shots)
 {
 	GameObject::update(data);
 	bg.update(data, shots);
+	for(unsigned int j = 0; j < parts.size(); j++) parts[j].update(data);
 	float targetX = bg.getX(), targetY = bg.getY();
 	float fx = parts[parts.size()-1].getX();
 	float fy = parts[parts.size()-1].getY();
@@ -45,10 +52,11 @@ void BossTail::update(GameData *data, std::vector<Bullet> &shots)
 void BossTail::render(GameData *data)
 {
 	//GameObject::render(data);
-	for(unsigned i = 0; i < parts.size(); i++) {
+	bg.render(data);
+	for(int i = parts.size()-1; i >= 0; i--) {
 		parts[i].render(data);
 	}
-	bg.render(data);
+	
 }
 
 void BossTail::fireTo(std::vector<Bullet> &shots, float x, float y)

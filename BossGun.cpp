@@ -42,9 +42,9 @@ void BossGun::update(GameData *data, std::vector<Bullet> &shots)
 	}
 	if (fireDelay <= 0) {
 		float bulletV = 5.0f;
-		Bullet *b = new Bullet(getX(), getY()-5.0f, -1, 3, 3, true, 0.0f, -5.0f);
-		Bullet *b1 = new Bullet(getX()+5.0f, getY()-2.0f, -1, 3, 3, true, 1.3f, -5.0f);
-		Bullet *b2 = new Bullet(getX()-5.0f, getY()-2.0f, -1, 3, 3, true, -1.3f, -5.0f);
+		Bullet *b = new Bullet(getX(), getY()-5.0f, GameData::BULLET_SPRITE_INDEX, 3, 3, true, 0.0f, -5.0f);
+		Bullet *b1 = new Bullet(getX()+5.0f, getY()-2.0f, GameData::BULLET_SPRITE_INDEX, 3, 3, true, 1.3f, -5.0f);
+		Bullet *b2 = new Bullet(getX()-5.0f, getY()-2.0f, GameData::BULLET_SPRITE_INDEX, 3, 3, true, -1.3f, -5.0f);
 		// FIXME de moment escena no retira les bales
 		b->setTicksLeft(100);
 		b1->setTicksLeft(100);
@@ -57,9 +57,4 @@ void BossGun::update(GameData *data, std::vector<Bullet> &shots)
 		fireDelay--;
 	}
 	GameObject::update(data);
-}
-
-void BossGun::render(GameData *data)
-{
-	GameObject::render(data);
 }
