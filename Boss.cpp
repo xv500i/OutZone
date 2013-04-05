@@ -8,9 +8,9 @@ Boss::Boss(void)
 Boss::Boss(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life)
 	: GameObject(x, y, spriteIndex, width, height, isWalkable), life(life)
 {
-	centerTail = BossTail(x-2, y+100, -1, width, height, true, 100, 7);
-	leftTail = BossTail(x - 100.0f, y+150, -1, width, height, true, 100, 5);
-	rightTail = BossTail(x + 100.0f, y+150, -1, width, height, true, 100, 5);
+	centerTail = BossTail(x-2, y+100, -1, width, height, true, 400, 7);
+	leftTail = BossTail(x - 100.0f, y+150, -1, width, height, true, 400, 5);
+	rightTail = BossTail(x + 100.0f, y+150, -1, width, height, true, 400, 5);
 	ia = SWINGING;
 	t = 100;
 	setAction(STATIC_UP);
