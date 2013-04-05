@@ -151,8 +151,15 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		data->playSound(GameData::ENEMY_OUCH_INDEX);
 	}
 
+	// If collision with Player, decrement life
+	updateBBox(getVX(), getVY());
+	if (isIntersecting(player)) {
+ 		player.decrementLife();
+	}
+	updateBBox(-getVX(), -getVY());
 	MobileGameObject::update(data, collisionObjects, collisionTiles);
 	weapon.update();
+
 	float distanceToPlayer = distance(player);
 	float auxx = player.getX() - getX();
 	float auxy = player.getY() - getY();
@@ -191,16 +198,12 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 				b->setTicksLeft(ticksMax);
 				actualReloadTime = reloadTime;
 				*/
-				
 			}
 		}
-
-		
 		break;
 	case ALERTED:
 		float fvx = 0.0f;
 		float fvy = 0.0f;
-
 
 		if (distanceToPlayer < minPursueDistance) {
 			// dins del rang d'accio
@@ -218,7 +221,6 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 			}
 		}
 
-		
 		setVX(fvx);
 		setVY(fvy);
 		break;
