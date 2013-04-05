@@ -163,6 +163,7 @@ bool OutZone::process()
 		m = nextLevelMenu.getSelected();
 		if (m == NEXT_LEVEL) {
 			scene.changeToNextLevel(&data, &viewport);
+			data.stopSound(GameData::STAGE_CLEAR_INDEX);
 			gameState = PLAYING;
 		}
 		else if (m == TO_MAIN_MENU) {

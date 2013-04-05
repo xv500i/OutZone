@@ -24,7 +24,7 @@ private:
 	const static char* SPRITE_EXT;
 
 	/* Sounds */
-	const static int NUM_SOUNDS = 13;		// TOCHANGE: modificar depenent del numero de sons carregats
+	const static int NUM_SOUNDS = 14;		// TOCHANGE: modificar depenent del numero de sons carregats
 	const static char* SOUND_EXT;
 
 	std::vector<Texture> textures;					/* All loaded textures */
@@ -96,6 +96,7 @@ public:
 	const static int PLAYER_OUCH_INDEX = 10;
 	const static int PLAYER_SCREAM_INDEX = 11;
 	const static int EXPLOSION_INDEX = 12;
+	const static int CLANK_INDEX = 13;
 
 	GameData(void);
 	~GameData(void);

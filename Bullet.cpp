@@ -41,7 +41,7 @@ bool Bullet::update(GameData *data, std::vector<GameObject> &collisionObjects, s
 					if (isIntersecting(*boss)) {
 						// Hit enemy
 						boss->decrementLife(damage);
-						data->playSound();
+						data->playSound(GameData::CLANK_INDEX);
 						collision = true;
 					} 
 					iobj++;
