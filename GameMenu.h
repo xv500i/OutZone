@@ -10,6 +10,8 @@ public:
 	GameMenu(void);
 	~GameMenu(void);
 	void createGameOver();
+	void createCongrats();
+	void createLevelCompleted();
 	void createMain();
 	void createPause();
 	void createInstructions();

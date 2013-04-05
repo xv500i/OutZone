@@ -24,6 +24,22 @@ void GameMenu::createGameOver()
 	type = 'g';
 }
 
+void GameMenu::createCongrats()
+{
+	opts = std::vector<MenuOption>(2);
+	opts[0] = TO_MAIN_MENU;
+	opts[1] = QUIT;
+	type = 'c';
+}
+
+void GameMenu::createLevelCompleted()
+{
+	opts = std::vector<MenuOption>(2);
+	opts[0] = NEXT_LEVEL;
+	opts[1] = QUIT;
+	type = 'l';
+}
+
 void GameMenu::createMain()
 {
 	opts = std::vector<MenuOption>(3);
@@ -67,6 +83,12 @@ void GameMenu::render(GameData *data)
 		tex = GameData::INSTRUCTIONS_INDEX;
 		break;
 	case 'g':
+		tex = GameData::GAMEOVER_INDEX;
+		break;
+	case 'c':
+		tex = GameData::GAMEOVER_INDEX;
+		break;
+	case 'l':
 		tex = GameData::GAMEOVER_INDEX;
 		break;
 	}
