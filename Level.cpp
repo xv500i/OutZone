@@ -46,7 +46,7 @@ void Level::update(GameData *data, Viewport *viewport)
 	int indexInteractiveObject = player.update(data, viewport, getCollisionObjects(), objectsLayer.getInteractiveObjects(), staticTilesLayer.getCollisionMap(), enemiesLayer.getEnemies());
 	if (indexInteractiveObject >= 0) objectsLayer.removeObject(indexInteractiveObject);
 	//FIXME:
-	boss.update(data, getCollisionObjects(), staticTilesLayer.getCollisionMap(), player);
+	boss.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), player);
 	// Viewport
 	viewport->updateWithPosition(player.getX(), player.getY());
 }

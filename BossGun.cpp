@@ -11,7 +11,7 @@ BossGun::BossGun(const float x, const float y, const int spriteIndex, const int 
 	maxX = x+50.0f;
 	minX = x-50.0f;
 	maxY = y + 50.0f;
-	fireRate = 100;
+	fireRate = 120;
 	//float angle = LO + (float)rand()/((float)RAND_MAX/(HI-LO));
 	ticksMoving = ( (int)rand() % 60 );
 	float LO = -2.5f;
@@ -46,9 +46,9 @@ void BossGun::update(GameData *data, std::vector<Bullet> &shots)
 		Bullet *b1 = new Bullet(getX()+5.0f, getY()-2.0f, GameData::BULLET_SPRITE_INDEX, 3, 3, true, 1.3f, -5.0f);
 		Bullet *b2 = new Bullet(getX()-5.0f, getY()-2.0f, GameData::BULLET_SPRITE_INDEX, 3, 3, true, -1.3f, -5.0f);
 		// FIXME de moment escena no retira les bales
-		b->setTicksLeft(100);
-		b1->setTicksLeft(100);
-		b2->setTicksLeft(100);
+		b->setTicksLeft(200);
+		b1->setTicksLeft(200);
+		b2->setTicksLeft(200);
 		shots.push_back(*b);
 		shots.push_back(*b1);
 		shots.push_back(*b2);

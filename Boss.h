@@ -23,7 +23,7 @@ public:
 	Boss(void);
 	Boss(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life);
 	~Boss(void);
-	void update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player);
+	void update(GameData *data, Viewport* viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player);
 	void render(GameData *data);
 };
 

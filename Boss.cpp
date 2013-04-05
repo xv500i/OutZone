@@ -8,9 +8,9 @@ Boss::Boss(void)
 Boss::Boss(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life)
 	: GameObject(x, y, spriteIndex, width, height, isWalkable), life(life)
 {
-	centerTail = BossTail(x, y+100, -1, width, height, true, 100, 7);
-	leftTail = BossTail(x - 100.0f, y, -1, width, height, true, 100, 5);
-	rightTail = BossTail(x + 100.0f, y, -1, width, height, true, 100, 5);
+	centerTail = BossTail(x-2, y+100, -1, width, height, true, 100, 7);
+	leftTail = BossTail(x - 100.0f, y+150, -1, width, height, true, 100, 5);
+	rightTail = BossTail(x + 100.0f, y+150, -1, width, height, true, 100, 5);
 	ia = SWINGING;
 	t = 100;
 	setAction(STATIC_UP);
@@ -21,7 +21,7 @@ Boss::~Boss(void)
 {
 }
 
-void Boss::update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player)
+void Boss::update(GameData *data, Viewport* viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player)
 {
 	float x = player.getX();
 	float y = player.getY();
@@ -57,7 +57,23 @@ void Boss::update(GameData *data, std::vector<GameObject> &collisionObjects, std
 	GameObject::update(data);
 	std::vector<GameObject*> players;
 	players.push_back(&player);
-	for(unsigned int i = 0; i < enemyShots.size(); i++) enemyShots[i].update(data, collisionObjects, collisionTiles, players);
+	// EnemyShots update
+	for (std::vector<Bullet>::iterator it = enemyShots.begin(); it != enemyShots.end();) {
+		std::vector<GameObject*> players;
+		players.push_back(&player);
+		bool collision = it->update(data, collisionObjects, collisionTiles, players);
+
+		// Remove the bullet if it goes off-screen
+		float x = it->getX();
+		float y = it->getY();	
+		if (y > viewport->getTop() || y < (viewport->getTop() - viewport->getHeight()) || 
+			x > (viewport->getLeft() + viewport->getWidth()) || x < viewport->getLeft()) {
+			it = enemyShots.erase(it);
+		} 
+		// Remove the bullet if it has collisioned
+		else if (collision || it->isDead()) it = enemyShots.erase(it);
+		else it++;
+	}
 }
 
 void Boss::render(GameData *data)
@@ -67,4 +83,5 @@ void Boss::render(GameData *data)
 	leftTail.render(data);
 	rightTail.render(data);
 	GameObject::render(data);
+	for(unsigned int i = 0; i < enemyShots.size(); i++) enemyShots[i].render(data);
 }
