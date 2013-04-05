@@ -75,10 +75,16 @@ bool OutZone::process()
 				data.playSound(GameData::GAME_OVER_INDEX);
 			}
 			else if (scene.playerHasWon()) {
-				gameState = NEXT_LEVEL_MENU;
 				data.stopSound(GameData::JUNGLE_THEME_INDEX);
 				data.stopSound(GameData::BOSS_THEME_INDEX);
-				data.playSound(GameData::STAGE_CLEAR_INDEX);
+				if (scene.gameFinished()) {
+					gameState = CONGRATS_MENU;
+					data.playSound(GameData::ENDING_THEME_INDEX);
+				} else {
+					gameState = NEXT_LEVEL_MENU;
+					
+					data.playSound(GameData::STAGE_CLEAR_INDEX);
+				}
 			}
 		}
 		break;
@@ -143,6 +149,7 @@ bool OutZone::process()
 		m = congratsMenu.getSelected();
 		if (m == TO_MAIN_MENU) {
 			gameState = MAIN_MENU;
+			if (data.isSoundPlaying(GameData::ENDING_THEME_INDEX) )data.stopSound(GameData::ENDING_THEME_INDEX);
 		}
 		else if (m == QUIT) {
 			gameState = EXIT;

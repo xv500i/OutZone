@@ -5,6 +5,7 @@
 const float Player::DEFAULT_PLAYER_VELOCITY = 2.0f;
 
 Player::Player(void) {
+	winner = false;
 }
 
 Player::Player(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, const float vx, const float vy) 
