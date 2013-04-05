@@ -28,9 +28,9 @@ void Boss::update(GameData *data, Viewport* viewport, std::vector<GameObject> &c
 	switch(ia) {
 	case SWINGING:
 		if (t > 0) { 
-			centerTail.update(data, enemyShots);
-			leftTail.update(data, enemyShots);
-			rightTail.update(data, enemyShots);
+			if (!centerTail.isDead()) centerTail.update(data, enemyShots);
+			if (!leftTail.isDead()) leftTail.update(data, enemyShots);
+			if (!rightTail.isDead()) rightTail.update(data, enemyShots);
 		} else {
 			t = 100 + ((int)rand())%25;
 			ia = IDLE;
@@ -83,9 +83,14 @@ void Boss::update(GameData *data, Viewport* viewport, std::vector<GameObject> &c
 void Boss::render(GameData *data)
 {
 	
-	centerTail.render(data);
-	leftTail.render(data);
-	rightTail.render(data);
+	if (!centerTail.isDead()) centerTail.render(data);
+	if (!leftTail.isDead()) leftTail.render(data);
+	if (!rightTail.isDead()) rightTail.render(data);
 	GameObject::render(data);
 	for(unsigned int i = 0; i < enemyShots.size(); i++) enemyShots[i].render(data);
+}
+
+bool Boss::isDead()
+{
+	return centerTail.isDead() && leftTail.isDead() && rightTail.isDead();	
 }

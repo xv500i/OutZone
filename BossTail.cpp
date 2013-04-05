@@ -73,3 +73,13 @@ void BossTail::fireTo(std::vector<Bullet> &shots, float x, float y)
 	b->setTicksLeft(150);
 	shots.push_back(*b);
 }
+
+bool BossTail::isDead()
+{
+	return life <= 0;
+}
+
+void BossTail::decrementLife(int life)
+{
+
+}

@@ -20,5 +20,7 @@ public:
 	void update(GameData *data, std::vector<Bullet> &shots);
 	void render(GameData *data);
 	void fireTo(std::vector<Bullet> &shots, float x, float y);
+	bool isDead();
+	void decrementLife(int life = 1);
 };
 
