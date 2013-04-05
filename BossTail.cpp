@@ -98,6 +98,7 @@ void BossTail::decrementLife(int life)
 		}
 		bg.setSpriteIndex(GameData::EXPLOSION_SPRITE_INDEX);
 		bg.setAction(STATIC_UP);
+		bg.deactivate();
 	}
 }
 

@@ -11,10 +11,12 @@ public:
 	BossGun(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int life);
 	~BossGun(void);
 	void update(GameData *data,  std::vector<Bullet> &shots);
+	void deactivate();
 private:
 	int fireRate;
 	int fireDelay;
 	int ticksMoving;
 	float vx, vy;
+	bool deactivated;
 };
 

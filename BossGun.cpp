@@ -19,6 +19,7 @@ BossGun::BossGun(const float x, const float y, const int spriteIndex, const int 
 	vx = LO + (float)rand()/((float)RAND_MAX/(HI-LO));
 	vy = LO + (float)rand()/((float)RAND_MAX/(HI-LO));
 	fireDelay = 0;
+	deactivated = false;
 }
 
 BossGun::~BossGun(void)
@@ -40,7 +41,7 @@ void BossGun::update(GameData *data, std::vector<Bullet> &shots)
 		setY(realy);
 		ticksMoving = ticksMoving - 1;
 	}
-	if (fireDelay <= 0) {
+	if (!deactivated && fireDelay <= 0) {
 		float bulletV = 5.0f;
 		Bullet *b = new Bullet(getX(), getY()-5.0f, GameData::BULLET_SPRITE_INDEX, 3, 3, true, 0.0f, -5.0f);
 		Bullet *b1 = new Bullet(getX()+5.0f, getY()-2.0f, GameData::BULLET_SPRITE_INDEX, 3, 3, true, 1.3f, -5.0f);
@@ -57,4 +58,9 @@ void BossGun::update(GameData *data, std::vector<Bullet> &shots)
 		fireDelay--;
 	}
 	GameObject::update(data);
+}
+
+void BossGun::deactivate()
+{
+	deactivated = true;
 }
