@@ -46,9 +46,9 @@ void BossGun::update(GameData *data, std::vector<Bullet> &shots)
 		Bullet *b1 = new Bullet(getX()+5.0f, getY()-2.0f, GameData::BULLET_SPRITE_INDEX, 3, 3, true, 1.3f, -5.0f);
 		Bullet *b2 = new Bullet(getX()-5.0f, getY()-2.0f, GameData::BULLET_SPRITE_INDEX, 3, 3, true, -1.3f, -5.0f);
 		// FIXME de moment escena no retira les bales
-		b->setTicksLeft(200);
-		b1->setTicksLeft(200);
-		b2->setTicksLeft(200);
+		b->setTicksLeft(100);
+		b1->setTicksLeft(100);
+		b2->setTicksLeft(100);
 		shots.push_back(*b);
 		shots.push_back(*b1);
 		shots.push_back(*b2);

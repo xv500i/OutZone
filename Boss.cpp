@@ -58,6 +58,7 @@ void Boss::update(GameData *data, Viewport* viewport, std::vector<GameObject> &c
 	std::vector<GameObject*> players;
 	players.push_back(&player);
 	// EnemyShots update
+	
 	for (std::vector<Bullet>::iterator it = enemyShots.begin(); it != enemyShots.end();) {
 		std::vector<GameObject*> players;
 		players.push_back(&player);
@@ -71,9 +72,12 @@ void Boss::update(GameData *data, Viewport* viewport, std::vector<GameObject> &c
 			it = enemyShots.erase(it);
 		} 
 		// Remove the bullet if it has collisioned
-		else if (collision || it->isDead()) it = enemyShots.erase(it);
+		else if (collision || it->isDead()) {
+			it = enemyShots.erase(it);
+		}
 		else it++;
 	}
+	
 }
 
 void Boss::render(GameData *data)

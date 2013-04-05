@@ -70,6 +70,6 @@ void BossTail::fireTo(std::vector<Bullet> &shots, float x, float y)
 	float vx = ix/modul*v;
 	float vy = iy/modul*v;
 	Bullet *b = new Bullet(bg.getX(), bg.getY()-bg.getHeight()/2, GameData::BULLET_SPRITE_INDEX, 8, 8, true, vx, vy);
-	b->setTicksLeft(200);
+	b->setTicksLeft(150);
 	shots.push_back(*b);
 }
