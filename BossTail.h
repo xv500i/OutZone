@@ -22,5 +22,6 @@ public:
 	void fireTo(std::vector<Bullet> &shots, float x, float y);
 	bool isDead();
 	void decrementLife(int life = 1);
+	int getLifes();
 };
 

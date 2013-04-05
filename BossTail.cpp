@@ -100,3 +100,8 @@ void BossTail::decrementLife(int life)
 		bg.setAction(STATIC_UP);
 	}
 }
+
+int BossTail::getLifes()
+{
+	return life;
+}
