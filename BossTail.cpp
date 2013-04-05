@@ -90,7 +90,7 @@ bool BossTail::isDead()
 
 void BossTail::decrementLife(int life)
 {
-	this->life -= life;
+	if(!invul) this->life -= life;
  	if (this->life <= 0) {
 		for (unsigned int i= 0; i < parts.size(); i++) {
 			parts[i].setSpriteIndex(GameData::EXPLOSION_SPRITE_INDEX);
@@ -104,4 +104,9 @@ void BossTail::decrementLife(int life)
 int BossTail::getLifes()
 {
 	return life;
+}
+
+void BossTail::setInvul(bool b)
+{
+	invul = b;
 }

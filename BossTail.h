@@ -12,6 +12,7 @@ private:
 	int life;
 	std::vector<BossPart> parts;
 	BossGun bg;
+	bool invul;
 
 public:
 	BossTail(void);
@@ -23,5 +24,6 @@ public:
 	bool isDead();
 	void decrementLife(int life = 1);
 	int getLifes();
+	void setInvul(bool b);
 };
 
