@@ -39,6 +39,7 @@ public:
 	const static char FIVESHOT_WEAPON_TYPE = 'V';
 	const static char FLAMETHROWER_WEAPON_TYPE = 'F';
 	const static char FIRSTAIDKIT_TYPE = 'B';
+	const static char VICTORY_TYPE = 'W';
 
 	GameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable);
 	GameObject();

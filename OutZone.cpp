@@ -66,11 +66,14 @@ bool OutZone::process()
 		else {
 			scene.resolveInput(input);
 			scene.update(&data, &viewport);
-			if (scene.playerIsDead()) {
+			if (scene.playerHasLost()) {
 				gameState = GAMEOVER_MENU;
 				data.stopSound(GameData::JUNGLE_THEME_INDEX);
 				data.stopSound(GameData::BOSS_THEME_INDEX);
 				data.playSound(GameData::GAME_OVER_INDEX);
+			}
+			else if (scene.playerHasWon()) {
+				scene.changeToNextLevel(&data, &viewport);
 			}
 		}
 		break;

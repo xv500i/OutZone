@@ -16,11 +16,11 @@ private:
 	const static char* TEXTURE_EXT;
 	
 	/* TileSheets */
-	const static int NUM_TILESHEETS = 1;	// TOCHANGE: modificar depenent del numero de tile sheets carregats
+	const static int NUM_TILESHEETS = 2;	// TOCHANGE: modificar depenent del numero de tile sheets carregats
 	const static char* TILESHEET_EXT;
 
 	/* Sprites */
-	const static int NUM_SPRITES = 22;		// TOCHANGE: modificar depenent del numero de sprites carregats
+	const static int NUM_SPRITES = 23;		// TOCHANGE: modificar depenent del numero de sprites carregats
 	const static char* SPRITE_EXT;
 
 	/* Sounds */
@@ -51,7 +51,7 @@ public:
 
 	/* TileSheet indexes */		// TOCHANGE: afegir indexs de tots els tile sheets carregats
 	const static int LEVEL1_TILES_INDEX = 0;
-	const static int LEVEL1_MOBILETILES_INDEX = 1;
+	const static int LEVEL2_TILES_INDEX = 1;
 
 	/* Sprite indexes */		// TOCHANGE: afegir indexs de tots els sprites carregats
 	const static int PLAYER1_SPRITE_INDEX = 0;
@@ -76,6 +76,7 @@ public:
 	const static int TENTACLE_TEX_INDEX = 19;
 	const static int TENTACLE_BASE_TEX_INDEX = 20;
 	const static int TENTACLE_GUN_TEX_INDEX = 21;
+	const static int VICTORY_SPRITE_INDEX = 22;
 	
 	/* Sounds indexes */		// TOCHANGE: afegir indexs de tots els sounds carregats
 	const static int JUNGLE_THEME_INDEX = 0;

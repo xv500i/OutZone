@@ -23,6 +23,7 @@ Player::Player(const float x, const float y, const int spriteIndex, const int wi
 	lanternActivated = false;
 	hasBeenHit = false;
 	hasBeenKilled = false;
+	winner = false;
 }
 
 Player::~Player(void) {}
@@ -185,6 +186,7 @@ int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 			case GameObject::FIVESHOT_WEAPON_TYPE:		changeWeapon(FIVE_SHOTS); break;
 			case GameObject::FLAMETHROWER_WEAPON_TYPE:	changeWeapon(FLAMETHROWER); break;
 			case GameObject::FIRSTAIDKIT_TYPE:			incrementLife(); break;
+			case GameObject::VICTORY_TYPE:				victory(); break;
 			default: break;
 			}
 		}
@@ -266,10 +268,16 @@ int Player::getLife() const
 	return life;
 }
 
+bool Player::hasWon() const
+{
+	return winner;
+}
+
 WeaponType Player::getWeaponType()
 {
 	return mainWeapon.getWeaponType();
 }
+
 
 /* Setters */
 void Player::setInvul()
@@ -310,4 +318,9 @@ void Player::decrementLife()
 void Player::changeWeapon(WeaponType type)
 {
 	mainWeapon = Weapon(type);
+}
+
+void Player::victory()
+{
+	winner = true;
 }

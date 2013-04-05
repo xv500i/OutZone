@@ -15,7 +15,7 @@ using namespace std;
 class Scene
 {
 private:
-	const static int NUM_LEVELS = 1;
+	const static int NUM_LEVELS = 2;
 	
 	vector<Level> levels;
 	HUD hud;
@@ -28,6 +28,7 @@ public:
 	~Scene(void);
 
 	/* Loading */
+	bool changeToNextLevel(GameData *data, Viewport *viewport);
 	bool changeLevel(int newLevel, GameData *data, Viewport *viewport);
 
 	/* Updating */ 
@@ -41,6 +42,7 @@ public:
 	void getLevelSizeInPixels(int level, int &w, int &h);
 	void getLevelSize(int level, int *width, int *height);
 	void getLevelTileSize(int level, int *width, int *height);
-	bool playerIsDead();
+	bool playerHasLost();
+	bool playerHasWon();
 };
 

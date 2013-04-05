@@ -19,8 +19,6 @@ Level::~Level(void) {}
 bool Level::load(GameData *data)
 {
 	if (!staticTilesLayer.load(levelNumber, data)) return false;
-	//b = mobileTilesLayer.load(levelNumber, data);
-	//if (!b) return false;
 	if (!objectsLayer.load(levelNumber, data)) return false;
 	if (!enemiesLayer.load(levelNumber, data)) return false;
 	player = Player(PLAYER_INITIAL_X, PLAYER_INITIAL_Y, GameData::PLAYER1_SPRITE_INDEX, 20, 30, true, 0.0f, 0.0f);
@@ -40,7 +38,6 @@ void Level::resolveInput(InputHandler *input)
 /* Updating */
 void Level::update(GameData *data, Viewport *viewport)
 {
-	//mobileTilesLayer.update(data);
 	objectsLayer.update(data);
 	enemiesLayer.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), &player);
 	int indexInteractiveObject = player.update(data, viewport, getCollisionObjects(), objectsLayer.getInteractiveObjects(), staticTilesLayer.getCollisionMap(), enemiesLayer.getEnemies());
@@ -103,4 +100,9 @@ WeaponType Level::getPlayerWeaponType()
 bool Level::playerHasLost()
 {
 	return player.isDead() && player.isAnimationFinished();
+}
+
+bool Level::playerHasWon()
+{
+	return player.hasWon();
 }

@@ -15,6 +15,11 @@ Scene::~Scene(void) {}
 
 
 /* Loading */
+bool Scene::changeToNextLevel(GameData *data, Viewport *viewport)
+{
+	return changeLevel(currentLevel + 1, data, viewport);
+}
+
 bool Scene::changeLevel(int newLevel, GameData *data, Viewport *viewport)
 {
 	// HUD loading
@@ -25,15 +30,13 @@ bool Scene::changeLevel(int newLevel, GameData *data, Viewport *viewport)
 	if (!loadLevel(data)) return false;
 
 	int width, height;
-	getLevelSizeInPixels(1, width, height);
+	getLevelSizeInPixels(currentLevel, width, height);
 	viewport->setLimits(0.0f, height, width, 0.0f);
 	return true;
 }
 
 bool Scene::loadLevel(GameData *data)
 {
-	//boss = Boss(200.0f, 800.0f, 2, 300.0f, 100.0f, true, 100);
-	
 	// Loading level
 	data->playSound(GameData::JUNGLE_THEME_INDEX);
 	if (!levels[currentLevel - 1].load(data)) return false;
@@ -54,8 +57,6 @@ void Scene::update(GameData *data, Viewport *viewport)
 
 	// HUD update
 	hud.update(data, viewport, levels[currentLevel - 1].getPlayerLife(), levels[currentLevel - 1].getPlayerWeaponType());
-
-	//boss.update(data, enemyShots, player.getX(), player.getY());
 }
 
 
@@ -88,7 +89,12 @@ void Scene::getLevelTileSize(int level, int *width, int *height)
 	levels[level - 1].getTileSizeInPixels(width, height);
 }
 
-bool Scene::playerIsDead()
+bool Scene::playerHasLost()
 {
-	return levels[currentLevel-1].playerHasLost();
+	return levels[currentLevel - 1].playerHasLost();
+}
+
+bool Scene::playerHasWon()
+{
+	return levels[currentLevel - 1].playerHasWon();
 }

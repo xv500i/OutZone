@@ -27,6 +27,7 @@ private:
 	int life;
 	bool hasBeenHit;
 	bool hasBeenKilled;
+	bool winner;
 	std::vector<Bullet> playerShots;
 
 	void shotPrimaryWeapon();
@@ -49,6 +50,7 @@ public:
 	/* Getters */
 	bool isInvul() const;
 	bool isDead() const;
+	bool hasWon() const;
 	int getLife() const;
 	WeaponType getWeaponType();
 
@@ -57,4 +59,5 @@ public:
 	void incrementLife();
 	void decrementLife();
 	void changeWeapon(WeaponType type);
+	void victory();
 };

@@ -141,7 +141,7 @@ int MobileTilesLayer::getTileSheetIndex()	// TODO: Descomentar a mesura que s'af
 {
 	int level = getLevel();
 	switch (level) {
-	case 1: return GameData::LEVEL1_MOBILETILES_INDEX;
+	//case 1: return GameData::LEVEL1_MOBILETILES_INDEX;
 	//case 2: return GameData::LEVEL2_MOBILETILES_INDEX;
 	//case 3: return GameData::LEVEL3_MOBILETILES_INDEX;
 	//case 4: return GameData::LEVEL4_MOBILETILES_INDEX;
