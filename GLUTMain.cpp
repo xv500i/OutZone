@@ -4,7 +4,7 @@
 #include "OutZone.h"
 
 //Delete console
-//#pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
+#pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
 
 
 // The Game Instance
