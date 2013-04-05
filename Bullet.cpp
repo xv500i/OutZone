@@ -14,6 +14,7 @@ Bullet::Bullet(const float x, const float y, const int spriteIndex, const int wi
 {
 	ticksLeft = -1;
 	setPhantom(true);
+	collisioned = false;
 }
 
 Bullet::~Bullet(void) {}
@@ -22,6 +23,10 @@ Bullet::~Bullet(void) {}
 /* Drawing */
 bool Bullet::update(GameData *data, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, std::vector<GameObject*> &objectives)
 {
+	if (collisioned) {
+		GameObject::update(data);
+		return true;
+	}
 	if (ticksLeft > 0) ticksLeft--; 
 	bool collision = MobileGameObject::update(data, collisionObjects, collisionTiles);
 
@@ -78,4 +83,13 @@ bool Bullet::isDead()
 void Bullet::setTicksLeft(int t)
 {
 	ticksLeft = t;
+}
+
+void Bullet::collision()
+{
+	if (!collisioned) {
+		collisioned = true;
+		ticksLeft--;
+		setSpriteIndex(GameData::BULLETEXPLOSION_SPRITE_INDEX);
+	}
 }

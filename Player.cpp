@@ -15,7 +15,7 @@ Player::Player(const float x, const float y, const int spriteIndex, const int wi
 	setDirection(UP);
 	setAction(STATIC_UP);
 	setType(PLAYER_TYPE);
-	life = 2;
+	life = 5;
 	shooting = false;
 	invul = false;
 	ticksMaxInvul = 70;
@@ -202,6 +202,7 @@ int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		}
 		for (unsigned int j = 0; j < parts.size(); j++) objectEnemies.push_back(parts[j]);
 		bool collision = it->update(data, collisionObjects, collisionTiles, objectEnemies);
+		if (collision) it->collision();
 
 		// Remove the bullet if it goes off-screen
 		float x = it->getX();
@@ -210,8 +211,8 @@ int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 			x > (viewport->getLeft() + viewport->getWidth()) || x < viewport->getLeft()) {
 			it = playerShots.erase(it);
 		} 
-		// Remove the bullet if it has collisioned
-		else if (collision || it->isDead()) {
+		// Remove the bullet if it has dead
+		else if (it->isDead() || (collision && it->isAnimationFinished())) {
 			it = playerShots.erase(it);
 		}
 		else it++;

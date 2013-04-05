@@ -20,7 +20,7 @@ private:
 	const static char* TILESHEET_EXT;
 
 	/* Sprites */
-	const static int NUM_SPRITES = 24;		// TOCHANGE: modificar depenent del numero de sprites carregats
+	const static int NUM_SPRITES = 25;		// TOCHANGE: modificar depenent del numero de sprites carregats
 	const static char* SPRITE_EXT;
 
 	/* Sounds */
@@ -82,6 +82,7 @@ public:
 	const static int TENTACLE_GUN_TEX_INDEX = 21;
 	const static int VICTORY_SPRITE_INDEX = 22;
 	const static int DEATHWALL_SPRITE_INDEX = 23;
+	const static int BULLETEXPLOSION_SPRITE_INDEX = 24;
 	
 	/* Sounds indexes */		// TOCHANGE: afegir indexs de tots els sounds carregats
 	const static int JUNGLE_THEME_INDEX = 0;

@@ -263,6 +263,7 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		std::vector<GameObject*> players;
 		players.push_back(&player);
 		bool collision = it->update(data, collisionObjects, collisionTiles, players);
+		if (collision) it->collision();
 
 		// Remove the bullet if it goes off-screen
 		float x = it->getX();
@@ -272,7 +273,9 @@ void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 			it = enemyShots.erase(it);
 		} 
 		// Remove the bullet if it has collisioned
-		else if (collision || it->isDead()) it = enemyShots.erase(it);
+		else if (it->isDead() || (collision && it->isAnimationFinished())) {
+			it = enemyShots.erase(it);
+		}
 		else it++;
 	}
 }

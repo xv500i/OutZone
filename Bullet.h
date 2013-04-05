@@ -9,6 +9,7 @@ class Bullet : public MobileGameObject
 private:
 	int ticksLeft;
 	int damage;
+	bool collisioned;
 
 public:
 	const static float DEFAULT_BULLET_VELOCITY;
@@ -25,5 +26,6 @@ public:
 	bool isDead();
 
 	/* Setters */
+	void collision();
 	void setTicksLeft(int t);
 };
