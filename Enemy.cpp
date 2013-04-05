@@ -48,7 +48,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int width, cons
 	case SPIDER_1:
 		setSpriteIndex(GameData::SPIDER1_SPRITE_INDEX);
 		life = 20;
-		detectionDistance = 200.0f;
+		detectionDistance = 350.0f;
 		pursue = true;
 		firePermission = false;
 		pursueVelocity = 2.0f;
