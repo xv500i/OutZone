@@ -26,5 +26,6 @@ public:
 	void update(GameData *data, Viewport* viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player);
 	void render(GameData *data);
 	bool isDead();
+	std::vector<BossTail*> getAliveParts();
 };
 

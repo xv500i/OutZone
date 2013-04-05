@@ -44,9 +44,9 @@ void Boss::update(GameData *data, Viewport* viewport, std::vector<GameObject> &c
 		break;
 	case FIRE_TO_PLAYER:
 		if (t > 0) {
-			if(t%9 == 0) centerTail.fireTo(enemyShots,x,y);
-			else if(t%9 == 1) leftTail.fireTo(enemyShots,x,y);
-			else if(t%9 == 2) rightTail.fireTo(enemyShots,x,y);
+			if(t%9 == 0 && !centerTail.isDead()) centerTail.fireTo(enemyShots,x,y);
+			else if(t%9 == 1 && !leftTail.isDead()) leftTail.fireTo(enemyShots,x,y);
+			else if(t%9 == 2 && !rightTail.isDead()) rightTail.fireTo(enemyShots,x,y);
 		} else {
 			t = 450 + ((int)rand()) % 100;
 			ia = SWINGING;
@@ -93,4 +93,14 @@ void Boss::render(GameData *data)
 bool Boss::isDead()
 {
 	return centerTail.isDead() && leftTail.isDead() && rightTail.isDead();	
+}
+
+std::vector<BossTail*> Boss::getAliveParts()
+{
+	std::vector<BossTail*> parts;
+	parts.reserve(3);
+	if (!centerTail.isDead()) parts.push_back(&centerTail);
+	if (!leftTail.isDead()) parts.push_back(&leftTail);
+	if (!rightTail.isDead()) parts.push_back(&rightTail);
+	return parts;
 }

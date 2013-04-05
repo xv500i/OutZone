@@ -24,7 +24,8 @@ bool Level::load(GameData *data, Viewport *viewport)
 	if (!objectsLayer.load(levelNumber, data)) return false;
 	if (!enemiesLayer.load(levelNumber, data)) return false;
 	player = Player(PLAYER_INITIAL_X, PLAYER_INITIAL_Y, GameData::PLAYER1_SPRITE_INDEX, 20, 30, true, 0.0f, 0.0f);
-	if (levelNumber == BOSS_LEVEL) boss = Boss(BOSS_INITIAL_X, BOSS_INITIAL_Y, GameData::BOSS_TEX_INDEX, 480, 232, true, 100);
+	//if (levelNumber == BOSS_LEVEL) boss = Boss(BOSS_INITIAL_X, BOSS_INITIAL_Y, GameData::BOSS_TEX_INDEX, 480, 232, true, 100);
+	if (levelNumber == BOSS_LEVEL) boss = Boss(240, 600, GameData::BOSS_TEX_INDEX, 480, 232, true, 100);
 	if (levelNumber == DEATH_WALL_LEVEL) deathWall = DeathWall(viewport->getWidth(), viewport->getHeight());
 	bossTriggered = false;
 	return true;
@@ -44,10 +45,7 @@ void Level::update(GameData *data, Viewport *viewport)
 	// Layers
 	objectsLayer.update(data, viewport);
 	enemiesLayer.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), &player);
-	// Player
-	int indexInteractiveObject = player.update(data, viewport, getCollisionObjects(), objectsLayer.getInteractiveObjects(), staticTilesLayer.getCollisionMap(), enemiesLayer.getEnemies());
-	if (indexInteractiveObject >= 0) objectsLayer.removeObject(indexInteractiveObject);
-	// Boss
+	std::vector<BossTail*> parts;
 	if (levelNumber == BOSS_LEVEL) {
 		// Simulate an object with the viewport coordinates
 		GameObject viewportObject = GameObject(viewport->getLeft() + viewport->getWidth()/2,
@@ -59,9 +57,19 @@ void Level::update(GameData *data, Viewport *viewport)
 				data->playSound(GameData::BOSS_THEME_INDEX);
 				bossTriggered = true;
 			}
+			parts = boss.getAliveParts();
 			boss.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), player);
 		}
 	}
+	// Player
+	std::vector<GameObject> objectesColisionants = getCollisionObjects();
+	for (unsigned int i = 0; i < parts.size(); i++) {
+		objectesColisionants.push_back( *parts[i] );
+	}
+	int indexInteractiveObject = player.update(data, viewport, objectesColisionants, objectsLayer.getInteractiveObjects(), staticTilesLayer.getCollisionMap(), enemiesLayer.getEnemies(), parts);
+	if (indexInteractiveObject >= 0) objectsLayer.removeObject(indexInteractiveObject);
+	// Boss
+	
 	// DeathWall
 	if (levelNumber == DEATH_WALL_LEVEL) {
 		deathWall.update(data, enemiesLayer.getEnemies(), player);

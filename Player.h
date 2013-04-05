@@ -8,6 +8,7 @@
 #include "InputHandler.h"
 #include "Viewport.h"
 #include "Enemy.h"
+#include "BossTail.h"
 
 class Enemy;
 
@@ -42,7 +43,7 @@ public:
 	void resolveInput(InputHandler *input);
 
 	/* Updating */
-	int update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies);
+	int update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies, std::vector<BossTail*> &parts);
 
 	/* Drawing */
 	void render(GameData *data);

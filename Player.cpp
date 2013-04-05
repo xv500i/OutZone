@@ -101,7 +101,7 @@ void Player::shotPrimaryWeapon()
 
 
 /* Updating */
-int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies)
+int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<GameObject> &interactiveObjects, std::vector<bool> &collisionTiles, std::vector<Enemy> &enemies, std::vector<BossTail*> &parts)
 {	
 	if (isDead()) {
 		if (hasBeenKilled) {
@@ -200,6 +200,7 @@ int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 		for (unsigned int i = 0; i < enemies.size(); i++) {
 			objectEnemies.push_back(&enemies[i]);
 		}
+		for (unsigned int j = 0; j < parts.size(); j++) objectEnemies.push_back(parts[j]);
 		bool collision = it->update(data, collisionObjects, collisionTiles, objectEnemies);
 
 		// Remove the bullet if it goes off-screen
@@ -210,7 +211,9 @@ int Player::update(GameData *data, Viewport *viewport, std::vector<GameObject> &
 			it = playerShots.erase(it);
 		} 
 		// Remove the bullet if it has collisioned
-		else if (collision || it->isDead()) it = playerShots.erase(it);
+		else if (collision || it->isDead()) {
+			it = playerShots.erase(it);
+		}
 		else it++;
 	}
 
