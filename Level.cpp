@@ -43,7 +43,7 @@ void Level::resolveInput(InputHandler *input)
 /* Updating */
 void Level::update(GameData *data, Viewport *viewport)
 {
-	bool viewportSetted;
+	bool viewportSetted = false;
 	// Layers
 	objectsLayer.update(data, viewport);
 	enemiesLayer.update(data, viewport, getCollisionObjects(), staticTilesLayer.getCollisionMap(), &player);
