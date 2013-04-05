@@ -31,6 +31,7 @@ private:
 	static int current_id;
 	int id;
 	char type;
+	int depth;
 
 public:
 	const static char PLAYER_TYPE = 'P';
@@ -42,7 +43,7 @@ public:
 	const static char FIRSTAIDKIT_TYPE = 'B';
 	const static char VICTORY_TYPE = 'W';
 
-	GameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable);
+	GameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int depth = 1);
 	GameObject();
 	~GameObject(void);
 

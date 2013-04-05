@@ -5,8 +5,8 @@
 
 int GameObject::current_id = 0;
 
-GameObject::GameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable) 
-	: x(x), y(y), spriteIndex(spriteIndex), width(width), height(height)
+GameObject::GameObject(const float x, const float y, const int spriteIndex, const int width, const int height, const bool isWalkable, int depth) 
+	: x(x), y(y), spriteIndex(spriteIndex), width(width), height(height), depth(depth)
 {
 	phantom = false;
 	interactive = false;
@@ -42,16 +42,16 @@ void GameObject::render(GameData *data)
 			glBegin(GL_QUADS);
 				// Bottom-left
 				glTexCoord2f(s, t + offsetY);
-				glVertex3i(-width/2 , -height/2, 1);
+				glVertex3i(-width/2 , -height/2, depth);
 				// Top-left
 				glTexCoord2f(s, t);
-				glVertex3i(-width/2 , height/2, 1);
+				glVertex3i(-width/2 , height/2, depth);
 				// Top-right
 				glTexCoord2f(s + offsetX, t);
-				glVertex3i(width/2 , height/2, 1);
+				glVertex3i(width/2 , height/2, depth);
 				// Bottom-right
 				glTexCoord2f(s + offsetX, t + offsetY);
-				glVertex3i(width/2 , -height/2, 1);	
+				glVertex3i(width/2 , -height/2, depth);
 			glEnd();
 			glPopMatrix();
 			glDisable(GL_TEXTURE_2D);

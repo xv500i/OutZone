@@ -2,8 +2,8 @@
 #include "Viewport.h"
 
 
-// 0 = background, 1 = objects, 2 = hover, 3 = clouds
-const float Viewport::ZNEAR = -3.0f;
+// 0 = background, 1 = objects, 2 = hover, 3 = deathwall&lantern, 4 = hud
+const float Viewport::ZNEAR = -5.0f;
 const float Viewport::ZFAR = 1.0f;
 
 Viewport::Viewport(void) {}

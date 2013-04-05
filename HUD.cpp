@@ -13,10 +13,10 @@ bool HUD::load(Viewport *viewport)
 	// HUD Weapon
 	int x = viewport->getLeft() + viewport->getWidth() - MARGIN_WEAPON - WEAPON_ELEMENT_SIZE/2;
 	int y = viewport->getTop() - MARGIN_WEAPON - WEAPON_ELEMENT_SIZE/2;
-	weaponUsed = GameObject(x, y, GameData::SINGLESHOTWEAPON_SPRITE_INDEX, WEAPON_ELEMENT_SIZE, WEAPON_ELEMENT_SIZE, false);
+	weaponUsed = GameObject(x, y, GameData::SINGLESHOTWEAPON_SPRITE_INDEX, WEAPON_ELEMENT_SIZE, WEAPON_ELEMENT_SIZE, false, HUD_DEPTH);
 	x = viewport->getLeft() + viewport->getWidth() - MARGIN_WEAPONHUD - WEAPONHUD_ELEMENT_SIZE/2;
 	y = viewport->getTop() - MARGIN_WEAPONHUD - WEAPONHUD_ELEMENT_SIZE/2;
-	weaponHUD = GameObject(x, y, GameData::WEAPONHUD_SPRITE_INDEX, WEAPONHUD_ELEMENT_SIZE, WEAPONHUD_ELEMENT_SIZE, false);
+	weaponHUD = GameObject(x, y, GameData::WEAPONHUD_SPRITE_INDEX, WEAPONHUD_ELEMENT_SIZE, WEAPONHUD_ELEMENT_SIZE, false, HUD_DEPTH);
 	currentType = SINGLE_SHOT;
 
 	// HUD Life
@@ -24,7 +24,7 @@ bool HUD::load(Viewport *viewport)
 	y = viewport->getTop() - MARGIN_LIFE - LIFE_ELEMENT_SIZE/2;
 	playerLife = std::vector<GameObject>(MAX_LIFE);
 	for (unsigned i = 0; i < MAX_LIFE; i++) {
-		playerLife[i] = GameObject(x + i*LIFE_ELEMENT_SIZE, y, GameData::LIFEHUD_SPRITE_INDEX, LIFE_ELEMENT_SIZE, LIFE_ELEMENT_SIZE, false);
+		playerLife[i] = GameObject(x + i*LIFE_ELEMENT_SIZE, y, GameData::LIFEHUD_SPRITE_INDEX, LIFE_ELEMENT_SIZE, LIFE_ELEMENT_SIZE, false, HUD_DEPTH);
 	}
 	return true;
 }
@@ -58,7 +58,7 @@ void HUD::update(GameData *data, Viewport *viewport, int life, WeaponType weapon
 		case FLAMETHROWER: spriteIndex = GameData::FLAMETHROWER_SPRITE_INDEX; break;
 		default: break;
 		}
-		weaponUsed = GameObject(0, 0, spriteIndex, WEAPON_ELEMENT_SIZE, WEAPON_ELEMENT_SIZE, false);
+		weaponUsed = GameObject(0, 0, spriteIndex, WEAPON_ELEMENT_SIZE, WEAPON_ELEMENT_SIZE, false, HUD_DEPTH);
 	}
 	weaponUsed.update(data);
 	weaponHUD.update(data);

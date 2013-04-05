@@ -17,6 +17,7 @@ private:
 	const static int WEAPONHUD_ELEMENT_SIZE = 48;
 	const static int WEAPON_ELEMENT_SIZE = 32;
 	const static int LIFE_ELEMENT_SIZE = 32;
+	const static int HUD_DEPTH = 4;
 
 	std::vector<GameObject> playerLife;
 	GameObject weaponUsed;
