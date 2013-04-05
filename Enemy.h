@@ -40,6 +40,7 @@ private:
 	Weapon weapon;
 	int life;
 	bool hasBeenHit;
+	bool hasBeenKilled;
 
 public:
 	Enemy(void);

@@ -93,6 +93,7 @@ Enemy::Enemy(EnemyType type, const float x, const float y, const int width, cons
 	else guardIndex = -1;
 	state = GUARD;
 	hasBeenHit = false;
+	hasBeenKilled = false;
 	/*
 	ai = new NPC_AI(4,0);
 	ai->setState(0, *s1);
@@ -143,6 +144,11 @@ Enemy::~Enemy(void) {}
 void Enemy::update(GameData *data, Viewport *viewport, std::vector<GameObject> &collisionObjects, std::vector<bool> &collisionTiles, Player &player)
 {
 	if (isDead()) {
+		if (hasBeenKilled) {
+			enemyShots.clear();
+			data->playSound(GameData::EXPLOSION_INDEX);
+			hasBeenKilled = false;
+		}
 		GameObject::update(data);
 		return;
 	}
@@ -296,6 +302,7 @@ void Enemy::decrementLife(int decrement)
 		life -= decrement;
 		hasBeenHit = true;
 		if (life <= 0) {
+			hasBeenKilled = true;
   			setSpriteIndex(GameData::EXPLOSION_SPRITE_INDEX);
 			setAction(STATIC_UP);
 		}
