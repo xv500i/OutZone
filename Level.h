@@ -27,6 +27,7 @@ private:
 	DeathWall deathWall;
 	Player player;
 	Boss boss;
+	bool bossTriggered;
 
 	std::vector<GameObject> Level::getCollisionObjects();
 

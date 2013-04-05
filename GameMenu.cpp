@@ -36,7 +36,7 @@ void GameMenu::createLevelCompleted()
 {
 	opts = std::vector<MenuOption>(2);
 	opts[0] = NEXT_LEVEL;
-	opts[1] = QUIT;
+	opts[1] = TO_MAIN_MENU;
 	type = 'l';
 }
 
@@ -86,10 +86,10 @@ void GameMenu::render(GameData *data)
 		tex = GameData::GAMEOVER_INDEX;
 		break;
 	case 'c':
-		tex = GameData::GAMEOVER_INDEX;
+		tex = GameData::CONGRATS_INDEX;
 		break;
 	case 'l':
-		tex = GameData::GAMEOVER_INDEX;
+		tex = GameData::LEVEL_COMPLETED_INDEX;
 		break;
 	}
 	paint(data->getTextureID(tex), 240, 650, 450, 150);
@@ -114,6 +114,9 @@ void GameMenu::render(GameData *data)
 			break;
 		case INSTRUCTIONS:
 			tex = GameData::HELP_INDEX;
+			break;
+		case NEXT_LEVEL:
+			tex = GameData::NEXT_LEVEL_INDEX;
 			break;
 		}
 		paint(data->getTextureID(tex), xi, yi, w, h);

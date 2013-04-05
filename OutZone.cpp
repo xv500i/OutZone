@@ -34,6 +34,8 @@ bool OutZone::init()
 	instructionsMenu.createInstructions();
 	pauseMenu.createPause();
 	gameOverMenu.createGameOver();
+	congratsMenu.createCongrats();
+	nextLevelMenu.createLevelCompleted();
 
 	// Camera initialization
 	viewport.init(0.0f, GAME_HEIGHT, GAME_WIDTH, GAME_HEIGHT);
@@ -73,7 +75,10 @@ bool OutZone::process()
 				data.playSound(GameData::GAME_OVER_INDEX);
 			}
 			else if (scene.playerHasWon()) {
-				scene.changeToNextLevel(&data, &viewport);
+				gameState = NEXT_LEVEL_MENU;
+				data.stopSound(GameData::JUNGLE_THEME_INDEX);
+				data.stopSound(GameData::BOSS_THEME_INDEX);
+				data.playSound(GameData::STAGE_CLEAR_INDEX);
 			}
 		}
 		break;
@@ -131,6 +136,33 @@ bool OutZone::process()
 		else if (m == QUIT) gameState = EXIT;
 		gameOverMenu.update();
 		break;
+	case CONGRATS_MENU:
+		if (input.keyIsDown(input.getMoveDownKey())) congratsMenu.downPressed();
+		else if (input.keyIsDown(input.getMoveUpKey())) congratsMenu.upPressed();
+		else if (input.keyIsDown(input.getMenuSelectionKey())) congratsMenu.enterPressed();
+		m = congratsMenu.getSelected();
+		if (m == TO_MAIN_MENU) {
+			gameState = MAIN_MENU;
+		}
+		else if (m == QUIT) {
+			gameState = EXIT;
+		}
+		congratsMenu.update();
+		break;
+	case NEXT_LEVEL_MENU:
+		if (input.keyIsDown(input.getMoveDownKey())) nextLevelMenu.downPressed();
+		else if (input.keyIsDown(input.getMoveUpKey())) nextLevelMenu.upPressed();
+		else if (input.keyIsDown(input.getMenuSelectionKey())) nextLevelMenu.enterPressed();
+		m = nextLevelMenu.getSelected();
+		if (m == NEXT_LEVEL) {
+			scene.changeToNextLevel(&data, &viewport);
+			gameState = PLAYING;
+		}
+		else if (m == TO_MAIN_MENU) {
+			gameState = MAIN_MENU;
+		}
+		nextLevelMenu.update();
+		break;
 	}
 
 	return gameState != EXIT;
@@ -147,6 +179,8 @@ void OutZone::render()
 	case PAUSE_MENU:		pauseMenu.render(&data); break;
 	case GAMEOVER_MENU:		gameOverMenu.render(&data); break;
 	case INSTRUCTIONS_MENU:	instructionsMenu.render(&data); break;
+	case NEXT_LEVEL_MENU:	nextLevelMenu.render(&data); break;
+	case CONGRATS_MENU:		congratsMenu.render(&data); break;
 	}
 	glutSwapBuffers();
 }

@@ -24,6 +24,8 @@ private:
 	GameMenu instructionsMenu;
 	GameMenu pauseMenu;
 	GameMenu gameOverMenu;
+	GameMenu congratsMenu;
+	GameMenu nextLevelMenu;
 
 public:
 	const static int GAME_WIDTH = 480;
