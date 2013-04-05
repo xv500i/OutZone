@@ -29,6 +29,7 @@ void Boss::update(GameData *data, Viewport* viewport, std::vector<GameObject> &c
 	rightTail.setInvul(invulnerable);
 	float x = player.getX();
 	float y = player.getY();
+
 	switch(ia) {
 	case SWINGING:
 		if (t > 0) { 
@@ -49,8 +50,11 @@ void Boss::update(GameData *data, Viewport* viewport, std::vector<GameObject> &c
 	case FIRE_TO_PLAYER:
 		if (t > 0) {
 			if(t%9 == 0 && centerTail.getLifes()>0) centerTail.fireTo(enemyShots,x,y);
-			else if(t%9 == 1 && leftTail.getLifes()>0) leftTail.fireTo(enemyShots,x,y);
-			else if(t%9 == 2 && rightTail.getLifes()>0) rightTail.fireTo(enemyShots,x,y);
+			else centerTail.update(data, enemyShots);
+			if(t%9 == 1 && leftTail.getLifes()>0) leftTail.fireTo(enemyShots,x,y);
+			else leftTail.update(data, enemyShots);
+			if(t%9 == 2 && rightTail.getLifes()>0) rightTail.fireTo(enemyShots,x,y);
+			else rightTail.update(data, enemyShots);
 		} else {
 			t = 450 + ((int)rand()) % 100;
 			ia = SWINGING;
