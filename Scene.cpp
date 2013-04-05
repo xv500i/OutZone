@@ -27,7 +27,7 @@ bool Scene::changeLevel(int newLevel, GameData *data, Viewport *viewport)
 
 	// Level loading
 	currentLevel = newLevel;
-	if (!loadLevel(data)) return false;
+	if (!loadLevel(data, viewport)) return false;
 
 	int width, height;
 	getLevelSizeInPixels(currentLevel, width, height);
@@ -35,11 +35,11 @@ bool Scene::changeLevel(int newLevel, GameData *data, Viewport *viewport)
 	return true;
 }
 
-bool Scene::loadLevel(GameData *data)
+bool Scene::loadLevel(GameData *data, Viewport *viewport)
 {
 	// Loading level
 	data->playSound(GameData::JUNGLE_THEME_INDEX);
-	if (!levels[currentLevel - 1].load(data)) return false;
+	if (!levels[currentLevel - 1].load(data, viewport)) return false;
 	return true;
 }
 

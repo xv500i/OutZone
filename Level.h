@@ -7,6 +7,7 @@
 #include "EnemiesLayer.h"
 #include "Player.h"
 #include "Boss.h"
+#include "DeathWall.h"
 
 
 class Level
@@ -17,14 +18,14 @@ private:
 	const static float BOSS_INITIAL_X;
 	const static float BOSS_INITIAL_Y;
 	const static int BOSS_LEVEL = 2;
+	const static int DEATH_WALL_LEVEL = 1;
 
 	int levelNumber;
 	StaticTilesLayer staticTilesLayer;
-	//MobileTilesLayer mobileTilesLayer;
 	ObjectsLayer objectsLayer;
 	EnemiesLayer enemiesLayer;
+	DeathWall deathWall;
 	Player player;
-	//FIXME:
 	Boss boss;
 
 	std::vector<GameObject> Level::getCollisionObjects();
@@ -35,7 +36,7 @@ public:
 	~Level(void);
 
 	/* Loading */
-	bool load(GameData *data);
+	bool load(GameData *data, Viewport *viewport);
 
 	/* Input */
 	void resolveInput(InputHandler *input);

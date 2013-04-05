@@ -21,7 +21,7 @@ private:
 	HUD hud;
 	int currentLevel;
 
-	bool loadLevel(GameData *data);
+	bool loadLevel(GameData *data, Viewport *viewport);
 
 public:
 	Scene(void);
