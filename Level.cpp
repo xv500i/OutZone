@@ -24,6 +24,7 @@ bool Level::load(GameData *data, Viewport *viewport)
 	if (!objectsLayer.load(levelNumber, data)) return false;
 	if (!enemiesLayer.load(levelNumber, data)) return false;
 	player = Player(PLAYER_INITIAL_X, PLAYER_INITIAL_Y, GameData::PLAYER1_SPRITE_INDEX, 20, 30, true, 0.0f, 0.0f);
+	viewport->updateWithPosition(player.getX(), player.getY(), false);
 	if (levelNumber == BOSS_LEVEL) boss = Boss(BOSS_INITIAL_X, BOSS_INITIAL_Y, GameData::BOSS_TEX_INDEX, 480, 232, true, 100);
 	//if (levelNumber == BOSS_LEVEL) boss = Boss(240, 600, GameData::BOSS_TEX_INDEX, 480, 232, true, 100);
 	player.setLanternActivated(levelNumber == LANTERN_LEVEL);
